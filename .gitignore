@@ -1,0 +1,8 @@
+plugin/
+
+*.tmp
+*.temp
+*.bak
+*.old
+*.backup
+
