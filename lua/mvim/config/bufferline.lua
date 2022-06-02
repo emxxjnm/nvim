@@ -50,20 +50,20 @@ bufferline.setup({
         filetype = "NvimTree",
         text = "File Explorer",
         text_align = "center",
-        highlight = "PanelHeading"
+        highlight = "PanelHeading",
       },
       {
         filetype = "undotree",
         text = "Undotree",
         text_align = "center",
-        highlight = "PanelHeading"
+        highlight = "PanelHeading",
       },
       {
         filetype = "packer",
         text = "Packer",
         text_align = "center",
         hightlight = "PanelHeading",
-      }
+      },
     },
     show_buffer_icons = true, --| false, -- disable filetype icons for buffers
     show_buffer_close_icons = false, --| false,

@@ -1,4 +1,4 @@
-local catppuccin = require('catppuccin')
+local catppuccin = require("catppuccin")
 local g = vim.g
 local cmd = vim.cmd
 
@@ -70,7 +70,7 @@ catppuccin.setup({
     notify = false,
     telekasten = false,
     symbols_outline = false,
-  }
+  },
 })
 
 g.catppuccin_flavour = "macchiato"

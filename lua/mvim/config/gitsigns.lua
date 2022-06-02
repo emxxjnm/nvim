@@ -6,41 +6,41 @@ require("gitsigns").setup({
     add = {
       hl = "GitSignsAdd",
       text = "│",
-      numhl="GitSignsAddNr",
-      linehl="GitSignsAddLn",
+      numhl = "GitSignsAddNr",
+      linehl = "GitSignsAddLn",
     },
     change = {
       hl = "GitSignsChange",
       text = "│",
-      numhl="GitSignsChangeNr",
-      linehl="GitSignsChangeLn",
+      numhl = "GitSignsChangeNr",
+      linehl = "GitSignsChangeLn",
     },
     delete = {
       hl = "GitSignsDelete",
       text = "_",
-      numhl="GitSignsDeleteNr",
-      linehl="GitSignsDeleteLn",
+      numhl = "GitSignsDeleteNr",
+      linehl = "GitSignsDeleteLn",
     },
     topdelete = {
       hl = "GitSignsDelete",
       text = "‾",
-      numhl="GitSignsDeleteNr",
-      linehl="GitSignsDeleteLn",
+      numhl = "GitSignsDeleteNr",
+      linehl = "GitSignsDeleteLn",
     },
     changedelete = {
       hl = "GitSignsChange",
       text = "~",
-      numhl="GitSignsChangeNr",
-      linehl="GitSignsChangeLn",
+      numhl = "GitSignsChangeNr",
+      linehl = "GitSignsChangeLn",
     },
   },
   signcolumn = true,
   numhl = false,
   linehl = false,
-  word_diff  = false,
+  word_diff = false,
   watch_gitdir = {
     interval = 1000,
-    follow_files = true
+    follow_files = true,
   },
   attach_to_untracked = true,
   current_line_blame = true,
@@ -57,7 +57,7 @@ require("gitsigns").setup({
   status_formatter = nil,
   max_file_length = 40000,
   preview_config = {
-     border = "single",
+    border = "single",
     style = "minimal",
     relative = "cursor",
     row = 0,
@@ -73,8 +73,8 @@ require("gitsigns").setup({
       api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts)
     end
     -- Navigation
-    map("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr=true })
-    map("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr=true })
+    map("n", "]c", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
+    map("n", "[c", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
     -- Actions
     map("n", "<leader>hs", ":Gitsigns stage_hunk<CR>")
     map("v", "<leader>hs", ":Gitsigns stage_hunk<CR>")

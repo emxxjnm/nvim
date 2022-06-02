@@ -8,34 +8,25 @@ function M.setup()
     return
   end
 
-  sign_define(
-    "DapBreakpoint",
-    {
-      -- text = " ",
-      text = " ",
-      texthl = "LspDiagnosticsSignError",
-      linehl = "",
-      numhl = "",
-    }
-  )
-  sign_define(
-    "DapStopped",
-    {
-      text = " ",
-      texthl = "LspDiagnosticsSignInformation",
-      linehl = "DiagnosticUnderlineInfo",
-      numhl = "LspDiagnosticsSignInformation",
-    }
-  )
-  sign_define(
-    "DapBreakpointRejected",
-    {
-      text = " ",
-      texthl = "LspDiagnosticsSignHint",
-      linehl = "",
-      numhl = "",
-    }
-  )
+  sign_define("DapBreakpoint", {
+    -- text = " ",
+    text = " ",
+    texthl = "LspDiagnosticsSignError",
+    linehl = "",
+    numhl = "",
+  })
+  sign_define("DapStopped", {
+    text = " ",
+    texthl = "LspDiagnosticsSignInformation",
+    linehl = "DiagnosticUnderlineInfo",
+    numhl = "LspDiagnosticsSignInformation",
+  })
+  sign_define("DapBreakpointRejected", {
+    text = " ",
+    texthl = "LspDiagnosticsSignHint",
+    linehl = "",
+    numhl = "",
+  })
 
   local ui_status_ok, dapui = pcall(require, "dapui")
   if not ui_status_ok then
@@ -55,9 +46,9 @@ function M.setup()
   end
 
   dap.adapters.python = {
-    type = 'executable',
-    command = 'python',
-    args = { '-m', 'debugpy.adapter' },
+    type = "executable",
+    command = "python",
+    args = { "-m", "debugpy.adapter" },
   }
 
   require("dap.ext.vscode").load_launchjs()

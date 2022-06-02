@@ -15,7 +15,6 @@ keymap("n", "<leader>c", "%", opts)
 
 keymap("n", "<leader>o", "za", opts)
 
-
 -- Move text up and down
 -- keymap("n", "<a-k>", "<Esc>:m .-2<CR>==g", opts)
 -- keymap("n", "<a-j>", "<Esc>:m .+1<CR>==g", opts)
@@ -26,7 +25,6 @@ keymap("n", "s", "<nop>", opts)
 -- noremap sj :set splitbelow<CR>:split<CR>
 -- noremap sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
 --- noremap sl :set splitright<CR>:vsplit<CR>
-
 
 -- keymap("n", ",", ":WhichKey , n<cr>", opts)
 
@@ -84,7 +82,6 @@ keymap("n", "<right>", ":vertical resize +2<cr>", opts)
 
 -- ============ Insert ===========
 keymap("i", "jj", "<ESC>", opts)
-
 
 -- ============ Visual ===========
 keymap("v", "<leader>y", '"+y', opts)

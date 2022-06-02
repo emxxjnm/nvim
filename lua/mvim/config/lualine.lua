@@ -33,7 +33,7 @@ local mode = {
   "mode",
   fmt = function(str)
     return " " .. string.sub(str, 1, 1) .. " "
-  end
+  end,
 }
 
 local branch = {
@@ -68,7 +68,7 @@ local treesitter = {
   function()
     local buf = api.nvim_get_current_buf()
     if next(sitter.highlighter.active[buf]) then
-      return ''
+      return ""
     end
     return ""
   end,
@@ -98,26 +98,26 @@ local lanuage_server = {
     end
 
     -- add formatter
-    local formatters = require "mvim.lsp.extension.formatters"
+    local formatters = require("mvim.lsp.extension.formatters")
     local supported_formatters = formatters.list_registered(buf_ft)
     list_extend(buf_client_names, supported_formatters)
 
     -- add linter
-    local linters = require "mvim.lsp.extension.linters"
+    local linters = require("mvim.lsp.extension.linters")
     local supported_linters = linters.list_registered(buf_ft)
     list_extend(buf_client_names, supported_linters)
 
     local clients = fn.uniq(buf_client_names)
     return " LSP: " .. table.concat(clients, " │ ")
   end,
-  color = { fg = colors.blue, gui = 'bold' },
+  color = { fg = colors.blue, gui = "bold" },
   cond = conditions.hide_in_width,
 }
 
 local diff = {
   "diff",
   symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
-  cond = conditions.hide_in_width
+  cond = conditions.hide_in_width,
 }
 
 local location = {
@@ -129,7 +129,7 @@ local location = {
 local progress = function()
   local current_line = fn.line(".")
   local total_lines = fn.line("$")
-  local chars = { "██", "▇▇", "▆▆", "▅▅", "▄▄", "▃▃", "▂▂", "▁▁", "  ", }
+  local chars = { "██", "▇▇", "▆▆", "▅▅", "▄▄", "▃▃", "▂▂", "▁▁", "  " }
   local line_ratio = current_line / total_lines
   local index = math.ceil(line_ratio * #chars)
   return chars[index]

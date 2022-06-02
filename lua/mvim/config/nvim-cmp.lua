@@ -9,9 +9,9 @@ end
 
 local feedkeys = vim.fn.feedkeys
 local replace_termcodes = vim.api.nvim_replace_termcodes
-local backspace_keys = replace_termcodes('<tab>', true, true, true)
-local snippet_next_keys = replace_termcodes('<plug>luasnip-expand-or-jump', true, true, true)
-local snippet_prev_keys = replace_termcodes('<plug>luasnip-jump-prev', true, true, true)
+local backspace_keys = replace_termcodes("<tab>", true, true, true)
+local snippet_next_keys = replace_termcodes("<plug>luasnip-expand-or-jump", true, true, true)
+local snippet_prev_keys = replace_termcodes("<plug>luasnip-jump-prev", true, true, true)
 
 function M.setup()
   local cmp_status_ok, cmp = pcall(require, "cmp")
@@ -107,27 +107,27 @@ function M.setup()
       end,
     },
     mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
-      ['<Tab>'] = function(fallback)
+      ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+      ["<C-f>"] = cmp.mapping.scroll_docs(4),
+      ["<C-Space>"] = cmp.mapping.complete(),
+      ["<C-e>"] = cmp.mapping.abort(),
+      ["<CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+      ["<Tab>"] = function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
         elseif luasnip.expand_or_jumpable() then
-          feedkeys(snippet_next_keys, '')
+          feedkeys(snippet_next_keys, "")
         elseif check_backspace() then
-          feedkeys(backspace_keys, 'n')
+          feedkeys(backspace_keys, "n")
         else
           fallback()
         end
       end,
-      ['<s-tab>'] = function(fallback)
+      ["<s-tab>"] = function(fallback)
         if cmp.visible() then
           cmp.select_prev_item()
         elseif luasnip.jumpable(-1) then
-          feedkeys(snippet_prev_keys, '')
+          feedkeys(snippet_prev_keys, "")
         else
           fallback()
         end

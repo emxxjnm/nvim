@@ -1,4 +1,4 @@
-require('nvim-tree').setup({
+require("nvim-tree").setup({
   auto_reload_on_write = true,
   create_in_closed_folder = true,
   disable_netrw = false,
@@ -176,4 +176,3 @@ require('nvim-tree').setup({
 
 -- with relative path
 -- require "nvim-tree.events".on_file_created(function(file) vim.cmd("edit "..file.fname) end)
-

@@ -1,6 +1,5 @@
 local M = {}
 
-
 local null_ls = require("null-ls")
 local services = require("mvim.lsp.extension.services")
 
@@ -25,7 +24,6 @@ function M.setup(linter_configs)
   end
 
   services.register_sources(linter_configs, method)
-
 end
 
 return M

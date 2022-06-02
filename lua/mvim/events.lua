@@ -39,7 +39,7 @@ function M.setup()
           end
         end,
         desc = "Close the tab when nvim-tree is the last window in the tab",
-      }
+      },
     },
     win = {},
     ft = {
@@ -49,7 +49,7 @@ function M.setup()
         callback = function()
           local opts = { noremap = true, silent = true }
           buf_keymap(0, "n", "q", ":close<cr>", opts)
-        end
+        end,
       },
     },
   }
@@ -58,18 +58,15 @@ function M.setup()
     if next(definition) then
       local group = augroup(name, { clear = true })
       for _, def in ipairs(definition) do
-        autocmd(
-          { def.event },
-          {
-            group = group,
-            pattern = def.pattern,
-            command = def.command,
-            callback = def.callback,
-            nested = def.nested or false,
-            once = def.once or false,
-            desc = def.desc,
-          }
-        )
+        autocmd({ def.event }, {
+          group = group,
+          pattern = def.pattern,
+          command = def.command,
+          callback = def.callback,
+          nested = def.nested or false,
+          once = def.once or false,
+          desc = def.desc,
+        })
       end
     end
   end

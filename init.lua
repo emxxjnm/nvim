@@ -27,10 +27,10 @@ end
 local function launch()
   disabled_builtin_plugins()
 
-  require('mvim.options')
-  require('mvim.keymaps')
-  require('mvim.plugins')
-  require('mvim.events')
+  require("mvim.options")
+  require("mvim.keymaps")
+  require("mvim.plugins")
+  require("mvim.events")
 end
 
 launch()

@@ -3,7 +3,7 @@ local util = require("lspconfig.util")
 local function get_typescript_server_path(root_dir)
   local found_ts = ""
   local function check_dir(path)
-    found_ts = util.path.join(path, 'node_modules', 'typescript', 'lib', 'tsserverlibrary.js')
+    found_ts = util.path.join(path, "node_modules", "typescript", "lib", "tsserverlibrary.js")
     if util.path.exists(found_ts) then
       return path
     end

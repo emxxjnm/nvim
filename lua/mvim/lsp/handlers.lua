@@ -6,7 +6,6 @@ local deepcopy = vim.deepcopy
 local diagnostic = vim.diagnostic
 
 function M.setup()
-
   local signs = {
     { name = "DiagnosticSignError", text = "", numhl = "RedSign" },
     { name = "DiagnosticSignWarn", text = "", numhl = "YellowSign" },
@@ -15,14 +14,11 @@ function M.setup()
   }
 
   for _, sign in ipairs(signs) do
-    fn.sign_define(
-      sign.name,
-      {
-        texthl = sign.name,
-        text = sign.text,
-        numhl = sign.numhl,
-      }
-    )
+    fn.sign_define(sign.name, {
+      texthl = sign.name,
+      text = sign.text,
+      numhl = sign.numhl,
+    })
   end
 
   local config = {
@@ -48,32 +44,23 @@ function M.setup()
         end
         return t.message
       end,
-    }
+    },
   }
 
   diagnostic.config(config)
 
-  lsp.handlers["textDocument/hover"] = lsp.with(
-    lsp.handlers.hover,
-    {
-      border = "rounded",
-    }
-  )
-  lsp.handlers["textDocument/signatureHelp"] = lsp.with(
-    lsp.handlers.signature_help,
-    {
-      border = "rounded",
-    }
-  )
-  lsp.handlers["temxtDocument/publishDiagnostics"] = lsp.with(
-    lsp.handlers.diagnostic,
-    {
-      virtual_text = true,
-      signs = true,
-      update_in_insert = false,
-      underline = true,
-    }
-  )
+  lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, {
+    border = "rounded",
+  })
+  lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, {
+    border = "rounded",
+  })
+  lsp.handlers["temxtDocument/publishDiagnostics"] = lsp.with(lsp.handlers.diagnostic, {
+    virtual_text = true,
+    signs = true,
+    update_in_insert = false,
+    underline = true,
+  })
 end
 
 return M

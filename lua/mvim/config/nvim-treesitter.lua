@@ -31,7 +31,7 @@ require("nvim-treesitter.configs").setup({
   },
   indent = {
     enable = false,
-    disable = {}
+    disable = {},
   },
   context_commentstring = {
     enable = true,
@@ -44,7 +44,7 @@ require("nvim-treesitter.configs").setup({
       svelte = "<!-- %s -->",
       vue = "<!-- %s -->",
       json = "",
-      lua = "-- %s"
+      lua = "-- %s",
     },
   },
   -- textobjects extension settings
@@ -87,7 +87,7 @@ require("nvim-treesitter.configs").setup({
     },
     lsp_interop = {
       enable = false,
-      border = 'none',
+      border = "none",
       peek_definition_code = {
         ["<leader>pf"] = "@function.outer",
         ["<leader>pF"] = "@class.outer",

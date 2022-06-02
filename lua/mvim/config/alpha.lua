@@ -26,7 +26,7 @@ local section = {
     opts = {
       position = "center",
       hl = "Type",
-    }
+    },
   },
   buttons = {
     type = "group",
@@ -52,7 +52,6 @@ local section = {
   },
 }
 
-
 alpha.setup({
   layout = {
     { type = "padding", val = 2 },
@@ -65,5 +64,5 @@ alpha.setup({
   opts = {
     margin = 5,
     positon = "center",
-  }
+  },
 })

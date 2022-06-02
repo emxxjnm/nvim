@@ -27,7 +27,6 @@ local function lsp_buffer_keymaps(bufnr)
     },
     insert_mode = {},
     visual_mode = {},
-
   }
 
   for mode_name, mode_char in pairs(mappings) do
@@ -46,13 +45,9 @@ function M.mvim_on_attach(_, bufnr)
   lsp_buffer_keymaps(bufnr)
 end
 
-function M.mvim_on_init()
+function M.mvim_on_init() end
 
-end
-
-function M.mvim_on_exit()
-
-end
+function M.mvim_on_exit() end
 
 function M.mvim_capabilities()
   local capabilities = lsp.protocol.make_client_capabilities()
@@ -105,13 +100,17 @@ function M.setup()
     {
       command = "markdownlint",
       filetypes = { "markdown" },
-    }
+    },
+    {
+      command = "stylua",
+      filetypes = { "lua" },
+    },
   })
   linter.setup({
     {
       command = "markdownlint",
       filetypes = { "markdown" },
-    }
+    },
   })
 end
 

@@ -2,18 +2,18 @@ local fn = vim.fn
 local cmd = vim.cmd
 
 -- Automatically install packer
-local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
-  PACKER_BOOTSTRAP = fn.system {
+  PACKER_BOOTSTRAP = fn.system({
     "git",
     "clone",
     "--depth",
     "1",
     "https://github.com/wbthomason/packer.nvim",
     install_path,
-  }
-  print "Installing packer close and reopen Neovim..."
-  cmd [[packadd packer.nvim]]
+  })
+  print("Installing packer close and reopen Neovim...")
+  cmd([[packadd packer.nvim]])
 end
 
 -- Use a protected call so we don't error out on first use
@@ -23,48 +23,48 @@ if not status_ok then
 end
 
 -- Have packer use a popup window
-packer.init {
+packer.init({
   display = {
     -- open_fn = function()
     --   return require("packer.util").float { border = "rounded" }
     -- end,
   },
-}
+})
 
 -- Install your plugins here
 return packer.startup(function(use)
-  use "wbthomason/packer.nvim" -- Have packer manage itself
+  use("wbthomason/packer.nvim") -- Have packer manage itself
 
-  use 'lewis6991/impatient.nvim'
+  use("lewis6991/impatient.nvim")
 
-  use 'rcarriga/nvim-notify'
+  use("rcarriga/nvim-notify")
 
   -- speed up
-  use {
+  use({
     "nathom/filetype.nvim",
     config = [[require("mvim.config.filetype")]],
-  }
+  })
 
-  use {
+  use({
     "nvim-lua/plenary.nvim",
     after = "packer.nvim",
-  }
+  })
 
-  use {
+  use({
     "kyazdani42/nvim-web-devicons",
     after = "packer.nvim",
-  }
+  })
 
   -- welcome page
-  use {
+  use({
     "goolord/alpha-nvim",
     opt = true,
     event = "BufWinEnter",
     config = [[require("mvim.config.alpha")]],
-  }
+  })
 
   -- file explorer
-  use {
+  use({
     "kyazdani42/nvim-tree.lua",
     cmd = {
       "NvimTreeToggle",
@@ -73,10 +73,10 @@ return packer.startup(function(use)
       "NvimTreeFindFileToggle",
     },
     config = [[require("mvim.config.nvim-tree")]],
-  }
+  })
 
   -- telescope: search
-  use {
+  use({
     {
       "nvim-telescope/telescope.nvim",
       -- setup = [[require("config.telescope_setup")]],
@@ -122,10 +122,10 @@ return packer.startup(function(use)
       after = "telescope.nvim",
       config = [[require("mvim.config.project")]],
     },
-  }
+  })
 
   -- treesitter
-  use {
+  use({
     {
       "nvim-treesitter/nvim-treesitter",
       opt = true,
@@ -166,10 +166,10 @@ return packer.startup(function(use)
       after = "nvim-treesitter",
       config = [[require("mvim.config.nvim-autopairs")]],
     },
-  }
+  })
 
   -- lsp
-  use {
+  use({
     {
       "neovim/nvim-lspconfig",
       config = function()
@@ -186,16 +186,16 @@ return packer.startup(function(use)
     {
       "jose-elias-alvarez/null-ls.nvim",
     },
-  }
+  })
 
   -- cmp
-  use {
+  use({
     {
       "hrsh7th/nvim-cmp",
       config = function()
         require("mvim.config.nvim-cmp").setup()
       end,
-      event = 'InsertEnter *',
+      event = "InsertEnter *",
       requires = {
         {
           "L3MON4D3/LuaSnip",
@@ -225,10 +225,10 @@ return packer.startup(function(use)
       opt = true,
       after = "nvim-cmp",
     },
-  }
+  })
 
   -- markdown
-  use {
+  use({
     {
       "dhruvasagar/vim-table-mode",
       opt = true,
@@ -242,16 +242,16 @@ return packer.startup(function(use)
       ft = { "markdown" },
       cmd = { "MarkdownPreview", "MarkdownPreviewToggle" },
     },
-  }
+  })
 
-  use {
+  use({
     "folke/trouble.nvim",
     cmd = { "Trouble", "TroubleToggle" },
     config = [[require("mvim.config.trouble")]],
-  }
+  })
 
   -- debug adapter protocol
-  use {
+  use({
     {
       "mfussenegger/nvim-dap",
       config = function()
@@ -269,9 +269,9 @@ return packer.startup(function(use)
       after = "nvim-dap",
       config = [[require("mvim.dap.virtual-text")]],
     },
-  }
+  })
 
-  use {
+  use({
     "github/copilot.vim",
     setup = function()
       vim.g.copilot_filetypes = {
@@ -285,22 +285,22 @@ return packer.startup(function(use)
         let g:copilot_no_tab_map = v:true
       ]])
     end,
-  }
+  })
 
-  use {
+  use({
     "tpope/vim-surround",
     opt = true,
     event = "BufReadPost",
-  }
+  })
 
   -- undo history
-  use {
+  use({
     "mbbill/undotree",
     event = "BufRead",
-  }
+  })
 
   -- git
-  use {
+  use({
     {
       "lewis6991/gitsigns.nvim",
       tag = "release", -- To use the latest release
@@ -317,15 +317,15 @@ return packer.startup(function(use)
         "DiffviewToggleFiles",
         "DiffviewFileHistory",
       },
-      config = [[require("mvim.config.diffview")]]
+      config = [[require("mvim.config.diffview")]],
     },
     {
       "TimUntersberger/neogit",
       opt = true,
       cmd = "Neogit",
       config = [[require("mvim.config.neogit")]],
-    }
-  }
+    },
+  })
 
   -- scheme
   -- use {
@@ -338,41 +338,41 @@ return packer.startup(function(use)
   --   config = [[require("mvim.config.tokyonight")]]
   -- }
 
-  use {
+  use({
     "catppuccin/nvim",
     as = "catppuccin",
     config = [[require("mvim.config.catppuccin")]],
-  }
+  })
 
   -- termnail
-  use {
+  use({
     "akinsho/toggleterm.nvim",
     opt = true,
     cmd = { "ToggleTerm", "TermExec" },
     -- event = { "CmdwinEnter", "CmdlineEnter" },
     config = [[require("mvim.config.toggleterm")]],
-  }
+  })
 
   -- status line
-  use {
+  use({
     "nvim-lualine/lualine.nvim",
     opt = true,
     after = "catppuccin",
     event = "BufRead",
     config = [[require("mvim.config.lualine")]],
-  }
+  })
 
   -- tab
-  use {
+  use({
     "akinsho/bufferline.nvim",
     tag = "*",
     opt = true,
     event = "BufRead",
     config = [[require("mvim.config.bufferline")]],
-  }
+  })
 
   -- highlight color
-  use {
+  use({
     "norcalli/nvim-colorizer.lua",
     ft = { "css", "scss", "less", "javascript", "html", "vue", "typescipt" },
     config = function()
@@ -383,13 +383,13 @@ return packer.startup(function(use)
         "javascript",
         "typescript",
         "html",
-        "vue"
+        "vue",
       })
     end,
-  }
+  })
 
   -- like easymotion, but more powerful
-  use {
+  use({
     "phaazon/hop.nvim",
     cmd = {
       "HopWord",
@@ -410,24 +410,24 @@ return packer.startup(function(use)
       "HopChar1CurrentLine",
     },
     branch = "v1", -- optional but strongly recommended
-    config = [[require("mvim.config.hop")]]
-  }
+    config = [[require("mvim.config.hop")]],
+  })
 
-  use {
+  use({
     "lukas-reineke/indent-blankline.nvim",
     opt = true,
     event = "BufRead",
-    config = [[require("mvim.config.indent-blankline")]]
-  }
+    config = [[require("mvim.config.indent-blankline")]],
+  })
 
   -- outline
-  use {
+  use({
     "stevearc/aerial.nvim",
     cmd = { "AerialToggle", "AerialOpen" },
     config = function()
       require("aerial").setup()
     end,
-  }
+  })
 
   -- use {
   --   "folke/which-key.nvim",
@@ -436,11 +436,11 @@ return packer.startup(function(use)
   --   config = [[require("mvim.config.which-key")]],
   -- }
 
-  use {
+  use({
     "dstein64/vim-startuptime",
     opt = true,
     cmd = { "StartupTime" },
-  }
+  })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

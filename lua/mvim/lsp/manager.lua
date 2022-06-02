@@ -34,7 +34,7 @@ end
 
 -- setup a language server
 function M.setup(name, config)
-  validate { name = { name, "string" } }
+  validate({ name = { name, "string" } })
   config = config or {}
 
   if lsp_utils.is_client_active(name) or lsp_utils.client_is_configured(name) then
