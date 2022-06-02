@@ -4,8 +4,9 @@ local opts = {
   cmd = { "lua-language-server" },
   settings = {
     Lua = {
-      diagnostics = { globals = { "vim" } },
-      -- runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
+      diagnostics = {
+        globals = { "vim" },
+      },
       workspace = {
         library = {
           [fn.expand("$VIMRUNTIME/lua")] = true,
@@ -14,7 +15,6 @@ local opts = {
       },
     },
   },
-  -- prefer_null_ls = true,
 }
 
 return opts

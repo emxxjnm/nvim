@@ -101,10 +101,10 @@ function M.setup()
       command = "markdownlint",
       filetypes = { "markdown" },
     },
-    {
-      command = "stylua",
-      filetypes = { "lua" },
-    },
+    -- {
+    --   command = "stylua",
+    --   filetypes = { "lua" },
+    -- },
   })
   linter.setup({
     {
