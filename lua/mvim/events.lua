@@ -1,6 +1,8 @@
 local M = {}
 
 local next = next
+
+local fn = vim.fn
 local cmd = vim.cmd
 local list_wins = vim.api.nvim_list_wins
 local get_buf_name = vim.api.nvim_buf_get_name
@@ -20,7 +22,11 @@ function M.setup()
       {
         event = "BufReadPost",
         pattern = "*",
-        command = [[if line("'\"") > 1 && line("'\"") <= line("$") | execute 'normal! g`"' | endif]],
+        callback = function()
+          if fn.line([['"]]) > 1 and fn.line([['"]]) <= fn.line("$") then
+            cmd([[normal! g`"]])
+          end
+        end,
         desc = "Place to last edit",
       },
       {
