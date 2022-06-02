@@ -37,6 +37,8 @@ return packer.startup(function(use)
 
   use 'lewis6991/impatient.nvim'
 
+  use 'rcarriga/nvim-notify'
+
   -- speed up
   use {
     "nathom/filetype.nvim",
@@ -181,9 +183,9 @@ return packer.startup(function(use)
       "ray-x/lsp_signature.nvim",
       after = "nvim-lspconfig",
     },
-    -- {
-    --   "jose-elias-alvarez/null-ls.nvim",
-    -- },
+    {
+      "jose-elias-alvarez/null-ls.nvim",
+    },
   }
 
   -- cmp

@@ -3,12 +3,14 @@ if not status_ok then
   return
 end
 
-local next = next
-
 local fn = vim.fn
+local bo = vim.bo
 local api = vim.api
 local lsp = vim.lsp
 local sitter = vim.treesitter
+local list_extend = vim.list_extend
+
+local next = next
 
 local conditions = {
   buffer_not_empty = function()
@@ -49,7 +51,6 @@ local filename = {
 
 local filesize = {
   "filesize",
-  -- icon = "ﴔ",
   icon = "",
   color = { fg = colors.lavender },
   condition = conditions.buffer_not_empty,
@@ -59,7 +60,7 @@ local diagnostics = {
   "diagnostics",
   sources = { "nvim_diagnostic", "nvim_lsp" },
   sections = { "error", "warn", "info" },
-  symbols = { error = " ", warn = " " },
+  symbols = { error = " ", warn = " ", info = " " },
   always_visible = true,
 }
 
@@ -81,12 +82,12 @@ local lanuage_server = {
     if next(buf_clients) == nil then
       -- TODO: clean up this if statement
       if type(msg) == "boolean" or #msg == 0 then
-        return "Inactive"
+        return "Unknown"
       end
       return msg
     end
 
-    -- local buf_ft = vim.bo.filetype
+    local buf_ft = bo.filetype
     local buf_client_names = {}
 
     -- add client
@@ -97,16 +98,17 @@ local lanuage_server = {
     end
 
     -- add formatter
-    -- local formatters = require "mvim.lsp.null-ls.formatters"
-    -- local supported_formatters = formatters.list_registered(buf_ft)
-    -- vim.list_extend(buf_client_names, supported_formatters)
+    local formatters = require "mvim.lsp.extension.formatters"
+    local supported_formatters = formatters.list_registered(buf_ft)
+    list_extend(buf_client_names, supported_formatters)
 
     -- add linter
-    -- local linters = require "mvim.lsp.null-ls.linters"
-    -- local supported_linters = linters.list_registered(buf_ft)
-    -- vim.list_extend(buf_client_names, supported_linters)
+    local linters = require "mvim.lsp.extension.linters"
+    local supported_linters = linters.list_registered(buf_ft)
+    list_extend(buf_client_names, supported_linters)
 
-    return " LSP: " .. table.concat(buf_client_names, " │ ")
+    local clients = fn.uniq(buf_client_names)
+    return " LSP: " .. table.concat(clients, " │ ")
   end,
   color = { fg = colors.blue, gui = 'bold' },
   cond = conditions.hide_in_width,

@@ -1,12 +1,12 @@
-# Myles's Neovim dotfiles
+# ✨ Myles's Neovim dotfiles 🎉
 
 ## Preview
 
-[preview](https://myles.im/neovim/preview)
+![Preview](https://raw.githubusercontent.com/myles-neovim/dotfiles/master/screenshot.png)
 
 ## TODO
 
-[ ] install script
+- [ ] install script
 
 ### Configuration
 
@@ -28,27 +28,30 @@
 - [ ] telescope
 - [ ] toggleterm
 - [ ] trouble
-- [ ] which-key
+- [ ] null-ls: setup server via ftplugin
 
-## Install
+## ⚙️ Install
 
-### Prepare
+### 🪡 Prepare
 
 create directories `swap`, `backup` and `undo` in vim cache directory.
 
-### Install dependencies
+### 🔗 Dependencies
 
-[ ] rgrep
-[ ] fd
+- [ ] rgrep
+- [ ] fd
 
-## Keymaps
+## ⌨️  keymaps
 
-### File Explorer(nvim-tree)
+### 📁 File Explorer(nvim-tree)
 
-| key         | command                | description                             |
-|-------------|------------------------|-----------------------------------------|
-| \<leader\>e | NvimTreeFindFileToggle | Open file explorer in current directory |
-| \<leader\>E | NvimTreeToggle         | Open file explorer                      |
+| key         | command                | description                              |
+|-------------|------------------------|------------------------------------------|
+| \<leader\>e | NvimTreeFindFileToggle | Toggle file explorer for current bufname |
+| \<leader\>E | NvimTreeToggle         | Toggle file explorer                     |
 
-## LICENSE
+for more keymapping information, see [nvim-tree](https://github.com/kyazdani42/nvim-tree.lua#defaults)
 
+### 🚀 LSP
+
+## 🔑 LICENSE

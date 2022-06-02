@@ -37,19 +37,5 @@ function M.is_client_active(name)
   end)
 end
 
-function M.get_supported_filetypes(name)
-  local status_ok, installer = pcall(require, "nvim-lsp-installer.servers")
-  if not status_ok then
-    return {}
-  end
-
-  local available, server = installer.get_server(name)
-  if not available then
-    return {}
-  end
-
-  return server:get_supported_filetypes()
-end
-
 return M
 

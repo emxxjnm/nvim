@@ -97,7 +97,22 @@ function M.setup()
   require("nvim-lsp-installer").setup()
 
   -- setup null-ls
-  -- require("mvim.lsp.null-ls").setup()
+  require("mvim.lsp.extension").setup()
+
+  local formatters = require("mvim.lsp.extension.formatters")
+  local linter = require("mvim.lsp.extension.linters")
+  formatters.setup({
+    {
+      command = "markdownlint",
+      filetypes = { "markdown" },
+    }
+  })
+  linter.setup({
+    {
+      command = "markdownlint",
+      filetypes = { "markdown" },
+    }
+  })
 end
 
 return M

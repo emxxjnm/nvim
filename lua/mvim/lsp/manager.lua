@@ -1,6 +1,7 @@
 local M = {}
 
 local api = vim.api
+local validate = vim.validate
 local tbl_deep_extend = vim.tbl_deep_extend
 
 local lsp_utils = require("mvim.lsp.utils")
@@ -33,11 +34,10 @@ end
 
 -- setup a language server
 function M.setup(name, config)
-  vim.validate { name = { name, "string" } }
+  validate { name = { name, "string" } }
   config = config or {}
 
-  if lsp_utils.is_client_active(name)
-      or lsp_utils.client_is_configured(name) then
+  if lsp_utils.is_client_active(name) or lsp_utils.client_is_configured(name) then
     return
   end
 
