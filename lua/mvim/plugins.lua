@@ -1,6 +1,8 @@
 local fn = vim.fn
 local cmd = vim.cmd
 
+local PACKER_BOOTSTRAP = false
+
 -- Automatically install packer
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -111,10 +113,10 @@ return packer.startup(function(use)
     },
 
     {
-      "nvim-telescope/telescope-live-grep-raw.nvim",
+      "nvim-telescope/telescope-live-grep-args.nvim",
       after = "telescope.nvim",
       config = function()
-        require("telescope").load_extension("live_grep_raw")
+        require("telescope").load_extension("live_grep_args")
       end,
     },
     {
@@ -273,18 +275,7 @@ return packer.startup(function(use)
 
   use({
     "github/copilot.vim",
-    setup = function()
-      vim.g.copilot_filetypes = {
-        ["*"] = true,
-        gitcommit = false,
-        NeogitCommitMessage = false,
-      }
-
-      vim.cmd([[
-        imap <silent><script><expr> <C-j> copilot#Accept("\<CR>")
-        let g:copilot_no_tab_map = v:true
-      ]])
-    end,
+    setup = [[require("mvim.config.copilot")]],
   })
 
   use({

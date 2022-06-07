@@ -53,7 +53,7 @@ keymap("n", "N", "Nzzv", opts)
 
 -- Telescope
 keymap("n", "<leader>ff", ":Telescope find_files<cr>", opts)
-keymap("n", "<leader>fg", ":Telescope live_grep_raw<cr>", opts)
+keymap("n", "<leader>fg", ":Telescope live_grep_args<cr>", opts)
 keymap("n", "<leader>fr", ":Telescope frecency<cr>", opts)
 keymap("n", "<leader>fp", ":Telescope projects<cr>", opts)
 keymap("n", "<leader>fb", ":Telescope buffers<cr>", opts)
