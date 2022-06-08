@@ -278,11 +278,11 @@ return packer.startup(function(use)
     setup = [[require("mvim.config.copilot")]],
   })
 
-  use({
-    "tpope/vim-surround",
-    opt = true,
-    event = "BufReadPost",
-  })
+  -- use({
+  --   "tpope/vim-surround",
+  --   opt = true,
+  --   event = "BufReadPost",
+  -- })
 
   -- undo history
   use({
@@ -420,12 +420,12 @@ return packer.startup(function(use)
     end,
   })
 
-  -- use {
-  --   "folke/which-key.nvim",
-  --   opt = true,
-  --   cmd = { "WhichKey" },
-  --   config = [[require("mvim.config.which-key")]],
-  -- }
+  use({
+    "folke/which-key.nvim",
+    opt = true,
+    event = "BufWinEnter",
+    config = [[require("mvim.config.which-key")]],
+  })
 
   use({
     "dstein64/vim-startuptime",

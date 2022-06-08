@@ -9,7 +9,7 @@ keymap("n", "<leader>q", ":q<cr>", opts)
 keymap("n", "<leader>WQ", ":wa<cr>:q<cr>", opts)
 keymap("n", "<leader>Q", ":qa!<cr>", opts)
 
-keymap("n", "<leader>p", '"+p', opts)
+-- keymap("n", "<leader>p", '"+p', opts)
 
 keymap("n", "<leader>c", "%", opts)
 

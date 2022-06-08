@@ -83,11 +83,10 @@ function M.setup()
       documentation = cmp.config.window.bordered(),
     },
     sources = {
-      { name = "luasnip" },
       { name = "nvim_lsp" },
       { name = "buffer" },
       { name = "path" },
-
+      { name = "luasnip" },
       { name = "nvim_lua" }, -- cmp-nvim-lua
       -- { name = "cmp_tabnine" }, -- cmp-tabnine
       -- { name = "calc" }, -- cmp-calc

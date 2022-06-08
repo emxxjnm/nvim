@@ -3,18 +3,15 @@ local npairs = require("nvim-autopairs")
 npairs.setup({
   check_ts = true,
   ts_config = {
-    lua = { "string" }, -- it will not add a pair on that treesitter node
+    lua = { "string", "source" },
     javascript = { "string", "template_string" },
-    java = false, -- don't check treesitter on java
+    java = false,
   },
 
   disable_filetype = {
     "TelescopePrompt",
     "spectre_panel",
     "dap-repl",
-    "guihua",
-    "guihua_rust",
-    "clap_input",
   },
 
   fast_wrap = {
@@ -25,7 +22,7 @@ npairs.setup({
     end_key = "$",
     keys = "qwertyuiopzxcvbnmasdfghjkl",
     check_comma = true,
-    highlight = "PmenuSel",
-    highlight_grey = "LineNr",
+    highlight = "Search",
+    highlight_grey = "Comment",
   },
 })
