@@ -9,7 +9,7 @@ keymap("n", "<leader>q", ":q<cr>", opts)
 keymap("n", "<leader>WQ", ":wa<cr>:q<cr>", opts)
 keymap("n", "<leader>Q", ":qa!<cr>", opts)
 
--- keymap("n", "<leader>p", '"+p', opts)
+keymap("n", "<leader>p", '"+p', opts)
 
 keymap("n", "<leader>c", "%", opts)
 
@@ -26,8 +26,6 @@ keymap("n", "s", "<nop>", opts)
 -- noremap sk :set nosplitbelow<CR>:split<CR>:set splitbelow<CR>
 --- noremap sl :set splitright<CR>:vsplit<CR>
 
--- keymap("n", ",", ":WhichKey , n<cr>", opts)
-
 -- Hop
 keymap("n", "<leader>k", ":HopWord<cr>", opts)
 keymap("n", "<leader>j", ":HopLine<cr>", opts)
@@ -41,8 +39,6 @@ keymap("n", "<leader>e", ":NvimTreeFindFileToggle<cr>", opts)
 -- bufferline
 keymap("n", "E", ":BufferLineCyclePrev<cr>", opts)
 keymap("n", "R", ":BufferLineCycleNext<cr>", opts)
-
--- delete current buffer
 keymap("n", "<leader>d", ":bdelete!<cr>", opts)
 
 keymap("n", "H", "^", opts)

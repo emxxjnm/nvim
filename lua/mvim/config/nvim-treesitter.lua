@@ -1,6 +1,7 @@
 require("nvim-treesitter.configs").setup({
   ensure_installed = {
     "bash",
+    "comment",
     "css",
     "dockerfile",
     "dot",
@@ -32,20 +33,6 @@ require("nvim-treesitter.configs").setup({
   indent = {
     enable = true,
     disable = {},
-  },
-  context_commentstring = {
-    enable = true,
-    config = {
-      -- Languages that have a single comment style
-      typescript = "// %s",
-      css = "/* %s */",
-      scss = "/* %s */",
-      html = "<!-- %s -->",
-      svelte = "<!-- %s -->",
-      vue = "<!-- %s -->",
-      json = "",
-      lua = "-- %s",
-    },
   },
   -- textobjects extension settings
   -- https://github.com/nvim-treesitter/nvim-treesitter-textobjects
@@ -94,10 +81,6 @@ require("nvim-treesitter.configs").setup({
       },
     },
   },
-  textsubjects = {
-    enable = false,
-    keymaps = { ["."] = "textsubjects-smart", [";"] = "textsubjects-big" },
-  },
   playground = {
     enable = true,
     disable = {},
@@ -116,11 +99,6 @@ require("nvim-treesitter.configs").setup({
       show_help = "?",
     },
   },
-  rainbow = {
-    enable = false,
-    extended_mode = true, -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
-    max_file_lines = 1000, -- Do not enable for files with more than 1000 lines, int
-  },
   autotag = {
     enable = true,
     filetype = {
@@ -137,6 +115,9 @@ require("nvim-treesitter.configs").setup({
     },
   },
   matchup = {
+    enable = true,
+  },
+  context = {
     enable = true,
   },
 })

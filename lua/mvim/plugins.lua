@@ -39,8 +39,6 @@ return packer.startup(function(use)
 
   use("lewis6991/impatient.nvim")
 
-  use("rcarriga/nvim-notify")
-
   -- speed up
   use({
     "nathom/filetype.nvim",
@@ -68,6 +66,7 @@ return packer.startup(function(use)
   -- file explorer
   use({
     "kyazdani42/nvim-tree.lua",
+    opt = true,
     cmd = {
       "NvimTreeToggle",
       "NvimTreeFocus",
@@ -81,7 +80,6 @@ return packer.startup(function(use)
   use({
     {
       "nvim-telescope/telescope.nvim",
-      -- setup = [[require("config.telescope_setup")]],
       config = [[require("mvim.config.telescope")]],
       cmd = "Telescope",
       module = "telescope",
@@ -111,7 +109,6 @@ return packer.startup(function(use)
         require("telescope").load_extension("ui-select")
       end,
     },
-
     {
       "nvim-telescope/telescope-live-grep-args.nvim",
       after = "telescope.nvim",
@@ -136,14 +133,10 @@ return packer.startup(function(use)
       config = [[require("mvim.config.nvim-treesitter")]],
     },
     {
-      "windwp/nvim-ts-autotag",
-      opt = true,
-      ft = { "html", "vue", "javascriptreact", "typescriptreact" },
-    },
-    {
       "nvim-treesitter/playground",
       opt = true,
       cmd = "TSPlaygroundToggle",
+      after = "nvim-treesitter",
     },
     {
       "nvim-treesitter/nvim-treesitter-textobjects",
@@ -151,20 +144,20 @@ return packer.startup(function(use)
       after = "nvim-treesitter",
     },
     {
-      "JoosepAlviste/nvim-ts-context-commentstring",
-      opt = true,
-      after = "nvim-treesitter",
-    },
-    {
       "andymass/vim-matchup",
       opt = true,
       after = "nvim-treesitter",
-      config = function()
-        vim.g.matchup_matchparen_offscreen = { method = "popup" }
-      end,
+      config = [[require("mvim.config.vim-matchup")]],
+    },
+    {
+      "windwp/nvim-ts-autotag",
+      opt = true,
+      after = "nvim-treesitter",
+      ft = { "html", "vue", "javascriptreact", "typescriptreact" },
     },
     {
       "windwp/nvim-autopairs",
+      opt = true,
       after = "nvim-treesitter",
       config = [[require("mvim.config.nvim-autopairs")]],
     },
@@ -229,6 +222,16 @@ return packer.startup(function(use)
     },
   })
 
+  -- comment
+  use({
+    "numToStr/Comment.nvim",
+    opt = true,
+    event = "BufRead",
+    config = function()
+      require("Comment").setup()
+    end,
+  })
+
   -- markdown
   use({
     {
@@ -278,15 +281,16 @@ return packer.startup(function(use)
     setup = [[require("mvim.config.copilot")]],
   })
 
-  -- use({
-  --   "tpope/vim-surround",
-  --   opt = true,
-  --   event = "BufReadPost",
-  -- })
+  use({
+    "tpope/vim-surround",
+    opt = true,
+    event = "BufReadPost",
+  })
 
   -- undo history
   use({
     "mbbill/undotree",
+    opt = true,
     event = "BufRead",
   })
 
@@ -317,17 +321,6 @@ return packer.startup(function(use)
       config = [[require("mvim.config.neogit")]],
     },
   })
-
-  -- scheme
-  -- use {
-  --   "projekt0n/github-nvim-theme",
-  --   config = [[require("mvim.config.github-theme")]],
-  -- }
-
-  -- use {
-  --   "folke/tokyonight.nvim",
-  --   config = [[require("mvim.config.tokyonight")]]
-  -- }
 
   use({
     "catppuccin/nvim",
@@ -414,17 +407,11 @@ return packer.startup(function(use)
   -- outline
   use({
     "stevearc/aerial.nvim",
+    opt = true,
     cmd = { "AerialToggle", "AerialOpen" },
     config = function()
       require("aerial").setup()
     end,
-  })
-
-  use({
-    "folke/which-key.nvim",
-    opt = true,
-    event = "BufWinEnter",
-    config = [[require("mvim.config.which-key")]],
   })
 
   use({
