@@ -1,8 +1,11 @@
-require("dapui").setup({
+local M = {}
+
+local tbl_isempty = vim.tbl_isempty
+
+local config = {
   icons = { expanded = "▾", collapsed = "▸" },
   -- icons = { expanded = "", collapsed = "" },
   mappings = {
-    -- Use a table to apply multiple mappings
     expand = { "<CR>" },
     open = "o",
     remove = "d",
@@ -10,40 +13,70 @@ require("dapui").setup({
     repl = "r",
     toggle = "t",
   },
-  -- Expand lines larger than the window
-  -- Requires >= 0.7
-  -- expand_lines = vim.fn.has("nvim-0.7"),
   expand_lines = true,
   sidebar = {
-    -- You can change the order of elements in the sidebar
     elements = {
-      -- Provide as ID strings or tables with "id" and "size" keys
-      {
-        id = "scopes",
-        size = 0.25, -- Can be float or integer > 1
-      },
-      { id = "breakpoints", size = 0.25 },
+      { id = "scopes", size = 0.25 },
       { id = "stacks", size = 0.25 },
       { id = "watches", size = 00.25 },
+      { id = "breakpoints", size = 0.25 },
     },
     size = 40,
-    position = "right", -- Can be "left", "right", "top", "bottom"
+    position = "right",
   },
   tray = {
     elements = { "repl" },
     size = 10,
-    position = "bottom", -- Can be "left", "right", "top", "bottom"
+    position = "bottom",
   },
   floating = {
-    max_height = nil, -- These can be integers or a float between 0 and 1.
-    max_width = nil, -- Floats will be treated as percentage of your screen.
-    border = "single", -- Border style. Can be "single", "double" or "rounded"
+    max_height = nil,
+    max_width = nil,
+    border = "single",
     mappings = {
       close = { "q", "<Esc>" },
     },
   },
   windows = { indent = 1 },
   render = {
-    max_type_length = nil, -- Can be integer or nil.
+    max_type_length = nil,
   },
-})
+}
+
+function M.setup()
+  local ui_ok, dapui = pcall(require, "dapui")
+  if not ui_ok then
+    return
+  end
+
+  dapui.setup(config)
+
+  local dap_ok, dap = pcall(require, "dap")
+  if not dap_ok then
+    return
+  end
+
+  dap.listeners.after["event_initialized"]["dapui_config"] = function()
+    local breakpoints = require("dap.breakpoints").get()
+    if tbl_isempty(breakpoints) then
+      dap.repl.open({ height = 10 })
+    else
+      dapui.open()
+    end
+  end
+  dap.listeners.before["event_stopped"]["dapui_config"] = function(_, body)
+    if body.reason == "breakpoint" then
+      dapui.open()
+    end
+  end
+  dap.listeners.before["event_terminated"]["dapui_config"] = function()
+    dap.repl.close()
+    dapui.close()
+  end
+  dap.listeners.before["event_exited"]["dapui_config"] = function()
+    dap.repl.close()
+    dapui.close()
+  end
+end
+
+return M

@@ -1,14 +1,13 @@
 local M = {}
 
-local next = next
-
 local fn = vim.fn
 local cmd = vim.cmd
+local isempty = vim.tbl_isempty
 local list_wins = vim.api.nvim_list_wins
-local get_buf_name = vim.api.nvim_buf_get_name
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local buf_keymap = vim.api.nvim_buf_set_keymap
+local get_buf_name = vim.api.nvim_buf_get_name
 
 function M.setup()
   local definitions = {
@@ -55,7 +54,7 @@ function M.setup()
   }
 
   for name, definition in pairs(definitions) do
-    if next(definition) then
+    if not isempty(definition) then
       local group = augroup(name, { clear = true })
       for _, def in ipairs(definition) do
         autocmd({ def.event }, {

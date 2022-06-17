@@ -20,13 +20,6 @@
     ],
     "description": "create a variable"
   },
-  "local": {
-    "prefix": "l",
-    "body": [
-      "local ${0}"
-    ],
-    "description": "create a variable"
-  },
   "locreq": {
     "prefix": "lreq",
     "body": [
@@ -77,18 +70,6 @@
       "\t$0",
       "end"
     ]
-  },
-  "forline": {
-    "prefix": "forline",
-    "body": [
-      "f = io.open(${1:\"${2:filename}\"}, \"${3:r}\")\n",
-      "while true do",
-      "\tline = f:read()",
-      "\tif line == nil then break end\n",
-      "\t${0:-- code}",
-      "end"
-    ],
-    "description": "read file line by line"
   },
   "function": {
     "prefix": "fu",

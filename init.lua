@@ -1,36 +1,28 @@
--- require("impatient")
+-- if not pcall(require, "impatient") then
+--   print("Failed to load impatient.")
+-- end
 
-local g = vim.g
-g.mapleader = " "
-g.maplocalleader = " "
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- Disable some built-in plugins we don't want
-local function disabled_builtin_plugins()
-  local plugins = {
-    "gzip",
-    "netrw",
-    "netrwPlugin",
-    "matchparen",
-    "tar",
-    "tarPlugin",
-    "zip",
-    "zipPlugin",
-    "matchit",
-    "man",
-    "2html_plugin",
-  }
-  for i = 1, #plugins do
-    g["loaded_" .. plugins[i]] = 1
-  end
+local plugins = {
+  "gzip",
+  "netrw",
+  "netrwPlugin",
+  "matchparen",
+  "tar",
+  "tarPlugin",
+  "zip",
+  "zipPlugin",
+  "matchit",
+  "man",
+  "2html_plugin",
+}
+for i = 1, #plugins do
+  vim.g["loaded_" .. plugins[i]] = 1
 end
 
-local function launch()
-  disabled_builtin_plugins()
-
-  require("mvim.options")
-  require("mvim.keymaps")
-  require("mvim.plugins")
-  require("mvim.events")
-end
-
-launch()
+require("mvim.plugins")

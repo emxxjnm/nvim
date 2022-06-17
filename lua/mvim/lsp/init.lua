@@ -37,10 +37,6 @@ local function lsp_buffer_keymaps(bufnr)
 end
 
 function M.mvim_on_attach(_, bufnr)
-  require("lsp_signature").on_attach({
-    bind = true,
-    handler_opts = { border = "rounded" },
-  })
   -- keymap
   lsp_buffer_keymaps(bufnr)
 end
@@ -89,29 +85,33 @@ function M.setup()
   require("mvim.lsp.handlers").setup()
 
   -- setup installer
-  require("nvim-lsp-installer").setup()
+  require("nvim-lsp-installer").setup({
+    ui = {
+      border = "rounded",
+    },
+  })
 
   -- setup null-ls
   require("mvim.lsp.extension").setup()
 
-  local formatters = require("mvim.lsp.extension.formatters")
-  local linter = require("mvim.lsp.extension.linters")
-  formatters.setup({
-    {
-      command = "markdownlint",
-      filetypes = { "markdown" },
-    },
-    -- {
-    --   command = "stylua",
-    --   filetypes = { "lua" },
-    -- },
-  })
-  linter.setup({
-    {
-      command = "markdownlint",
-      filetypes = { "markdown" },
-    },
-  })
+  -- local formatters = require("mvim.lsp.extension.formatters")
+  -- local linter = require("mvim.lsp.extension.linters")
+  -- formatters.setup({
+  --   {
+  --     command = "markdownlint",
+  --     filetypes = { "markdown" },
+  --   },
+  --   -- {
+  --   --   command = "stylua",
+  --   --   filetypes = { "lua" },
+  --   -- },
+  -- })
+  -- linter.setup({
+  --   {
+  --     command = "markdownlint",
+  --     filetypes = { "markdown" },
+  --   },
+  -- })
 end
 
 return M

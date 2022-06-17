@@ -42,17 +42,26 @@ return packer.startup(function(use)
   -- speed up
   use({
     "nathom/filetype.nvim",
-    config = [[require("mvim.config.filetype")]],
+    disable = true,
+    config = function()
+      require("filetype").setup({})
+    end,
   })
 
-  use({
-    "nvim-lua/plenary.nvim",
-    after = "packer.nvim",
-  })
+  use("nvim-lua/plenary.nvim")
+
+  use("kyazdani42/nvim-web-devicons")
 
   use({
-    "kyazdani42/nvim-web-devicons",
-    after = "packer.nvim",
+    "rcarriga/nvim-notify",
+    disable = true,
+    config = function()
+      require("notify").setup({
+        background_colour = "Normal",
+        stages = "slide",
+      })
+      vim.notify = require("notify")
+    end,
   })
 
   -- welcome page
@@ -80,9 +89,10 @@ return packer.startup(function(use)
   use({
     {
       "nvim-telescope/telescope.nvim",
-      config = [[require("mvim.config.telescope")]],
+      opt = true,
       cmd = "Telescope",
       module = "telescope",
+      config = [[require("mvim.config.telescope")]],
     },
     {
       "nvim-telescope/telescope-frecency.nvim",
@@ -97,6 +107,7 @@ return packer.startup(function(use)
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "make",
+      opt = true,
       after = "telescope.nvim",
       config = function()
         require("telescope").load_extension("fzf")
@@ -104,6 +115,7 @@ return packer.startup(function(use)
     },
     {
       "nvim-telescope/telescope-ui-select.nvim",
+      opt = true,
       after = "telescope.nvim",
       config = function()
         require("telescope").load_extension("ui-select")
@@ -111,13 +123,24 @@ return packer.startup(function(use)
     },
     {
       "nvim-telescope/telescope-live-grep-args.nvim",
+      opt = true,
       after = "telescope.nvim",
       config = function()
         require("telescope").load_extension("live_grep_args")
       end,
     },
     {
+      "nvim-telescope/telescope-project.nvim",
+      opt = true,
+      disable = true,
+      after = "telescope.nvim",
+      config = function()
+        require("telescope").load_extension("project")
+      end,
+    },
+    {
       "ahmedkhalf/project.nvim",
+      opt = true,
       after = "telescope.nvim",
       config = [[require("mvim.config.project")]],
     },
@@ -166,20 +189,35 @@ return packer.startup(function(use)
   -- lsp
   use({
     {
+      "williamboman/nvim-lsp-installer",
+    },
+    {
       "neovim/nvim-lspconfig",
+      opt = true,
+      module = "lsp",
+      after = "nvim-lsp-installer",
       config = function()
         require("mvim.lsp").setup()
       end,
     },
     {
-      "williamboman/nvim-lsp-installer",
-    },
-    {
       "ray-x/lsp_signature.nvim",
+      opt = true,
       after = "nvim-lspconfig",
+      config = function()
+        require("lsp_signature").setup({
+          bind = true,
+          fix_pos = true,
+          handler_opts = {
+            border = "rounded",
+          },
+        })
+      end,
     },
     {
       "jose-elias-alvarez/null-ls.nvim",
+      opt = true,
+      after = "nvim-lspconfig",
     },
   })
 
@@ -203,6 +241,7 @@ return packer.startup(function(use)
     },
     {
       "saadparwaiz1/cmp_luasnip",
+      opt = true,
       after = { "nvim-cmp", "LuaSnip" },
     },
     {
@@ -259,18 +298,23 @@ return packer.startup(function(use)
   use({
     {
       "mfussenegger/nvim-dap",
+      opt = true,
+      module = "dap",
       config = function()
         require("mvim.dap").setup()
       end,
-      module = "dap",
     },
     {
       "rcarriga/nvim-dap-ui",
-      -- after = "nvim-dap",
-      config = [[require("mvim.dap.ui")]],
+      opt = true,
+      after = "nvim-dap",
+      config = function()
+        require("mvim.dap.ui").setup()
+      end,
     },
     {
       "theHamsta/nvim-dap-virtual-text",
+      opt = true,
       after = "nvim-dap",
       config = [[require("mvim.dap.virtual-text")]],
     },
@@ -278,6 +322,7 @@ return packer.startup(function(use)
 
   use({
     "github/copilot.vim",
+    -- disable = true,
     setup = [[require("mvim.config.copilot")]],
   })
 
@@ -333,7 +378,6 @@ return packer.startup(function(use)
     "akinsho/toggleterm.nvim",
     opt = true,
     cmd = { "ToggleTerm", "TermExec" },
-    -- event = { "CmdwinEnter", "CmdlineEnter" },
     config = [[require("mvim.config.toggleterm")]],
   })
 
@@ -414,10 +458,16 @@ return packer.startup(function(use)
     end,
   })
 
+  -- Misc
   use({
     "dstein64/vim-startuptime",
     opt = true,
     cmd = { "StartupTime" },
+  })
+
+  use({
+    "wakatime/vim-wakatime",
+    disable = true,
   })
 
   -- Automatically set up your configuration after cloning packer.nvim

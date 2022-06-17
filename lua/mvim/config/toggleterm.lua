@@ -1,17 +1,14 @@
 require("toggleterm").setup({
-  -- size can be a number or function which is passed the current terminal
-  size = 20,
+  size = 10,
   open_mapping = [[<c-\>]],
   -- on_open = fun(t: Terminal), -- function to run when the terminal opens
   -- on_close = fun(t: Terminal), -- function to run when the terminal closes
-  -- on_stdout = fun(t: Terminal, job: number, data: string[], name: string) -- callback for processing output on stdout
-  -- on_stderr = fun(t: Terminal, job: number, data: string[], name: string) -- callback for processing output on stderr
-  -- on_exit = fun(t: Terminal, job: number, exit_code: number, name: string) -- function to run when terminal process exits
+  -- on_stdout = fun(t: Terminal, job: number, data: string[], name: string)
+  -- on_stderr = fun(t: Terminal, job: number, data: string[], name: string)
+  -- on_exit = fun(t: Terminal, job: number, exit_code: number, name: string)
   hide_numbers = true, -- hide the number column in toggleterm buffers
   shade_filetypes = {},
   highlights = {
-    -- highlights which map to a highlight group name and a table of it's values
-    -- NOTE: this is only a subset of values, any group placed here will be set for the terminal window split
     Normal = {
       -- guibg = <VALUE-HERE>,
     },
@@ -39,8 +36,8 @@ require("toggleterm").setup({
     -- the 'curved' border is a custom border type
     -- not natively supported but implemented in this plugin.
     border = "curved", -- 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open
-    -- width = <value>,
-    -- height = <value>,
-    winblend = 3,
+    -- width = <value> -- number | function,
+    -- height = <value> -- number | function,
+    winblend = 0,
   },
 })
