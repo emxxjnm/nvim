@@ -10,10 +10,18 @@ require("nvim-tree").setup({
   open_on_setup_file = false,
   open_on_tab = false,
   sort_by = "name",
+  root_dirs = {
+    ".git/",
+    ".stylua.toml",
+    "pyproject.toml",
+  },
+  prefer_startup_root = true,
   update_cwd = false,
   reload_on_bufenter = false,
   respect_buf_cwd = false,
   view = {
+    adaptive_size = false,
+    centralize_selection = false,
     width = 38,
     height = 30,
     hide_root_folder = false,
@@ -39,7 +47,8 @@ require("nvim-tree").setup({
     add_trailing = false,
     group_empty = false,
     highlight_git = false,
-    highlight_opened_files = "none",
+    full_name = false,
+    highlight_opened_files = "icon",
     root_folder_modifier = ":~",
     indent_markers = {
       enable = false,
@@ -99,6 +108,7 @@ require("nvim-tree").setup({
   update_focused_file = {
     enable = false,
     update_cwd = false,
+    update_root = true,
     ignore_list = {},
   },
   ignore_ft_on_setup = {},
@@ -119,7 +129,11 @@ require("nvim-tree").setup({
   filters = {
     dotfiles = false,
     custom = {},
-    exclude = {},
+    exclude = { ".vscode" },
+  },
+  filesystem_watchers = {
+    enable = false,
+    interval = 100,
   },
   git = {
     enable = true,
@@ -143,7 +157,14 @@ require("nvim-tree").setup({
         enable = true,
         chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
         exclude = {
-          filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
+          filetype = {
+            "notify",
+            "packer",
+            "qf",
+            "diff",
+            "fugitive",
+            "fugitiveblame",
+          },
           buftype = { "nofile", "terminal", "help" },
         },
       },
@@ -157,7 +178,7 @@ require("nvim-tree").setup({
     require_confirm = true,
   },
   live_filter = {
-    prefix = "[FILTER]: ",
+    prefix = " ",
     always_show_folders = true,
   },
   log = {
@@ -170,6 +191,7 @@ require("nvim-tree").setup({
       diagnostics = false,
       git = false,
       profile = false,
+      watcher = false,
     },
   },
 })

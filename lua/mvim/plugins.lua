@@ -39,15 +39,6 @@ return packer.startup(function(use)
 
   use("lewis6991/impatient.nvim")
 
-  -- speed up
-  use({
-    "nathom/filetype.nvim",
-    disable = true,
-    config = function()
-      require("filetype").setup({})
-    end,
-  })
-
   use("nvim-lua/plenary.nvim")
 
   use("kyazdani42/nvim-web-devicons")
@@ -130,15 +121,6 @@ return packer.startup(function(use)
       end,
     },
     {
-      "nvim-telescope/telescope-project.nvim",
-      opt = true,
-      disable = true,
-      after = "telescope.nvim",
-      config = function()
-        require("telescope").load_extension("project")
-      end,
-    },
-    {
       "ahmedkhalf/project.nvim",
       opt = true,
       after = "telescope.nvim",
@@ -170,7 +152,9 @@ return packer.startup(function(use)
       "andymass/vim-matchup",
       opt = true,
       after = "nvim-treesitter",
-      config = [[require("mvim.config.vim-matchup")]],
+      config = function()
+        vim.g.matchup_matchparen_offscreen = { method = "popup" }
+      end,
     },
     {
       "windwp/nvim-ts-autotag",
@@ -232,7 +216,11 @@ return packer.startup(function(use)
       requires = {
         {
           "L3MON4D3/LuaSnip",
-          config = [[require("mvim.config.luasnip")]],
+          config = function()
+            require("luasnip.loaders.from_vscode").lazy_load({
+              paths = vim.fn.stdpath("config") .. "/snippets",
+            })
+          end,
         },
         {
           "hrsh7th/cmp-nvim-lsp",
@@ -323,7 +311,10 @@ return packer.startup(function(use)
   use({
     "github/copilot.vim",
     -- disable = true,
-    setup = [[require("mvim.config.copilot")]],
+    setup = function()
+      vim.g.copilot_no_tab_map = true
+      vim.api.nvim_set_keymap("i", "<C-j>", "copilot#Accept('<CR>')", { silent = true, expr = true })
+    end,
   })
 
   use({
@@ -419,6 +410,7 @@ return packer.startup(function(use)
   -- like easymotion, but more powerful
   use({
     "phaazon/hop.nvim",
+    opt = true,
     cmd = {
       "HopWord",
       "HopWordAC",
@@ -437,8 +429,10 @@ return packer.startup(function(use)
       "HopChar1CurrentLineBC",
       "HopChar1CurrentLine",
     },
-    branch = "v1", -- optional but strongly recommended
-    config = [[require("mvim.config.hop")]],
+    branch = "v1",
+    config = function()
+      require("hop").setup()
+    end,
   })
 
   use({

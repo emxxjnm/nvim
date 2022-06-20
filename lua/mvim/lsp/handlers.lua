@@ -1,9 +1,6 @@
 local M = {}
 
-local fn = vim.fn
 local lsp = vim.lsp
-local deepcopy = vim.deepcopy
-local diagnostic = vim.diagnostic
 
 function M.setup()
   local signs = {
@@ -14,7 +11,7 @@ function M.setup()
   }
 
   for _, sign in ipairs(signs) do
-    fn.sign_define(sign.name, {
+    vim.fn.sign_define(sign.name, {
       texthl = sign.name,
       text = sign.text,
       numhl = sign.numhl,
@@ -37,7 +34,7 @@ function M.setup()
       header = "",
       prefix = "",
       format = function(d)
-        local t = deepcopy(d)
+        local t = vim.deepcopy(d)
         local code = d.code or (d.user_data and d.user_data.lsp.code)
         if code then
           t.message = string.format("%s [%s]", t.message, code):gsub("1. ", "")
@@ -47,7 +44,7 @@ function M.setup()
     },
   }
 
-  diagnostic.config(config)
+  vim.diagnostic.config(config)
 
   lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, {
     border = "rounded",

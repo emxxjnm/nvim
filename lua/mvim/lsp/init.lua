@@ -1,8 +1,5 @@
 local M = {}
 
-local api = vim.api
-local lsp = vim.lsp
-
 local function lsp_buffer_keymaps(bufnr)
   local opts = { noremap = true, silent = true }
 
@@ -31,7 +28,7 @@ local function lsp_buffer_keymaps(bufnr)
 
   for mode_name, mode_char in pairs(mappings) do
     for key, remap in pairs(keymappings[mode_name]) do
-      api.nvim_buf_set_keymap(bufnr, mode_char, key, remap[1], opts)
+      vim.api.nvim_buf_set_keymap(bufnr, mode_char, key, remap[1], opts)
     end
   end
 end
@@ -46,7 +43,7 @@ function M.mvim_on_init() end
 function M.mvim_on_exit() end
 
 function M.mvim_capabilities()
-  local capabilities = lsp.protocol.make_client_capabilities()
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = {

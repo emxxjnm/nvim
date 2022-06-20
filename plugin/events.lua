@@ -1,13 +1,8 @@
 local M = {}
 
 local fn = vim.fn
+local api = vim.api
 local cmd = vim.cmd
-local isempty = vim.tbl_isempty
-local list_wins = vim.api.nvim_list_wins
-local augroup = vim.api.nvim_create_augroup
-local autocmd = vim.api.nvim_create_autocmd
-local buf_keymap = vim.api.nvim_buf_set_keymap
-local get_buf_name = vim.api.nvim_buf_get_name
 
 function M.setup()
   local definitions = {
@@ -33,7 +28,7 @@ function M.setup()
         pattern = "*",
         nested = true,
         callback = function()
-          if #list_wins() == 1 and get_buf_name(0):match("NvimTree_") ~= nil then
+          if #api.nvim_list_wins() == 1 and api.nvim_buf_get_name(0):match("NvimTree_") ~= nil then
             cmd("quit")
           end
         end,
@@ -47,17 +42,17 @@ function M.setup()
         pattern = { "qf", "help", "man", "lspinfo", "startuptime" },
         callback = function()
           local opts = { noremap = true, silent = true }
-          buf_keymap(0, "n", "q", ":close<cr>", opts)
+          api.nvim_buf_set_keymap(0, "n", "q", ":close<cr>", opts)
         end,
       },
     },
   }
 
   for name, definition in pairs(definitions) do
-    if not isempty(definition) then
-      local group = augroup(name, { clear = true })
+    if not vim.tbl_isempty(definition) then
+      local group = api.nvim_create_augroup(name, { clear = true })
       for _, def in ipairs(definition) do
-        autocmd({ def.event }, {
+        api.nvim_create_autocmd({ def.event }, {
           group = group,
           pattern = def.pattern,
           command = def.command,

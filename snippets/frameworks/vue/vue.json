@@ -2,7 +2,7 @@
   "setupScript": {
     "prefix": "setup",
     "body": [
-      "<script setup lang=\"ts\">",
+      "<script setup ${1|lang=\"ts\"}>",
       "$0",
       "</script>"
     ],
@@ -20,7 +20,7 @@
   "styleLang": {
     "prefix": ["styl", "style"],
     "body": [
-      "<style lang=\"$1\" scoped>",
+      "<style lang=\"${1|scss,less}\" scoped>",
       "$0",
       "</style>"
     ],
@@ -29,7 +29,7 @@
   "globalStyle": {
     "prefix": ["gstyl", "gstyle"],
     "body": [
-      "<style lang=\"$1\">",
+      "<style lang=\"${1|scss,less}\">",
       "$0",
       "</style>"
     ]

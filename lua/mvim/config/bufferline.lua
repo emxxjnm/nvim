@@ -36,11 +36,11 @@ bufferline.setup({
       end
       return s
     end,
-    custom_filter = function(buf_number)
-      if vim.bo[buf_number].filetype ~= "dap-repl" then
-        return true
-      end
-    end,
+    -- custom_filter = function(buf_number)
+    --   if vim.bo[buf_number].filetype ~= "dap-repl" then
+    --     return true
+    --   end
+    -- end,
     offsets = {
       {
         filetype = "NvimTree",

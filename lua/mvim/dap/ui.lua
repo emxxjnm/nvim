@@ -1,7 +1,5 @@
 local M = {}
 
-local tbl_isempty = vim.tbl_isempty
-
 local config = {
   icons = { expanded = "▾", collapsed = "▸" },
   -- icons = { expanded = "", collapsed = "" },
@@ -58,7 +56,7 @@ function M.setup()
 
   dap.listeners.after["event_initialized"]["dapui_config"] = function()
     local breakpoints = require("dap.breakpoints").get()
-    if tbl_isempty(breakpoints) then
+    if vim.tbl_isempty(breakpoints) then
       dap.repl.open({ height = 10 })
     else
       dapui.open()

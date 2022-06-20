@@ -6,8 +6,6 @@ end
 local fn = vim.fn
 local bo = vim.bo
 local api = vim.api
-local lsp = vim.lsp
-local sitter = vim.treesitter
 local list_extend = vim.list_extend
 
 local next = next
@@ -67,7 +65,7 @@ local diagnostics = {
 local treesitter = {
   function()
     local buf = api.nvim_get_current_buf()
-    if next(sitter.highlighter.active[buf]) then
+    if next(vim.treesitter.highlighter.active[buf]) then
       return ""
     end
     return ""
@@ -75,10 +73,10 @@ local treesitter = {
   color = { fg = colors.green },
 }
 
-local lanuage_server = {
+local lsp = {
   function(msg)
     msg = msg or "Inactive"
-    local buf_clients = lsp.buf_get_clients()
+    local buf_clients = api.lsp.buf_get_clients()
     if next(buf_clients) == nil then
       -- TODO: clean up this if statement
       if type(msg) == "boolean" or #msg == 0 then
@@ -177,7 +175,7 @@ lualine.setup({
     lualine_a = { mode },
     lualine_b = { branch },
     lualine_c = { filename, diff, diagnostics },
-    lualine_x = { lanuage_server, treesitter, spaces, filesize, filetype },
+    lualine_x = { lsp, treesitter, spaces, filesize, filetype },
     lualine_y = { location },
     lualine_z = { progress },
   },

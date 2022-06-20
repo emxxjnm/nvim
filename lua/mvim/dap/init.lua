@@ -27,13 +27,13 @@ function M.setup()
     numhl = "",
   })
 
-  require("dap.ext.vscode").load_launchjs()
-
   dap.adapters.python = {
     type = "executable",
     command = "python",
     args = { "-m", "debugpy.adapter" },
   }
+
+  require("dap.ext.vscode").load_launchjs()
 end
 
 return M

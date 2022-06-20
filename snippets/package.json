@@ -38,6 +38,14 @@
       {
         "language": "vue",
         "path": "./frameworks/vue/vue.json"
+      },
+      {
+        "language": "json",
+        "path": "./misc/debug.json"
+      },
+      {
+        "language": "json",
+        "path": "./misc/snippet.json"
       }
     ]
   }

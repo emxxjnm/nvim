@@ -1,9 +1,6 @@
 local M = {}
 
 local fn = vim.fn
-local deepcopy = vim.deepcopy
-local list_extend = vim.list_extend
-local tbl_deep_extend = vim.tbl_deep_extend
 
 local function find_root_dir()
   local util = require("lspconfig.util")
@@ -81,15 +78,15 @@ function M.register_sources(configs, method)
     else
       local command = M.find_command(source._opts.command) or source._opts.command
 
-      local compat_opts = deepcopy(config)
+      local compat_opts = vim.deepcopy(config)
       if config.args then
         compat_opts.extra_args = config.args or config.extra_args
         compat_opts.args = nil
       end
 
-      local opts = tbl_deep_extend("keep", { command = command }, compat_opts)
+      local opts = vim.tbl_deep_extend("keep", { command = command }, compat_opts)
       table.insert(sources, source.with(opts))
-      list_extend(registered_names, { source.name })
+      vim.list_extend(registered_names, { source.name })
     end
   end
 

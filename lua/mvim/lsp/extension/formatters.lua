@@ -3,7 +3,6 @@ local M = {}
 local null_ls = require("null-ls")
 local services = require("mvim.lsp.extension.services")
 
-local tbl_isempty = vim.tbl_isempty
 local method = null_ls.methods.FORMATTING
 
 function M.list_registered(filetype)
@@ -19,7 +18,7 @@ function M.list_supported(filetype)
 end
 
 function M.setup(formatter_configs)
-  if tbl_isempty(formatter_configs) then
+  if vim.tbl_isempty(formatter_configs) then
     return
   end
 

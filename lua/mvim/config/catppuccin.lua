@@ -1,6 +1,4 @@
 local catppuccin = require("catppuccin")
-local g = vim.g
-local cmd = vim.cmd
 
 catppuccin.setup({
   transparent_background = true,
@@ -73,5 +71,5 @@ catppuccin.setup({
   },
 })
 
-g.catppuccin_flavour = "macchiato"
-cmd("colorscheme catppuccin")
+vim.g.catppuccin_flavour = "macchiato"
+vim.cmd("colorscheme catppuccin")
