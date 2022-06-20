@@ -20,7 +20,7 @@ require("nvim-tree").setup({
   reload_on_bufenter = false,
   respect_buf_cwd = false,
   view = {
-    adaptive_size = false,
+    adaptive_size = true,
     centralize_selection = false,
     width = 38,
     height = 30,
