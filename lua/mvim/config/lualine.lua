@@ -76,7 +76,7 @@ local treesitter = {
 local lsp = {
   function(msg)
     msg = msg or "Inactive"
-    local buf_clients = api.lsp.buf_get_clients()
+    local buf_clients = vim.lsp.buf_get_clients()
     if next(buf_clients) == nil then
       -- TODO: clean up this if statement
       if type(msg) == "boolean" or #msg == 0 then
