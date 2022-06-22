@@ -1,8 +1,7 @@
 local M = {}
 
 local config = {
-  icons = { expanded = "▾", collapsed = "▸" },
-  -- icons = { expanded = "", collapsed = "" },
+  icons = { expanded = "", collapsed = "" },
   mappings = {
     expand = { "<CR>" },
     open = "o",
@@ -11,22 +10,27 @@ local config = {
     repl = "r",
     toggle = "t",
   },
-  expand_lines = true,
-  sidebar = {
-    elements = {
-      { id = "scopes", size = 0.25 },
-      { id = "stacks", size = 0.25 },
-      { id = "watches", size = 00.25 },
-      { id = "breakpoints", size = 0.25 },
+  layouts = {
+    {
+      elements = {
+        { id = "scopes", size = 0.25 },
+        "breakpoints",
+        "stacks",
+        "watches",
+      },
+      size = 40,
+      position = "right",
     },
-    size = 40,
-    position = "right",
+    {
+      elements = {
+        "repl",
+        -- "console",
+      },
+      size = 10,
+      position = "bottom",
+    },
   },
-  tray = {
-    elements = { "repl" },
-    size = 10,
-    position = "bottom",
-  },
+  expand_lines = true,
   floating = {
     max_height = nil,
     max_width = nil,

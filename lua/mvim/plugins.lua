@@ -60,7 +60,9 @@ return packer.startup(function(use)
     "goolord/alpha-nvim",
     opt = true,
     event = "BufWinEnter",
-    config = [[require("mvim.config.alpha")]],
+    config = function()
+      require("mvim.config.alpha").setup()
+    end,
   })
 
   -- file explorer
@@ -73,7 +75,9 @@ return packer.startup(function(use)
       "NvimTreeFindFile",
       "NvimTreeFindFileToggle",
     },
-    config = [[require("mvim.config.nvim-tree")]],
+    config = function()
+      require("mvim.config.nvim-tree").setup()
+    end,
   })
 
   -- telescope: search
@@ -83,16 +87,8 @@ return packer.startup(function(use)
       opt = true,
       cmd = "Telescope",
       module = "telescope",
-      config = [[require("mvim.config.telescope")]],
-    },
-    {
-      "nvim-telescope/telescope-frecency.nvim",
-      after = "telescope.nvim",
-      requires = {
-        "tami5/sqlite.lua",
-      },
       config = function()
-        require("telescope").load_extension("frecency")
+        require("mvim.config.nvim-telescope").setup()
       end,
     },
     {
@@ -105,14 +101,6 @@ return packer.startup(function(use)
       end,
     },
     {
-      "nvim-telescope/telescope-ui-select.nvim",
-      opt = true,
-      after = "telescope.nvim",
-      config = function()
-        require("telescope").load_extension("ui-select")
-      end,
-    },
-    {
       "nvim-telescope/telescope-live-grep-args.nvim",
       opt = true,
       after = "telescope.nvim",
@@ -121,10 +109,21 @@ return packer.startup(function(use)
       end,
     },
     {
-      "ahmedkhalf/project.nvim",
+      "nvim-telescope/telescope-project.nvim",
       opt = true,
       after = "telescope.nvim",
-      config = [[require("mvim.config.project")]],
+      config = function()
+        require("telescope").load_extension("project")
+      end,
+    },
+    {
+      "ahmedkhalf/project.nvim",
+      opt = true,
+      disable = true,
+      after = "telescope.nvim",
+      config = function()
+        require("mvim.config.project").setup()
+      end,
     },
   })
 
@@ -135,7 +134,9 @@ return packer.startup(function(use)
       opt = true,
       event = "BufRead",
       run = ":TSUpdate",
-      config = [[require("mvim.config.nvim-treesitter")]],
+      config = function()
+        require("mvim.config.nvim-treesitter").setup()
+      end,
     },
     {
       "nvim-treesitter/playground",
@@ -153,20 +154,25 @@ return packer.startup(function(use)
       opt = true,
       after = "nvim-treesitter",
       config = function()
-        vim.g.matchup_matchparen_offscreen = { method = "popup" }
+        vim.g.matchup_matchparen_offscreen = {
+          method = "popup",
+          fullwidth = 1,
+          highlight = "OffscreenMatchPopup",
+        }
       end,
     },
     {
       "windwp/nvim-ts-autotag",
       opt = true,
       after = "nvim-treesitter",
-      ft = { "html", "vue", "javascriptreact", "typescriptreact" },
     },
     {
       "windwp/nvim-autopairs",
       opt = true,
       after = "nvim-treesitter",
-      config = [[require("mvim.config.nvim-autopairs")]],
+      config = function()
+        require("mvim.config.nvim-autopairs").setup()
+      end,
     },
   })
 
@@ -279,7 +285,9 @@ return packer.startup(function(use)
   use({
     "folke/trouble.nvim",
     cmd = { "Trouble", "TroubleToggle" },
-    config = [[require("mvim.config.trouble")]],
+    config = function()
+      require("mvim.config.trouble").setup()
+    end,
   })
 
   -- debug adapter protocol
@@ -304,13 +312,14 @@ return packer.startup(function(use)
       "theHamsta/nvim-dap-virtual-text",
       opt = true,
       after = "nvim-dap",
-      config = [[require("mvim.dap.virtual-text")]],
+      config = function()
+        require("mvim.dap.virtual-text").setup()
+      end,
     },
   })
 
   use({
     "github/copilot.vim",
-    -- disable = true,
     setup = function()
       vim.g.copilot_no_tab_map = true
       vim.api.nvim_set_keymap("i", "<C-j>", "copilot#Accept('<CR>')", { silent = true, expr = true })
@@ -336,7 +345,9 @@ return packer.startup(function(use)
       "lewis6991/gitsigns.nvim",
       tag = "release", -- To use the latest release
       event = "BufRead",
-      config = [[require("mvim.config.gitsigns")]],
+      config = function()
+        require("mvim.config.gitsigns").setup()
+      end,
     },
     {
       "sindrets/diffview.nvim",
@@ -348,7 +359,9 @@ return packer.startup(function(use)
         "DiffviewToggleFiles",
         "DiffviewFileHistory",
       },
-      config = [[require("mvim.config.diffview")]],
+      config = function()
+        require("mvim.config.diffview").setup()
+      end,
     },
     {
       "TimUntersberger/neogit",
@@ -361,7 +374,9 @@ return packer.startup(function(use)
   use({
     "catppuccin/nvim",
     as = "catppuccin",
-    config = [[require("mvim.config.catppuccin")]],
+    config = function()
+      require("mvim.config.nvim-catppuccin").setup()
+    end,
   })
 
   -- termnail
@@ -369,7 +384,9 @@ return packer.startup(function(use)
     "akinsho/toggleterm.nvim",
     opt = true,
     cmd = { "ToggleTerm", "TermExec" },
-    config = [[require("mvim.config.toggleterm")]],
+    config = function()
+      require("mvim.config.toggleterm").setup()
+    end,
   })
 
   -- status line
@@ -378,7 +395,9 @@ return packer.startup(function(use)
     opt = true,
     after = "catppuccin",
     event = "BufRead",
-    config = [[require("mvim.config.lualine")]],
+    config = function()
+      require("mvim.config.lualine").setup()
+    end,
   })
 
   -- tab
@@ -387,13 +406,24 @@ return packer.startup(function(use)
     tag = "*",
     opt = true,
     event = "BufRead",
-    config = [[require("mvim.config.bufferline")]],
+    config = function()
+      require("mvim.config.bufferline").setup()
+    end,
   })
 
   -- highlight color
   use({
     "norcalli/nvim-colorizer.lua",
-    ft = { "css", "scss", "less", "javascript", "html", "vue", "typescipt" },
+    opt = true,
+    ft = {
+      "css",
+      "less",
+      "scss",
+      "javascript",
+      "typescript",
+      "html",
+      "vue",
+    },
     config = function()
       require("colorizer").setup({
         "css",
@@ -439,7 +469,12 @@ return packer.startup(function(use)
     "lukas-reineke/indent-blankline.nvim",
     opt = true,
     event = "BufRead",
-    config = [[require("mvim.config.indent-blankline")]],
+    config = function()
+      require("indent_blankline").setup({
+        show_current_context = true,
+        char_list = { "┊" },
+      })
+    end,
   })
 
   -- outline
