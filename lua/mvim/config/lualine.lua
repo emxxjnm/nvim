@@ -16,12 +16,14 @@ local conditions = {
   end,
 }
 
+-- catppuccin::macchiato
 local colors = {
-  blue = "#87b0f9",
-  lavender = "#b4befe",
-  maroon = "#eba0ac",
-  mauve = "#cba6f7",
-  green = "#a6e3a1",
+  blue = "#8aadf4",
+  lavender = "#b7bdf8",
+  maroon = "#ee99a0",
+  mauve = "#c6a0f6",
+  green = "#a6da95",
+  red = "#ed8796",
 }
 
 local mode = {
@@ -61,13 +63,13 @@ local diagnostics = {
 
 local treesitter = {
   function()
-    local buf = api.nvim_get_current_buf()
-    if next(vim.treesitter.highlighter.active[buf]) then
-      return ""
-    end
-    return ""
+    return ""
   end,
-  color = { fg = colors.green },
+  color = function()
+    local buf = api.nvim_get_current_buf()
+    local ts = vim.treesitter.highlighter.active[buf]
+    return { fg = ts and not vim.tbl_isempty(ts) and colors.green or colors.red }
+  end,
 }
 
 local lsp = {
@@ -103,7 +105,7 @@ local lsp = {
     list_extend(buf_client_names, supported_linters)
 
     local clients = fn.uniq(buf_client_names)
-    return " LSP: " .. table.concat(clients, " │ ")
+    return " LSP:" .. table.concat(clients, " │ ")
   end,
   color = { fg = colors.blue, gui = "bold" },
   cond = conditions.hide_in_width,
@@ -166,8 +168,10 @@ function M.setup()
         "dapui_scopes",
         "dapui_watches",
         "dapui_breakpoints",
+        "TelescopePrompt",
       },
-      always_divide_middle = true,
+      -- always_divide_middle = true,
+      -- globalstatus = true,
     },
     sections = {
       lualine_a = { mode },
