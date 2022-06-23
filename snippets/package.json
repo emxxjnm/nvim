@@ -40,6 +40,10 @@
         "path": "./frameworks/vue/vue.json"
       },
       {
+        "language": "vue",
+        "path": "./frameworks/vue/builtins.json"
+      },
+      {
         "language": "json",
         "path": "./misc/debug.json"
       },

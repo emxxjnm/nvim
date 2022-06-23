@@ -32,12 +32,12 @@ function M.setup()
     },
     indent = {
       enable = true,
-      disable = { "python", "yaml" },
+      disable = { "python", "yaml", "vue" },
     },
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = "<TAB>", -- normal mode
+        init_selection = "<CR>", -- normal mode
         node_incremental = "<TAB>", -- visual mode
         scope_incremental = "<CR>", -- visual mode
         node_decremental = "<BS>", -- visual mode
