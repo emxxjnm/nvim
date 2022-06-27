@@ -45,7 +45,7 @@ return packer.startup(function(use)
 
   use({
     "rcarriga/nvim-notify",
-    disable = true,
+    -- disable = true,
     config = function()
       require("notify").setup({
         background_colour = "Normal",
@@ -109,17 +109,8 @@ return packer.startup(function(use)
       end,
     },
     {
-      "nvim-telescope/telescope-project.nvim",
-      opt = true,
-      after = "telescope.nvim",
-      config = function()
-        require("telescope").load_extension("project")
-      end,
-    },
-    {
       "ahmedkhalf/project.nvim",
       opt = true,
-      disable = true,
       after = "telescope.nvim",
       config = function()
         require("mvim.config.project").setup()
@@ -285,6 +276,7 @@ return packer.startup(function(use)
   use({
     "folke/trouble.nvim",
     cmd = { "Trouble", "TroubleToggle" },
+    disable = true,
     config = function()
       require("mvim.config.trouble").setup()
     end,

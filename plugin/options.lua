@@ -100,7 +100,7 @@ opt("undodir", stdpath("cache") .. "/undo")
 -- opt("mouse", "nivh")
 
 opt("termguicolors", true)
--- opt("background", "dark")
+opt("background", "dark")
 
 opt("diffopt", "vertical,filler,internal,context:5")
 

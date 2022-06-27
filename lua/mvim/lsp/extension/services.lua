@@ -72,9 +72,9 @@ function M.register_sources(configs, method)
     local source = type and null_ls.builtins[type][name]
 
     if not source then
-      return
+      vim.notify("Not a valid source: " .. name, vim.log.levels.ERROR)
     elseif is_registered({ name = source.name or name, method = method }) then
-      return
+      vim.notify("Source: " .. name .. "had registered.", vim.log.levels.INFO)
     else
       local command = M.find_command(source._opts.command) or source._opts.command
 

@@ -38,7 +38,7 @@ function M.setup()
       enable = true,
       keymaps = {
         init_selection = "<CR>", -- normal mode
-        node_incremental = "<TAB>", -- visual mode
+        node_incremental = "<Tab>", -- visual mode
         scope_incremental = "<CR>", -- visual mode
         node_decremental = "<BS>", -- visual mode
       },

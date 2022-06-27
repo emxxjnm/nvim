@@ -4,8 +4,7 @@ local fn = vim.fn
 local bo = vim.bo
 local api = vim.api
 local list_extend = vim.list_extend
-
-local next = next
+local tbl_isempty = vim.tbl_isempty
 
 local conditions = {
   buffer_not_empty = function()
@@ -20,7 +19,7 @@ local conditions = {
 local colors = {
   blue = "#8aadf4",
   lavender = "#b7bdf8",
-  maroon = "#ee99a0",
+  sapphire = "#7dc4e4",
   mauve = "#c6a0f6",
   green = "#a6da95",
   red = "#ed8796",
@@ -68,20 +67,15 @@ local treesitter = {
   color = function()
     local buf = api.nvim_get_current_buf()
     local ts = vim.treesitter.highlighter.active[buf]
-    return { fg = ts and not vim.tbl_isempty(ts) and colors.green or colors.red }
+    return { fg = ts and not tbl_isempty(ts) and colors.green or colors.red }
   end,
 }
 
 local lsp = {
-  function(msg)
-    msg = msg or "Inactive"
+  function()
     local buf_clients = vim.lsp.buf_get_clients()
-    if next(buf_clients) == nil then
-      -- TODO: clean up this if statement
-      if type(msg) == "boolean" or #msg == 0 then
-        return "Unknown"
-      end
-      return msg
+    if tbl_isempty(buf_clients) then
+      return "LS Inactive"
     end
 
     local buf_ft = bo.filetype
@@ -113,7 +107,7 @@ local lsp = {
 
 local diff = {
   "diff",
-  symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
+  symbols = { added = " ", modified = " ", removed = " " },
   cond = conditions.hide_in_width,
 }
 
@@ -144,7 +138,7 @@ local spaces = {
     return "Spaces:" .. size
   end,
   cond = conditions.hide_in_width,
-  color = { fg = colors.maroon },
+  color = { fg = colors.sapphire },
 }
 
 local filetype = {
@@ -163,6 +157,7 @@ function M.setup()
         "alpha",
         "packer",
         "NvimTree",
+        "toggleterm",
         "dap-repl",
         "dapui_stacks",
         "dapui_scopes",

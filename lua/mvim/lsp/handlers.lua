@@ -1,31 +1,40 @@
 local M = {}
 
 local lsp = vim.lsp
+local fn = vim.fn
+local fmt = string.format
+local diagnostic = vim.diagnostic
+
+local icons = {
+  error = "",
+  warn = "",
+  hint = "",
+  info = "",
+}
+
+local function sign(name, icon)
+  fn.sign_define(name, { text = icon, texthl = name })
+end
 
 function M.setup()
-  local signs = {
-    { name = "DiagnosticSignError", text = "", numhl = "RedSign" },
-    { name = "DiagnosticSignWarn", text = "", numhl = "YellowSign" },
-    { name = "DiagnosticSignHint", text = "", numhl = "BlueSign" },
-    { name = "DiagnosticSignInfo", text = "", numhl = "WhiteSign" },
-  }
-
-  for _, sign in ipairs(signs) do
-    vim.fn.sign_define(sign.name, {
-      texthl = sign.name,
-      text = sign.text,
-      numhl = sign.numhl,
-    })
-  end
+  sign("DiagnosticSignHint", icons.hint)
+  sign("DiagnosticSignInfo", icons.info)
+  sign("DiagnosticSignWarn", icons.warn)
+  sign("DiagnosticSignError", icons.error)
 
   local config = {
-    virtual_text = true,
-    signs = {
-      active = signs,
-    },
+    signs = true,
     update_in_insert = true,
     underline = true,
     severity_sort = true,
+    virtual_text = {
+      spacing = 1,
+      prefix = "",
+      format = function(d)
+        local level = diagnostic.severity[d.severity]
+        return fmt("%s %s", icons[level:lower()], d.message)
+      end,
+    },
     float = {
       focusable = false,
       style = "minimal",
@@ -37,14 +46,14 @@ function M.setup()
         local t = vim.deepcopy(d)
         local code = d.code or (d.user_data and d.user_data.lsp.code)
         if code then
-          t.message = string.format("%s [%s]", t.message, code):gsub("1. ", "")
+          t.message = fmt("%s [%s]", t.message, code):gsub("1. ", "")
         end
         return t.message
       end,
     },
   }
 
-  vim.diagnostic.config(config)
+  diagnostic.config(config)
 
   lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, {
     border = "rounded",

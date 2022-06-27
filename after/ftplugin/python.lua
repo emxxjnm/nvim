@@ -1,5 +1,6 @@
 -- start lsp server
 require("mvim.lsp.manager").setup("pyright")
+-- require("mvim.lsp.manager").setup("pylsp")
 
 -- options
 local opt = vim.api.nvim_set_option_value

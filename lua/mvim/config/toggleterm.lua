@@ -2,48 +2,56 @@ local M = {}
 
 function M.setup()
   require("toggleterm").setup({
-    size = 10,
     open_mapping = [[<c-\>]],
-    -- on_open = fun(t: Terminal), -- function to run when the terminal opens
-    -- on_close = fun(t: Terminal), -- function to run when the terminal closes
-    -- on_stdout = fun(t: Terminal, job: number, data: string[], name: string)
-    -- on_stderr = fun(t: Terminal, job: number, data: string[], name: string)
-    -- on_exit = fun(t: Terminal, job: number, exit_code: number, name: string)
-    hide_numbers = true, -- hide the number column in toggleterm buffers
+    hide_numbers = true,
     shade_filetypes = {},
-    highlights = {
-      Normal = {
-        -- guibg = <VALUE-HERE>,
-      },
-      NormalFloat = {
-        link = "Normal",
-      },
-      FloatBorder = {
-        -- guifg = <VALUE-HERE>,
-        -- guibg = <VALUE-HERE>,
-      },
-    },
     shade_terminals = true,
     shading_factor = 1,
     start_in_insert = true,
-    insert_mappings = true, -- whether or not the open mapping applies in insert mode
-    terminal_mappings = true, -- whether or not the open mapping applies in the opened terminals
-    persist_size = true,
-    direction = "float", -- 'vertical' | 'horizontal' | 'tab' | 'float',
-    close_on_exit = true, -- close the terminal window when the process exits
-    -- shell = vim.o.shell, -- change the default shell
-    -- This field is only relevant if direction is set to 'float'
+    insert_mappings = false,
+    terminal_mappings = true,
+    persist_size = false,
+    direction = "horizontal",
+    close_on_exit = true,
+    size = function(term)
+      if term.direction == "horizontal" then
+        return 15
+      elseif term.direction == "vertical" then
+        return math.floor(vim.o.columns * 0.4)
+      end
+    end,
     float_opts = {
-      -- The border key is *almost* the same as 'nvim_open_win'
-      -- see :h nvim_open_win for details on borders however
-      -- the 'curved' border is a custom border type
-      -- not natively supported but implemented in this plugin.
-      border = "curved", -- 'single' | 'double' | 'shadow' | 'curved' |
-      -- width = <value> -- number | function,
-      -- height = <value> -- number | function,
+      border = "rounded",
+      width = function()
+        return math.floor(vim.o.columns * 0.9)
+      end,
+      height = function()
+        return math.floor(vim.o.lines * 0.9)
+      end,
       winblend = 0,
     },
   })
+
+  local float_handler = function(term)
+    if vim.fn.mapcheck("jk", "t") ~= "" then
+      vim.api.nvim_buf_del_keymap(term.bufnr, "t", "jk")
+      vim.api.nvim_buf_del_keymap(term.bufnr, "t", "<esc>")
+    end
+  end
+
+  local Terminal = require("toggleterm.terminal").Terminal
+
+  local lazygit = Terminal:new({
+    cmd = "lazygit",
+    dir = "git_dir",
+    hidden = true,
+    direction = "float",
+    on_open = float_handler,
+  })
+
+  vim.keymap.set("n", "<leader>g", function()
+    lazygit:toggle()
+  end, { silent = true })
 end
 
 return M
