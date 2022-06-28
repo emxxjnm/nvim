@@ -26,6 +26,7 @@ local plugins = {
   "matchit",
   "man",
   "2html_plugin",
+  "tutor_mode_plugin",
 }
 for i = 1, #plugins do
   g["loaded_" .. plugins[i]] = 1
