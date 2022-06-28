@@ -1,4 +1,5 @@
 local fn = vim.fn
+local bo = vim.bo
 local api = vim.api
 local cmd = vim.cmd
 
@@ -36,7 +37,7 @@ augroup("AutoSyncPlugins", {
     event = "BufWritePost",
     pattern = "plugins.lua",
     command = "source <afile> | PackerSync",
-    desc = "Sync neovim plugins when plugins.lua is saved",
+    desc = "Sync neovim plugins when plugins.lua is saved.",
   },
 })
 
@@ -49,11 +50,20 @@ augroup("PlaceLastEdit", {
         cmd([[normal! g`"]])
       end
     end,
-    desc = "Place to last edit",
+    desc = "Place to last edit.",
   },
 })
 
 augroup("SmartClose", {
+  {
+    event = "FileType",
+    pattern = { "qf", "help", "man", "lspinfo", "startuptime", "tsplayground" },
+    command = function()
+      local opts = { noremap = true, silent = true }
+      api.nvim_buf_set_keymap(0, "n", "q", ":close<CR>", opts)
+    end,
+    desc = "Close certain filetypes by pressing q.",
+  },
   {
     event = "BufEnter",
     pattern = "*",
@@ -63,28 +73,52 @@ augroup("SmartClose", {
         cmd("quit")
       end
     end,
-    desc = "Close the tab when nvim-tree is the last window in the tab",
+    desc = "Close the tab when nvim-tree is the last window in the tab.",
   },
   {
     event = "BufEnter",
     pattern = "*",
     command = function()
-      if fn.winnr("$") == 1 and vim.bo.buftype == "quickfix" then
+      if fn.winnr("$") == 1 and bo.buftype == "quickfix" then
         api.nvim_buf_delete(0, { force = true })
       end
     end,
-    desc = "Close quick fix window if the file containing it was closed",
+    desc = "Close quick fix window if the file containing it was closed.",
+  },
+  {
+    event = "QuitPre",
+    pattern = "*",
+    nested = true,
+    command = function()
+      if bo.filetype ~= "qf" then
+        cmd("silent! lclose")
+      end
+    end,
+    desc = "automatically close corresponding loclist when quitting a window.",
   },
 })
 
-augroup("QuickClose", {
+augroup("SetupTerminalMappings", {
   {
-    event = "FileType",
-    pattern = { "qf", "help", "man", "lspinfo", "startuptime" },
+    event = { "TermOpen" },
+    pattern = "term://*",
     command = function()
-      local opts = { noremap = true, silent = true }
-      api.nvim_buf_set_keymap(0, "n", "q", ":close<CR>", opts)
+      if bo.filetype == "toggleterm" then
+        local opts = { noremap = true, silent = true }
+        api.nvim_buf_set_keymap(0, "t", "jj", [[<C-\><C-n>]], opts)
+        api.nvim_buf_set_keymap(0, "t", "<Esc>", [[<C-\><C-n>]], opts)
+        api.nvim_buf_set_keymap(0, "t", "<C-w>", [[<C-\><C-n><C-w>]], opts)
+        api.nvim_buf_set_keymap(0, "t", "<C-h>", [[<C-\><C-n><C-w>hi]], opts)
+        api.nvim_buf_set_keymap(0, "t", "<C-j>", [[<C-\><C-n><C-w>ji]], opts)
+        api.nvim_buf_set_keymap(0, "t", "<C-k>", [[<C-\><C-n><C-w>ki]], opts)
+        api.nvim_buf_set_keymap(0, "t", "<C-l>", [[<C-\><C-n><C-w>li]], opts)
+
+        api.nvim_buf_set_keymap(0, "n", "<C-h>", [[<C-\><C-n><C-w>hi]], opts)
+        api.nvim_buf_set_keymap(0, "n", "<C-j>", [[<C-\><C-n><C-w>ji]], opts)
+        api.nvim_buf_set_keymap(0, "n", "<C-k>", [[<C-\><C-n><C-w>ki]], opts)
+        api.nvim_buf_set_keymap(0, "n", "<C-l>", [[<C-\><C-n><C-w>li]], opts)
+      end
     end,
-    desc = "Press q to close.",
+    desc = "setup toggleterm keymap.",
   },
 })

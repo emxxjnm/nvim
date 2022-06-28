@@ -33,9 +33,9 @@ function M.setup()
   })
 
   local float_handler = function(term)
-    if vim.fn.mapcheck("jk", "t") ~= "" then
-      vim.api.nvim_buf_del_keymap(term.bufnr, "t", "jk")
-      vim.api.nvim_buf_del_keymap(term.bufnr, "t", "<esc>")
+    if vim.fn.mapcheck("jj", "t") ~= "" then
+      vim.api.nvim_buf_del_keymap(term.bufnr, "t", "jj")
+      vim.api.nvim_buf_del_keymap(term.bufnr, "t", "<Esc>")
     end
   end
 
