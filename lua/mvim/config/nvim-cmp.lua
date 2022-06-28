@@ -27,7 +27,7 @@ function M.setup()
   local kind_icons = {
     Class = " ",
     Color = " ",
-    Constant = "ﲀ ",
+    Constant = " ",
     Constructor = " ",
     Enum = "練",
     EnumMember = " ",
@@ -36,13 +36,13 @@ function M.setup()
     File = "",
     Folder = " ",
     Function = " ",
-    Interface = "ﰮ ",
+    Interface = " ",
     Keyword = " ",
     Method = " ",
     Module = " ",
-    Operator = "",
+    Operator = " ",
     Property = " ",
-    Reference = " ",
+    Reference = " ",
     Snippet = " ",
     Struct = " ",
     Text = " ",
@@ -53,11 +53,11 @@ function M.setup()
   }
 
   local source_names = {
-    luasnip = "[ Snippet]",
-    nvim_lsp = "[ LSP]",
-    buffer = "[ Buffer]",
-    path = "[ Path]",
-    nvim_lua = "[ NeoVim]",
+    luasnip = "[Snippet]",
+    nvim_lsp = "[LSP]",
+    buffer = "[Buffer]",
+    path = "[Path]",
+    nvim_lua = "[NeoVim]",
   }
   local duplicates = {
     buffer = 1,

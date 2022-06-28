@@ -199,6 +199,9 @@ return packer.startup(function(use)
       "jose-elias-alvarez/null-ls.nvim",
       opt = true,
       after = "nvim-lspconfig",
+      config = function()
+        require("mvim.lsp.extension").setup()
+      end,
     },
   })
 
@@ -276,7 +279,7 @@ return packer.startup(function(use)
   use({
     "folke/trouble.nvim",
     cmd = { "Trouble", "TroubleToggle" },
-    disable = true,
+    -- disable = true,
     config = function()
       require("mvim.config.trouble").setup()
     end,

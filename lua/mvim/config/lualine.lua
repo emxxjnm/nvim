@@ -88,18 +88,15 @@ local lsp = {
       end
     end
 
-    -- add formatter
-    local formatters = require("mvim.lsp.extension.formatters")
-    local supported_formatters = formatters.list_registered(buf_ft)
-    list_extend(buf_client_names, supported_formatters)
+    local service = require("mvim.lsp.service")
+    local formatters = service.list_registered_formatters(buf_ft)
+    list_extend(buf_client_names, formatters)
 
-    -- add linter
-    local linters = require("mvim.lsp.extension.linters")
-    local supported_linters = linters.list_registered(buf_ft)
-    list_extend(buf_client_names, supported_linters)
+    local linters = service.list_registered_linters(buf_ft)
+    list_extend(buf_client_names, linters)
 
     local clients = fn.uniq(buf_client_names)
-    return " LSP:" .. table.concat(clients, " │ ")
+    return " LSP:" .. table.concat(clients, "│")
   end,
   color = { fg = colors.blue, gui = "bold" },
   cond = conditions.hide_in_width,

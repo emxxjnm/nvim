@@ -97,7 +97,7 @@ function M.mvim_on_attach(client, bufnr)
 
   if client.supports_method("textDocument/codeLens") then
     setup_codelens_refresh(bufnr)
-    -- vim.schedule(lsp.codelens.refresh)
+    vim.schedule(lsp.codelens.refresh)
   end
 end
 
@@ -156,28 +156,6 @@ function M.setup()
   -- require("nvim-lsp-installer").setup({
   --   ui = {
   --     border = "rounded",
-  --   },
-  -- })
-
-  -- setup null-ls
-  require("mvim.lsp.extension").setup()
-
-  -- local formatters = require("mvim.lsp.extension.formatters")
-  -- local linter = require("mvim.lsp.extension.linters")
-  -- formatters.setup({
-  --   {
-  --     command = "markdownlint",
-  --     filetypes = { "markdown" },
-  --   },
-  --   -- {
-  --   --   command = "stylua",
-  --   --   filetypes = { "lua" },
-  --   -- },
-  -- })
-  -- linter.setup({
-  --   {
-  --     command = "markdownlint",
-  --     filetypes = { "markdown" },
   --   },
   -- })
 end
