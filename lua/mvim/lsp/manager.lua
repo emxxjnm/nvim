@@ -28,7 +28,9 @@ local function launch_server(name, cfg)
   end)
 end
 
--- setup a language server
+---lsp setup entry
+---@param name string lsp name
+---@param config table? lsp config
 function M.setup(name, config)
   vim.validate({ name = { name, "string" } })
   config = config or {}

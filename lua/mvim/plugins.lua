@@ -385,6 +385,7 @@ return packer.startup(function(use)
   use({
     "akinsho/toggleterm.nvim",
     opt = true,
+    module = "toggleterm",
     cmd = { "ToggleTerm", "TermExec" },
     config = function()
       require("mvim.config.toggleterm").setup()

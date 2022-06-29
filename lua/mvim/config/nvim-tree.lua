@@ -23,7 +23,7 @@ function M.setup()
     reload_on_bufenter = false,
     respect_buf_cwd = false,
     view = {
-      adaptive_size = true,
+      adaptive_size = false,
       centralize_selection = false,
       width = 38,
       height = 30,

@@ -31,27 +31,6 @@ function M.setup()
       winblend = 0,
     },
   })
-
-  local float_handler = function(term)
-    if vim.fn.mapcheck("jj", "t") ~= "" then
-      vim.api.nvim_buf_del_keymap(term.bufnr, "t", "jj")
-      vim.api.nvim_buf_del_keymap(term.bufnr, "t", "<Esc>")
-    end
-  end
-
-  local Terminal = require("toggleterm.terminal").Terminal
-
-  local lazygit = Terminal:new({
-    cmd = "lazygit",
-    dir = "git_dir",
-    hidden = true,
-    direction = "float",
-    on_open = float_handler,
-  })
-
-  vim.keymap.set("n", "<leader>g", function()
-    lazygit:toggle()
-  end, { silent = true })
 end
 
 return M
