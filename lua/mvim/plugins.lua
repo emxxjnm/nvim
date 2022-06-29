@@ -55,6 +55,12 @@ return packer.startup(function(use)
     end,
   })
 
+  use({
+    "folke/lua-dev.nvim",
+    opt = true,
+    module = "lua-dev",
+  })
+
   -- welcome page
   use({
     "goolord/alpha-nvim",

@@ -1,3 +1,5 @@
+local ok, luadev = pcall(require, "lua-dev")
+
 local fn = vim.fn
 
 local opts = {
@@ -9,7 +11,7 @@ local opts = {
       },
       workspace = {
         library = {
-          [fn.expand("$VIMRUNTIME/lua")] = true,
+          -- [fn.expand("$VIMRUNTIME")] = true,
           [fn.stdpath("config") .. "/lua"] = true,
         },
       },
@@ -17,4 +19,8 @@ local opts = {
   },
 }
 
-return opts
+if not ok then
+  return opts
+end
+
+return luadev.setup({})
