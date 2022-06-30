@@ -61,12 +61,6 @@ function M.setup()
   lsp.handlers["textDocument/signatureHelp"] = lsp.with(lsp.handlers.signature_help, {
     border = "rounded",
   })
-  lsp.handlers["temxtDocument/publishDiagnostics"] = lsp.with(lsp.handlers.diagnostic, {
-    virtual_text = true,
-    signs = true,
-    update_in_insert = false,
-    underline = true,
-  })
 end
 
 return M
