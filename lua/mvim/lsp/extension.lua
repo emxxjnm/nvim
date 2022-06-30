@@ -14,6 +14,7 @@ function M.setup()
   service.register_sources({
     { command = "stylua", extra_args = {}, filetypes = { "lua" } },
     { command = "shfmt", extra_args = { "-i", "2", "-ci", "-bn" }, filetypes = { "sh" } },
+    { command = "markdownlint", extra_args = {}, filetypes = { "markdown" } },
   }, null_ls.methods.FORMATTING)
   service.register_sources({
     {
