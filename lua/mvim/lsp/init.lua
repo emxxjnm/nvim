@@ -6,6 +6,7 @@ local M = {}
 local api = vim.api
 local lsp = vim.lsp
 local keymap = vim.keymap
+local diagnostic = vim.diagnostic
 
 local function highlight_references()
   local ts_utils_ok, ts_utils = pcall(require, "nvim-treesitter.ts_utils")
@@ -36,12 +37,18 @@ local function setup_document_highlight(bufnr)
     buffer = bufnr,
     group = group,
     callback = highlight_references,
-    -- callback = vim.lsp.buf.document_highlight,
+    -- callback = utils.fn(lsp.buf.document_highlight),
   })
   api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
     buffer = bufnr,
     group = group,
     callback = utils.fn(lsp.buf.clear_references),
+  })
+  api.nvim_create_autocmd({ "CursorHold" }, {
+    buffer = bufnr,
+    group = group,
+    -- callback = diagnostic_popup,
+    callback = utils.fn(diagnostic.open_float),
   })
 end
 
@@ -74,12 +81,17 @@ local function buf_set_keymaps(bufnr)
   set_keymap("n", "gr", helper.references)
   set_keymap("n", "gbr", helper.buffer_references)
   set_keymap("n", "gi", helper.implementations)
-  -- keymap("n", "gs", telescope.workspace_diagnostics)
 
   -- Docs
   set_keymap("n", "K", lsp.buf.hover)
   set_keymap("n", "<C-k>", lsp.buf.signature_help)
   set_keymap("i", "<C-k>", lsp.buf.signature_help)
+
+  -- set_keymap("n", "<C-,>", diagnostic.open_float)
+  -- set_keymap("i", "<C-,>", diagnostic.open_float)
+
+  -- set_keymap("n", "<C-a>", helper.document_diagnostics)
+  -- set_keymap("n", "<C-a>", helper.workspace_diagnostics)
 end
 
 function M.mvim_on_attach(client, bufnr)
