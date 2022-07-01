@@ -151,13 +151,6 @@ function M.setup()
 
   -- setup handlers
   require("mvim.lsp.handlers").setup()
-
-  -- setup installer
-  -- require("nvim-lsp-installer").setup({
-  --   ui = {
-  --     border = "rounded",
-  --   },
-  -- })
 end
 
 return M
