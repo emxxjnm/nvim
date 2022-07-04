@@ -282,15 +282,6 @@ return packer.startup(function(use)
     },
   })
 
-  use({
-    "folke/trouble.nvim",
-    cmd = { "Trouble", "TroubleToggle" },
-    -- disable = true,
-    config = function()
-      require("mvim.config.trouble").setup()
-    end,
-  })
-
   -- debug adapter protocol
   use({
     {
