@@ -141,6 +141,7 @@ function M.setup()
     git = {
       enable = true,
       ignore = true,
+      show_on_dirs = true,
       timeout = 400,
     },
     actions = {
@@ -151,7 +152,8 @@ function M.setup()
         restrict_above_cwd = false,
       },
       expand_all = {
-        max_folder_discovery = 300,
+        max_folder_discovery = 100,
+        exclude = { ".git" },
       },
       open_file = {
         quit_on_open = true,
@@ -198,9 +200,6 @@ function M.setup()
       },
     },
   })
-
-  -- with relative path
-  -- require "nvim-tree.events".on_file_created(function(file) vim.cmd("edit "..file.fname) end)
 end
 
 return M
