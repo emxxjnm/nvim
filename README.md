@@ -7,6 +7,7 @@
 ## TODO
 
 - [ ] install script
+- [ ] null-ls/lspconfig lazy load
 
 ### Configuration
 
