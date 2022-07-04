@@ -1,70 +1,59 @@
 local M = {}
 
-local fn = vim.fn
+local api = vim.api
 
 local function check_backspace()
-  local col = fn.col(".") - 1
-  return col == 0 or fn.getline("."):sub(col, col):match("%s")
+  local line, col = unpack(api.nvim_win_get_cursor(0))
+  return col ~= 0 and api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local feedkeys = vim.fn.feedkeys
-local replace_termcodes = vim.api.nvim_replace_termcodes
-local backspace_keys = replace_termcodes("<tab>", true, true, true)
-local snippet_next_keys = replace_termcodes("<plug>luasnip-expand-or-jump", true, true, true)
-local snippet_prev_keys = replace_termcodes("<plug>luasnip-jump-prev", true, true, true)
+local kind_icons = {
+  Class = " ",
+  Color = " ",
+  Constant = " ",
+  Constructor = " ",
+  Enum = "練",
+  EnumMember = " ",
+  Event = " ",
+  Field = " ",
+  File = "",
+  Folder = " ",
+  Function = " ",
+  Interface = " ",
+  Keyword = " ",
+  Method = " ",
+  Module = " ",
+  Operator = " ",
+  Property = " ",
+  Reference = " ",
+  Snippet = " ",
+  Struct = " ",
+  Text = " ",
+  TypeParameter = " ",
+  Unit = "塞",
+  Value = " ",
+  Variable = " ",
+}
+
+local source_names = {
+  luasnip = "[Snippet]",
+  nvim_lsp = "[LSP]",
+  buffer = "[Buffer]",
+  path = "[Path]",
+  nvim_lua = "[NeoVim]",
+}
+local duplicates = {
+  buffer = 1,
+  path = 1,
+  nvim_lsp = 0,
+  luasnip = 1,
+}
 
 function M.setup()
-  local cmp_status_ok, cmp = pcall(require, "cmp")
-  if not cmp_status_ok then
-    return
-  end
-
-  local luasnip_status_ok, luasnip = pcall(require, "luasnip")
-  if not luasnip_status_ok then
-    return
-  end
-
-  local kind_icons = {
-    Class = " ",
-    Color = " ",
-    Constant = " ",
-    Constructor = " ",
-    Enum = "練",
-    EnumMember = " ",
-    Event = " ",
-    Field = " ",
-    File = "",
-    Folder = " ",
-    Function = " ",
-    Interface = " ",
-    Keyword = " ",
-    Method = " ",
-    Module = " ",
-    Operator = " ",
-    Property = " ",
-    Reference = " ",
-    Snippet = " ",
-    Struct = " ",
-    Text = " ",
-    TypeParameter = " ",
-    Unit = "塞",
-    Value = " ",
-    Variable = " ",
-  }
-
-  local source_names = {
-    luasnip = "[Snippet]",
-    nvim_lsp = "[LSP]",
-    buffer = "[Buffer]",
-    path = "[Path]",
-    nvim_lua = "[NeoVim]",
-  }
-  local duplicates = {
-    buffer = 1,
-    path = 1,
-    nvim_lsp = 0,
-    luasnip = 1,
-  }
+  local cmp = require("cmp")
+  local types = require("cmp.types")
+  local luasnip = require("luasnip")
+  local mapping = cmp.mapping
 
   cmp.setup({
     completion = {
@@ -87,14 +76,7 @@ function M.setup()
       { name = "buffer" },
       { name = "path" },
       { name = "luasnip" },
-      { name = "nvim_lua" }, -- cmp-nvim-lua
-      -- { name = "cmp_tabnine" }, -- cmp-tabnine
-      -- { name = "calc" }, -- cmp-calc
-      -- { name = "emoji" }, -- cmp-emoji
-      -- { name = "treesitter" }, -- cmp-treesitter
-      -- { name = "crates" }, -- crates.nvim: rust
-      -- { name = "tmux" }, -- cmp-tmux
-      -- { name = "copilot" }, -- cmp-copilot
+      { name = "nvim_lua" },
     },
     formatting = {
       fields = { "kind", "abbr", "menu" },
@@ -105,33 +87,33 @@ function M.setup()
         return vim_item
       end,
     },
-    mapping = cmp.mapping.preset.insert({
-      ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-      ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-Space>"] = cmp.mapping.complete(),
-      ["<C-e>"] = cmp.mapping.abort(),
-      ["<CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
-      ["<Tab>"] = function(fallback)
+    mapping = {
+      ["<C-d>"] = mapping(mapping.scroll_docs(4), { "i" }),
+      ["<C-u>"] = mapping(mapping.scroll_docs(-4), { "i" }),
+      ["<C-e>"] = mapping.abort(),
+      -- ["<C-Space>"] = cmp.mapping.complete(),
+      ["<CR>"] = mapping.confirm({ select = false }),
+      ["<Tab>"] = mapping(function(fallback)
         if cmp.visible() then
-          cmp.select_next_item()
+          cmp.select_next_item({ behavior = types.cmp.SelectBehavior.Select })
         elseif luasnip.expand_or_jumpable() then
-          feedkeys(snippet_next_keys, "")
+          luasnip.expand_or_jump()
         elseif check_backspace() then
-          feedkeys(backspace_keys, "n")
+          cmp.complete()
         else
           fallback()
         end
-      end,
-      ["<s-tab>"] = function(fallback)
+      end, { "i", "s" }),
+      ["<S-Tab>"] = mapping(function(fallback)
         if cmp.visible() then
-          cmp.select_prev_item()
+          cmp.select_prev_item({ behavior = types.cmp.SelectBehavior.Select })
         elseif luasnip.jumpable(-1) then
-          feedkeys(snippet_prev_keys, "")
+          luasnip.jump(-1)
         else
           fallback()
         end
-      end,
-    }),
+      end, { "i", "s" }),
+    },
   })
 end
 
