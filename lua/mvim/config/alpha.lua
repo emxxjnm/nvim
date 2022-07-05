@@ -20,13 +20,14 @@ function M.setup()
     [[                                                                            ]],
   }
 
+  local opts = { noremap = true, silent = true }
   dashboard.section.buttons.val = {
-    dashboard.button("n", "  New File", ":ene! <BAR> startinsert <CR>"),
-    dashboard.button("f", "  Find File", ":Telescope find_files <CR>"),
-    dashboard.button("p", "  Find Project", ":Telescope projects <CR>"),
-    dashboard.button("r", "  Recently Opened", ":Telescope oldfiles <CR>"),
-    dashboard.button("c", "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),
-    dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
+    dashboard.button("n", "  New File", ":ene! <BAR> startinsert <CR>", opts),
+    dashboard.button("f", "  Find File", ":Telescope find_files <CR>", opts),
+    dashboard.button("p", "  Find Project", ":Telescope projects <CR>", opts),
+    dashboard.button("r", "  Recently Opened", ":Telescope oldfiles <CR>", opts),
+    dashboard.button("c", "  Configuration", ":e ~/.config/nvim/init.lua <CR>", opts),
+    dashboard.button("q", "  Quit Neovim", ":qa<CR>", opts),
   }
 
   dashboard.section.footer.val = "Myles Mo"
