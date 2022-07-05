@@ -51,7 +51,6 @@ local duplicates = {
 
 function M.setup()
   local cmp = require("cmp")
-  local types = require("cmp.types")
   local luasnip = require("luasnip")
   local mapping = cmp.mapping
 
@@ -67,10 +66,10 @@ function M.setup()
         luasnip.lsp_expand(args.body)
       end,
     },
-    window = {
-      completion = cmp.config.window.bordered(),
-      documentation = cmp.config.window.bordered(),
-    },
+    -- window = {
+    --   completion = cmp.config.window.bordered(),
+    --   documentation = cmp.config.window.bordered(),
+    -- },
     sources = {
       { name = "nvim_lsp" },
       { name = "buffer" },
@@ -87,15 +86,15 @@ function M.setup()
         return vim_item
       end,
     },
-    mapping = {
-      ["<C-d>"] = mapping(mapping.scroll_docs(4), { "i" }),
-      ["<C-u>"] = mapping(mapping.scroll_docs(-4), { "i" }),
+    mapping = mapping.preset.insert({
+      ["<C-d>"] = mapping.scroll_docs(4),
+      ["<C-u>"] = mapping.scroll_docs(-4),
       ["<C-e>"] = mapping.abort(),
       -- ["<C-Space>"] = cmp.mapping.complete(),
-      ["<CR>"] = mapping.confirm({ select = false }),
-      ["<Tab>"] = mapping(function(fallback)
+      ["<CR>"] = mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
+      ["<Tab>"] = function(fallback)
         if cmp.visible() then
-          cmp.select_next_item({ behavior = types.cmp.SelectBehavior.Select })
+          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
         elseif luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
         elseif check_backspace() then
@@ -103,17 +102,17 @@ function M.setup()
         else
           fallback()
         end
-      end, { "i", "s" }),
-      ["<S-Tab>"] = mapping(function(fallback)
+      end,
+      ["<S-Tab>"] = function(fallback)
         if cmp.visible() then
-          cmp.select_prev_item({ behavior = types.cmp.SelectBehavior.Select })
+          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
         elseif luasnip.jumpable(-1) then
           luasnip.jump(-1)
         else
           fallback()
         end
-      end, { "i", "s" }),
-    },
+      end,
+    }),
   })
 end
 
