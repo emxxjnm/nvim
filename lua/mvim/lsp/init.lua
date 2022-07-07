@@ -87,8 +87,8 @@ local function buf_set_keymaps(bufnr)
   set_keymap("n", "<C-k>", lsp.buf.signature_help)
   set_keymap("i", "<C-k>", lsp.buf.signature_help)
 
-  -- set_keymap("n", "<C-,>", diagnostic.open_float)
-  -- set_keymap("i", "<C-,>", diagnostic.open_float)
+  set_keymap("n", "<C-,>", diagnostic.open_float)
+  set_keymap("i", "<C-,>", diagnostic.open_float)
 
   -- set_keymap("n", "<C-a>", helper.document_diagnostics)
   -- set_keymap("n", "<C-a>", helper.workspace_diagnostics)
@@ -136,7 +136,7 @@ function M.mvim_capabilities()
   return capabilities
 end
 
--- options
+---@return table
 function M.get_opts()
   return {
     on_attach = M.mvim_on_attach,

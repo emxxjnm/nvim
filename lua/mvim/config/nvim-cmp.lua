@@ -36,11 +36,11 @@ local kind_icons = {
 }
 
 local source_names = {
-  luasnip = "[Snippet]",
-  nvim_lsp = "[LSP]",
-  buffer = "[Buffer]",
-  path = "[Path]",
-  nvim_lua = "[NeoVim]",
+  luasnip = "(Snippet)",
+  nvim_lsp = "(LSP)",
+  buffer = "(Buffer)",
+  path = "(Path)",
+  nvim_lua = "(API)",
 }
 local duplicates = {
   buffer = 1,
@@ -66,10 +66,6 @@ function M.setup()
         luasnip.lsp_expand(args.body)
       end,
     },
-    -- window = {
-    --   completion = cmp.config.window.bordered(),
-    --   documentation = cmp.config.window.bordered(),
-    -- },
     sources = {
       { name = "nvim_lsp" },
       { name = "buffer" },

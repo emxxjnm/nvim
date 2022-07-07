@@ -1,5 +1,8 @@
 local M = {}
 
+---list providers
+---@param filetype string filetype
+---@return string[] providers null-ls providers
 function M.list_registered_providers_names(filetype)
   local sources = require("null-ls.sources")
   local available_sources = sources.get_available(filetype)
@@ -13,6 +16,9 @@ function M.list_registered_providers_names(filetype)
   return registered
 end
 
+---list registered formatters
+---@param filetype string filetype
+---@return string[] providers name of the providers
 function M.list_registered_formatters(filetype)
   local methods = require("null-ls.methods")
   local method = methods.internal["FORMATTING"]
@@ -20,6 +26,9 @@ function M.list_registered_formatters(filetype)
   return providers[method] or {}
 end
 
+---list registered linters
+---@param filetype string filetype
+---@return string[] providers name of the providers
 function M.list_registered_linters(filetype)
   local methods = require("null-ls.methods")
   local method = methods.internal["DIAGNOSTICS"]
@@ -27,6 +36,10 @@ function M.list_registered_linters(filetype)
   return providers[method] or {}
 end
 
+---register the null-ls
+---@param configs table null-ls config
+---@param method string null-ls method
+---@return string[] registered_names registered server's name
 function M.register_sources(configs, method)
   local null_ls = require("null-ls")
   local is_registered = require("null-ls.sources").is_registered
@@ -39,11 +52,7 @@ function M.register_sources(configs, method)
     local type = method == null_ls.methods.CODE_ACTION and "code_actions" or null_ls.methods[method]:lower()
     local source = type and null_ls.builtins[type][name]
 
-    if not source then
-      vim.notify("Not a valid source: " .. name, vim.log.levels.ERROR)
-    elseif is_registered({ name = source.name or name, method = method }) then
-      vim.notify("Source: " .. name .. "had registered.", vim.log.levels.INFO)
-    else
+    if source and not is_registered({ name = source.name or name, method = method }) then
       local command = source._opts.command
       local compat_opts = vim.deepcopy(config)
       if config.args then

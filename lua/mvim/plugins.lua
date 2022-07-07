@@ -196,7 +196,7 @@ return packer.startup(function(use)
           bind = true,
           fix_pos = true,
           handler_opts = {
-            border = "rounded",
+            border = "none",
           },
         })
       end,
@@ -204,7 +204,7 @@ return packer.startup(function(use)
     {
       "jose-elias-alvarez/null-ls.nvim",
       opt = true,
-      after = "nvim-lspconfig",
+      module = { "null-ls", "lsp" },
       config = function()
         require("mvim.lsp.extension").setup()
       end,
