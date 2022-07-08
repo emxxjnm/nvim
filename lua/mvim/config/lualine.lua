@@ -73,7 +73,7 @@ local treesitter = {
 
 local lsp = {
   function()
-    local buf_clients = vim.lsp.buf_get_clients(0)
+    local buf_clients = vim.lsp.buf_get_clients()
     if tbl_isempty(buf_clients) then
       return "LS Inactive"
     end

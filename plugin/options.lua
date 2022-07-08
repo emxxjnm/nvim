@@ -30,23 +30,24 @@ opt("wrap", false, window)
 opt("formatoptions", "1jcroql", buffer)
 opt("encoding", "utf-8")
 
-opt("laststatus", 2)
+opt("laststatus", 3)
 
 opt("foldlevel", 99, window)
 opt("foldmethod", "expr", window)
 opt("foldexpr", "nvim_treesitter#foldexpr()", window)
 
-opt("showcmd", false)
+-- opt("showcmd", false)
 opt("showmode", false)
-opt("showmatch", false)
+-- opt("showmatch", false)
 
 -- opt("autochdir", true)
 
+-- Don't mess with 'tabstop', with 'expandtab' it isn't used.
+-- Instead set softtabstop=-1, then 'shiftwidth' is used.
 opt("expandtab", true, buffer)
-opt("tabstop", 2, buffer)
-opt("softtabstop", 2, buffer)
+opt("softtabstop", -1, buffer)
 opt("shiftwidth", 2, buffer)
--- opt("smarttab", true)
+-- opt("tabstop", 2, buffer)
 
 -- opt("exrc", false)
 -- opt("secure", false)
@@ -109,3 +110,6 @@ opt("pumheight", 10)
 opt("shortmess", o.shortmess .. "c")
 
 opt("wildmenu", true)
+
+-- nvim
+opt("inccommand", "split")

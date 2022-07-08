@@ -94,7 +94,7 @@ local function buf_set_keymaps(bufnr)
   -- set_keymap("n", "<C-a>", helper.workspace_diagnostics)
 end
 
-function M.mvim_on_attach(client, bufnr)
+function M.common_on_attach(client, bufnr)
   api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
   buf_set_keymaps(bufnr)
@@ -113,11 +113,11 @@ function M.mvim_on_attach(client, bufnr)
   end
 end
 
-function M.mvim_on_init() end
+function M.common_on_init() end
 
-function M.mvim_on_exit() end
+function M.common_on_exit() end
 
-function M.mvim_capabilities()
+function M.common_capabilities()
   local capabilities = lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport = {
@@ -139,10 +139,10 @@ end
 ---@return table
 function M.get_opts()
   return {
-    on_attach = M.mvim_on_attach,
-    on_init = M.mvim_on_init,
-    on_exit = M.mvim_on_exit,
-    capabilities = M.mvim_capabilities(),
+    on_attach = M.common_on_attach,
+    on_init = M.common_on_init,
+    on_exit = M.common_on_exit,
+    capabilities = M.common_capabilities(),
   }
 end
 
@@ -154,11 +154,11 @@ function M.setup()
 
   util.on_setup = util.add_hook_after(util.on_setup, function(config)
     if config.on_attach then
-      config.on_attach = util.add_hook_after(config.on_attach, M.mvim_on_attach)
+      config.on_attach = util.add_hook_after(config.on_attach, M.common_on_attach)
     else
-      config.on_attach = M.mvim_on_attach
+      config.on_attach = M.common_on_attach
     end
-    config.capabilities = M.mvim_capabilities()
+    config.capabilities = M.common_capabilities()
   end)
 
   -- setup handlers

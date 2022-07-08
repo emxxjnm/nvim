@@ -1,9 +1,9 @@
 local M = {}
 
 local lsp = vim.lsp
-local fn = vim.fn
 local fmt = string.format
 local diagnostic = vim.diagnostic
+local sign_define = vim.fn.sign_define
 
 local icons = {
   error = "",
@@ -19,9 +19,10 @@ local config = {
   virtual_text = false,
   update_in_insert = true,
   float = {
+    header = "",
+    source = true,
     focusable = false,
-    style = "minimal",
-    border = "rounded",
+    -- border = "rounded",
     prefix = function(d, i)
       local level = diagnostic.severity[d.severity]
       local prefix = fmt("%d. %s ", i, icons[level:lower()])
@@ -31,7 +32,7 @@ local config = {
 }
 
 local function sign(name, icon)
-  fn.sign_define(name, { text = icon, texthl = name })
+  sign_define(name, { text = icon, texthl = name })
 end
 
 function M.setup()

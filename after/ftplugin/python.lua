@@ -1,9 +1,10 @@
 -- start lsp server
 require("mvim.lsp.manager").setup("pylsp")
 
-local null_ls = require("null-ls")
+-- options
+vim.api.nvim_set_option_value("shiftwidth", 4, { scope = "local" })
 
--- use ftplugin
+local null_ls = require("null-ls")
 local service = require("mvim.lsp.service")
 
 service.register_sources({
@@ -13,9 +14,3 @@ service.register_sources({
 service.register_sources({
   { command = "mypy" },
 }, null_ls.methods.DIAGNOSTICS)
-
--- options
-local opt = vim.api.nvim_set_option_value
-opt("tabstop", 4, { scope = "local" })
-opt("shiftwidth", 4, { scope = "local" })
-opt("softtabstop", 4, { scope = "local" })
