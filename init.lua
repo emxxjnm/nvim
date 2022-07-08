@@ -28,16 +28,27 @@ g.maplocalleader = " "
 -- Disable some built-in plugins we don't want
 local plugins = {
   "gzip",
-  "netrw",
-  "netrwPlugin",
-  "matchparen",
-  "tar",
-  "tarPlugin",
   "zip",
   "zipPlugin",
-  "matchit",
-  "man",
+  "tar",
+  "tarPlugin",
+
+  "getscript",
+  "getscriptPlugin",
+  "vimball",
+  "vimballPlugin",
   "2html_plugin",
+
+  "matchit",
+  "matchparen",
+  "logiPat",
+  "rrhelper",
+
+  "netrw",
+  "netrwPlugin",
+  "netrwSettings",
+
+  "man",
   "tutor_mode_plugin",
 }
 for i = 1, #plugins do
