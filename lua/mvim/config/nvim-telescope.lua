@@ -27,7 +27,7 @@ function M.setup()
         },
         vertical = {
           preview_cutoff = 120,
-          preview_height = 0.65,
+          preview_height = 0.7,
         },
       },
       path_display = {
@@ -56,9 +56,6 @@ function M.setup()
       },
     },
     extensions = {
-      project = {
-        hidden_files = false,
-      },
       fzf = {
         fuzzy = true,
         override_generic_sorter = true,
