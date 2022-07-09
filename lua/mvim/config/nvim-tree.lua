@@ -153,7 +153,7 @@ function M.setup()
       },
       expand_all = {
         max_folder_discovery = 100,
-        exclude = { ".git" },
+        exclude = { ".git", "nodo_modules", "migrations" },
       },
       open_file = {
         quit_on_open = true,
