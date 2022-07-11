@@ -88,11 +88,11 @@ local lsp = {
       end
     end
 
-    local service = require("mvim.lsp.service")
-    local formatters = service.list_registered_formatters(buf_ft)
+    local utils = require("mvim.lsp.utils")
+    local formatters = utils.list_registered_formatters(buf_ft)
     list_extend(buf_client_names, formatters)
 
-    local linters = service.list_registered_linters(buf_ft)
+    local linters = utils.list_registered_linters(buf_ft)
     list_extend(buf_client_names, linters)
 
     local clients = fn.uniq(buf_client_names)

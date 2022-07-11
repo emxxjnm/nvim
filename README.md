@@ -7,29 +7,24 @@
 ## TODO
 
 - [ ] install script
-- [ ] null-ls/lspconfig lazy load
+- [ ] null-ls/lspconfig config
 
 ### Configuration
 
-- [ ] alpha
+- [x] alpha
 - [x] bufferline
 - [x] catppuccin
-- [ ] diffview
-- [x] filetype
-- [ ] gitsigns
+- [x] gitsigns
 - [x] hop
-- [ ] indent-blankline
+- [x] indent-blankline
 - [x] lualine
-- [ ] neogit
-- [ ] nvim-autopairs
-- [ ] nvim-notify
+- [x] nvim-autopairs
 - [x] nvim-tree
-- [ ] nvim-treesitter
+- [x] nvim-treesitter
 - [x] project
-- [ ] telescope
-- [ ] toggleterm
-- [ ] trouble
-- [ ] null-ls: setup server via ftplugin
+- [x] telescope
+- [x] toggleterm
+- [x] null-ls: setup server via ftplugin
 
 ## ⚙️ Install
 
@@ -41,6 +36,7 @@ create directories `swap`, `backup` and `undo` in vim cache directory.
 
 - [ ] rgrep
 - [ ] fd
+- [ ] lazygit
 
 ## ⌨️  keymaps
 

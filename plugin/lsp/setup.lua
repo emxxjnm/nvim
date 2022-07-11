@@ -1,12 +1,23 @@
+local null_ls = require("null-ls")
 local utils = require("mvim.lsp.utils")
 local helper = require("mvim.lsp.helper")
-
-local M = {}
 
 local api = vim.api
 local lsp = vim.lsp
 local keymap = vim.keymap
 local diagnostic = vim.diagnostic
+
+require("lsp_signature").setup({
+  bind = true,
+  fix_pos = true,
+  handler_opts = {
+    border = "none",
+  },
+})
+
+require("nvim-lsp-installer").setup({
+  automatic_installation = true,
+})
 
 local function highlight_references()
   local ts_utils_ok, ts_utils = pcall(require, "nvim-treesitter.ts_utils")
@@ -89,12 +100,9 @@ local function buf_set_keymaps(bufnr)
 
   set_keymap("n", "<C-,>", diagnostic.open_float)
   set_keymap("i", "<C-,>", diagnostic.open_float)
-
-  -- set_keymap("n", "<C-a>", helper.document_diagnostics)
-  -- set_keymap("n", "<C-a>", helper.workspace_diagnostics)
 end
 
-function M.common_on_attach(client, bufnr)
+local function common_on_attach(client, bufnr)
   api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
   buf_set_keymaps(bufnr)
@@ -113,11 +121,7 @@ function M.common_on_attach(client, bufnr)
   end
 end
 
-function M.common_on_init() end
-
-function M.common_on_exit() end
-
-function M.common_capabilities()
+local function common_capabilities()
   local capabilities = lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport = {
@@ -136,33 +140,46 @@ function M.common_capabilities()
   return capabilities
 end
 
----@return table
-function M.get_opts()
-  return {
-    on_attach = M.common_on_attach,
-    on_init = M.common_on_init,
-    on_exit = M.common_on_exit,
-    capabilities = M.common_capabilities(),
-  }
+local servers = {
+  "bashls",
+  "dockerls",
+  "eslint",
+  "gopls",
+  "jsonls",
+  "pylsp",
+  "sqls",
+  "stylelint_lsp",
+  "sumneko_lua",
+  -- "tailwindcss",
+  "tsserver",
+  "vimls",
+  "volar",
+  "yamlls",
+}
+
+for _, server in ipairs(servers) do
+  require("mvim.lsp.manager").setup(server, {
+    on_attach = common_on_attach,
+    capabilities = common_capabilities(),
+  })
 end
 
-function M.setup()
-  local ok, util = pcall(require, "lspconfig.util")
-  if not ok then
-    return
-  end
+null_ls.setup({
+  sources = {
+    -- lua
+    null_ls.builtins.formatting.stylua,
+    null_ls.builtins.diagnostics.luacheck,
 
-  util.on_setup = util.add_hook_after(util.on_setup, function(config)
-    if config.on_attach then
-      config.on_attach = util.add_hook_after(config.on_attach, M.common_on_attach)
-    else
-      config.on_attach = M.common_on_attach
-    end
-    config.capabilities = M.common_capabilities()
-  end)
+    -- python
+    null_ls.builtins.formatting.isort,
+    null_ls.builtins.diagnostics.mypy,
 
-  -- setup handlers
-  require("mvim.lsp.handlers").setup()
-end
+    -- shell
+    -- null_ls.builtins.diagnostics.shellcheck,
 
-return M
+    -- markdown
+    null_ls.builtins.formatting.markdownlint,
+    null_ls.builtins.diagnostics.markdownlint,
+  },
+  on_attach = common_on_attach,
+})

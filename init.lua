@@ -10,9 +10,9 @@
 --              https://github.con/emxxjnm/nvim                    --
 ---------------------------------------------------------------------
 
--- if not pcall(require, "impatient") then
---   print("Failed to load impatient.")
--- end
+if not pcall(require, "impatient") then
+  print("Failed to load impatient.")
+end
 
 local g = vim.g
 
@@ -21,9 +21,6 @@ g.did_load_filetypes = 0
 
 g.mapleader = " "
 g.maplocalleader = " "
-
--- skip some remote provder loading
--- g.loaded_python_provider = 0
 
 -- Disable some built-in plugins we don't want
 local plugins = {

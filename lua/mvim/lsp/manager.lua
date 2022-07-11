@@ -4,13 +4,8 @@ local lsp_utils = require("mvim.lsp.utils")
 
 -- resolve the configuration
 local function resolve_config(name, ...)
-  local defaults = require("mvim.lsp").get_opts()
-
   local has_provider, cfg = pcall(require, "mvim.lsp.providers." .. name)
-  if has_provider then
-    defaults = vim.tbl_deep_extend("force", defaults, cfg)
-  end
-
+  local defaults = has_provider and cfg or {}
   defaults = vim.tbl_deep_extend("force", defaults, ...)
 
   return defaults
@@ -35,7 +30,7 @@ function M.setup(name, config)
   vim.validate({ name = { name, "string" } })
   config = config or {}
 
-  if lsp_utils.is_client_active(name) or lsp_utils.client_is_configured(name) then
+  if lsp_utils.is_client_active(name) then
     return
   end
 

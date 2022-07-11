@@ -1,5 +1,3 @@
-local M = {}
-
 local lsp = vim.lsp
 local fmt = string.format
 local diagnostic = vim.diagnostic
@@ -35,17 +33,13 @@ local function sign(name, icon)
   sign_define(name, { text = icon, texthl = name })
 end
 
-function M.setup()
-  sign("DiagnosticSignHint", icons.hint)
-  sign("DiagnosticSignInfo", icons.info)
-  sign("DiagnosticSignWarn", icons.warn)
-  sign("DiagnosticSignError", icons.error)
+sign("DiagnosticSignHint", icons.hint)
+sign("DiagnosticSignInfo", icons.info)
+sign("DiagnosticSignWarn", icons.warn)
+sign("DiagnosticSignError", icons.error)
 
-  diagnostic.config(config)
+diagnostic.config(config)
 
-  lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, {
-    border = "rounded",
-  })
-end
-
-return M
+lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, {
+  border = "rounded",
+})

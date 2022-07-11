@@ -58,8 +58,6 @@ return packer.startup(function(use)
   -- welcome page
   use({
     "goolord/alpha-nvim",
-    opt = true,
-    event = "BufWinEnter",
     config = function()
       require("mvim.config.alpha").setup()
     end,
@@ -68,13 +66,6 @@ return packer.startup(function(use)
   -- file explorer
   use({
     "kyazdani42/nvim-tree.lua",
-    opt = true,
-    cmd = {
-      "NvimTreeToggle",
-      "NvimTreeFocus",
-      "NvimTreeFindFile",
-      "NvimTreeFindFileToggle",
-    },
     config = function()
       require("mvim.config.nvim-tree").setup()
     end,
@@ -84,9 +75,6 @@ return packer.startup(function(use)
   use({
     {
       "nvim-telescope/telescope.nvim",
-      opt = true,
-      cmd = "Telescope",
-      module = "telescope",
       config = function()
         require("mvim.config.nvim-telescope").setup()
       end,
@@ -94,7 +82,6 @@ return packer.startup(function(use)
     {
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "make",
-      opt = true,
       after = "telescope.nvim",
       config = function()
         require("telescope").load_extension("fzf")
@@ -102,7 +89,6 @@ return packer.startup(function(use)
     },
     {
       "nvim-telescope/telescope-live-grep-args.nvim",
-      opt = true,
       after = "telescope.nvim",
       config = function()
         require("telescope").load_extension("live_grep_args")
@@ -110,7 +96,6 @@ return packer.startup(function(use)
     },
     {
       "ahmedkhalf/project.nvim",
-      opt = true,
       after = "telescope.nvim",
       config = function()
         require("mvim.config.project").setup()
@@ -122,27 +107,17 @@ return packer.startup(function(use)
   use({
     {
       "nvim-treesitter/nvim-treesitter",
-      opt = true,
-      event = "BufRead",
       run = ":TSUpdate",
       config = function()
         require("mvim.config.nvim-treesitter").setup()
       end,
     },
     {
-      "nvim-treesitter/playground",
-      opt = true,
-      cmd = "TSPlaygroundToggle",
-      after = "nvim-treesitter",
-    },
-    {
       "nvim-treesitter/nvim-treesitter-textobjects",
-      opt = true,
       after = "nvim-treesitter",
     },
     {
       "andymass/vim-matchup",
-      opt = true,
       after = "nvim-treesitter",
       config = function()
         vim.g.matchup_matchparen_offscreen = {
@@ -154,12 +129,10 @@ return packer.startup(function(use)
     },
     {
       "windwp/nvim-ts-autotag",
-      opt = true,
       after = "nvim-treesitter",
     },
     {
       "windwp/nvim-autopairs",
-      opt = true,
       after = "nvim-treesitter",
       config = function()
         require("mvim.config.nvim-autopairs").setup()
@@ -169,53 +142,12 @@ return packer.startup(function(use)
 
   -- lsp
   use({
-    {
-      "williamboman/nvim-lsp-installer",
-    },
-    {
-      "neovim/nvim-lspconfig",
-      opt = true,
-      module = { "lsp", "lspconfig" },
-      after = "nvim-lsp-installer",
-      config = function()
-        require("mvim.lsp").setup()
-      end,
-    },
-    {
-      "ray-x/lsp_signature.nvim",
-      opt = true,
-      after = "nvim-lspconfig",
-      config = function()
-        require("lsp_signature").setup({
-          bind = true,
-          fix_pos = true,
-          handler_opts = {
-            border = "none",
-          },
-        })
-      end,
-    },
-    {
-      "jose-elias-alvarez/null-ls.nvim",
-      opt = true,
-      module = { "null-ls", "lsp" },
-      config = function()
-        require("mvim.lsp.extension").setup()
-      end,
-    },
-  })
-
-  use({
-    {
-      "folke/lua-dev.nvim",
-      opt = true,
-      module = "lua-dev",
-    },
-    {
-      "b0o/SchemaStore.nvim",
-      opt = true,
-      module = "schemastore",
-    },
+    "williamboman/nvim-lsp-installer",
+    "neovim/nvim-lspconfig",
+    "ray-x/lsp_signature.nvim",
+    "jose-elias-alvarez/null-ls.nvim",
+    "folke/lua-dev.nvim",
+    "b0o/SchemaStore.nvim",
   })
 
   -- cmp
@@ -225,7 +157,6 @@ return packer.startup(function(use)
       config = function()
         require("mvim.config.nvim-cmp").setup()
       end,
-      event = "InsertEnter *",
       requires = {
         {
           "L3MON4D3/LuaSnip",
@@ -242,22 +173,18 @@ return packer.startup(function(use)
     },
     {
       "saadparwaiz1/cmp_luasnip",
-      opt = true,
       after = { "nvim-cmp", "LuaSnip" },
     },
     {
       "hrsh7th/cmp-buffer",
-      opt = true,
       after = "nvim-cmp",
     },
     {
       "hrsh7th/cmp-path",
-      opt = true,
       after = "nvim-cmp",
     },
     {
       "hrsh7th/cmp-nvim-lua",
-      opt = true,
       after = "nvim-cmp",
     },
   })
@@ -265,8 +192,6 @@ return packer.startup(function(use)
   -- comment
   use({
     "numToStr/Comment.nvim",
-    opt = true,
-    event = "BufRead",
     config = function()
       require("Comment").setup()
     end,
@@ -276,14 +201,12 @@ return packer.startup(function(use)
   use({
     {
       "dhruvasagar/vim-table-mode",
-      opt = true,
       cmd = { "TableModeToggle" },
       ft = { "markdown" },
     },
     {
       "iamcco/markdown-preview.nvim",
       run = "cd app && npm install",
-      opt = true,
       ft = { "markdown" },
       cmd = { "MarkdownPreview", "MarkdownPreviewToggle" },
     },
@@ -317,23 +240,14 @@ return packer.startup(function(use)
     },
   })
 
-  use({
-    "tpope/vim-surround",
-    opt = true,
-    event = "BufReadPost",
-  })
+  use("tpope/vim-surround")
 
   -- undo history
-  use({
-    "mbbill/undotree",
-    opt = true,
-    event = "BufRead",
-  })
+  use("mbbill/undotree")
 
   -- git
   use({
     "lewis6991/gitsigns.nvim",
-    event = "BufRead",
     config = function()
       require("mvim.config.gitsigns").setup()
     end,
@@ -351,9 +265,6 @@ return packer.startup(function(use)
   -- termnail
   use({
     "akinsho/toggleterm.nvim",
-    opt = true,
-    module = "toggleterm",
-    cmd = { "ToggleTerm", "TermExec" },
     config = function()
       require("mvim.config.toggleterm").setup()
     end,
@@ -362,9 +273,7 @@ return packer.startup(function(use)
   -- status line
   use({
     "nvim-lualine/lualine.nvim",
-    opt = true,
     after = "catppuccin",
-    event = "BufRead",
     config = function()
       require("mvim.config.lualine").setup()
     end,
@@ -373,9 +282,6 @@ return packer.startup(function(use)
   -- tab
   use({
     "akinsho/bufferline.nvim",
-    tag = "*",
-    opt = true,
-    event = "BufRead",
     config = function()
       require("mvim.config.bufferline").setup()
     end,
@@ -384,7 +290,6 @@ return packer.startup(function(use)
   -- highlight color
   use({
     "norcalli/nvim-colorizer.lua",
-    opt = true,
     ft = {
       "css",
       "less",
@@ -410,26 +315,6 @@ return packer.startup(function(use)
   -- like easymotion, but more powerful
   use({
     "phaazon/hop.nvim",
-    opt = true,
-    cmd = {
-      "HopWord",
-      "HopWordAC",
-      "HopWordBC",
-      "HopLine",
-      "HopChar1",
-      "HopChar1AC",
-      "HopChar1BC",
-      "HopChar2",
-      "HopChar2AC",
-      "HopChar2BC",
-      "HopPattern",
-      "HopPatternAC",
-      "HopPatternBC",
-      "HopChar1CurrentLineAC",
-      "HopChar1CurrentLineBC",
-      "HopChar1CurrentLine",
-    },
-    branch = "v1",
     config = function()
       require("hop").setup()
     end,
@@ -437,8 +322,6 @@ return packer.startup(function(use)
 
   use({
     "lukas-reineke/indent-blankline.nvim",
-    opt = true,
-    event = "BufRead",
     config = function()
       require("indent_blankline").setup({
         show_current_context = true,
@@ -447,26 +330,11 @@ return packer.startup(function(use)
     end,
   })
 
-  -- outline
-  use({
-    "stevearc/aerial.nvim",
-    opt = true,
-    cmd = { "AerialToggle", "AerialOpen" },
-    config = function()
-      require("aerial").setup()
-    end,
-  })
-
   -- Misc
   use({
     "dstein64/vim-startuptime",
     opt = true,
     cmd = { "StartupTime" },
-  })
-
-  use({
-    "wakatime/vim-wakatime",
-    disable = true,
   })
 
   -- Automatically set up your configuration after cloning packer.nvim
