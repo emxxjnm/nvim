@@ -55,12 +55,6 @@ return packer.startup(function(use)
     end,
   })
 
-  use({
-    "folke/lua-dev.nvim",
-    opt = true,
-    module = "lua-dev",
-  })
-
   -- welcome page
   use({
     "goolord/alpha-nvim",
@@ -181,7 +175,7 @@ return packer.startup(function(use)
     {
       "neovim/nvim-lspconfig",
       opt = true,
-      module = "lsp",
+      module = { "lsp", "lspconfig" },
       after = "nvim-lsp-installer",
       config = function()
         require("mvim.lsp").setup()
@@ -208,6 +202,19 @@ return packer.startup(function(use)
       config = function()
         require("mvim.lsp.extension").setup()
       end,
+    },
+  })
+
+  use({
+    {
+      "folke/lua-dev.nvim",
+      opt = true,
+      module = "lua-dev",
+    },
+    {
+      "b0o/SchemaStore.nvim",
+      opt = true,
+      module = "schemastore",
     },
   })
 
@@ -325,36 +332,14 @@ return packer.startup(function(use)
 
   -- git
   use({
-    {
-      "lewis6991/gitsigns.nvim",
-      tag = "release", -- To use the latest release
-      event = "BufRead",
-      config = function()
-        require("mvim.config.gitsigns").setup()
-      end,
-    },
-    {
-      "sindrets/diffview.nvim",
-      opt = true,
-      cmd = {
-        "DiffviewOpen",
-        "DiffviewRefresh",
-        "DiffviewFocusFiles",
-        "DiffviewToggleFiles",
-        "DiffviewFileHistory",
-      },
-      config = function()
-        require("mvim.config.diffview").setup()
-      end,
-    },
-    {
-      "TimUntersberger/neogit",
-      opt = true,
-      cmd = "Neogit",
-      config = [[require("mvim.config.neogit")]],
-    },
+    "lewis6991/gitsigns.nvim",
+    event = "BufRead",
+    config = function()
+      require("mvim.config.gitsigns").setup()
+    end,
   })
 
+  -- schemea/theme
   use({
     "catppuccin/nvim",
     as = "catppuccin",
