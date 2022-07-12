@@ -4,10 +4,10 @@ local diagnostic = vim.diagnostic
 local sign_define = vim.fn.sign_define
 
 local icons = {
-  error = "",
-  warn = "",
+  error = "",
+  warn = "",
+  info = "",
   hint = "",
-  info = "",
 }
 
 local config = {

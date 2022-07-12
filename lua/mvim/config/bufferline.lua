@@ -21,18 +21,16 @@ function M.setup()
       tab_size = 7,
       diagnostics = "nvim_lsp",
       diagnostics_update_in_insert = false,
-      diagnostics_indicator = function(_, _, diagnostics_dict)
-        local s = " "
-        local diagnostics_signs = {
-          error = "",
-          warning = "",
-          default = "",
-        }
-        for e, n in pairs(diagnostics_dict) do
-          local sym = diagnostics_signs[e] or diagnostics_signs.default
-          s = s .. (#s > 1 and " " or "") .. sym .. " " .. n
+      diagnostics_indicator = function(_, _, diagnostics)
+        local symbols = { error = " ", warning = " ", info = " " }
+        local result = {}
+        for name, count in pairs(diagnostics) do
+          if symbols[name] and count > 0 then
+            table.insert(result, symbols[name] .. count)
+          end
         end
-        return s
+        result = table.concat(result, " ")
+        return #result > 0 and result or ""
       end,
       -- custom_filter = function(buf_number)
       --   if vim.bo[buf_number].filetype ~= "dap-repl" then
