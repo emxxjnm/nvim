@@ -7,14 +7,6 @@ local lsp = vim.lsp
 local keymap = vim.keymap
 local diagnostic = vim.diagnostic
 
-require("lsp_signature").setup({
-  bind = true,
-  fix_pos = true,
-  handler_opts = {
-    border = "none",
-  },
-})
-
 require("nvim-lsp-installer").setup({
   automatic_installation = true,
 })
@@ -163,6 +155,13 @@ for _, server in ipairs(servers) do
     capabilities = common_capabilities(),
   })
 end
+
+require("lsp_signature").setup({
+  bind = true,
+  fix_pos = true,
+  hint_scheme = "Comment",
+  handler_opts = { border = "none" },
+})
 
 null_ls.setup({
   sources = {

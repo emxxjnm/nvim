@@ -48,13 +48,9 @@ function M.setup()
         enabled = true,
         colored_indent_levels = false,
       },
-      dashboard = false,
-      neogit = true,
       bufferline = true,
       markdown = true,
       hop = true,
-      notify = false,
-      symbols_outline = false,
     },
   })
 
