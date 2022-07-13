@@ -8,7 +8,7 @@ function M.setup()
       comments = "italic",
       conditionals = "italic",
       loops = "NONE",
-      functions = "italic,bold",
+      functions = { "italic", "bold" },
       keywords = "bold",
       strings = "NONE",
       variables = "NONE",
