@@ -13,20 +13,19 @@ local config = {
   layouts = {
     {
       elements = {
-        { id = "scopes", size = 0.25 },
+        "scopes",
         "breakpoints",
         "stacks",
         "watches",
       },
-      size = 40,
+      size = 0.3,
       position = "right",
     },
     {
       elements = {
         "repl",
-        -- "console",
       },
-      size = 10,
+      size = 12,
       position = "bottom",
     },
   },
@@ -34,7 +33,7 @@ local config = {
   floating = {
     max_height = nil,
     max_width = nil,
-    border = "single",
+    border = "none",
     mappings = {
       close = { "q", "<Esc>" },
     },
@@ -46,38 +45,34 @@ local config = {
 }
 
 function M.setup()
-  local ui_ok, dapui = pcall(require, "dapui")
-  if not ui_ok then
-    return
-  end
+  local dap = require("dap")
+  local dapui = require("dapui")
 
   dapui.setup(config)
 
-  local dap_ok, dap = pcall(require, "dap")
-  if not dap_ok then
-    return
-  end
-
-  dap.listeners.after["event_initialized"]["dapui_config"] = function()
+  dap.listeners.after.event_initialized["dapui_config"] = function()
     local breakpoints = require("dap.breakpoints").get()
     if vim.tbl_isempty(breakpoints) then
-      dap.repl.open({ height = 10 })
+      dap.repl.open({ height = 12 })
     else
-      dapui.open()
+      dapui.open({})
     end
   end
-  dap.listeners.before["event_stopped"]["dapui_config"] = function(_, body)
+
+  dap.listeners.before.event_stopped["dapui_config"] = function(_, body)
     if body.reason == "breakpoint" then
-      dapui.open()
+      dapui.open({})
     end
   end
-  dap.listeners.before["event_terminated"]["dapui_config"] = function()
+
+  dap.listeners.before.event_terminated["dapui_config"] = function()
     dap.repl.close()
-    dapui.close()
+    dapui.close({})
   end
-  dap.listeners.before["event_exited"]["dapui_config"] = function()
+
+  dap.listeners.before.event_exited["dapui_config"] = function()
     dap.repl.close()
-    dapui.close()
+    dapui.close({})
   end
 end
 

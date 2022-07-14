@@ -5,22 +5,16 @@ function M.setup()
   local sign_define = vim.fn.sign_define
 
   sign_define("DapBreakpoint", {
-    text = " ",
-    texthl = "LspDiagnosticsSignError",
+    text = "",
+    texthl = "DiagnosticSignError",
     linehl = "",
     numhl = "",
   })
   sign_define("DapStopped", {
-    text = " ",
-    texthl = "LspDiagnosticsSignInformation",
-    linehl = "DiagnosticUnderlineInfo",
-    numhl = "LspDiagnosticsSignInformation",
-  })
-  sign_define("DapBreakpointRejected", {
-    text = " ",
-    texthl = "LspDiagnosticsSignHint",
+    text = "",
+    texthl = "DiagnosticSignInfo",
     linehl = "",
-    numhl = "",
+    numhl = "DiagnosticSignInfo",
   })
 
   dap.adapters.python = {

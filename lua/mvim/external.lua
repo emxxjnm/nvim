@@ -1,11 +1,14 @@
 local M = {}
 
+local fn = vim.fn
+local api = vim.api
+
 local Terminal = require("toggleterm.terminal").Terminal
 
 local function float_handler(term)
-  if vim.fn.mapcheck("jj", "t") ~= "" then
-    vim.api.nvim_buf_del_keymap(term.bufnr, "t", "jj")
-    vim.api.nvim_buf_del_keymap(term.bufnr, "t", "<Esc>")
+  if fn.mapcheck("jj", "t") ~= "" then
+    api.nvim_buf_del_keymap(term.bufnr, "t", "jj")
+    api.nvim_buf_del_keymap(term.bufnr, "t", "<Esc>")
   end
 end
 
