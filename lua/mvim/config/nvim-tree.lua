@@ -123,10 +123,10 @@ function M.setup()
       enable = false,
       show_on_dirs = false,
       icons = {
-        hint = "",
-        info = "",
-        warning = "",
-        error = "",
+        error = "",
+        warning = "",
+        info = "",
+        hint = "",
       },
     },
     filters = {
@@ -135,8 +135,8 @@ function M.setup()
       exclude = { ".vscode" },
     },
     filesystem_watchers = {
-      enable = false,
-      interval = 100,
+      enable = true,
+      interval = 300,
     },
     git = {
       enable = true,
