@@ -4,8 +4,13 @@ local lsp_utils = require("mvim.lsp.utils")
 
 -- resolve the configuration
 local function resolve_config(name, ...)
+  local defaults = require("mvim.lsp.config").get_common_opts()
+
   local has_provider, cfg = pcall(require, "mvim.lsp.providers." .. name)
-  local defaults = has_provider and cfg or {}
+  if has_provider then
+    defaults = vim.tbl_deep_extend("force", defaults, cfg) or {}
+  end
+
   defaults = vim.tbl_deep_extend("force", defaults, ...) or {}
 
   return defaults

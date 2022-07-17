@@ -20,7 +20,7 @@ local servers = {
 }
 
 for _, server in ipairs(servers) do
-  require("mvim.lsp.manager").setup(server, require("mvim.lsp.config").get_common_opts())
+  require("mvim.lsp.manager").setup(server)
 end
 
 require("lsp_signature").setup({
