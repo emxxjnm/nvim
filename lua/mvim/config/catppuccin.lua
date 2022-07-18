@@ -63,7 +63,6 @@ function M.setup()
       },
       bufferline = true,
       hop = true,
-      notify = true,
       symbols_outline = false,
     },
   })

@@ -17,6 +17,7 @@ null_ls.setup(vim.tbl_deep_extend("force", default_opts, {
 
     -- shell
     -- null_ls.builtins.diagnostics.shellcheck,
+    null_ls.builtins.formatting.shfmt,
 
     -- markdown
     null_ls.builtins.formatting.markdownlint,

@@ -1,7 +1,7 @@
 local fn = vim.fn
 local cmd = vim.cmd
 
-local PACKER_BOOTSTRAP = false
+local PACKER_BOOTSTRAP
 
 -- Automatically install packer
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
@@ -43,18 +43,6 @@ return packer.startup(function(use)
   use("nvim-lua/plenary.nvim")
 
   use("kyazdani42/nvim-web-devicons")
-
-  use({
-    "rcarriga/nvim-notify",
-    -- disable = true,
-    config = function()
-      require("notify").setup({
-        background_colour = "Normal",
-        stages = "slide",
-      })
-      vim.notify = require("notify")
-    end,
-  })
 
   -- welcome page
   use({
@@ -299,15 +287,6 @@ return packer.startup(function(use)
   -- highlight color
   use({
     "norcalli/nvim-colorizer.lua",
-    ft = {
-      "css",
-      "less",
-      "scss",
-      "javascript",
-      "typescript",
-      "html",
-      "vue",
-    },
     config = function()
       require("colorizer").setup({
         "css",

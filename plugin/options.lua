@@ -5,6 +5,10 @@ local buffer = { o, bo }
 local window = { o, wo }
 local global = { o }
 
+local undo_dir = stdpath("cache") .. "/undo"
+local swap_dir = stdpath("cache") .. "/swap"
+local backup_dir = stdpath("cache") .. "/backup"
+
 local function opt(option, value, scopes)
   scopes = scopes or global
   for _, s in ipairs(scopes) do
@@ -86,15 +90,15 @@ opt("visualbell", true)
 opt("signcolumn", "yes", window)
 
 opt("swapfile", true)
-opt("directory", stdpath("cache") .. "/swap")
+opt("directory", swap_dir)
 
 opt("backup", true)
 opt("writebackup", false)
-opt("backupdir", stdpath("cache") .. "/backup")
+opt("backupdir", backup_dir)
 opt("backupskip", "/tmp/*,$TMPDIR/*,$TMP/*,$TEMP/*,*/shm/*,/private/var/*,.vault.vim")
 
 opt("undofile", true, buffer)
-opt("undodir", stdpath("cache") .. "/undo")
+opt("undodir", undo_dir)
 
 -- opt("spellfile", const.spell_path, "en.utf-8.add")
 
