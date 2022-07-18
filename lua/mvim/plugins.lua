@@ -26,6 +26,7 @@ end
 
 -- Have packer use a popup window
 packer.init({
+  auto_reload_compiled = true,
   display = {
     -- open_fn = function()
     --   return require("packer.util").float { border = "rounded" }
@@ -76,7 +77,7 @@ return packer.startup(function(use)
     {
       "nvim-telescope/telescope.nvim",
       config = function()
-        require("mvim.config.nvim-telescope").setup()
+        require("mvim.config.telescope").setup()
       end,
     },
     {
@@ -264,8 +265,9 @@ return packer.startup(function(use)
   use({
     "catppuccin/nvim",
     as = "catppuccin",
+    run = "CatppuccinCompile",
     config = function()
-      require("mvim.config.nvim-catppuccin").setup()
+      require("mvim.config.catppuccin").setup()
     end,
   })
 

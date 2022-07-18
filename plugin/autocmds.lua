@@ -41,6 +41,28 @@ augroup("AutoSyncPlugins", {
   },
 })
 
+augroup("CatppuccinAutoCompile", {
+  {
+    event = "User",
+    pattern = "PackerCompileDone",
+    command = function()
+      cmd("CatppuccinCompile")
+      vim.defer_fn(function()
+        vim.cmd("colorscheme catppuccin")
+      end, 50)
+    end,
+    desc = "Auto run command CatppuccinCompile every time packer is compiled.",
+  },
+  {
+    event = "BufWritePost",
+    pattern = { "catppuccin.lua" },
+    command = function()
+      cmd("CatppuccinCompile")
+    end,
+    desc = "Auto run command CatppuccinCompile when catppuccin config file is saved.",
+  },
+})
+
 augroup("PlaceLastEdit", {
   {
     event = "BufReadPost",
