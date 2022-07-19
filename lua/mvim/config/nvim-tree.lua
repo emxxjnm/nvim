@@ -19,7 +19,7 @@ function M.setup()
       "pyproject.toml",
     },
     prefer_startup_root = true,
-    update_cwd = false,
+    sync_root_with_cwd = false,
     reload_on_bufenter = false,
     respect_buf_cwd = false,
     view = {
@@ -36,7 +36,6 @@ function M.setup()
       mappings = {
         custom_only = false,
         list = {
-          -- user mappings go here
           { key = { "l", "<CR>", "o" }, action = "edit" },
           { key = { "h" }, action = "close_node" },
           { key = "v", action = "vsplit" },
@@ -103,6 +102,7 @@ function M.setup()
         "readme.md",
         "package.json",
       },
+      symlink_destination = true,
     },
     hijack_directories = {
       enable = true,
@@ -136,7 +136,7 @@ function M.setup()
     },
     filesystem_watchers = {
       enable = true,
-      interval = 300,
+      debounce_delay = 100,
     },
     git = {
       enable = true,
@@ -193,6 +193,7 @@ function M.setup()
         all = false,
         config = false,
         copy_paste = false,
+        dev = false,
         diagnostics = false,
         git = false,
         profile = false,
