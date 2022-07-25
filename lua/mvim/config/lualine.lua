@@ -34,7 +34,6 @@ local mode = {
 
 local branch = {
   "branch",
-  separator = { right = "" },
   color = { gui = "bold" },
 }
 
@@ -110,7 +109,7 @@ local diff = {
 
 local location = {
   "location",
-  separator = { left = "" },
+  color = { gui = "bold" },
 }
 
 local progress = function()

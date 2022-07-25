@@ -7,7 +7,7 @@
 --   `--'   `--'.-'  /   `--' `----'`----'     `--'   `--' `---'   --
 --              `---'                                              --
 --                                                                 --
---              https://github.con/emxxjnm/nvim                    --
+--              https://github.com/emxxjnm/nvim                    --
 ---------------------------------------------------------------------
 
 if not pcall(require, "impatient") then

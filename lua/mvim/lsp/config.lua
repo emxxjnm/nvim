@@ -86,9 +86,6 @@ local function buf_set_keymaps(bufnr)
   set_keymap("n", "K", lsp.buf.hover)
   set_keymap("n", "<C-k>", lsp.buf.signature_help)
   set_keymap("i", "<C-k>", lsp.buf.signature_help)
-
-  set_keymap("n", "<C-,>", diagnostic.open_float)
-  set_keymap("i", "<C-,>", diagnostic.open_float)
 end
 
 function M.common_on_attach(client, bufnr)
@@ -118,11 +115,7 @@ function M.common_capabilities()
   local capabilities = lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {
-      "documentation",
-      "detail",
-      "additionalTextEdits",
-    },
+    properties = { "documentation", "detail", "additionalTextEdits" },
   }
 
   local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")

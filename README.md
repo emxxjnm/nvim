@@ -15,6 +15,12 @@
 
 create directories `swap`, `backup` and `undo` in vim cache directory.
 
+font
+
+```bash
+docker run --rm -v /path/to/font:/in -v /path/for/output:/out nerdfonts/patcher --careful --complete --progressbars
+```
+
 ### 🔗 Dependencies
 
 - [ ] rgrep
@@ -33,5 +39,7 @@ create directories `swap`, `backup` and `undo` in vim cache directory.
 for more keymapping information, see [nvim-tree](https://github.com/kyazdani42/nvim-tree.lua#defaults)
 
 ### 🚀 LSP(lspconf)
+
+### Telescope
 
 ## 🔑 LICENSE

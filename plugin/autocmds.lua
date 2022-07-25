@@ -49,7 +49,7 @@ augroup("CatppuccinAutoCompile", {
       cmd("CatppuccinCompile")
       vim.defer_fn(function()
         vim.cmd("colorscheme catppuccin")
-      end, 50)
+      end, 10)
     end,
     desc = "Auto run command CatppuccinCompile every time packer is compiled.",
   },
