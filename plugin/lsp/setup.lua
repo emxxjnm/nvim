@@ -1,7 +1,3 @@
-require("nvim-lsp-installer").setup({
-  automatic_installation = true,
-})
-
 local servers = {
   "bashls",
   "dockerls",
@@ -18,6 +14,11 @@ local servers = {
   "volar",
   "yamlls",
 }
+
+require("nvim-lsp-installer").setup({
+  ensure_installed = servers,
+  automatic_installation = true,
+})
 
 for _, server in ipairs(servers) do
   require("mvim.lsp.manager").setup(server)

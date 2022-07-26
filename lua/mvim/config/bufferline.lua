@@ -32,11 +32,6 @@ function M.setup()
         result = table.concat(result, " ")
         return #result > 0 and result or ""
       end,
-      -- custom_filter = function(buf_number)
-      --   if vim.bo[buf_number].filetype ~= "dap-repl" then
-      --     return true
-      --   end
-      -- end,
       offsets = {
         {
           filetype = "NvimTree",

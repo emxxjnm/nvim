@@ -5,8 +5,8 @@ local cmd = vim.cmd
 
 ---@class Autocommand
 ---@field desc string
----@field event  string[] list of autocommand events
----@field pattern string[] list of autocommand patterns
+---@field event  string[] | string autocommand events
+---@field pattern string[] | string autocommand patterns
 ---@field command string | function
 ---@field nested  boolean
 ---@field once    boolean

@@ -13,13 +13,8 @@ keymap("n", "<leader>p", '"+p', opts)
 
 keymap("n", "<leader>;", "%", opts)
 
--- keymap("n", "<leader>o", "za", opts)
-
 keymap("n", "H", "^", opts)
 keymap("n", "L", "$", opts)
-
-keymap("n", "n", "nzzzv", opts)
-keymap("n", "N", "Nzzv", opts)
 
 -- Move text up and down
 keymap("n", "<M-Up>", "<Esc>:m .-2<cr>==g<Esc>", opts)
@@ -72,9 +67,6 @@ keymap("n", "<S-F5>", ":lua require('dap').terminate()<CR>", opts)
 keymap("n", "<F10>", ":lua require('dap').step_over()<CR>", opts)
 keymap("n", "<F11>", ":lua require('dap').step_into()<CR>", opts)
 keymap("n", "<F12>", ":lua require('dap').step_out()<CR>", opts)
-
--- vim-table-mode
--- keymap("n", "<leader>T", ":TableModeToggle<CR>", opts)
 
 -- ============ Insert ===========
 keymap("i", "jj", "<Esc>", opts)
