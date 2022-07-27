@@ -29,8 +29,7 @@ function M.setup()
             table.insert(result, symbols[name] .. count)
           end
         end
-        result = table.concat(result, " ")
-        return #result > 0 and result or ""
+        return #result > 0 and table.concat(result, " ") or ""
       end,
       offsets = {
         {

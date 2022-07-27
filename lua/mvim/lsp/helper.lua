@@ -30,7 +30,7 @@ end
 
 function M.buffer_references(opts)
   opts = opts or {}
-  local params = lsp.util.make_position_params(opts.winnr)
+  local params = lsp.util.make_position_params(opts.winnr, "utf-8")
   params.context = { includeDeclaration = true }
 
   lsp.buf_request(opts.bufnr, "textDocument/references", params, function(err, result, ctx, _)
@@ -46,8 +46,9 @@ function M.buffer_references(opts)
         return (location.uri or location.targetUri) == buf_uri
       end, result)
 
-      locations = lsp.util.locations_to_items(filtered_result, lsp.get_client_by_id(ctx.client_id).offset_encoding)
-        or {}
+      if filtered_result then
+        locations = lsp.util.locations_to_items(filtered_result, lsp.get_client_by_id(ctx.client_id).offset_encoding)
+      end
     end
 
     if vim.tbl_isempty(locations) then

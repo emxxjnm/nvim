@@ -41,5 +41,5 @@ sign("DiagnosticSignError", icons.error)
 diagnostic.config(config)
 
 lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, {
-  border = "rounded",
+  border = "none",
 })

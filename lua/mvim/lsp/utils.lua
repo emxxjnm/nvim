@@ -29,7 +29,7 @@ end
 
 ---list providers
 ---@param filetype string filetype
----@return string[] providers null-ls providers
+---@return table providers null-ls providers
 function M.list_registered_providers_names(filetype)
   local sources = require("null-ls.sources")
   local available_sources = sources.get_available(filetype)
