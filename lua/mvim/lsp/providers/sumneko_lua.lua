@@ -1,19 +1,11 @@
 local ok, luadev = pcall(require, "lua-dev")
 
-local fn = vim.fn
-
 local opts = {
-  cmd = { "lua-language-server" },
   settings = {
     Lua = {
+      format = { enable = false },
       diagnostics = {
-        globals = { "vim" },
-      },
-      workspace = {
-        library = {
-          -- [fn.expand("$VIMRUNTIME")] = true,
-          [fn.stdpath("config") .. "/lua"] = true,
-        },
+        globals = { "vim", "packer_plugins" },
       },
     },
   },
@@ -23,4 +15,7 @@ if not ok then
   return opts
 end
 
-return luadev.setup({})
+return luadev.setup({
+  library = { pluings = { "plenary.nvim" } },
+  lspconfig = opts,
+})

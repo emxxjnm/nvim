@@ -6,4 +6,5 @@ cache = true
 -- Global objects defined by the C code
 globals = {
   "vim",
+  "packer_plugins",
 }
