@@ -1,6 +1,9 @@
 {
   "debug-config-skeleton": {
-    "prefix": ["dap", "launch"],
+    "prefix": [
+      "dap",
+      "launch"
+    ],
     "body": [
       "{",
       "\t\"version\": \"0.2.0\",",
@@ -26,7 +29,7 @@
       "\t\"env\": {",
       "\t\t\"${4:key}\": \"${5:value}\"",
       "\t}",
-      "}"
+      "}$0"
     ],
     "description": "Django debug configurations template."
   },
@@ -39,13 +42,13 @@
       "\t\"name\": \"Python: FastAPI\",",
       "\t\"module\": \"uvicorn\",",
       "\t\"args\": [",
-      "\t\t\"${3|app.main}:${4|app}\",",
+      "\t\t\"${3:app.main}:${4:app}\",",
       "\t\t$5",
       "\t],",
       "\t\"env\": {",
       "\t\t\"${6:key}\": \"${7:value}\"",
       "\t}",
-      "}"
+      "}$0"
     ],
     "description": "FastAPI debug configurations template."
   }
