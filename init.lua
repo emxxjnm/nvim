@@ -41,12 +41,15 @@ local plugins = {
   "netrw",
   "netrwPlugin",
   "netrwSettings",
-
-  "man",
   "tutor_mode_plugin",
 }
 for i = 1, #plugins do
   g["loaded_" .. plugins[i]] = 1
 end
 
+local namespace = {}
+
+_G.mo = mo or namespace
+
+require("mvim.globals")
 require("mvim.plugins")

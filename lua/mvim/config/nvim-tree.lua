@@ -20,9 +20,11 @@ function M.setup()
       "pyproject.toml",
     },
     prefer_startup_root = true,
-    sync_root_with_cwd = false,
+    sync_root_with_cwd = true,
     reload_on_bufenter = false,
-    respect_buf_cwd = false,
+    respect_buf_cwd = true,
+    on_attach = "disable",
+    remove_keymaps = false,
     view = {
       adaptive_size = false,
       centralize_selection = false,
@@ -55,10 +57,12 @@ function M.setup()
       root_folder_modifier = ":~",
       indent_markers = {
         enable = false,
+        inline_arrows = true,
         icons = {
-          corner = "└ ",
-          edge = "│ ",
-          none = "  ",
+          corner = "└",
+          edge = "│",
+          item = "│",
+          none = " ",
         },
       },
       icons = {
@@ -75,6 +79,7 @@ function M.setup()
         glyphs = {
           default = "",
           symlink = "",
+          bookmark = "",
           folder = {
             arrow_closed = "",
             arrow_open = "",
@@ -110,8 +115,7 @@ function M.setup()
       auto_open = true,
     },
     update_focused_file = {
-      enable = false,
-      update_cwd = false,
+      enable = true,
       update_root = true,
       ignore_list = {},
     },
@@ -123,6 +127,7 @@ function M.setup()
     diagnostics = {
       enable = false,
       show_on_dirs = false,
+      debounce_delay = 50,
       icons = {
         error = "",
         warning = "",
@@ -168,6 +173,7 @@ function M.setup()
               "packer",
               "qf",
               "diff",
+              "dap-relp",
               "fugitive",
               "fugitiveblame",
             },

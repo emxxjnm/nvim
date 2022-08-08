@@ -4,7 +4,8 @@ local api = vim.api
 
 local function check_backspace()
   local line, col = unpack(api.nvim_win_get_cursor(0))
-  return col ~= 0 and api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  return col ~= 0
+    and api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 local kind_icons = {
@@ -40,23 +41,16 @@ local source_names = {
   nvim_lsp = "(LSP)",
   buffer = "(Buffer)",
   path = "(Path)",
-  nvim_lua = "(API)",
-}
-local duplicates = {
-  buffer = 1,
-  path = 1,
-  nvim_lsp = 0,
-  luasnip = 1,
+  cmdline = "(Cmd)",
 }
 
 function M.setup()
   local cmp = require("cmp")
   local luasnip = require("luasnip")
-  local mapping = cmp.mapping
 
   cmp.setup({
     completion = {
-      keyword_length = 1,
+      keyword_length = 2,
     },
     experimental = {
       ghost_text = true,
@@ -66,29 +60,39 @@ function M.setup()
         luasnip.lsp_expand(args.body)
       end,
     },
-    sources = {
+    sources = cmp.config.sources({
       { name = "nvim_lsp" },
-      { name = "buffer" },
-      { name = "path" },
       { name = "luasnip" },
-      { name = "nvim_lua" },
-    },
+      { name = "path" },
+    }, {
+      {
+        name = "buffer",
+        option = {
+          get_bufnrs = function()
+            local bufs = {}
+            for _, win in ipairs(api.nvim_list_wins()) do
+              bufs[api.nvim_win_get_buf(win)] = true
+            end
+            return vim.tbl_keys(bufs)
+          end,
+        },
+      },
+      -- { name = 'spell' },
+    }),
     formatting = {
       fields = { "kind", "abbr", "menu" },
       format = function(entry, vim_item)
+        local MAX = math.floor(vim.o.columns * 0.5)
+        if #vim_item.abbr >= MAX then
+          vim_item.abbr = vim_item.abbr:sub(1, MAX) .. "…"
+        end
         vim_item.kind = (kind_icons[vim_item.kind] or "") .. vim_item.kind
         vim_item.menu = source_names[entry.source.name] or entry.source.name
-        vim_item.dup = duplicates[entry.source.name] or 0
         return vim_item
       end,
     },
-    mapping = mapping.preset.insert({
-      ["<C-d>"] = mapping.scroll_docs(4),
-      ["<C-u>"] = mapping.scroll_docs(-4),
-      ["<C-e>"] = mapping.abort(),
-      -- ["<C-Space>"] = cmp.mapping.complete(),
-      ["<CR>"] = mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
-      ["<Tab>"] = function(fallback)
+    mapping = {
+      ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
         elseif luasnip.expand_or_jumpable() then
@@ -98,8 +102,8 @@ function M.setup()
         else
           fallback()
         end
-      end,
-      ["<S-Tab>"] = function(fallback)
+      end, { "i", "s", "c" }),
+      ["<S-Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
         elseif luasnip.jumpable(-1) then
@@ -107,7 +111,33 @@ function M.setup()
         else
           fallback()
         end
-      end,
+      end, { "i", "s", "c" }),
+      ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
+      ["<C-e>"] = { i = cmp.mapping.abort(), c = cmp.mapping.close() },
+      ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-8), { "i", "c" }),
+      ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(8), { "i", "c" }),
+      -- ["<C-c>"] = cmp.mapping.complete(),
+      ["<Down>"] = {
+        i = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+      },
+      ["<Up>"] = {
+        i = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      },
+    },
+  })
+
+  local search_sources = {
+    sources = cmp.config.sources({
+      { name = "buffer" },
+    }),
+  }
+
+  cmp.setup.cmdline("/", search_sources)
+  cmp.setup.cmdline("?", search_sources)
+  cmp.setup.cmdline(":", {
+    sources = cmp.config.sources({
+      { name = "cmdline", keyword_pattern = [=[[^[:blank:]\!]*]=] },
+      { name = "path" },
     }),
   })
 end

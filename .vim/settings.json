@@ -1,0 +1,13 @@
+{
+  "sumneko_lua": {
+    "settings": {
+      "Lua": {
+        "diagnostics": {
+          "globals": [
+            "packer_plugins"
+          ]
+        }
+      }
+    }
+  }
+}

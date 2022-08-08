@@ -65,6 +65,8 @@ function M.setup()
       hop = true,
       symbols_outline = false,
     },
+    color_overrides = {},
+    highlight_overrides = {},
   })
 end
 

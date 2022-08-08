@@ -6,15 +6,15 @@ function M.setup()
 
   sign_define("DapBreakpoint", {
     text = "",
-    texthl = "DiagnosticSignError",
+    texthl = "DapBreakpoint",
     linehl = "",
     numhl = "",
   })
   sign_define("DapStopped", {
     text = "",
-    texthl = "DiagnosticSignInfo",
+    texthl = "DapStopped",
     linehl = "",
-    numhl = "DiagnosticSignInfo",
+    numhl = "DapStopped",
   })
 
   dap.adapters.python = {

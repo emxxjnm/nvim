@@ -16,7 +16,12 @@ function M.setup()
 
   local version = vim.version()
   local plugins = #vim.tbl_keys(packer_plugins)
-  local nvim_version_info = format(" Neovim v%d.%d.%d", version.major, version.minor, version.patch)
+  local nvim_version_info = format(
+    " Neovim v%d.%d.%d",
+    version.major,
+    version.minor,
+    version.patch
+  )
   local nvim_information = {
     type = "text",
     val = format("---  %d plugins installed, %s ---", plugins, nvim_version_info),

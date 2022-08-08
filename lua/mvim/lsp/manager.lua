@@ -1,6 +1,24 @@
 local M = {}
 
+local fmt = string.format
+
 local lsp_utils = require("mvim.lsp.utils")
+
+local function resolve_mason_config(name)
+  local found, config = pcall(require, "mason-lspconfig.server_configurations." .. name)
+  if not found then
+    -- vim.notify(fmt("mason configuration not found for %s", name))
+    return {}
+  end
+
+  local server_mapping = require("mason-lspconfig.mappings.server")
+  local path = require("mason-core.path")
+  local pkg_name = server_mapping.lspconfig_to_package[name]
+  local install_dir = path.package_prefix(pkg_name)
+  local conf = config(install_dir)
+
+  return conf
+end
 
 -- resolve the configuration
 local function resolve_config(name, ...)
@@ -35,27 +53,36 @@ function M.setup(name, config)
   vim.validate({ name = { name, "string" } })
   config = config or {}
 
-  if lsp_utils.is_client_active(name) then
+  if lsp_utils.is_client_active(name) or lsp_utils.client_is_configured(name) then
     return
   end
 
-  local servers = require("nvim-lsp-installer.servers")
-  local available, server = servers.get_server(name)
+  local server_mapping = require("mason-lspconfig.mappings.server")
+  local registry = require("mason-registry")
 
-  if not available then
-    local conf = resolve_config(name, config)
-    launch_server(name, conf)
+  local pkg_name = server_mapping.lspconfig_to_package[name]
+  if not pkg_name then
     return
   end
 
-  if not server:is_installed() then
-    server:install()
+  if not registry.is_installed(pkg_name) then
+    vim.notify_once(fmt("Installation in progoress for [%s] server", name), vim.log.levels.INFO)
+    local pkg = registry.get_package(pkg_name)
+    pkg:install():once("closed", function()
+      if pkg:is_installed() then
+        vim.schedule(function()
+          vim.notify_once(fmt("Installation complete for [%s] server", name), vim.log.levels.INFO)
+          -- mason config is only available once the server has been installed
+          local conf = resolve_config(name, resolve_mason_config(name), config)
+          launch_server(name, conf)
+        end)
+      end
+    end)
+    return
   end
 
-  server:on_ready(function()
-    local conf = resolve_config(name, server:get_default_options(), config)
-    launch_server(name, conf)
-  end)
+  local conf = resolve_config(name, resolve_mason_config(name), config)
+  launch_server(name, conf)
 end
 
 return M

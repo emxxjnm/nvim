@@ -27,6 +27,22 @@ function M.is_client_active(name)
   end)
 end
 
+---check if the manager autocmd has already been configured
+---since some servers can take a while to initialize
+---@param name string lsp client name
+---@param ft string? filetype
+---@return boolean
+function M.client_is_configured(name, ft)
+  ft = ft or vim.bo.filetype
+  local active_autocmds = vim.api.nvim_get_autocmds({ event = "FileType", pattern = ft })
+  for _, result in ipairs(active_autocmds) do
+    if result.command:match(name) then
+      return true
+    end
+  end
+  return false
+end
+
 ---list providers
 ---@param filetype string filetype
 ---@return table providers null-ls providers

@@ -3,8 +3,3 @@ repos:
     rev: v0.13.1
     hooks:
       - id: stylua-github
-
-  - repo: https://github.com/lunarmodules/luacheck
-    rev: v0.26.1
-    hooks:
-      - id: luacheck

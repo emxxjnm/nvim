@@ -4,8 +4,8 @@ local opts = {
   settings = {
     Lua = {
       format = { enable = false },
-      diagnostics = {
-        globals = { "vim", "packer_plugins" },
+      telemetry = {
+        enable = false,
       },
     },
   },

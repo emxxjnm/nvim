@@ -1,82 +1,86 @@
 local fn = vim.fn
 local bo = vim.bo
 local api = vim.api
-local cmd = vim.cmd
 
----@class Autocommand
----@field desc string
----@field event  string[] | string autocommand events
----@field pattern string[] | string autocommand patterns
----@field command string | function
----@field nested  boolean
----@field once    boolean
----@field buffer  number
-
----Create an autocommand
----@param name string
----@param commands Autocommand[]
-local function augroup(name, commands)
-  local group = api.nvim_create_augroup(name, {})
-  for _, autocmd in ipairs(commands) do
-    local is_callback = type(autocmd.command) == "function"
-    api.nvim_create_autocmd(autocmd.event, {
-      group = group,
-      pattern = autocmd.pattern,
-      desc = autocmd.desc,
-      callback = is_callback and autocmd.command or nil,
-      command = not is_callback and autocmd.command or nil,
-      once = autocmd.once,
-      nested = autocmd.nested,
-      buffer = autocmd.buffer,
-    })
+---automatically clear commandline messages after a few seconds delay
+---@return function
+local function clear_commandline()
+  -- Track the timer object and stop any previous thimers
+  -- before setting a new one so that each change waits
+  -- for 8secs and that 8secs is deferred each time
+  local timer
+  return function()
+    if timer then
+      timer:stop()
+    end
+    timer = vim.defer_fn(function()
+      if fn.mode() == "n" then
+        vim.cmd.echon("''")
+      end
+    end, 8000)
   end
 end
 
-augroup("AutoSyncPlugins", {
+mo.augroup("ClearCommandMessages", {
+  {
+    event = { "CmdlineLeave", "CmdlineChanged" },
+    pattern = { ":" },
+    command = clear_commandline(),
+    desc = "automatically clear commandline messages after 8 seconds delay",
+  },
+})
+
+mo.augroup("AutoSyncPlugins", {
   {
     event = "BufWritePost",
     pattern = "plugins.lua",
     command = "source <afile> | PackerSync",
-    desc = "Sync neovim plugins when plugins.lua is saved.",
+    desc = "sync neovim plugins when plugins.lua is saved",
   },
 })
 
-augroup("CatppuccinAutoCompile", {
+mo.augroup("CatppuccinAutoCompile", {
   {
     event = "User",
     pattern = "PackerCompileDone",
     command = function()
-      cmd("CatppuccinCompile")
+      vim.cmd.CatppuccinCompile()
       vim.defer_fn(function()
-        vim.cmd("colorscheme catppuccin")
+        vim.cmd.colorscheme("catppuccin")
       end, 10)
     end,
-    desc = "Auto run command CatppuccinCompile every time packer is compiled.",
+    desc = "auto run command CatppuccinCompile every time packer is compiled",
   },
   {
     event = "BufWritePost",
     pattern = { "catppuccin.lua" },
     command = function()
-      cmd("CatppuccinCompile")
+      vim.cmd.CatppuccinCompile()
     end,
-    desc = "Auto run command CatppuccinCompile when catppuccin config file is saved.",
+    desc = "auto run command CatppuccinCompile when catppuccin config file is saved",
   },
 })
 
-augroup("PlaceLastEdit", {
+mo.augroup("PlaceLastEdit", {
   {
     event = "BufReadPost",
     pattern = "*",
     command = function()
-      if fn.line([['"]]) > 1 and fn.line([['"]]) <= fn.line("$") then
-        cmd([[normal! g`"]])
+      if vim.bo.ft ~= "gitcommit" and vim.fn.win_gettype() ~= "popup" then
+        local last_place_mark = vim.api.nvim_buf_get_mark(0, '"')
+        local line_nr = last_place_mark[1]
+        local last_line = vim.api.nvim_buf_line_count(0)
+
+        if line_nr > 0 and line_nr <= last_line then
+          vim.api.nvim_win_set_cursor(0, last_place_mark)
+        end
       end
     end,
-    desc = "Place to last edit.",
+    desc = "when editing a file, always jump to the last know cursor position",
   },
 })
 
-augroup("SmartClose", {
+mo.augroup("SmartClose", {
   {
     event = "FileType",
     pattern = { "qf", "help", "man", "lspinfo", "startuptime", "tsplayground" },
@@ -84,7 +88,7 @@ augroup("SmartClose", {
       local opts = { noremap = true, silent = true }
       api.nvim_buf_set_keymap(0, "n", "q", ":close<CR>", opts)
     end,
-    desc = "Close certain filetypes by pressing q.",
+    desc = "close certain filetypes by pressing q.",
   },
   {
     event = "BufEnter",
@@ -92,10 +96,10 @@ augroup("SmartClose", {
     nested = true,
     command = function()
       if #api.nvim_list_wins() == 1 and api.nvim_buf_get_name(0):match("NvimTree_") ~= nil then
-        cmd("quit")
+        vim.cmd.quit()
       end
     end,
-    desc = "Close the tab when nvim-tree is the last window in the tab.",
+    desc = "close the tab when nvim-tree is the last window in the tab",
   },
   {
     event = "BufEnter",
@@ -105,7 +109,7 @@ augroup("SmartClose", {
         api.nvim_buf_delete(0, { force = true })
       end
     end,
-    desc = "Close quick fix window if the file containing it was closed.",
+    desc = "close quick fix window if the file containing it was closed",
   },
   {
     event = "QuitPre",
@@ -113,14 +117,14 @@ augroup("SmartClose", {
     nested = true,
     command = function()
       if bo.filetype ~= "qf" then
-        cmd("silent! lclose")
+        vim.cmd.lclose({ mods = { silent = true } })
       end
     end,
-    desc = "automatically close corresponding loclist when quitting a window.",
+    desc = "automatically close corresponding loclist when quitting a window",
   },
 })
 
-augroup("SetupTerminalMappings", {
+mo.augroup("SetupTerminalMappings", {
   {
     event = { "TermOpen" },
     pattern = "term://*",
@@ -141,6 +145,6 @@ augroup("SetupTerminalMappings", {
         api.nvim_buf_set_keymap(0, "n", "<C-l>", [[<C-\><C-n><C-w>li]], opts)
       end
     end,
-    desc = "setup toggleterm keymap.",
+    desc = "setup toggleterm keymap",
   },
 })

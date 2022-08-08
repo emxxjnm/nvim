@@ -115,7 +115,17 @@ local location = {
 local progress = function()
   local current_line = fn.line(".")
   local total_lines = fn.line("$")
-  local chars = { "██", "▇▇", "▆▆", "▅▅", "▄▄", "▃▃", "▂▂", "▁▁", "  " }
+  local chars = {
+    "██",
+    "▇▇",
+    "▆▆",
+    "▅▅",
+    "▄▄",
+    "▃▃",
+    "▂▂",
+    "▁▁",
+    "  ",
+  }
   local line_ratio = current_line / total_lines
   local index = math.ceil(line_ratio * #chars)
   return chars[index]
@@ -149,19 +159,28 @@ function M.setup()
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
       disabled_filetypes = {
-        "alpha",
-        "packer",
-        "NvimTree",
-        "toggleterm",
-        "dap-repl",
-        "dapui_stacks",
-        "dapui_scopes",
-        "dapui_watches",
-        "dapui_breakpoints",
-        "TelescopePrompt",
+        statusline = {
+          "alpha",
+          "packer",
+          "NvimTree",
+          "toggleterm",
+          "dap-repl",
+          "dapui_stacks",
+          "dapui_scopes",
+          "dapui_watches",
+          "dapui_breakpoints",
+          "TelescopePrompt",
+        },
+        winbar = {},
       },
-      -- always_divide_middle = true,
-      -- globalstatus = true,
+      ignore_focus = {},
+      always_divide_middle = true,
+      globalstatus = false,
+      refresh = {
+        statusline = 800,
+        tabline = 1000,
+        winbar = 1000,
+      },
     },
     sections = {
       lualine_a = { mode },
@@ -180,6 +199,8 @@ function M.setup()
       lualine_z = {},
     },
     tabline = {},
+    winbar = {},
+    inactive_winbar = {},
     extensions = {},
   })
 end

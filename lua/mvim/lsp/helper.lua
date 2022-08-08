@@ -47,7 +47,10 @@ function M.buffer_references(opts)
       end, result)
 
       if filtered_result then
-        locations = lsp.util.locations_to_items(filtered_result, lsp.get_client_by_id(ctx.client_id).offset_encoding)
+        locations = lsp.util.locations_to_items(
+          filtered_result,
+          lsp.get_client_by_id(ctx.client_id).offset_encoding
+        )
       end
     end
 
@@ -95,12 +98,13 @@ function M.document_symbols()
 end
 
 function M.workspace_symbols()
-  local query = vim.fn.input("Query >")
-  if query ~= "" then
-    vim.cmd("Telescope lsp_workspace_symbols query=" .. query)
-  else
-    builtin.lsp_workspace_symbols()
-  end
+  vim.ui.input({ prompt = "Workspace symbols query:" }, function(query)
+    if query ~= "" then
+      builtin.lsp_workspace_symbols({ query = query })
+    else
+      builtin.lsp_workspace_symbols()
+    end
+  end)
 end
 
 return M
