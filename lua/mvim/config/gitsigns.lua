@@ -75,9 +75,9 @@ function M.setup()
       end
 
       -- Navigation
-      map("n", "]c", function()
+      map("n", "]g", function()
         if vim.wo.diff then
-          return "]c"
+          return "]g"
         end
         vim.schedule(function()
           gs.next_hunk()
@@ -85,9 +85,9 @@ function M.setup()
         return "<Ignore>"
       end, { expr = true })
 
-      map("n", "[c", function()
+      map("n", "[g", function()
         if vim.wo.diff then
-          return "[c"
+          return "[g"
         end
         vim.schedule(function()
           gs.prev_hunk()
@@ -96,7 +96,7 @@ function M.setup()
       end, { expr = true })
 
       -- Actions
-      map("n", "<leader>hp", gs.preview_hunk)
+      map("n", "<leader>gp", gs.preview_hunk)
 
       -- Text object
       map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")

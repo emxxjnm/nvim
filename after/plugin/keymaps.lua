@@ -58,7 +58,7 @@ keymap("n", "<leader>fc", ":Telescope current_buffer_fuzzy_find<CR>", opts)
 
 -- Toggleterm
 keymap("n", "<c-\\>", ":ToggleTerm<CR>", opts)
-keymap("n", "<leader>g", ":lua require('mvim.external').lazygit()<CR>", opts)
+keymap("n", "<leader>gg", ":lua require('mvim.external').lazygit()<CR>", opts)
 
 -- dap
 keymap("n", "<leader>b", ":lua require('dap').toggle_breakpoint()<CR>", opts)
