@@ -3,6 +3,7 @@ local M = {}
 local fmt = string.format
 
 local lsp_utils = require("mvim.lsp.utils")
+local server_mapping = require("mason-lspconfig.mappings.server")
 
 local function resolve_mason_config(name)
   local found, config = pcall(require, "mason-lspconfig.server_configurations." .. name)
@@ -11,7 +12,6 @@ local function resolve_mason_config(name)
     return {}
   end
 
-  local server_mapping = require("mason-lspconfig.mappings.server")
   local path = require("mason-core.path")
   local pkg_name = server_mapping.lspconfig_to_package[name]
   local install_dir = path.package_prefix(pkg_name)
@@ -57,7 +57,6 @@ function M.setup(name, config)
     return
   end
 
-  local server_mapping = require("mason-lspconfig.mappings.server")
   local registry = require("mason-registry")
 
   local pkg_name = server_mapping.lspconfig_to_package[name]

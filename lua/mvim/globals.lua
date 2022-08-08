@@ -52,7 +52,6 @@ function mo.clear_augroup(name)
   -- defer the function in case the autocommand is still in-use
   local exists, _ = pcall(vim.api.nvim_get_autocmds, { group = name })
   if not exists then
-    vim.notify("ignoring request to clear autocmds from non-existent group " .. name)
     return
   end
 

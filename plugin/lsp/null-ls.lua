@@ -22,6 +22,7 @@ null_ls.setup(vim.tbl_deep_extend("force", default_opts, {
 
     -- python
     null_ls.builtins.formatting.isort,
+    null_ls.builtins.formatting.black,
     null_ls.builtins.diagnostics.mypy,
 
     -- shell

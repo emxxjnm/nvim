@@ -31,38 +31,6 @@ local function highlight_references()
   lsp.buf.document_highlight()
 end
 
----@param bufnr number
-local function setup_document_highlight(bufnr)
-  local group = api.nvim_create_augroup("lsp_document_highlight", {})
-  api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-    buffer = bufnr,
-    group = group,
-    callback = highlight_references,
-    -- callback = utils.fn(lsp.buf.document_highlight),
-  })
-  api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-    buffer = bufnr,
-    group = group,
-    callback = utils.fn(lsp.buf.clear_references),
-  })
-  api.nvim_create_autocmd({ "CursorHold" }, {
-    buffer = bufnr,
-    group = group,
-    -- callback = diagnostic_popup,
-    callback = utils.fn(diagnostic.open_float),
-  })
-end
-
----@param bufnr number
-local function setup_codelens_refresh(bufnr)
-  local group = api.nvim_create_augroup("lsp_document_codelens", {})
-  api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "CursorHold", "BufWritePost" }, {
-    buffer = bufnr,
-    group = group,
-    callback = utils.fn(lsp.codelens.refresh),
-  })
-end
-
 local function formatter_filter(client)
   local exclude = ({
     lua = { "sumneko_lua" },
@@ -80,21 +48,6 @@ local function format(opts)
     bufnr = opts.bufnr,
     async = opts.async,
     filter = formatter_filter,
-  })
-end
-
---@param bufnr number
-local function setup_code_format(bufnr)
-  local group = api.nvim_create_augroup("lsp_code_format", {})
-  api.nvim_create_autocmd({ "BufWritePre" }, {
-    buffer = bufnr,
-    group = group,
-    callback = function(args)
-      if not vim.g.formatting_disabled then
-        format({ bufnr = args.buf, async = false })
-      end
-    end,
-    desc = "format current buffer on save.",
   })
 end
 
@@ -175,7 +128,6 @@ local function setup_keymaps(bufnr)
   -- Code actions
   set_keymap("n", ",f", format)
   set_keymap("n", "<leader>rn", lsp.buf.rename)
-  set_keymap("n", "<leader>ca", lsp.buf.code_action)
 
   -- Movement
   set_keymap("n", "gD", lsp.buf.declaration)
@@ -183,6 +135,9 @@ local function setup_keymaps(bufnr)
   set_keymap("n", "gr", helper.references)
   set_keymap("n", "gbr", helper.buffer_references)
   set_keymap("n", "gi", helper.implementations)
+
+  set_keymap("n", "]d", diagnostic.goto_prev)
+  set_keymap("n", "[d", diagnostic.goto_prev)
 
   -- Docs
   set_keymap("n", "K", lsp.buf.hover)
@@ -204,21 +159,7 @@ function M.common_on_attach(client, bufnr)
     client.config.flags.allow_incremental_sync = true
   end
 
-  -- if client.server_capabilities.documentHighlightProvider then
-  --   setup_document_highlight(bufnr)
-  -- end
-  --
-  -- if client.server_capabilities.codeLensProvider then
-  --   setup_codelens_refresh(bufnr)
-  --   vim.schedule(lsp.codelens.refresh)
-  -- end
-  --
-  -- if client.server_capabilities.documentFormattingProvider then
-  --   setup_code_format(bufnr)
-  -- end
-
   if client.server_capabilities.documentFormattingProvider then
-    -- vim.bo[bufnr].formatexpr = "v:lua.vim.lsp.formatexpr()"
     api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr(#{timeout_ms:500})")
   end
 end
