@@ -72,7 +72,7 @@ local treesitter = {
 
 local lsp = {
   function()
-    local buf_clients = vim.lsp.buf_get_clients()
+    local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
     if tbl_isempty(buf_clients) then
       return "LS Inactive"
     end
@@ -112,24 +112,26 @@ local location = {
   color = { gui = "bold" },
 }
 
-local progress = function()
-  local current_line = fn.line(".")
-  local total_lines = fn.line("$")
-  local chars = {
-    "██",
-    "▇▇",
-    "▆▆",
-    "▅▅",
-    "▄▄",
-    "▃▃",
-    "▂▂",
-    "▁▁",
-    "  ",
-  }
-  local line_ratio = current_line / total_lines
-  local index = math.ceil(line_ratio * #chars)
-  return chars[index]
-end
+local progress = {
+  function()
+    local current_line = fn.line(".")
+    local total_lines = fn.line("$")
+    local chars = {
+      "██",
+      "▇▇",
+      "▆▆",
+      "▅▅",
+      "▄▄",
+      "▃▃",
+      "▂▂",
+      "▁▁",
+      "  ",
+    }
+    local line_ratio = current_line / total_lines
+    local index = math.ceil(line_ratio * #chars)
+    return chars[index]
+  end,
+}
 
 local spaces = {
   function()
