@@ -68,24 +68,14 @@ function M.setup()
     on_attach = function(bufnr)
       local gs = package.loaded.gitsigns
 
-      local function map(mode, l, r, opts)
+      local function set_keymap(mode, lhs, rhs, opts)
         opts = opts or {}
         opts.buffer = bufnr
-        vim.keymap.set(mode, l, r, opts)
+        vim.keymap.set(mode, lhs, rhs, opts)
       end
 
       -- Navigation
-      map("n", "]g", function()
-        if vim.wo.diff then
-          return "]g"
-        end
-        vim.schedule(function()
-          gs.next_hunk()
-        end)
-        return "<Ignore>"
-      end, { expr = true })
-
-      map("n", "[g", function()
+      set_keymap("n", "[g", function()
         if vim.wo.diff then
           return "[g"
         end
@@ -93,13 +83,23 @@ function M.setup()
           gs.prev_hunk()
         end)
         return "<Ignore>"
-      end, { expr = true })
+      end, { expr = true, desc = "Git: Go to prev hunk" })
+
+      set_keymap("n", "]g", function()
+        if vim.wo.diff then
+          return "]g"
+        end
+        vim.schedule(function()
+          gs.next_hunk()
+        end)
+        return "<Ignore>"
+      end, { expr = true, desc = "Git: Go to next hunk" })
 
       -- Actions
-      map("n", "<leader>gp", gs.preview_hunk)
+      set_keymap("n", "<leader>gp", gs.preview_hunk, { silent = true, desc = "Git: Preview hunk" })
 
       -- Text object
-      map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+      -- set_keymap({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
     end,
   })
 end

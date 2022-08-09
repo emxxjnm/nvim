@@ -121,28 +121,28 @@ end
 ---setup the lsp keymap
 --@param bufnr number
 local function setup_keymaps(bufnr)
-  local function set_keymap(mode, lhs, rhs)
-    keymap.set(mode, lhs, rhs, { buffer = bufnr, silent = true })
+  local function with_desc(desc)
+    return { buffer = bufnr, silent = true, desc = desc }
   end
 
   -- Code actions
-  set_keymap("n", ",f", format)
-  set_keymap("n", "<leader>rn", lsp.buf.rename)
+  keymap.set("n", ",f", format, with_desc("LSP: Format"))
+  keymap.set("n", "<leader>rn", lsp.buf.rename, with_desc("LSP: Rename"))
+  keymap.set({ "n", "x" }, "<leader>ca", lsp.buf.code_action, with_desc("LSP: Code action"))
 
   -- Movement
-  set_keymap("n", "gD", lsp.buf.declaration)
-  set_keymap("n", "gd", helper.definitions)
-  set_keymap("n", "gr", helper.references)
-  set_keymap("n", "gbr", helper.buffer_references)
-  set_keymap("n", "gi", helper.implementations)
+  keymap.set("n", "gD", lsp.buf.declaration, with_desc("LSP: Declaration"))
+  keymap.set("n", "gd", helper.definitions, with_desc("LSP: Definitions"))
+  keymap.set("n", "gr", helper.references, with_desc("LSP: References"))
+  keymap.set("n", "gbr", helper.buffer_references, with_desc("LSP: Buffer references"))
+  keymap.set("n", "gi", helper.implementations, with_desc("LSP: Implementations"))
 
-  set_keymap("n", "]d", diagnostic.goto_prev)
-  set_keymap("n", "[d", diagnostic.goto_prev)
+  keymap.set("n", "[d", diagnostic.goto_prev, with_desc("LSP: Go to prev diagnostic"))
+  keymap.set("n", "]d", diagnostic.goto_next, with_desc("LSP: Go to next diagnostic"))
 
   -- Docs
-  set_keymap("n", "K", lsp.buf.hover)
-  set_keymap("n", "<C-k>", lsp.buf.signature_help)
-  set_keymap("i", "<C-k>", lsp.buf.signature_help)
+  keymap.set("n", "K", lsp.buf.hover, with_desc("LSP: Hover"))
+  keymap.set({ "n", "i" }, "<C-k>", lsp.buf.signature_help, with_desc("LSP: Signature help"))
 end
 
 ---Add buffer local mappings, autocommands etc for attaching servers
