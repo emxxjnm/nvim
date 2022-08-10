@@ -65,12 +65,12 @@ function M.setup(name, config)
   end
 
   if not registry.is_installed(pkg_name) then
-    vim.notify_once(fmt("Installation in progoress for [%s] server", name), vim.log.levels.INFO)
+    vim.notify_once(fmt("Installation in progress for [%s]", name), vim.log.levels.INFO)
     local pkg = registry.get_package(pkg_name)
     pkg:install():once("closed", function()
       if pkg:is_installed() then
         vim.schedule(function()
-          vim.notify_once(fmt("Installation complete for [%s] server", name), vim.log.levels.INFO)
+          vim.notify_once(fmt("Installation complete for [%s]", name), vim.log.levels.INFO)
           -- mason config is only available once the server has been installed
           local conf = resolve_config(name, resolve_mason_config(name), config)
           launch_server(name, conf)
