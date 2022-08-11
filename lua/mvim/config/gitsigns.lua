@@ -39,6 +39,7 @@ function M.setup()
     linehl = false,
     word_diff = false,
     watch_gitdir = {
+      enable = true,
       interval = 1000,
       follow_files = true,
     },
