@@ -158,10 +158,6 @@ function M.common_on_attach(client, bufnr)
   if client.config.flags then
     client.config.flags.allow_incremental_sync = true
   end
-
-  if client.server_capabilities.documentFormattingProvider then
-    api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr(#{timeout_ms:500})")
-  end
 end
 
 ---This function allows reading a per project `settings.josn` file
