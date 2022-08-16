@@ -292,6 +292,7 @@ packer.startup({
     -- tab
     use({
       "akinsho/bufferline.nvim",
+      after = "catppuccin",
       config = function()
         require("mvim.config.bufferline").setup()
       end,
