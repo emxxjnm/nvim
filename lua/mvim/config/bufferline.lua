@@ -34,7 +34,7 @@ function M.setup()
       offsets = {
         {
           filetype = "NvimTree",
-          text = "File Explorer",
+          text = "Explorer",
           text_align = "center",
           highlight = "PanelHeading",
         },
@@ -61,7 +61,7 @@ function M.setup()
       -- separator_style = "slant",
       enforce_regular_tabs = false,
       always_show_bufferline = true,
-      sort_by = "id",
+      sort_by = "insert_after_current",
     },
   })
 end
