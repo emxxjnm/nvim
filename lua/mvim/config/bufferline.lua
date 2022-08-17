@@ -1,5 +1,25 @@
 local M = {}
 
+local function offset(name, ft)
+  return {
+    text = name,
+    filetype = ft,
+    text_align = "center",
+    highlight = "PanelHeading",
+  }
+end
+
+local function diagnostics_indicator(_, _, diagnostics)
+  local symbols = { error = " ", warning = " ", info = " " }
+  local result = {}
+  for name, count in pairs(diagnostics) do
+    if symbols[name] and count > 0 then
+      table.insert(result, symbols[name] .. count)
+    end
+  end
+  return #result > 0 and table.concat(result, " ") or ""
+end
+
 function M.setup()
   require("bufferline").setup({
     options = {
@@ -21,35 +41,11 @@ function M.setup()
       tab_size = 7,
       diagnostics = "nvim_lsp",
       diagnostics_update_in_insert = false,
-      diagnostics_indicator = function(_, _, diagnostics)
-        local symbols = { error = " ", warning = " ", info = " " }
-        local result = {}
-        for name, count in pairs(diagnostics) do
-          if symbols[name] and count > 0 then
-            table.insert(result, symbols[name] .. count)
-          end
-        end
-        return #result > 0 and table.concat(result, " ") or ""
-      end,
+      diagnostics_indicator = diagnostics_indicator,
       offsets = {
-        {
-          filetype = "NvimTree",
-          text = "Explorer",
-          text_align = "center",
-          highlight = "PanelHeading",
-        },
-        {
-          filetype = "undotree",
-          text = "Undotree",
-          text_align = "center",
-          highlight = "PanelHeading",
-        },
-        {
-          filetype = "packer",
-          text = "Packer",
-          text_align = "center",
-          hightlight = "PanelHeading",
-        },
+        offset("Explorer", "NvimTree"),
+        offset("Undotree", "undotree"),
+        offset("Packer", "packer"),
       },
       color_icons = true,
       show_buffer_icons = true,
