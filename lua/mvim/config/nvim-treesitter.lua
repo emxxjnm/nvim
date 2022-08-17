@@ -29,7 +29,7 @@ function M.setup()
     },
     indent = {
       enable = true,
-      disable = { "python", "yaml", "vue" },
+      disable = { "yaml", "vue" },
     },
     incremental_selection = {
       enable = true,
