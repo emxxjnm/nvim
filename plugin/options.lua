@@ -30,7 +30,7 @@ opt.laststatus = 3
 opt.showmode = false
 opt.scrolloff = 7
 opt.sidescrolloff = 5
-opt.pumheight = 15
+opt.pumheight = 12
 opt.confirm = true
 opt.completeopt = "menuone,noselect"
 
