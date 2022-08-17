@@ -1,63 +1,68 @@
-local stdpath = vim.fn.stdpath
-local o, wo, bo = vim.o, vim.wo, vim.bo
+local opt, fn = vim.opt, vim.fn
 
-local buffer = { o, bo }
-local window = { o, wo }
-local global = { o }
+local undo_dir = fn.stdpath("cache") .. "/undo"
+local swap_dir = fn.stdpath("cache") .. "/swap"
+local backup_dir = fn.stdpath("cache") .. "/backup"
 
-local undo_dir = stdpath("cache") .. "/undo"
-local swap_dir = stdpath("cache") .. "/swap"
-local backup_dir = stdpath("cache") .. "/backup"
+-- Indentation
+opt.wrap = false
+opt.textwidth = 100
+opt.autoindent = true
+opt.shiftwidth = 2
+opt.expandtab = true
+opt.shiftround = true
 
-local function opt(option, value, scopes)
-  scopes = scopes or global
-  for _, s in ipairs(scopes) do
-    s[option] = value
-  end
-end
+-- line
+opt.number = true
+opt.relativenumber = true
+opt.cursorline = true
 
-opt("expandtab", true, buffer)
-opt("shiftwidth", 2, buffer)
-opt("softtabstop", -1, buffer)
--- opt("tabstop", 2, buffer)
-opt("smartindent", true, buffer)
-opt("formatoptions", "1jcrql", buffer)
+-- fold
+opt.foldlevel = 99
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
 
-opt("number", true, window)
-opt("relativenumber", true, window)
-opt("cursorline", true, window)
--- opt("colorcolumn", "80,100", window)
-opt("wrap", false, window)
-opt("foldlevel", 99, window)
-opt("foldmethod", "expr", window)
-opt("foldexpr", "nvim_treesitter#foldexpr()", window)
-opt("signcolumn", "yes", window)
+-- display
+opt.signcolumn = "yes"
+-- opt.clipboard = "unnamedplus"
+opt.termguicolors = true
+opt.laststatus = 3
+opt.showmode = false
+opt.scrolloff = 7
+opt.sidescrolloff = 5
+opt.pumheight = 15
+opt.confirm = true
+opt.completeopt = "menuone,noselect"
 
-opt("clipboard", "unnamedplus")
-opt("incsearch", true)
-opt("smartcase", true)
-opt("ignorecase", true)
-opt("encoding", "utf-8")
-opt("laststatus", 3)
-opt("showmode", false)
-opt("scrolloff", 7)
-opt("timeoutlen", 500)
-opt("updatetime", 500)
--- opt("timeout", false)
--- opt("ttimeoutlen", 10)
-opt("backspace", "indent,eol,start")
-opt("splitright", true)
-opt("splitbelow", true)
-opt("completeopt", "menu,menuone,noselect")
-opt("lazyredraw", true)
-opt("swapfile", true)
-opt("directory", swap_dir)
-opt("backup", true)
-opt("backupdir", backup_dir)
-opt("undofile", true, buffer)
-opt("undodir", undo_dir)
-opt("termguicolors", true)
-opt("background", "dark")
-opt("shortmess", o.shortmess .. "c")
-opt("wildmenu", true)
-opt("inccommand", "split")
+-- Wild in command mode
+-- opt.cmdheight = 0
+opt.pumblend = 5
+opt.wildoptions = "pum"
+opt.wildignorecase = true
+
+-- match and search
+opt.incsearch = true
+opt.smartcase = true
+opt.ignorecase = true
+
+-- Timings
+opt.timeoutlen = 500
+opt.updatetime = 500
+
+-- Window splitting
+opt.splitright = true
+opt.splitbelow = true
+
+-- Backup and Swap
+opt.backup = true
+opt.swapfile = true
+opt.undofile = true
+opt.undodir = undo_dir
+opt.directory = swap_dir
+opt.backupdir = backup_dir
+
+-- Format
+opt.formatoptions = "12qcrntjlv"
+
+-- Message output on vim actions
+opt.shortmess = "AoOtTfFscW"
