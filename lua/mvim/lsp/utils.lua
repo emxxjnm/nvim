@@ -1,5 +1,7 @@
 local M = {}
 
+local null_ls = require("null-ls")
+
 ---@param fun function
 ---@return fun() @function that calls the provided fun, but with no args
 function M.fn(fun)
@@ -63,20 +65,26 @@ end
 ---@param filetype string filetype
 ---@return string[] providers name of the providers
 function M.list_registered_formatters(filetype)
-  local methods = require("null-ls.methods")
-  local method = methods.internal["FORMATTING"]
+  local method = null_ls.methods.FORMATTING
   local providers = M.list_registered_providers_names(filetype)
   return providers[method] or {}
 end
+
+local alternative_methods = {
+  null_ls.methods.DIAGNOSTICS,
+  null_ls.methods.DIAGNOSTICS_ON_OPEN,
+  null_ls.methods.DIAGNOSTICS_ON_SAVE,
+}
 
 ---list registered linters
 ---@param filetype string filetype
 ---@return string[] providers name of the providers
 function M.list_registered_linters(filetype)
-  local methods = require("null-ls.methods")
-  local method = methods.internal["DIAGNOSTICS"]
   local providers = M.list_registered_providers_names(filetype)
-  return providers[method] or {}
+  local names = vim.tbl_flatten(vim.tbl_map(function(m)
+    return providers[m] or {}
+  end, alternative_methods))
+  return names
 end
 
 return M
