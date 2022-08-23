@@ -120,7 +120,7 @@ packer.startup({
       },
       {
         "windwp/nvim-autopairs",
-        after = "nvim-treesitter",
+        after = { "nvim-treesitter", "nvim-cmp" },
         config = function()
           require("mvim.config.nvim-autopairs").setup()
         end,
@@ -310,6 +310,9 @@ packer.startup({
           "typescript",
           "html",
           "vue",
+          "lua",
+        }, {
+          mode = "foreground",
         })
       end,
     })
