@@ -8,6 +8,7 @@ local api = vim.api
 local lsp = vim.lsp
 local keymap = vim.keymap
 local diagnostic = vim.diagnostic
+local fmt = string.format
 
 local function highlight_references()
   local ts_utils_ok, ts_utils = pcall(require, "nvim-treesitter.ts_utils")
@@ -42,9 +43,10 @@ local function formatter_filter(client)
   return not vim.tbl_contains(exclude, client.name)
 end
 
+---@param opts table<string, any>
 local function format(opts)
   opts = opts or {}
-  vim.lsp.buf.format({
+  lsp.buf.format({
     bufnr = opts.bufnr,
     async = opts.async,
     filter = formatter_filter,
@@ -53,7 +55,7 @@ end
 
 local function get_augroup(bufnr)
   assert(bufnr, "A bufnr is required to create an lsp augroup")
-  return string.format("LspCommands_%d", bufnr)
+  return fmt("LspCommands_%d", bufnr)
 end
 
 ---Add lsp autocmd
@@ -61,7 +63,7 @@ end
 --@param bufnr number buffer id
 local function setup_autocmd(client, bufnr)
   if not client then
-    local msg = string.format("Unable to setup LSP autocmd, client for %d is missing", bufnr)
+    local msg = fmt("Unable to setup LSP autocmd, client for %d is missing", bufnr)
     return vim.notify(msg, "error", { title = "LSP Setup" })
   end
 
@@ -83,7 +85,7 @@ local function setup_autocmd(client, bufnr)
       event = "BufWritePre",
       buffer = bufnr,
       command = function(args)
-        if not vim.g.formatting_disabled then
+        if not vim.g.formatting_disabled and not vim.b.formatting_disabled then
           format({ bufnr = args.buf, async = false })
         end
       end,
@@ -95,7 +97,11 @@ local function setup_autocmd(client, bufnr)
     table.insert(cmds, {
       event = { "BufEnter", "InsertLeave", "CursorHold", "BufWritePost" },
       buffer = bufnr,
-      command = utils.fn(lsp.codelens.refresh),
+      command = function(args)
+        if api.nvim_buf_is_valid(args.buf) then
+          lsp.codelens.refresh()
+        end
+      end,
       desc = "Refresh code lens",
     })
   end
@@ -145,19 +151,23 @@ local function setup_keymaps(bufnr)
   keymap.set({ "n", "i" }, "<C-k>", lsp.buf.signature_help, with_desc("LSP: Signature help"))
 end
 
+---@param bufnr number buffer id
+local function setup_options(bufnr)
+  api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  api.nvim_buf_set_option(bufnr, "formatexpr", "v:lua.vim.lsp.formatexpr(#{timeout_ms:500})")
+end
+
 ---Add buffer local mappings, autocommands etc for attaching servers
 --@param client table the lsp client
 --@param bufnr number buffer id
 function M.common_on_attach(client, bufnr)
-  api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  -- if client.config.flags then
+  --   client.config.flags.allow_incremental_sync = true
+  -- end
 
   setup_keymaps(bufnr)
-
   setup_autocmd(client, bufnr)
-
-  if client.config.flags then
-    client.config.flags.allow_incremental_sync = true
-  end
+  setup_options(bufnr)
 end
 
 ---This function allows reading a per project `settings.josn` file
