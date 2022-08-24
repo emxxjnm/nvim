@@ -1,5 +1,7 @@
 local M = {}
 
+local colors = require("catppuccin.palettes").get_palette() or {}
+
 local fn = vim.fn
 local bo = vim.bo
 local api = vim.api
@@ -13,16 +15,6 @@ local conditions = {
   hide_in_width = function()
     return fn.winwidth(0) > 80
   end,
-}
-
--- catppuccin::macchiato
-local colors = {
-  blue = "#8aadf4",
-  lavender = "#b7bdf8",
-  sapphire = "#7dc4e4",
-  mauve = "#c6a0f6",
-  green = "#a6da95",
-  red = "#ed8796",
 }
 
 local mode = {
@@ -96,7 +88,7 @@ local lsp = {
     local clients = fn.uniq(buf_client_names)
     return " LSP:" .. table.concat(clients, "│")
   end,
-  color = { fg = colors.blue, gui = "bold" },
+  color = { fg = colors.mauve },
   cond = conditions.hide_in_width,
 }
 
@@ -149,7 +141,7 @@ local spaces = {
 
 local filetype = {
   "filetype",
-  color = { fg = colors.mauve },
+  color = { fg = colors.pink },
 }
 
 function M.setup()
