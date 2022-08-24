@@ -8,6 +8,7 @@ function M.setup()
       "css",
       "dockerfile",
       "dot",
+      "gitignore",
       "go",
       "html",
       "javascript",
