@@ -7,7 +7,7 @@ local icons = {
   error = "",
   warn = "",
   info = "",
-  hint = "",
+  hint = "",
 }
 
 local config = {

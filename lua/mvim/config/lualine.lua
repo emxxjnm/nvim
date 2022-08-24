@@ -39,8 +39,8 @@ local branch = {
 
 local filename = {
   "filename",
-  file_status = true, -- Displays file status (readonly status, modified status)
-  path = 0, -- 0: Just the filename 1: Relative path 2: Absolute path
+  file_status = false,
+  path = 3,
   color = { fg = colors.lavender },
 }
 
@@ -54,9 +54,8 @@ local filesize = {
 local diagnostics = {
   "diagnostics",
   sources = { "nvim_diagnostic" },
-  sections = { "error", "warn", "info" },
-  symbols = { error = " ", warn = " ", info = " " },
-  always_visible = true,
+  sections = { "error", "warn", "info", "hint" },
+  symbols = { error = " ", warn = " ", info = " ", hint = " " },
 }
 
 local treesitter = {
@@ -162,6 +161,7 @@ function M.setup()
       section_separators = { left = "", right = "" },
       disabled_filetypes = {
         statusline = {
+          "qf",
           "alpha",
           "packer",
           "NvimTree",

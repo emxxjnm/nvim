@@ -25,7 +25,7 @@ function M.setup()
       diagnostics = "nvim_lsp",
       diagnostics_update_in_insert = false,
       diagnostics_indicator = function(_, _, diagnostics)
-        local symbols = { error = " ", warning = " ", info = " " }
+        local symbols = { error = " ", warning = " ", info = " ", hint = " " }
         local result = {}
         for name, count in pairs(diagnostics) do
           if symbols[name] and count > 0 then
