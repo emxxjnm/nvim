@@ -1,4 +1,3 @@
-local opt = vim.api.nvim_set_option_value
-
-opt("expandtab", false, { scope = "local" })
-opt("shiftwidth", 4, { scope = "local" })
+vim.opt_local.expandtab = false
+vim.opt_local.shiftwidth = 4
+vim.opt_local.textwidth = 0 -- Go doesn't specify a max line length so don't force one
