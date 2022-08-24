@@ -23,7 +23,7 @@ function M.setup()
     sync_root_with_cwd = true,
     reload_on_bufenter = false,
     respect_buf_cwd = true,
-    on_attach = "disable",
+    on_attach = "disabled",
     remove_keymaps = false,
     view = {
       adaptive_size = false,
@@ -47,13 +47,24 @@ function M.setup()
           { key = "D", action = "toggle_dotfiles" },
         },
       },
+      float = {
+        enable = false,
+        open_win_config = {
+          relative = "editor",
+          border = "rounded",
+          width = 30,
+          height = 30,
+          row = 1,
+          col = 1,
+        },
+      },
     },
     renderer = {
       add_trailing = false,
       group_empty = false,
       highlight_git = false,
       full_name = false,
-      highlight_opened_files = "icon",
+      highlight_opened_files = "name",
       root_folder_modifier = ":~",
       indent_markers = {
         enable = false,
@@ -132,7 +143,7 @@ function M.setup()
         error = "",
         warning = "",
         info = "",
-        hint = "",
+        hint = "",
       },
     },
     filters = {
