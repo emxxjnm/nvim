@@ -1,3 +1,8 @@
+local ok, _ = pcall(require, "mason")
+if not ok then
+  return
+end
+
 local servers = {
   "bashls",
   "dockerls",
