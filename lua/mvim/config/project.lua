@@ -12,8 +12,8 @@ function M.setup()
     datapath = vim.fn.stdpath("data"),
   })
 
-  local status_ok, telescope = pcall(require, "telescope")
-  if not status_ok then
+  local ok, telescope = mo.require("telescope")
+  if not ok then
     return
   end
 

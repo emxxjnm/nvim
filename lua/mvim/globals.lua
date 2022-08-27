@@ -1,4 +1,5 @@
 local api = vim.api
+local fmt = string.format
 
 -------------------------------------------------------------------------------
 -- Augroup
@@ -28,7 +29,7 @@ local api = vim.api
 ---@return number augroup id
 function mo.augroup(name, commands)
   assert(name ~= "User", "The name of an augroup CANNOT be User")
-  assert(#commands > 0, string.format("You must specify at least on autocommand for %s", name))
+  assert(#commands > 0, fmt("You must specify at least on autocommand for %s", name))
   local group_id = api.nvim_create_augroup(name, { clear = true })
   for _, autocmd in ipairs(commands) do
     local is_callback = type(autocmd.command) == "function"
@@ -51,7 +52,7 @@ end
 --@param name string augroup name
 function mo.clear_augroup(name)
   -- defer the function in case the autocommand is still in-use
-  local exists, _ = pcall(vim.api.nvim_get_autocmds, { group = name })
+  local exists, _ = pcall(api.nvim_get_autocmds, { group = name })
   if not exists then
     return
   end
@@ -64,4 +65,20 @@ function mo.clear_augroup(name)
       vim.notify("problems detected while clearing autocmds from " .. name)
     end
   end)
+end
+
+---Require a module using `pcall` and report any error
+---@param module string
+---@param opts table?
+---@return boolean, any
+function mo.require(module, opts)
+  opts = opts or { slient = false }
+  local ok, result = pcall(require, module)
+  if not ok and not opts.silent then
+    if opts.message then
+      result = opts.message .. "\n" .. result
+    end
+    vim.notify(result, vim.log.levels.ERROR, { title = fmt("Error requiring %s", module) })
+  end
+  return ok, result
 end

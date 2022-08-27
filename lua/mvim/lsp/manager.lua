@@ -6,7 +6,10 @@ local lsp_utils = require("mvim.lsp.utils")
 local server_mapping = require("mason-lspconfig.mappings.server")
 
 local function resolve_mason_config(name)
-  local found, config = pcall(require, "mason-lspconfig.server_configurations." .. name)
+  local found, config = mo.require(
+    fmt("mason-lspconfig.server_configurations.%s", name),
+    { silent = true }
+  )
   if not found then
     -- vim.notify(fmt("mason configuration not found for %s", name))
     return {}
@@ -24,7 +27,7 @@ end
 local function resolve_config(name, ...)
   local defaults = require("mvim.lsp.config").get_common_opts()
 
-  local has_provider, cfg = pcall(require, "mvim.lsp.providers." .. name)
+  local has_provider, cfg = mo.require(fmt("mvim.lsp.providers.%s", name), { silent = true })
   if has_provider then
     defaults = vim.tbl_deep_extend("force", defaults, cfg) or {}
   end

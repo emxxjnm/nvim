@@ -11,8 +11,8 @@ local diagnostic = vim.diagnostic
 local fmt = string.format
 
 local function highlight_references()
-  local ts_utils_ok, ts_utils = pcall(require, "nvim-treesitter.ts_utils")
-  if not ts_utils_ok then
+  local ok, ts_utils = mo.require("nvim-treesitter.ts_utils")
+  if not ok then
     return
   end
 
@@ -208,8 +208,8 @@ function M.common_capabilities()
     lineFoldingOnly = true,
   }
 
-  local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-  if status_ok then
+  local ok, cmp_nvim_lsp = mo.require("cmp_nvim_lsp")
+  if ok then
     capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
   end
 

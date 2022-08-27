@@ -1,4 +1,4 @@
-local ok, _ = pcall(require, "mason")
+local ok, _ = mo.require("mason")
 if not ok then
   return
 end
