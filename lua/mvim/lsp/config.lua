@@ -203,8 +203,9 @@ function M.common_on_exit() end
 function M.common_capabilities()
   local capabilities = lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
-  capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = { "documentation", "detail", "additionalTextEdits" },
+  capabilities.textDocument.foldingRange = {
+    dynamicRegistration = false,
+    lineFoldingOnly = true,
   }
 
   local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")

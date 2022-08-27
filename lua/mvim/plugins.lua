@@ -106,6 +106,7 @@ packer.startup({
       {
         "andymass/vim-matchup",
         after = "nvim-treesitter",
+        branch = "dev-nvim-fix-19931",
         config = function()
           vim.g.matchup_matchparen_offscreen = {
             method = "popup",
@@ -240,7 +241,6 @@ packer.startup({
       },
     })
 
-    -- use("tpope/vim-surround")
     use({
       "kylechui/nvim-surround",
       config = function()
@@ -265,6 +265,7 @@ packer.startup({
     use({
       "catppuccin/nvim",
       as = "catppuccin",
+      run = ":CatppuccinCompile",
       config = function()
         vim.g.catppuccin_flavour = "macchiato"
         require("mvim.config.catppuccin").setup()
