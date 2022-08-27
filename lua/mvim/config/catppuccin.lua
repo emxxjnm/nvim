@@ -4,7 +4,7 @@ function M.setup()
   require("catppuccin").setup({
     dim_inactive = {
       enabled = false,
-      shade = "",
+      shade = "dark",
       percentage = 0,
     },
     transparent_background = true,
@@ -12,7 +12,6 @@ function M.setup()
     compile = {
       enabled = true,
       path = vim.fn.stdpath("cache") .. "/catppuccin",
-      suffix = "_compiled",
     },
     styles = {
       comments = { "italic" },
@@ -48,11 +47,7 @@ function M.setup()
       cmp = true,
       gitsigns = true,
       telescope = true,
-      nvimtree = {
-        enabled = true,
-        show_root = true,
-        transparent_panel = true,
-      },
+      nvimtree = true,
       dap = {
         enabled = true,
         enable_ui = true,
