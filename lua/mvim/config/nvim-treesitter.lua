@@ -30,7 +30,7 @@ function M.setup()
     },
     indent = {
       enable = true,
-      disable = { "yaml", "vue" },
+      disable = { "yaml" },
     },
     incremental_selection = {
       enable = true,
