@@ -106,7 +106,6 @@ packer.startup({
       {
         "andymass/vim-matchup",
         after = "nvim-treesitter",
-        branch = "dev-nvim-fix-19931",
         config = function()
           vim.g.matchup_matchparen_offscreen = {
             method = "popup",
@@ -175,10 +174,9 @@ packer.startup({
         requires = {
           {
             "L3MON4D3/LuaSnip",
+            run = "make install_jsregexp",
             config = function()
-              require("luasnip.loaders.from_vscode").lazy_load({
-                paths = vim.fn.stdpath("config") .. "/snippets",
-              })
+              require("mvim.config.luasnip").setups()
             end,
           },
           { "hrsh7th/cmp-nvim-lsp" },
