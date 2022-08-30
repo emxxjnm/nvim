@@ -4,7 +4,7 @@ function M.setup()
   require("nvim-autopairs").setup({
     check_ts = true,
     ts_config = {
-      lua = { "string", "source" },
+      lua = { "string" },
       javascript = { "string", "template_string" },
     },
     disable_filetype = {
@@ -25,7 +25,7 @@ function M.setup()
     ---@usage disable when insert after visual block mode
     disable_in_visualblock = false,
     fast_wrap = {
-      map = "<M-e>",
+      map = "<C-e>",
       chars = { "{", "[", "(", '"', "'" },
       pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
       offset = 0, -- Offset from pattern match
@@ -37,7 +37,7 @@ function M.setup()
     },
   })
 
-  pcall(function()
+  mo.wrap_error("failed to setup nvim-autopairs completion", function()
     local cmp_autopairs = require("nvim-autopairs.completion.cmp")
     require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
   end)

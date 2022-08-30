@@ -82,3 +82,26 @@ function mo.require(module, opts)
   end
   return ok, result
 end
+
+---Call the given function and use `vim.notify` to notify of any errors
+---this function is a wrapper around `xpcall` which allows having a single
+---error handler for all errors
+---@param msg string?
+---@param func function
+---@vararg any
+---@return boolean, any
+---@overload fun(fun:function, ...): boolean, any
+function mo.wrap_error(msg, func, ...)
+  local args = { ... }
+  if type(msg) == "function" then
+    args, func, msg = { func, unpack(args) }, msg, nil
+  end
+  return xpcall(func, function(err)
+    msg = msg and fmt("%s:\n%s", msg, err) or err
+    local info = debug.getinfo(2, "S")
+    local title = fmt("ERROR(%s:%d)", vim.fn.fnamemodify(info.short_src, ":~:."), info.linedefined)
+    vim.schedule(function()
+      vim.notify(msg, vim.log.levels.ERROR, { title = title })
+    end)
+  end, unpack(args))
+end

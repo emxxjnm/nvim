@@ -113,7 +113,7 @@ function M.setup()
         end
       end, { "i", "s", "c" }),
       ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
-      ["<C-e>"] = { i = cmp.mapping.abort(), c = cmp.mapping.close() },
+      ["<C-q>"] = { i = cmp.mapping.abort(), c = cmp.mapping.close() },
       ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-8), { "i", "c" }),
       ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(8), { "i", "c" }),
       -- ["<C-c>"] = cmp.mapping.complete(),
