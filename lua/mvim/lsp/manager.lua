@@ -11,7 +11,6 @@ local function resolve_mason_config(name)
     { silent = true }
   )
   if not found then
-    -- vim.notify(fmt("mason configuration not found for %s", name))
     return {}
   end
 
@@ -43,7 +42,7 @@ local function buf_try_add(name, bufnr)
 end
 
 local function launch_server(name, cfg)
-  pcall(function()
+  mo.wrap_error(fmt("failed to setup LSP %s", name), function()
     require("lspconfig")[name].setup(cfg)
     buf_try_add(name)
   end)
