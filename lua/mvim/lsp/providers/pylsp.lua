@@ -10,12 +10,8 @@ return {
   settings = {
     pylsp = {
       plugins = {
-        pydocstyle = {
-          enabled = false,
-        },
         pycodestyle = {
-          ignore = {},
-          exclude = {},
+          indentSize = 4,
           maxLineLength = 100,
         },
         isort = {
@@ -23,6 +19,9 @@ return {
         },
         black = {
           enabled = true,
+        },
+        pydocstyle = {
+          enabled = false,
         },
         yapf = {
           enabled = false,
