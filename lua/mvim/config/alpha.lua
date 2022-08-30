@@ -5,12 +5,12 @@ function M.setup()
   local alpha = require("alpha")
   local dashboard = require("alpha.themes.dashboard")
 
-  local function button(h, ...)
+  local function button(hl, ...)
     local btn = dashboard.button(...)
     local details = select(2, ...)
     local icon = details:match("[^%w%s]+")
-    btn.opts.hl = { { h, 0, #icon + 1 } }
-    btn.opts.hl_shortcut = "Structure"
+    btn.opts.hl = { { hl, 0, #icon + 1 } }
+    btn.opts.hl_shortcut = "Title"
     return btn
   end
 
@@ -25,10 +25,10 @@ function M.setup()
   local nvim_information = {
     type = "text",
     val = format("---  %d plugins installed, %s ---", plugins, nvim_version_info),
-    opts = { position = "center", hl = "Comment" },
+    opts = { position = "center", hl = "Conceal" },
   }
 
-  dashboard.section.header.opts.hl = "Type"
+  dashboard.section.header.opts.hl = "Identifier"
   dashboard.section.header.val = {
     [[                                                                            ]],
     [[       .-') _     ('-.                      (`-.              _   .-')      ]],
@@ -45,7 +45,7 @@ function M.setup()
 
   dashboard.section.buttons.val = {
     button("Statement", "n", "  New File", ":ene! <BAR> startinsert <CR>"),
-    button("Keyword", "f", "  Find File", ":Telescope find_files <CR>"),
+    button("Include", "f", "  Find File", ":Telescope find_files <CR>"),
     button("Label", "p", "  Find Project", ":Telescope projects <CR>"),
     button("Operator", "r", "  Recently Opened", ":Telescope oldfiles <CR>"),
     button("String", "c", "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),
