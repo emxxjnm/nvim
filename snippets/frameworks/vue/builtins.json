@@ -96,22 +96,22 @@
   },
   "transition": {
     "prefix": "trans",
-    "body": "<transition$1>\n\t$0</transition>",
+    "body": "<transition$1>\n\t$1</transition>$0",
     "description": "Provides animated transition effects to a single element or component."
   },
   "transition group": {
     "prefix": "transgroup",
-    "body": "<transition-group$1>\n\t$0</transition-group>",
+    "body": "<transition-group$1>\n\t$1</transition-group>$0",
     "description": "Provides transition effects for multiple elements or components in a list."
   },
   "keep alive": {
     "prefix": "keep",
-    "body": "<keep-alive$1>\n\t$0</keep-alive>",
+    "body": "<keep-alive$1>\n\t$1</keep-alive>$0",
     "description": "Caches dynamically toggled components wrapped inside."
   },
   "teleport": {
     "prefix": "teleport>",
-    "body": "<teleport$1>\n\t$0</teleport>",
+    "body": "<teleport$1>\n\t$1</teleport>$0",
     "description": "Renders its slot content to another part of the DOM."
   },
   "teleport slef close": {
@@ -121,7 +121,7 @@
   },
   "suspense": {
     "prefix": "suspense",
-    "body": "<suspense$1>\n\t$0</suspense>",
+    "body": "<suspense$1>\n\t$1</suspense>$0",
     "description": "Used for orchestrating nested async dependencies in a component tree."
   },
   "component": {
@@ -131,7 +131,7 @@
   },
   "slot": {
     "prefix": "slot>",
-    "body": "<slot$1>$0</slot>",
+    "body": "<slot$1>$1</slot>$0",
     "description": "Denotes slot content outlets in templates."
   },
   "slot self close": {
