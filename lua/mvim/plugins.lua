@@ -14,8 +14,8 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Use a protected call so we don't error out on first use
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
+local ok, packer = mo.require("packer")
+if not ok then
   vim.notify("Plugin manager had not installed.", vim.log.levels.ERROR, { title = "Packer" })
   return
 end
@@ -101,6 +101,10 @@ packer.startup({
       },
       {
         "nvim-treesitter/nvim-treesitter-textobjects",
+        after = "nvim-treesitter",
+      },
+      {
+        "JoosepAlviste/nvim-ts-context-commentstring",
         after = "nvim-treesitter",
       },
       {
@@ -192,7 +196,7 @@ packer.startup({
     use({
       "numToStr/Comment.nvim",
       config = function()
-        require("Comment").setup()
+        require("mvim.config.comment").setup()
       end,
     })
 

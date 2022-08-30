@@ -24,13 +24,12 @@ function M.setup()
       "vue",
       "yaml",
     },
-    ignore_install = {},
     highlight = {
       enable = true,
     },
     indent = {
       enable = true,
-      disable = { "yaml" },
+      disable = { "yaml", "python" },
     },
     incremental_selection = {
       enable = true,
@@ -40,6 +39,10 @@ function M.setup()
         scope_incremental = "<CR>", -- visual mode
         node_decremental = "<BS>", -- visual mode
       },
+    },
+    context_commentstring = {
+      enable = true,
+      enable_autocmd = false,
     },
     textobjects = {
       select = {
@@ -54,24 +57,12 @@ function M.setup()
         enable = true,
         set_jumps = true,
         goto_next_start = {
-          ["]]"] = "@function.outer",
+          ["[["] = { "@function.outer", "@class.outer" },
         },
         goto_next_end = {
-          ["]["] = "@function.outer",
-        },
-        goto_previous_start = {
-          ["[["] = "@function.outer",
-        },
-        goto_previous_end = {
-          ["[]"] = "@function.outer",
+          ["]]"] = { "@function.outer", "@class.outer" },
         },
       },
-    },
-    playground = {
-      enable = true,
-      disable = {},
-      updatetime = 25,
-      persist_queries = false,
     },
     autotag = {
       enable = true,
