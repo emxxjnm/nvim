@@ -201,7 +201,7 @@ mo.augroup("LspSetupCommands", {
 })
 
 local function sign(name, icon)
-  fn.sign_define(name, { text = icon, texthl = name })
+  fn.sign_define(name, { text = icon, texthl = name, numhl = name })
 end
 
 sign("DiagnosticSignHint", icons.hint)
@@ -245,14 +245,7 @@ diagnostic.config({
   underline = true,
   severity_sort = true,
   update_in_insert = false,
-  virtual_text = {
-    spacing = 1,
-    prefix = "",
-    format = function(d)
-      local level = diagnostic.severity[d.severity]
-      return fmt("%s %s", icons[level:lower()], d.message)
-    end,
-  },
+  virtual_text = false,
   float = {
     header = "",
     source = true,
