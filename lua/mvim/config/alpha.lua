@@ -28,7 +28,7 @@ function M.setup()
     opts = { position = "center", hl = "Conceal" },
   }
 
-  dashboard.section.header.opts.hl = "Identifier"
+  dashboard.section.header.opts.hl = "TSEmphasis"
   dashboard.section.header.val = {
     [[                                                                            ]],
     [[       .-') _     ('-.                      (`-.              _   .-')      ]],
@@ -57,7 +57,7 @@ function M.setup()
 
   alpha.setup({
     layout = {
-      { type = "padding", val = 5 },
+      { type = "padding", val = 4 },
       dashboard.section.header,
       { type = "padding", val = 1 },
       dashboard.section.buttons,
