@@ -191,11 +191,7 @@ mo.augroup("LspSetupCommands", {
         return
       end
 
-      mo.wrap_error(
-        fmt("failed to clear buffer %s argroup"),
-        api.nvim_clear_autocmds,
-        { group = get_augroup(args.buf), buffer = args.buf }
-      )
+      pcall(api.nvim_clear_autocmds, { group = get_augroup(args.buf), buffer = args.buf })
     end,
   },
 })
