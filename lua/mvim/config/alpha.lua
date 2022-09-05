@@ -10,7 +10,7 @@ function M.setup()
     local details = select(2, ...)
     local icon = details:match("[^%w%s]+")
     btn.opts.hl = { { hl, 0, #icon + 1 } }
-    btn.opts.hl_shortcut = "Title"
+    btn.opts.hl_shortcut = "MatchParen"
     return btn
   end
 
@@ -28,7 +28,7 @@ function M.setup()
     opts = { position = "center", hl = "Conceal" },
   }
 
-  dashboard.section.header.opts.hl = "TSEmphasis"
+  dashboard.section.header.opts.hl = "Type"
   dashboard.section.header.val = {
     [[                                                                            ]],
     [[       .-') _     ('-.                      (`-.              _   .-')      ]],
@@ -46,7 +46,7 @@ function M.setup()
   dashboard.section.buttons.val = {
     button("Statement", "n", "  New File", ":ene! <BAR> startinsert <CR>"),
     button("Include", "f", "  Find File", ":Telescope find_files <CR>"),
-    button("Label", "p", "  Find Project", ":Telescope projects <CR>"),
+    button("Structure", "p", "  Find Project", ":Telescope projects <CR>"),
     button("Operator", "r", "  Recently Opened", ":Telescope oldfiles <CR>"),
     button("String", "c", "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),
     button("Conditional", "q", "  Quit Neovim", ":qa<CR>"),
