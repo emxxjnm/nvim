@@ -3,9 +3,8 @@ if not ok then
   return
 end
 
-local default_opts = require("mvim.lsp.config").get_common_opts()
-
-null_ls.setup(vim.tbl_deep_extend("force", default_opts, {
+null_ls.setup({
+  log_level = "info",
   sources = {
     -- lua
     null_ls.builtins.formatting.stylua.with({
@@ -28,4 +27,4 @@ null_ls.setup(vim.tbl_deep_extend("force", default_opts, {
     null_ls.builtins.formatting.markdownlint,
     null_ls.builtins.diagnostics.markdownlint,
   },
-}))
+})
