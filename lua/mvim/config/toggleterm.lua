@@ -12,6 +12,7 @@ function M.setup()
     terminal_mappings = true,
     persist_size = false,
     direction = "horizontal",
+    autochdir = true,
     close_on_exit = true,
     size = function(term)
       if term.direction == "horizontal" then
