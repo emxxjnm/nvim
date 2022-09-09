@@ -45,6 +45,7 @@ function M.setup()
     },
     attach_to_untracked = true,
     current_line_blame = true,
+    current_line_blame_formatter = "<author>, <author_time> · <summary>",
     current_line_blame_opts = {
       delay = 600,
       virt_text = true,
