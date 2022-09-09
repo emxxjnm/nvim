@@ -6,10 +6,8 @@ local lsp_utils = require("mvim.lsp.utils")
 local server_mapping = require("mason-lspconfig.mappings.server")
 
 local function resolve_mason_config(name)
-  local found, config = mo.require(
-    fmt("mason-lspconfig.server_configurations.%s", name),
-    { silent = true }
-  )
+  local found, config =
+    mo.require(fmt("mason-lspconfig.server_configurations.%s", name), { silent = true })
   if not found then
     return {}
   end
@@ -67,18 +65,20 @@ function M.setup(name, config)
   end
 
   if not registry.is_installed(pkg_name) then
-    vim.notify_once(fmt("Installation in progress for [%s]", name), vim.log.levels.INFO)
+    vim.notify(fmt("Installation in progress for [%s]", name))
     local pkg = registry.get_package(pkg_name)
-    pkg:install():once("closed", function()
-      if pkg:is_installed() then
-        vim.schedule(function()
-          vim.notify_once(fmt("Installation complete for [%s]", name), vim.log.levels.INFO)
+    pkg:install():once(
+      "closed",
+      vim.schedule_wrap(function()
+        if pkg:is_installed() then
+          vim.notify(fmt("Installation complete for [%s]", name))
           -- mason config is only available once the server has been installed
           local conf = resolve_config(name, resolve_mason_config(name), config)
           launch_server(name, conf)
-        end)
-      end
-    end)
+        end
+      end)
+    )
+
     return
   end
 
