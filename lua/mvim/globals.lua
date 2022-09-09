@@ -51,19 +51,10 @@ end
 ---This is safer than trying to delete the augroup itself
 --@param name string augroup name
 function mo.clear_augroup(name)
-  -- defer the function in case the autocommand is still in-use
-  local exists, _ = pcall(api.nvim_get_autocmds, { group = name })
-  if not exists then
-    return
-  end
-
   vim.schedule(function()
-    local status_ok, _ = xpcall(function()
+    pcall(function()
       api.nvim_clear_autocmds({ group = name })
-    end, debug.traceback)
-    if not status_ok then
-      vim.notify("problems detected while clearing autocmds from " .. name)
-    end
+    end)
   end)
 end
 
