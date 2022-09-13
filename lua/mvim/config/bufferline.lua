@@ -22,6 +22,7 @@ function M.setup()
       max_name_length = 18,
       max_prefix_length = 15,
       tab_size = 7,
+      truncate_names = true,
       diagnostics = "nvim_lsp",
       diagnostics_update_in_insert = false,
       diagnostics_indicator = function(_, _, diagnostics)
@@ -67,6 +68,11 @@ function M.setup()
       -- separator_style = "slant",
       enforce_regular_tabs = false,
       always_show_bufferline = true,
+      hover = {
+        enabled = true,
+        delay = 200,
+        reveal = { "close" },
+      },
       sort_by = "insert_after_current",
     },
   })
