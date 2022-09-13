@@ -57,10 +57,12 @@ function M.setup()
         enable = true,
         set_jumps = true,
         goto_next_start = {
-          ["[["] = { "@function.outer", "@class.outer" },
+          ["]c"] = "@class.outer",
+          ["[f"] = "@function.outer",
         },
-        goto_next_end = {
-          ["]]"] = { "@function.outer", "@class.outer" },
+        goto_previous_start = {
+          ["[c"] = "@class.outer",
+          ["[f"] = "@function.outer",
         },
       },
     },
