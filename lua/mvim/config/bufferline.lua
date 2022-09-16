@@ -69,7 +69,7 @@ function M.setup()
       enforce_regular_tabs = false,
       always_show_bufferline = true,
       hover = {
-        enabled = true,
+        enabled = false,
         delay = 200,
         reveal = { "close" },
       },
