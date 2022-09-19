@@ -178,7 +178,7 @@ packer.startup({
         requires = {
           {
             "L3MON4D3/LuaSnip",
-            run = "make install_jsregexp",
+            -- run = "make install_jsregexp",
             config = function()
               require("mvim.config.luasnip").setups()
             end,
@@ -303,19 +303,13 @@ packer.startup({
 
     -- highlight color
     use({
-      "norcalli/nvim-colorizer.lua",
+      "NvChad/nvim-colorizer.lua",
       config = function()
         require("colorizer").setup({
-          "css",
-          "less",
-          "scss",
-          "javascript",
-          "typescript",
-          "html",
-          "vue",
-          "lua",
-        }, {
-          mode = "foreground",
+          user_default_options = {
+            mode = "virtualtext",
+            virtualtext = " ",
+          },
         })
       end,
     })
