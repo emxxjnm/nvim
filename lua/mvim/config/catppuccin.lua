@@ -48,6 +48,7 @@ function M.setup()
       gitsigns = true,
       telescope = true,
       nvimtree = true,
+      which_key = true,
       dap = {
         enabled = true,
         enable_ui = true,
