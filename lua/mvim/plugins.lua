@@ -332,6 +332,13 @@ packer.startup({
       end,
     })
 
+    use({
+      "folke/which-key.nvim",
+      config = function()
+        require("mvim.config.which-key").setup()
+      end,
+    })
+
     -- Misc
     use({
       "dstein64/vim-startuptime",
