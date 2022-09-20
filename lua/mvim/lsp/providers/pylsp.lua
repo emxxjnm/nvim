@@ -20,6 +20,12 @@ return {
         black = {
           enabled = true,
         },
+        pylsp_mypy = {
+          enabled = true,
+          dmypy = false,
+          live_mode = true,
+          strict = false,
+        },
         pydocstyle = {
           enabled = false,
         },
