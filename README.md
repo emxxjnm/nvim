@@ -2,7 +2,7 @@
 
 ## Preview
 
-![Preview](https://raw.githubusercontent.com/myles-neovim/dotfiles/master/screenshot.png)
+![Preview](https://user-images.githubusercontent.com/54089360/192091452-22f0c996-637d-4b36-b99f-2a2b797ddbd2.png)
 
 ## TODO
 
