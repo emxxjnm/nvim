@@ -53,6 +53,11 @@ function M.setup()
     pickers = {
       find_files = {
         find_command = { "fd" },
+        hidden = true,
+      },
+      buffers = {
+        theme = "dropdown",
+        previewer = false,
       },
     },
     extensions = {
