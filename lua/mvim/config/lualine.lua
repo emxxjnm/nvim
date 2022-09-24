@@ -13,7 +13,7 @@ local conditions = {
     return fn.empty(fn.expand("%:t")) ~= 1
   end,
   hide_in_width = function()
-    return fn.winwidth(0) > 80
+    return vim.o.columns > 80
   end,
 }
 
