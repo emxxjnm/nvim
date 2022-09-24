@@ -36,7 +36,7 @@ function M.setups()
     if luasnip.choice_active() then
       luasnip.change_choice(1)
     end
-  end)
+  end, { silent = true, desc = "select within a list of options" })
 
   require("luasnip.loaders.from_vscode").lazy_load({
     paths = vim.fn.stdpath("config") .. "/snippets",

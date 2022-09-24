@@ -221,8 +221,11 @@ packer.startup({
         "mfussenegger/nvim-dap",
         opt = true,
         module = "dap",
+        setup = function()
+          require("mvim.dap.dap").setup()
+        end,
         config = function()
-          require("mvim.dap").setup()
+          require("mvim.dap.dap").config()
         end,
       },
       {
@@ -313,7 +316,7 @@ packer.startup({
     use({
       "phaazon/hop.nvim",
       config = function()
-        require("hop").setup()
+        require("mvim.config.hop").setup()
       end,
     })
 
@@ -323,6 +326,7 @@ packer.startup({
         require("indent_blankline").setup({
           char_list = { "┊" },
           show_current_context = true,
+          show_first_indent_level = false,
         })
       end,
     })

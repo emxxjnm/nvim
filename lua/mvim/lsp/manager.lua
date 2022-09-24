@@ -72,13 +72,11 @@ function M.setup(name, config)
       vim.schedule_wrap(function()
         if pkg:is_installed() then
           vim.notify(fmt("Installation complete for [%s]", name))
-          -- mason config is only available once the server has been installed
           local conf = resolve_config(name, resolve_mason_config(name), config)
           launch_server(name, conf)
         end
       end)
     )
-
     return
   end
 

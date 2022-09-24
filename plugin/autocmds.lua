@@ -1,6 +1,7 @@
 local fn = vim.fn
 local bo = vim.bo
 local api = vim.api
+local keymap = vim.keymap
 
 ---automatically clear commandline messages after a few seconds delay
 ---@return function
@@ -130,19 +131,20 @@ mo.augroup("SetupTerminalMappings", {
     pattern = "term://*",
     command = function()
       if bo.filetype == "toggleterm" then
-        local opts = { noremap = true, silent = true }
-        api.nvim_buf_set_keymap(0, "t", "jj", [[<C-\><C-n>]], opts)
-        api.nvim_buf_set_keymap(0, "t", "<Esc>", [[<C-\><C-n>]], opts)
-        api.nvim_buf_set_keymap(0, "t", "<C-w>", [[<C-\><C-n><C-w>]], opts)
-        api.nvim_buf_set_keymap(0, "t", "<C-h>", [[<C-\><C-n><C-w>h]], opts)
-        api.nvim_buf_set_keymap(0, "t", "<C-j>", [[<C-\><C-n><C-w>j]], opts)
-        api.nvim_buf_set_keymap(0, "t", "<C-k>", [[<C-\><C-n><C-w>k]], opts)
-        api.nvim_buf_set_keymap(0, "t", "<C-l>", [[<C-\><C-n><C-w>l]], opts)
+        local opts = { buffer = 0, silent = true }
+        keymap.set("t", "jj", [[<C-\><C-n>]], opts)
+        keymap.set("t", "<Esc>", [[<C-\><C-n>]], opts)
+        keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], opts)
+        keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]], opts)
+        keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]], opts)
+        keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]], opts)
+        keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]], opts)
+        keymap.set("t", "<leader><Tab>", "<Cmd>close \\| :bnext<CR>", opts)
 
-        api.nvim_buf_set_keymap(0, "n", "<C-h>", [[<C-\><C-n><C-w>hi]], opts)
-        api.nvim_buf_set_keymap(0, "n", "<C-j>", [[<C-\><C-n><C-w>ji]], opts)
-        api.nvim_buf_set_keymap(0, "n", "<C-k>", [[<C-\><C-n><C-w>ki]], opts)
-        api.nvim_buf_set_keymap(0, "n", "<C-l>", [[<C-\><C-n><C-w>li]], opts)
+        keymap.set("n", "<C-h>", [[<C-\><C-n><C-w>hi]], opts)
+        keymap.set("n", "<C-j>", [[<C-\><C-n><C-w>ji]], opts)
+        keymap.set("n", "<C-k>", [[<C-\><C-n><C-w>ki]], opts)
+        keymap.set("n", "<C-l>", [[<C-\><C-n><C-w>li]], opts)
       end
     end,
     desc = "setup toggleterm keymap",

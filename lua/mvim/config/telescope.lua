@@ -4,7 +4,8 @@ local layout_actions = require("telescope.actions.layout")
 local M = {}
 
 function M.setup()
-  require("telescope").setup({
+  local telescope = require("telescope")
+  telescope.setup({
     defaults = {
       prompt_prefix = " ",
       selection_caret = " ",
@@ -68,6 +69,54 @@ function M.setup()
         case_mode = "smart_case",
       },
     },
+  })
+
+  local builtin = require("telescope.builtin")
+  local map = vim.keymap.set
+
+  map("n", "<leader>ff", builtin.find_files, {
+    silent = true,
+    desc = "telescope: Find files in your current working directory",
+  })
+
+  map("n", "<leader>fg", telescope.extensions.live_grep_args.live_grep_args, {
+    silent = true,
+    desc = "telescope: Search for a string in your current working directory",
+  })
+
+  map("n", "<leader>fr", builtin.oldfiles, {
+    silent = true,
+    desc = "telescope: Lists previously open files",
+  })
+
+  map("n", "<leader>fp", telescope.extensions.projects.projects, {
+    silent = true,
+    desc = "telescope: Lists previously open projects",
+  })
+
+  map("n", "<leader>fb", builtin.buffers, {
+    silent = true,
+    desc = "telescope: Lists open buffers in current neovim instance",
+  })
+
+  map("n", "<leader>fc", builtin.current_buffer_fuzzy_find, {
+    silent = true,
+    desc = "telescope: Live fuzzy search inside of the currently open buffer",
+  })
+
+  map("n", "<leader>fd", builtin.diagnostics, {
+    silent = true,
+    desc = "telescope: Lists Diagnostics for all open buffers",
+  })
+
+  map("n", "<leader>fs", builtin.lsp_document_symbols, {
+    silent = true,
+    desc = "telescope: Lists LSP document symbols in the current buffer",
+  })
+
+  map("n", "<leader>f?", builtin.help_tags, {
+    silent = true,
+    desc = "telescope: Lists available help tags",
   })
 end
 

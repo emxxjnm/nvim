@@ -1,78 +1,182 @@
-local opts = { noremap = true, silent = true }
+-- editing
+vim.keymap.set("n", "<leader>w", vim.cmd.write, {
+  silent = true,
+  desc = "Write the buffer to the current file",
+})
 
--- shorten function name
-local keymap = vim.api.nvim_set_keymap
+-- editing
+vim.keymap.set("n", "<leader>q", vim.cmd.quit, {
+  silent = true,
+  desc = "Quit the current window",
+})
 
--- ============ Normal ===========
-keymap("n", "<leader>w", ":w<CR>", opts)
-keymap("n", "<leader>q", ":q<CR>", opts)
-keymap("n", "<leader>WQ", ":wa<CR>:q<CR>", opts)
-keymap("n", "<leader>Q", ":qa!<CR>", opts)
+-- editing
+vim.keymap.set("n", "<leader>WQ", ":wa<CR>:q<CR>", {
+  silent = true,
+  desc = "Write all changed buffers and Quit the window",
+})
 
-keymap("n", "<leader>p", '"+p', opts)
+-- editing
+vim.keymap.set("n", "<leader>Q", ":qa!<CR>", {
+  silent = true,
+  desc = "Exit Vim(Any changes to buffers are lost)",
+})
 
-keymap("n", "<leader>;", "%", opts)
+vim.keymap.set("n", "<leader>p", '"+p', {
+  silent = true,
+  desc = "Copy text to the system clipboard",
+})
 
-keymap("n", "H", "^", opts)
-keymap("n", "L", "$", opts)
+-- motion
+vim.keymap.set("n", "<leader>;", "%", {
+  silent = true,
+  desc = "Find and jump to match item",
+})
 
--- Move text up and down
-keymap("n", "<M-Up>", "<Esc>:m .-2<cr>==g<Esc>", opts)
-keymap("n", "<M-Down>", "<Esc>:m .+1<cr>==g<Esc>", opts)
+-- motion
+vim.keymap.set({ "n", "v" }, "H", "^", {
+  silent = true,
+  desc = "To the first non-blank character of the line",
+})
+vim.keymap.set({ "n", "v" }, "L", "$", {
+  silent = true,
+  desc = "To the end of hte line",
+})
 
--- note: <c-w>o close all split windows except current
-keymap("n", "<leader>sh", ":set splitright<CR>:vsplit<CR>", opts)
-keymap("n", "<leader>sl", ":set nosplitright<CR>:vsplit<CR>:set splitright<CR>", opts)
-keymap("n", "<leader>sk", ":set splitbelow<CR>:split<CR>", opts)
-keymap("n", "<leader>sj", ":set nosplitbelow<CR>:split<CR>:set splitbelow<CR>", opts)
+vim.keymap.set("n", "[<space>", [[<Cmd>put! =repeat(nr2char(10), v:count1)<CR>]], {
+  silent = true,
+  desc = "Add empty line above",
+})
+vim.keymap.set("n", "]<space>", [[<Cmd>put =repeat(nr2char(10), v:count1)<CR>]], {
+  silent = true,
+  desc = "Add empty line below",
+})
+
+-- cahnge
+vim.keymap.set("n", "<leader>U", "gUiw`]", {
+  silent = true,
+  desc = "Make word text UPPERCASE",
+})
+vim.keymap.set("i", "<C-u>", "_<Esc>mzwbgUiw`zi<Del>", {
+  silent = true,
+  desc = "mark word text uppercase",
+})
+
+vim.keymap.set("n", "<M-Up>", "<cmd>move-2<CR>==", {
+  silent = true,
+  desc = "Move current line up",
+})
+vim.keymap.set("n", "<M-Down>", "<cmd>move+<CR>==", {
+  silent = true,
+  desc = "Move current line down",
+})
+
+vim.keymap.set("n", "<leader>sh", ":set splitright<CR>:vsplit<CR>", {
+  silent = true,
+  desc = "Split left",
+})
+vim.keymap.set("n", "<leader>sl", ":set nosplitright<CR>:vsplit<CR>:set splitright<CR>", {
+  silent = true,
+  desc = "Split right",
+})
+vim.keymap.set("n", "<leader>sk", ":set splitbelow<CR>:split<CR>", {
+  silent = true,
+  desc = "Split above",
+})
+vim.keymap.set("n", "<leader>sj", ":set nosplitbelow<CR>:split<CR>:set splitbelow<CR>", {
+  silent = true,
+  desc = "Split below",
+})
 
 -- resize the window
-keymap("n", "<Up>", ":res -2<CR>", opts)
-keymap("n", "<Down>", ":res +2<CR>", opts)
-keymap("n", "<Left>", ":vertical resize -2<CR>", opts)
-keymap("n", "<Right>", ":vertical resize +2<CR>", opts)
+vim.keymap.set("n", "<Up>", ":res -2<CR>", {
+  silent = true,
+  desc = "resize current window",
+})
+vim.keymap.set("n", "<Down>", ":res +2<CR>", {
+  silent = true,
+  desc = "resize current window",
+})
+vim.keymap.set("n", "<Left>", ":vertical resize -2<CR>", {
+  silent = true,
+  desc = "resize current window",
+})
+vim.keymap.set("n", "<Right>", ":vertical resize +2<CR>", {
+  silent = true,
+  desc = "resize current window",
+})
 
--- Hop
-keymap("n", "<leader>k", ":HopWord<CR>", opts)
-keymap("n", "<leader>j", ":HopLine<CR>", opts)
-keymap("n", "<leader>l", ":HopChar1<CR>", opts)
-keymap("n", "<leader>h", ":HopChar2<CR>", opts)
+-- window
+vim.keymap.set("n", "<leader>d", ":bdelete!<CR>", {
+  silent = true,
+  desc = "Unload and delete current buffer",
+})
+vim.keymap.set("n", "<leader>D", ":%bdelete|edit#|bdelete#<CR>", {
+  silent = true,
+  desc = "Unload and delete other buffers",
+})
 
--- nvim-tree
-keymap("n", "<leader>E", ":NvimTreeToggle<CR>", opts)
-keymap("n", "<leader>e", ":NvimTreeFindFileToggle<CR>", opts)
-
--- bufferline
-keymap("n", "E", ":BufferLineCyclePrev<CR>", opts)
-keymap("n", "R", ":BufferLineCycleNext<CR>", opts)
-keymap("n", "<leader>d", ":bdelete!<CR>", opts)
-keymap("n", "<leader>D", ":%bdelete|edit#|bdelete#<CR>", opts)
-
--- Telescope
-keymap("n", "<leader>ff", ":Telescope find_files<CR>", opts)
-keymap("n", "<leader>fg", ":Telescope live_grep_args<CR>", opts)
-keymap("n", "<leader>fr", ":Telescope oldfiles<CR>", opts)
-keymap("n", "<leader>fp", ":Telescope projects<CR>", opts)
-keymap("n", "<leader>fb", ":Telescope buffers<CR>", opts)
-keymap("n", "<leader>fc", ":Telescope current_buffer_fuzzy_find<CR>", opts)
-
--- Toggleterm
-keymap("n", "<c-\\>", ":ToggleTerm<CR>", opts)
-keymap("n", "<leader>gg", ":lua require('mvim.external').lazygit()<CR>", opts)
+vim.keymap.set("n", "<leader>gg", require("mvim.external").lazygit, {
+  silent = true,
+  desc = "Lazygit",
+})
 
 -- dap
-keymap("n", "<leader>b", ":lua require('dap').toggle_breakpoint()<CR>", opts)
-keymap("n", "<F5>", ":lua require('dap').continue()<CR>", opts)
-keymap("n", "<S-F5>", ":lua require('dap').terminate()<CR>", opts)
-keymap("n", "<F10>", ":lua require('dap').step_over()<CR>", opts)
-keymap("n", "<F11>", ":lua require('dap').step_into()<CR>", opts)
-keymap("n", "<F12>", ":lua require('dap').step_out()<CR>", opts)
+-- keymap("n", "<leader>b", ":lua require('dap').toggle_breakpoint()<CR>", opts)
+-- keymap("n", "<F5>", ":lua require('dap').continue()<CR>", opts)
+-- keymap("n", "<S-F5>", ":lua require('dap').terminate()<CR>", opts)
+-- keymap("n", "<F10>", ":lua require('dap').step_over()<CR>", opts)
+-- keymap("n", "<F11>", ":lua require('dap').step_into()<CR>", opts)
+-- keymap("n", "<F12>", ":lua require('dap').step_out()<CR>", opts)
+
+vim.keymap.set(
+  "n",
+  "j",
+  [[(v:count > 1 ? 'm`' . v:count : '') . 'gj']],
+  { expr = true, silent = true }
+)
+vim.keymap.set(
+  "n",
+  "k",
+  [[(v:count > 1 ? 'm`' . v:count : '') . 'gk']],
+  { expr = true, silent = true }
+)
+
+-- ==Quotes
+vim.keymap.set("n", [[<leader>"]], [[ciw"<C-r>""<Esc>]], {
+  silent = true,
+})
+vim.keymap.set("n", [[<leader>`]], [[ciw`<C-r>"`<Esc>]], {
+  silent = true,
+})
+vim.keymap.set("n", [[<leader>']], [[ciw'<C-r>"'<Esc>]], {
+  silent = true,
+})
+vim.keymap.set("n", [[<leader>)]], [[ciw(<C-r>")<Esc>]], {
+  silent = true,
+})
+vim.keymap.set("n", [[<leader>)]], [[ciw{<C-r>"}<Esc>]], {
+  silent = true,
+})
 
 -- ============ Insert ===========
-keymap("i", "jj", "<Esc>", opts)
+vim.keymap.set("i", "jj", [[col('.') == 1 ? '<Esc>' : '<Esc>l']], {
+  expr = true,
+  remap = true,
+  desc = "Escape and move to the right preserve the cursor position",
+})
 
 -- ============ Visual ===========
-keymap("v", "<leader>y", '"+y', opts)
+vim.keymap.set("v", "<leader>y", '"+y', {
+  silent = true,
+  desc = "Paste system clipboard text",
+})
 
-keymap("v", "H", "^", opts)
-keymap("v", "L", "$", opts)
+vim.keymap.set("v", ">", ">gv", {
+  silent = true,
+  desc = "Visual shifting(does not exit visual mode)",
+})
+vim.keymap.set("v", "<", "<gv", {
+  silent = true,
+  desc = "Visual shifting(does not exit visual mode)",
+})
