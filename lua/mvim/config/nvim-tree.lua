@@ -12,6 +12,7 @@ function M.setup()
     open_on_setup = false,
     open_on_setup_file = false,
     open_on_tab = false,
+    focus_empty_on_setup = false,
     ignore_buf_on_tab_change = {},
     sort_by = "name",
     root_dirs = {
@@ -25,11 +26,11 @@ function M.setup()
     respect_buf_cwd = true,
     on_attach = "disabled",
     remove_keymaps = false,
+    select_prompts = true,
     view = {
       adaptive_size = false,
       centralize_selection = false,
       width = 38,
-      height = 30,
       hide_root_folder = false,
       side = "right",
       preserve_window_proportions = false,
