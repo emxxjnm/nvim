@@ -1,8 +1,9 @@
 # ✨ Myles's Neovim dotfiles 🎉
 
 ## Preview
-
-![Preview](https://user-images.githubusercontent.com/54089360/192091452-22f0c996-637d-4b36-b99f-2a2b797ddbd2.png)
+![Neovim](https://user-images.githubusercontent.com/54089360/192091625-0e9fbcf5-457a-4c99-9ea0-ddc8b20b9437.png)
+![Editor](https://user-images.githubusercontent.com/54089360/192091452-22f0c996-637d-4b36-b99f-2a2b797ddbd2.png)
+![DAP](https://user-images.githubusercontent.com/54089360/192091806-974406b3-86b9-4776-a246-b8b6cbe0d08b.png)
 
 ## TODO
 
