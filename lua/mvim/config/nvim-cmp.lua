@@ -122,14 +122,13 @@ function M.setup()
     },
   })
 
-  local search_sources = {
-    sources = cmp.config.sources({
-      { name = "buffer" },
-    }),
-  }
+  cmp.setup.cmdline({ "/", "?" }, {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+      sources = cmp.config.sources({ { name = "buffer" } }),
+    },
+  })
 
-  cmp.setup.cmdline("/", search_sources)
-  cmp.setup.cmdline("?", search_sources)
   cmp.setup.cmdline(":", {
     sources = cmp.config.sources({
       { name = "cmdline", keyword_pattern = [=[[^[:blank:]\!]*]=] },
