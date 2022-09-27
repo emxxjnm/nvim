@@ -7,6 +7,15 @@ function M.setup()
       spelling = {
         enabled = true,
       },
+      presets = {
+        operators = false,
+        motions = false,
+        text_objects = false,
+        windows = false,
+        nav = false,
+        z = false,
+        g = false,
+      },
     },
     window = {
       border = "none",
@@ -16,6 +25,7 @@ function M.setup()
       spacing = 5,
       align = "center",
     },
+    show_help = false,
   })
 end
 

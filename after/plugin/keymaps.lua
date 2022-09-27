@@ -55,7 +55,7 @@ vim.keymap.set("n", "]<space>", [[<Cmd>put =repeat(nr2char(10), v:count1)<CR>]],
 -- cahnge
 vim.keymap.set("n", "<leader>U", "gUiw`]", {
   silent = true,
-  desc = "Make word text UPPERCASE",
+  desc = "make word text uppercase",
 })
 vim.keymap.set("i", "<C-u>", "_<Esc>mzwbgUiw`zi<Del>", {
   silent = true,
@@ -121,42 +121,37 @@ vim.keymap.set("n", "<leader>gg", require("mvim.external").lazygit, {
   desc = "Lazygit",
 })
 
--- dap
--- keymap("n", "<leader>b", ":lua require('dap').toggle_breakpoint()<CR>", opts)
--- keymap("n", "<F5>", ":lua require('dap').continue()<CR>", opts)
--- keymap("n", "<S-F5>", ":lua require('dap').terminate()<CR>", opts)
--- keymap("n", "<F10>", ":lua require('dap').step_over()<CR>", opts)
--- keymap("n", "<F11>", ":lua require('dap').step_into()<CR>", opts)
--- keymap("n", "<F12>", ":lua require('dap').step_out()<CR>", opts)
-
-vim.keymap.set(
-  "n",
-  "j",
-  [[(v:count > 1 ? 'm`' . v:count : '') . 'gj']],
-  { expr = true, silent = true }
-)
-vim.keymap.set(
-  "n",
-  "k",
-  [[(v:count > 1 ? 'm`' . v:count : '') . 'gk']],
-  { expr = true, silent = true }
-)
+vim.keymap.set("n", "j", [[(v:count > 1 ? 'm`' . v:count : '') . 'gj']], {
+  expr = true,
+  silent = true,
+  desc = "Store relative line number jumps",
+})
+vim.keymap.set("n", "k", [[(v:count > 1 ? 'm`' . v:count : '') . 'gk']], {
+  expr = true,
+  silent = true,
+  desc = "Store relative line number jumps",
+})
 
 -- ==Quotes
 vim.keymap.set("n", [[<leader>"]], [[ciw"<C-r>""<Esc>]], {
   silent = true,
-})
-vim.keymap.set("n", [[<leader>`]], [[ciw`<C-r>"`<Esc>]], {
-  silent = true,
+  desc = "wrap with double quotes",
 })
 vim.keymap.set("n", [[<leader>']], [[ciw'<C-r>"'<Esc>]], {
   silent = true,
+  desc = "wrap with single quotes",
+})
+vim.keymap.set("n", [[<leader>`]], [[ciw`<C-r>"`<Esc>]], {
+  silent = true,
+  desc = "wrap with back ticks",
 })
 vim.keymap.set("n", [[<leader>)]], [[ciw(<C-r>")<Esc>]], {
   silent = true,
+  desc = "wrap with parens",
 })
-vim.keymap.set("n", [[<leader>)]], [[ciw{<C-r>"}<Esc>]], {
+vim.keymap.set("n", [[<leader>}]], [[ciw{<C-r>"}<Esc>]], {
   silent = true,
+  desc = "wrap with braces",
 })
 
 -- ============ Insert ===========
