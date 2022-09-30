@@ -11,8 +11,9 @@ local function get_mypy_config()
   local overrides = {}
   if python_bin then
     overrides = {
-      "python-executable",
+      "--python-executable",
       python_bin,
+      true,
     }
   end
   return {
