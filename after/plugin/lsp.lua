@@ -40,6 +40,7 @@ end
 local function formatter_filter(client)
   local exclude = ({
     lua = { "sumneko_lua" },
+    typescript = { "tsserver" },
   })[vim.bo.filetype]
 
   if not exclude then
@@ -69,7 +70,7 @@ end
 local function setup_autocmd(client, bufnr)
   if not client then
     local msg = fmt("Unable to setup LSP autocmd, client for %d is missing", bufnr)
-    return vim.notify(msg, "error", { title = "LSP Setup" })
+    return vim.notify(msg, vim.log.levels.ERROR, { title = "LSP Setup" })
   end
 
   local group = get_augroup(bufnr)
@@ -79,8 +80,10 @@ local function setup_autocmd(client, bufnr)
   table.insert(cmds, {
     event = "CursorHold",
     buffer = bufnr,
-    command = utils.fn(diagnostic.open_float),
-    desc = "Show Diagnostics",
+    command = function(args)
+      diagnostic.open_float(args.buf, { scope = "cursor", focus = false })
+    end,
+    desc = "LSP: Show Diagnostics",
   })
   if client.server_capabilities.documentFormattingProvider then
     table.insert(cmds, {
@@ -91,7 +94,7 @@ local function setup_autocmd(client, bufnr)
           format({ bufnr = args.buf, async = false })
         end
       end,
-      desc = "Format current buffer on save",
+      desc = "LSP: Format on save",
     })
   end
 
@@ -166,6 +169,11 @@ local function on_attach(client, bufnr)
   setup_keymaps(bufnr)
   setup_autocmd(client, bufnr)
   setup_options(bufnr)
+
+  local navic_ok, navic = pcall(require, "nvim-navic")
+  if navic_ok and client.server_capabilities.documentSymbolProvider then
+    navic.attach(client, bufnr)
+  end
 end
 
 mo.augroup("LspSetupCommands", {
