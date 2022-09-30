@@ -87,6 +87,9 @@ function M.setup()
           },
         },
       },
+      remove_file = {
+        close_window = false,
+      },
     },
     trash = {
       cmd = "trash",
