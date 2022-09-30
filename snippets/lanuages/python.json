@@ -13,12 +13,15 @@
     "description": "Add shebang line for default python interpreter"
   },
   "import": {
-    "prefix": "im",
+    "prefix": "imp",
     "body": "import ${1:module}$0",
     "description": "Import a package or module"
   },
   "from ... import ...": {
-    "prefix": "fim",
+    "prefix": [
+      "fim",
+      "from"
+    ],
     "body": "from ${1:module} import ${2:names}$0",
     "description": "Import statement from the module"
   },
