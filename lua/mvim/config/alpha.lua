@@ -43,7 +43,7 @@ function M.setup()
     button("Statement", "n", "  New File", ":ene! <BAR> startinsert <CR>"),
     button("Include", "f", "  Find File", ":Telescope find_files <CR>"),
     button("Structure", "p", "  Find Project", ":Telescope projects <CR>"),
-    button("Operator", "r", "  Recently Opened", ":Telescope oldfiles <CR>"),
+    button("Operator", "r", "  Recent Files", ":Telescope oldfiles <CR>"),
     button("String", "c", "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),
     button("Conditional", "q", "  Quit Neovim", ":qa<CR>"),
   }
