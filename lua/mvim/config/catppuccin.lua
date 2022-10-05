@@ -7,7 +7,7 @@ function M.setup()
       shade = "dark",
       percentage = 0,
     },
-    transparent_background = true,
+    transparent_background = false,
     term_colors = true,
     compile = {
       enabled = true,
@@ -48,6 +48,7 @@ function M.setup()
       gitsigns = true,
       telescope = true,
       nvimtree = true,
+      neotree = true,
       which_key = true,
       dap = {
         enabled = true,

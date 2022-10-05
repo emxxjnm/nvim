@@ -42,8 +42,22 @@ packer.startup({
     -- file explorer
     use({
       "kyazdani42/nvim-tree.lua",
+      disable = true,
       config = function()
         require("mvim.config.nvim-tree").setup()
+      end,
+    })
+
+    use({
+      "nvim-neo-tree/neo-tree.nvim",
+      branch = "v2.x",
+      requires = {
+        "nvim-lua/plenary.nvim",
+        "kyazdani42/nvim-web-devicons", -- not strictly required, but recommended
+        "MunifTanjim/nui.nvim",
+      },
+      config = function()
+        require("mvim.config.neo-tree").setup()
       end,
     })
 
@@ -272,7 +286,7 @@ packer.startup({
       as = "catppuccin",
       run = ":CatppuccinCompile",
       config = function()
-        vim.g.catppuccin_flavour = "macchiato"
+        vim.g.catppuccin_flavour = "frappe"
         require("mvim.config.catppuccin").setup()
         vim.cmd.colorscheme("catppuccin")
       end,
@@ -348,5 +362,8 @@ packer.startup({
     log = { level = "info" },
     auto_reload_compiled = true,
     display = {},
+    git = {
+      clone_timeout = 120,
+    },
   },
 })

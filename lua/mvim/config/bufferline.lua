@@ -26,6 +26,13 @@ function M.setup()
           highlight = "PanelHeading",
         },
         {
+          filetype = "neo-tree",
+          text = "Explorer",
+          text_align = "center",
+          separator = true,
+          highlight = "PanelHeading",
+        },
+        {
           filetype = "undotree",
           text = "Undotree",
           separator = true,
