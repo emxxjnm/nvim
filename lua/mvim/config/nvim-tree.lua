@@ -1,6 +1,8 @@
 local M = {}
 
 function M.setup()
+  local icons = mo.style.icons
+
   require("nvim-tree").setup({
     create_in_closed_folder = true,
     root_dirs = {
@@ -35,6 +37,32 @@ function M.setup()
       indent_markers = {
         enable = true,
       },
+      icons = {
+        glyphs = {
+          default = icons.documents.file,
+          symlink = icons.documents.file_symlink,
+          bookmark = icons.misc.target,
+          folder = {
+            arrow_closed = icons.documents.collapsed,
+            arrow_open = icons.documents.expanded,
+            default = icons.documents.folder,
+            open = icons.documents.folder_open,
+            empty = icons.documents.empty_folder,
+            empty_open = icons.documents.empty_folder_open,
+            symlink = icons.documents.folder_symlink,
+            symlink_open = icons.documents.folder_symlink,
+          },
+          git = {
+            unstaged = icons.git.unstaged,
+            staged = icons.git.staged,
+            unmerged = icons.git.unstaged,
+            renamed = icons.git.renamed,
+            untracked = icons.git.untracked,
+            deleted = icons.git.deleted,
+            ignored = icons.git.ignored,
+          },
+        },
+      },
       special_files = {
         "pyproject.toml",
         "Makefile",
@@ -50,10 +78,10 @@ function M.setup()
     diagnostics = {
       enable = false,
       icons = {
-        error = "",
-        warning = "",
-        info = "",
-        hint = "",
+        error = icons.diagnostics.error .. " ",
+        warning = icons.diagnostics.warn .. " ",
+        info = icons.diagnostics.info .. " ",
+        hint = icons.diagnostics.hint .. " ",
       },
     },
     filters = {
@@ -96,7 +124,7 @@ function M.setup()
       require_confirm = true,
     },
     live_filter = {
-      prefix = " ",
+      prefix = icons.misc.search .. " ",
       always_show_folders = true,
     },
   })
