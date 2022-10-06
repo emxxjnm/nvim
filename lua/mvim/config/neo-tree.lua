@@ -71,7 +71,7 @@ function M.setup()
         ["h"] = "close_node",
 
         ["P"] = { "toggle_preview", config = { use_float = true } },
-        ["Esc"] = "revert_preivew",
+        ["Esc"] = "revert_preview",
 
         ["s"] = "open_split",
         ["S"] = "open_vsplit",
@@ -88,7 +88,7 @@ function M.setup()
         ["]b"] = "next_source",
 
         ["z"] = "close_all_nodes",
-        ["Z"] = "expand_all_noes",
+        ["Z"] = "expand_all_nodes",
 
         ["q"] = "close_window",
         ["?"] = "show_help",
