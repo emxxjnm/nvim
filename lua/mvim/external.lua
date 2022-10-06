@@ -13,15 +13,13 @@ local function float_handler(term)
 end
 
 function M.lazygit()
-  Terminal
-    :new({
-      cmd = "lazygit",
-      dir = "git_dir",
-      hidden = true,
-      direction = "float",
-      on_open = float_handler,
-    })
-    :toggle()
+  Terminal:new({
+    cmd = "lazygit",
+    dir = "git_dir",
+    hidden = true,
+    direction = "float",
+    on_open = float_handler,
+  }):toggle()
 end
 
 return M

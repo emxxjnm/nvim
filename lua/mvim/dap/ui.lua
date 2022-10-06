@@ -1,7 +1,10 @@
 local M = {}
 
 local config = {
-  icons = { expanded = "", collapsed = "" },
+  icons = {
+    expanded = mo.style.icons.documents.expanded,
+    collapsed = mo.style.icons.documents.collapsed,
+  },
   mappings = {
     expand = { "<CR>" },
     open = "o",

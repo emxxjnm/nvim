@@ -13,7 +13,9 @@ function M.setups()
     ext_opts = {
       [types.choiceNode] = {
         active = {
-          virt_text = { { " ", "Type" } },
+          virt_text = {
+            { mo.style.icons.misc.snow .. " ", "Type" },
+          },
         },
       },
     },

@@ -1,6 +1,7 @@
 local M = {}
 
 local colors = require("catppuccin.palettes").get_palette() or {}
+local icons = mo.style.icons
 
 local fn = vim.fn
 local bo = vim.bo
@@ -26,19 +27,19 @@ local mode = {
 
 local branch = {
   "branch",
+  icon = icons.git.branch,
   color = { gui = "bold" },
 }
 
 local filename = {
   "filename",
   file_status = false,
-  path = 3,
   color = { fg = colors.lavender },
 }
 
 local filesize = {
   "filesize",
-  icon = "",
+  icon = icons.misc.creation,
   color = { fg = colors.lavender },
   condition = conditions.buffer_not_empty,
 }
@@ -47,12 +48,17 @@ local diagnostics = {
   "diagnostics",
   sources = { "nvim_diagnostic" },
   sections = { "error", "warn", "info", "hint" },
-  symbols = { error = " ", warn = " ", info = " ", hint = " " },
+  symbols = {
+    error = icons.diagnostics.error .. " ",
+    warn = icons.diagnostics.warn .. " ",
+    info = icons.diagnostics.info .. " ",
+    hint = icons.diagnostics.hint .. " ",
+  },
 }
 
 local treesitter = {
   function()
-    return ""
+    return icons.misc.treesitter
   end,
   color = function()
     local buf = api.nvim_get_current_buf()
@@ -86,7 +92,7 @@ local lsp = {
     list_extend(buf_client_names, linters)
 
     local clients = fn.uniq(buf_client_names)
-    return " LSP:" .. table.concat(clients, "│")
+    return icons.misc.lsp .. " LSP:" .. table.concat(clients, "┇")
   end,
   color = { fg = colors.mauve },
   cond = conditions.hide_in_width,
@@ -94,7 +100,11 @@ local lsp = {
 
 local diff = {
   "diff",
-  symbols = { added = " ", modified = " ", removed = " " },
+  symbols = {
+    added = icons.git.added .. " ",
+    modified = icons.git.modified .. " ",
+    removed = icons.git.deleted .. " ",
+  },
   cond = conditions.hide_in_width,
 }
 
@@ -107,17 +117,7 @@ local progress = {
   function()
     local current_line = fn.line(".")
     local total_lines = fn.line("$")
-    local chars = {
-      "██",
-      "▇▇",
-      "▆▆",
-      "▅▅",
-      "▄▄",
-      "▃▃",
-      "▂▂",
-      "▁▁",
-      "  ",
-    }
+    local chars = icons.misc.progress
     local line_ratio = current_line / total_lines
     local index = math.ceil(line_ratio * #chars)
     return chars[index]
@@ -127,13 +127,13 @@ local progress = {
 local spaces = {
   function()
     if not api.nvim_buf_get_option(0, "expandtab") then
-      return "Tabs:" .. api.nvim_buf_get_option(0, "tabstop")
+      return "Tab:" .. api.nvim_buf_get_option(0, "tabstop")
     end
     local size = api.nvim_buf_get_option(0, "shiftwidth")
     if size == 0 then
       size = api.nvim_buf_get_option(0, "tabstop")
     end
-    return "Spaces:" .. size
+    return "SP:" .. size
   end,
   cond = conditions.hide_in_width,
   color = { fg = colors.sapphire },
@@ -141,7 +141,8 @@ local spaces = {
 
 local filetype = {
   "filetype",
-  color = { fg = colors.pink },
+  icon_only = true,
+  padding = { right = 2, left = 1 },
 }
 
 function M.setup()
@@ -158,6 +159,7 @@ function M.setup()
           "packer",
           "NvimTree",
           "toggleterm",
+          "neo-tree",
           "dap-repl",
           "dapui_stacks",
           "dapui_scopes",

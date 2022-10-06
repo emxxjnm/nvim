@@ -7,8 +7,8 @@ function M.setup()
   local telescope = require("telescope")
   telescope.setup({
     defaults = {
-      prompt_prefix = " ",
-      selection_caret = " ",
+      prompt_prefix = mo.style.icons.misc.telescope .. " ",
+      selection_caret = mo.style.icons.misc.selection .. " ",
       file_ignore_patterns = {
         "node_modules/",
         ".git/",

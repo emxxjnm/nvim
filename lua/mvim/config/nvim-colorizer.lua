@@ -13,7 +13,7 @@ function M.setup()
     user_default_options = {
       names = false,
       mode = "virtualtext",
-      virtualtext = " ",
+      virtualtext = mo.style.icons.misc.cloud .. " ",
     },
   })
 end

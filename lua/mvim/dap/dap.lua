@@ -4,13 +4,13 @@ function M.setup()
   local fn = vim.fn
 
   fn.sign_define("DapBreakpoint", {
-    text = "",
+    text = mo.style.icons.dap.breakpoint,
     texthl = "DapBreakpoint",
     linehl = "",
     numhl = "",
   })
   fn.sign_define("DapStopped", {
-    text = "",
+    text = mo.style.icons.dap.stopped,
     texthl = "DapStopped",
     linehl = "",
     numhl = "DapStopped",

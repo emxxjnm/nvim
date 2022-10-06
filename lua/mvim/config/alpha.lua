@@ -2,6 +2,7 @@ local M = {}
 
 function M.setup()
   local format = string.format
+  local icons = mo.style.icons
   local alpha = require("alpha")
   local dashboard = require("alpha.themes.dashboard")
 
@@ -17,10 +18,15 @@ function M.setup()
   local version = vim.version()
   local plugins = #vim.tbl_keys(packer_plugins)
   local nvim_version_info =
-    format(" Neovim v%d.%d.%d", version.major, version.minor, version.patch)
+    format(icons.misc.vim .. " Neovim v%d.%d.%d", version.major, version.minor, version.patch)
   local nvim_information = {
     type = "text",
-    val = format("---  %d plugins installed, %s ---", plugins, nvim_version_info),
+    val = format(
+      "--- %s %d plugins installed, %s ---",
+      icons.misc.electron,
+      plugins,
+      nvim_version_info
+    ),
     opts = { position = "center", hl = "Conceal" },
   }
 
@@ -40,12 +46,17 @@ function M.setup()
   }
 
   dashboard.section.buttons.val = {
-    button("Statement", "n", "  New File", ":ene! <BAR> startinsert <CR>"),
-    button("Include", "f", "  Find File", ":Telescope find_files <CR>"),
-    button("Structure", "p", "  Find Project", ":Telescope projects <CR>"),
-    button("Operator", "r", "  Recent Files", ":Telescope oldfiles <CR>"),
-    button("String", "c", "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),
-    button("Conditional", "q", "  Quit Neovim", ":qa<CR>"),
+    button("Statement", "n", icons.documents.file .. " New File", ":ene! <BAR> startinsert <CR>"),
+    button("Include", "f", icons.misc.search .. " Find File", ":Telescope find_files <CR>"),
+    button(
+      "Structure",
+      "p",
+      icons.documents.empty_folder_open .. " Find Project",
+      ":Telescope projects <CR>"
+    ),
+    button("Operator", "r", icons.misc.history .. " Recent Files", ":Telescope oldfiles <CR>"),
+    button("String", "c", icons.misc.vim .. " Configuration", ":e ~/.config/nvim/init.lua <CR>"),
+    button("Conditional", "q", icons.misc.exit .. " Quit Neovim", ":qa<CR>"),
   }
 
   dashboard.section.footer.val = "Myles Mo"

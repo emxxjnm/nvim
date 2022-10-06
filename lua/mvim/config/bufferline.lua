@@ -2,13 +2,19 @@ local M = {}
 
 function M.setup()
   local bufferline = require("bufferline")
+  local icons = mo.style.icons
   bufferline.setup({
     options = {
       tab_size = 7,
       diagnostics = "nvim_lsp",
       diagnostics_update_in_insert = false,
       diagnostics_indicator = function(_, _, diagnostics)
-        local symbols = { error = " ", warning = " ", info = " ", hint = " " }
+        local symbols = {
+          error = icons.diagnostics.error .. " ",
+          warning = icons.diagnostics.warn .. " ",
+          info = icons.diagnostics.info .. " ",
+          hint = icons.diagnostics.hint .. " ",
+        }
         local result = {}
         for name, count in pairs(diagnostics) do
           if symbols[name] and count > 0 then

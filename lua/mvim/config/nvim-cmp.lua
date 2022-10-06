@@ -1,40 +1,14 @@
 local M = {}
 
 local api = vim.api
+local fmt = string.format
+local icons = mo.style.icons
 
 local function check_backspace()
   local line, col = unpack(api.nvim_win_get_cursor(0))
   return col ~= 0
     and api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
-
-local kind_icons = {
-  Class = " ",
-  Color = " ",
-  Constant = " ",
-  Constructor = " ",
-  Enum = "練",
-  EnumMember = " ",
-  Event = " ",
-  Field = " ",
-  File = "",
-  Folder = " ",
-  Function = " ",
-  Interface = " ",
-  Keyword = " ",
-  Method = " ",
-  Module = " ",
-  Operator = " ",
-  Property = " ",
-  Reference = " ",
-  Snippet = " ",
-  Struct = " ",
-  Text = " ",
-  TypeParameter = " ",
-  Unit = "塞",
-  Value = " ",
-  Variable = " ",
-}
 
 local source_names = {
   luasnip = "(Snippet)",
@@ -77,9 +51,9 @@ function M.setup()
       format = function(entry, vim_item)
         local MAX = math.floor(vim.o.columns * 0.5)
         if #vim_item.abbr >= MAX then
-          vim_item.abbr = vim_item.abbr:sub(1, MAX) .. "…"
+          vim_item.abbr = vim_item.abbr:sub(1, MAX) .. icons.misc.ellipsis
         end
-        vim_item.kind = (kind_icons[vim_item.kind] or "") .. vim_item.kind
+        vim_item.kind = fmt("%s %s", icons.lsp.kinds[vim_item.kind:lower()], vim_item.kind)
         vim_item.menu = source_names[entry.source.name] or entry.source.name
         return vim_item
       end,
