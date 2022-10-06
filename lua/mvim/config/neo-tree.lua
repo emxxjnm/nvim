@@ -1,8 +1,8 @@
 local M = {}
 
 function M.setup()
-  vim.g.neo_tree_remove_legacy_commands = 1
   local icons = mo.style.icons
+  vim.g.neo_tree_remove_legacy_commands = 1
 
   require("neo-tree").setup({
     sources = {
@@ -14,7 +14,16 @@ function M.setup()
       winbar = true,
     },
     close_if_last_window = true,
-    -- use_default_mappings = false,
+    use_default_mappings = false,
+    popup_border_style = "rounded",
+    event_handlers = {
+      {
+        event = "file_opened",
+        handler = function()
+          require("neo-tree").close_all()
+        end,
+      },
+    },
     default_component_configs = {
       indent = {
         with_markers = true,
@@ -53,16 +62,64 @@ function M.setup()
     },
     window = {
       position = "right",
+      mappings = {
+        ["l"] = "open",
+        ["L"] = "open",
+        ["<CR>"] = "open",
+        ["<2-LeftMouse>"] = "open",
+
+        ["h"] = "close_node",
+
+        ["P"] = { "toggle_preview", config = { use_float = true } },
+        ["Esc"] = "revert_preivew",
+
+        ["s"] = "open_split",
+        ["S"] = "open_vsplit",
+
+        ["R"] = "refresh",
+        ["a"] = { "add", config = { show_path = "none" } },
+        ["d"] = "delete",
+        ["r"] = "rename",
+        ["y"] = "copy_to_clipboard",
+        ["x"] = "cut_to_clipboard",
+        ["p"] = "paste_from_clipboard",
+        ["c"] = "copy",
+        ["[b"] = "prev_source",
+        ["]b"] = "next_source",
+
+        ["z"] = "close_all_nodes",
+        ["Z"] = "expand_all_noes",
+
+        ["q"] = "close_window",
+        ["?"] = "show_help",
+      },
     },
     nesting_rules = {},
     filesystem = {
+      window = {
+        mappings = {
+          ["H"] = "toggle_hidden",
+
+          ["/"] = "fuzzy_finder",
+          ["D"] = "fuzzy_finder_directory",
+
+          ["f"] = "filter_on_submit",
+          ["F"] = "clear_filter",
+
+          ["<bs>"] = "navigate_up",
+          ["."] = "set_root",
+
+          ["[g"] = "prev_git_modified",
+          ["]g"] = "next_git_modified",
+        },
+      },
       filtered_items = {
         visible = true,
         hide_dotfiles = false,
         hide_gitignored = true,
         hide_hidden = true,
         hide_by_name = {
-          --"node_modules"
+          -- "node_modules",
         },
         hide_by_pattern = {
           --"*.meta",
@@ -74,6 +131,9 @@ function M.setup()
         },
         never_show = {
           ".DS_Store",
+          ".dmypy",
+          "__pycache__",
+          ".mypy_cache",
         },
         never_show_by_pattern = {},
       },
