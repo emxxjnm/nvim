@@ -12,6 +12,7 @@ mo.style = {
       staged = "",
       conflict = "",
       branch = "",
+      source_control = "",
     },
     dap = {
       breakpoint = "",
@@ -39,12 +40,14 @@ mo.style = {
       file_symlink = "",
       folder = "",
       folder_open = "",
+      root_folder = "",
       folder_symlink = "",
       empty_folder = "",
       empty_folder_open = "",
     },
     misc = {
       lsp = "",
+      buffer = "",
       treesitter = "",
       telescope = "",
       selection = "",
