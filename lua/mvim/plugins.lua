@@ -284,7 +284,9 @@ packer.startup({
     use({
       "catppuccin/nvim",
       as = "catppuccin",
-      run = ":CatppuccinCompile",
+      run = function()
+        require("catppuccin").compile()
+      end,
       config = function()
         vim.g.catppuccin_flavour = "frappe"
         require("mvim.config.catppuccin").setup()
