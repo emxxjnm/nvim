@@ -1,18 +1,22 @@
 local M = {}
 
+local icons = mo.style.icons
+
 local config = {
   icons = {
-    expanded = mo.style.icons.documents.expanded,
-    collapsed = mo.style.icons.documents.collapsed,
+    expanded = icons.documents.expanded,
+    collapsed = icons.documents.collapsed,
+    current_frame = icons.documents.collapsed,
   },
   mappings = {
-    expand = { "<CR>" },
+    expand = { "<CR>", "<2-LeftMouse>" },
     open = "o",
     remove = "d",
     edit = "e",
     repl = "r",
     toggle = "t",
   },
+  expand_lines = true,
   layouts = {
     {
       elements = {
@@ -32,18 +36,32 @@ local config = {
       position = "bottom",
     },
   },
-  expand_lines = true,
+  controls = {
+    enabled = true,
+    element = "repl",
+    icons = {
+      pause = icons.dap.pause,
+      play = icons.dap.play,
+      step_into = icons.dap.step_into,
+      step_over = icons.dap.step_over,
+      step_out = icons.dap.step_out,
+      step_back = icons.dap.step_back,
+      run_last = icons.dap.rerun,
+      terminate = icons.dap.stop,
+    },
+  },
   floating = {
     max_height = nil,
     max_width = nil,
-    border = "none",
+    border = "single",
     mappings = {
       close = { "q", "<Esc>" },
     },
   },
-  windows = { indent = 1 },
+  windows = { indent = 2 },
   render = {
     max_type_length = nil,
+    max_value_lines = 100,
   },
 }
 
