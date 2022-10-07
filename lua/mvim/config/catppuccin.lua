@@ -2,16 +2,13 @@ local M = {}
 
 function M.setup()
   require("catppuccin").setup({
+    compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
+    transparent_background = false,
+    term_colors = true,
     dim_inactive = {
       enabled = false,
       shade = "dark",
       percentage = 0,
-    },
-    transparent_background = false,
-    term_colors = true,
-    compile = {
-      enabled = true,
-      path = vim.fn.stdpath("cache") .. "/catppuccin",
     },
     styles = {
       comments = { "italic" },
