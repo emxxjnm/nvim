@@ -12,6 +12,12 @@ function M.setup()
     },
     source_selector = {
       winbar = true,
+      tab_labels = {
+        filesystem = " " .. icons.documents.root_folder .. " Files",
+        buffers = " " .. icons.misc.buffer .. " Buffers",
+        git_status = " " .. icons.git.source_control .. " Git",
+      },
+      separator = { left = "", right = "" },
     },
     close_if_last_window = true,
     use_default_mappings = false,
