@@ -46,7 +46,7 @@ local config = {
       step_over = icons.dap.step_over,
       step_out = icons.dap.step_out,
       step_back = icons.dap.step_back,
-      run_last = icons.dap.rerun,
+      run_last = icons.dap.restart,
       terminate = icons.dap.stop,
     },
   },

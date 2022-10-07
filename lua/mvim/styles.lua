@@ -22,7 +22,7 @@ mo.style = {
       step_over = "",
       step_out = "",
       step_back = "",
-      rerun = "",
+      restart = "",
       stop = "",
     },
     diagnostics = {
