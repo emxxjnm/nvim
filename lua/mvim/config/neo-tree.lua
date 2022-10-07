@@ -71,7 +71,7 @@ function M.setup()
         ["h"] = "close_node",
 
         ["P"] = { "toggle_preview", config = { use_float = true } },
-        ["Esc"] = "revert_preview",
+        ["<Esc>"] = "revert_preview",
 
         ["s"] = "open_split",
         ["S"] = "open_vsplit",
@@ -106,7 +106,7 @@ function M.setup()
           ["f"] = "filter_on_submit",
           ["F"] = "clear_filter",
 
-          ["<bs>"] = "navigate_up",
+          ["<BS>"] = "navigate_up",
           ["."] = "set_root",
 
           ["[g"] = "prev_git_modified",
