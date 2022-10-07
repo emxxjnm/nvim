@@ -3,7 +3,7 @@ local M = {}
 function M.setup()
   require("catppuccin").setup({
     compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
-    transparent_background = false,
+    transparent_background = true,
     term_colors = true,
     dim_inactive = {
       enabled = false,
