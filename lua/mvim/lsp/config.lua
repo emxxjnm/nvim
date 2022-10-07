@@ -25,7 +25,7 @@ function M.common_on_init(client)
       vim.schedule(function()
         local path = fn.fnamemodify(settings, ":~:.")
         local msg = fmt("loaded local settings for %s from %s", client.name, path)
-        vim.notify_once(msg, "info", { title = "LSP Settings" })
+        vim.notify_once(msg, vim.log.levels.INFO, { title = "LSP Settings" })
       end)
     end
   end
