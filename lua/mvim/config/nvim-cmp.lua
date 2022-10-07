@@ -80,23 +80,25 @@ function M.setup()
         end
       end, { "i", "s", "c" }),
       ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
-      ["<C-q>"] = { i = cmp.mapping.abort(), c = cmp.mapping.close() },
+      ["<C-e>"] = { i = cmp.mapping.abort(), c = cmp.mapping.close() },
       ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-8), { "i", "c" }),
       ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(8), { "i", "c" }),
       -- ["<C-c>"] = cmp.mapping.complete(),
-      ["<Down>"] = {
-        i = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
-      },
-      ["<Up>"] = {
-        i = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
-      },
+      ["<Down>"] = cmp.mapping(
+        cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+        { "i", "c" }
+      ),
+      ["<Up>"] = cmp.mapping(
+        cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+        { "i", "c" }
+      ),
     },
   })
 
   cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-      sources = cmp.config.sources({ { name = "buffer" } }),
+      { name = "buffer" },
     },
   })
 
