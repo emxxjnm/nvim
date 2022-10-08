@@ -48,4 +48,5 @@ local namespace = {}
 _G.mo = mo or namespace
 
 require("mvim.globals")
+require("mvim.styles")
 require("mvim.plugins")
