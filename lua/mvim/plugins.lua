@@ -1,5 +1,6 @@
 local fn = vim.fn
 local cmd = vim.cmd
+local icons = mo.style.icons
 
 -- Automatically install packer
 local install_path = string.format("%s/site/pack/packer/start/packer.nvim", fn.stdpath("data"))
@@ -233,7 +234,6 @@ packer.startup({
     use({
       {
         "mfussenegger/nvim-dap",
-        opt = true,
         module = "dap",
         setup = function()
           require("mvim.dap.dap").setup()
@@ -244,7 +244,6 @@ packer.startup({
       },
       {
         "rcarriga/nvim-dap-ui",
-        opt = true,
         after = "nvim-dap",
         config = function()
           require("mvim.dap.ui").setup()
@@ -252,7 +251,6 @@ packer.startup({
       },
       {
         "theHamsta/nvim-dap-virtual-text",
-        opt = true,
         after = "nvim-dap",
         config = function()
           require("mvim.dap.virtual-text").setup()
@@ -339,11 +337,7 @@ packer.startup({
     use({
       "lukas-reineke/indent-blankline.nvim",
       config = function()
-        require("indent_blankline").setup({
-          char_list = { "┊" },
-          show_current_context = true,
-          show_first_indent_level = false,
-        })
+        require("mvim.config.indent-blankline").setup()
       end,
     })
 
@@ -363,7 +357,15 @@ packer.startup({
   config = {
     log = { level = "info" },
     auto_reload_compiled = true,
-    display = {},
+    display = {
+      working_sym = icons.misc.refresh,
+      error_sym = icons.misc.cross,
+      done_sym = icons.misc.check,
+      removed_sym = icons.misc.remove,
+      moved_sym = icons.misc.arrow_swap,
+      header_sym = icons.misc.dash,
+      prompt_border = "none",
+    },
     git = {
       clone_timeout = 120,
     },

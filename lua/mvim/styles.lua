@@ -44,6 +44,8 @@ mo.style = {
       folder_symlink = "",
       empty_folder = "",
       empty_folder_open = "",
+      indent = "│",
+      dash_indent = "┊",
     },
     misc = {
       lsp = "",
@@ -63,6 +65,12 @@ mo.style = {
       snow = "",
       cloud = "",
       circle = "",
+      refresh = "",
+      check = "",
+      cross = "",
+      remove = "",
+      arrow_swap = "",
+      dash = "",
       progress = {
         "██",
         "▇▇",
