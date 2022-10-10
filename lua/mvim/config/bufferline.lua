@@ -62,11 +62,11 @@ function M.setup()
   local map = vim.keymap.set
   map("n", "[b", function()
     bufferline.cycle(-1)
-  end, { desc = "bufferline:" })
+  end, { desc = "bufferline: Move prev" })
 
   map("n", "]b", function()
     bufferline.cycle(1)
-  end, { desc = "bufferline:" })
+  end, { desc = "bufferline: Move next" })
 end
 
 return M

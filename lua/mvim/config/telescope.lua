@@ -18,6 +18,7 @@ function M.setup()
         "pnpm-lock.yaml",
         "__pycache__/",
         "migrations/",
+        ".mypy_cache",
       },
       layout_config = {
         height = 0.9,
@@ -47,7 +48,7 @@ function M.setup()
           ["<Tab>"] = actions.toggle_selection + actions.move_selection_next,
           ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_previous,
           ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
-          ["<C-l>"] = layout_actions.toggle_preview,
+          ["<C-e>"] = layout_actions.toggle_preview,
         },
       },
     },
@@ -59,6 +60,12 @@ function M.setup()
       buffers = {
         theme = "dropdown",
         previewer = false,
+        sort_mru = true,
+        sort_lastused = true,
+        ignore_current_buffer = true,
+        mappings = {
+          i = { ["<C-x>"] = actions.delete_buffer },
+        },
       },
     },
     extensions = {
