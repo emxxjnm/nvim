@@ -129,7 +129,7 @@ packer.startup({
           vim.g.matchup_matchparen_offscreen = {
             method = "popup",
             fullwidth = 1,
-            highlight = "OffscreenMatchPopup",
+            highlight = "Normal",
           }
         end,
       },
