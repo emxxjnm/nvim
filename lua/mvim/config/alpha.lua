@@ -31,32 +31,20 @@ function M.setup()
   }
 
   dashboard.section.header.opts.hl = "Type"
-  dashboard.section.header.val = {
-    [[                                                                            ]],
-    [[       .-') _     ('-.                      (`-.              _   .-')      ]],
-    [[      ( OO ) )  _(  OO)                   _(OO  )_           ( '.( OO )_    ]],
-    [[  ,--./ ,--,'  (,------.  .-'),-----. ,--(_/   ,. \  ,-.-')   ,--.   ,--.)  ]],
-    [[  |   \ |  |\   |  .---' ( OO'  .-.  '\   \   /(__/  |  |OO)  |   `.'   |   ]],
-    [[  |    \|  | )  |  |     /   |  | |  | \   \ /   /   |  |  \  |         |   ]],
-    [[  |  .     |/  (|  '--.  \_) |  |\|  |  \   '   /,   |  |(_/  |  |'.'|  |   ]],
-    [[  |  |\    |    |  .--'    \ |  | |  |   \     /__) ,|  |_.'  |  |   |  |   ]],
-    [[  |  | \   |    |  `---.    `'  '-'  '    \   /    (_|  |     |  |   |  |   ]],
-    [[  `--'  `--'    `------'      `-----'      `-'       `--'     `--'   `--'   ]],
-    [[                                                                            ]],
-  }
+  dashboard.section.header.val = mo.style.banner
 
   dashboard.section.buttons.val = {
-    button("Statement", "n", icons.documents.file .. " New File", ":ene! <BAR> startinsert <CR>"),
-    button("Include", "f", icons.misc.search .. " Find File", ":Telescope find_files <CR>"),
+    button("Statement", "n", icons.documents.file .. "  New File", ":ene! <BAR> startinsert <CR>"),
+    button("Include", "f", icons.misc.search .. "  Find File", ":Telescope find_files <CR>"),
     button(
       "Structure",
       "p",
-      icons.documents.empty_folder_open .. " Find Project",
+      icons.documents.empty_folder_open .. "  Find Project",
       ":Telescope projects <CR>"
     ),
-    button("Operator", "r", icons.misc.history .. " Recent Files", ":Telescope oldfiles <CR>"),
-    button("String", "c", icons.misc.vim .. " Configuration", ":e ~/.config/nvim/init.lua <CR>"),
-    button("Conditional", "q", icons.misc.exit .. " Quit Neovim", ":qa<CR>"),
+    button("Operator", "r", icons.misc.history .. "  Recent Files", ":Telescope oldfiles <CR>"),
+    button("String", "c", icons.misc.vim .. "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),
+    button("Conditional", "q", icons.misc.exit .. "  Quit Neovim", ":qa<CR>"),
   }
 
   dashboard.section.footer.val = "Myles Mo"
