@@ -2,6 +2,8 @@ local M = {}
 
 function M.setup()
   local fn = vim.fn
+  local map = vim.keymap.set
+  local dap = require("dap")
 
   fn.sign_define("DapBreakpoint", {
     text = mo.style.icons.dap.breakpoint,
@@ -9,24 +11,14 @@ function M.setup()
     linehl = "",
     numhl = "",
   })
+
   fn.sign_define("DapStopped", {
     text = mo.style.icons.dap.stopped,
     texthl = "DapStopped",
     linehl = "",
     numhl = "DapStopped",
   })
-end
 
-function M.config()
-  local dap = require("dap")
-  dap.adapters.python = {
-    type = "executable",
-    command = "python",
-    args = { "-m", "debugpy.adapter" },
-  }
-  require("dap.ext.vscode").load_launchjs()
-
-  local map = vim.keymap.set
   map("n", "<leader>b", dap.toggle_breakpoint, {
     silent = true,
     desc = "dap: create or remove a breakpoint",
@@ -55,6 +47,16 @@ function M.config()
     silent = true,
     desc = "dap: requests the debugee to step out of a function or method",
   })
+end
+
+function M.config()
+  local dap = require("dap")
+  dap.adapters.python = {
+    type = "executable",
+    command = "python",
+    args = { "-m", "debugpy.adapter" },
+  }
+  require("dap.ext.vscode").load_launchjs()
 end
 
 return M

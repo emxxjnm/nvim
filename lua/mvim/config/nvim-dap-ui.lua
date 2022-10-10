@@ -76,24 +76,24 @@ function M.setup()
     if vim.tbl_isempty(breakpoints) then
       dap.repl.open({ height = 12 })
     else
-      dapui.open({})
+      dapui.open()
     end
   end
 
   dap.listeners.before.event_stopped["dapui_config"] = function(_, body)
     if body.reason == "breakpoint" then
-      dapui.open({})
+      dapui.open()
     end
   end
 
   dap.listeners.before.event_terminated["dapui_config"] = function()
     dap.repl.close()
-    dapui.close({})
+    dapui.close()
   end
 
   dap.listeners.before.event_exited["dapui_config"] = function()
     dap.repl.close()
-    dapui.close({})
+    dapui.close()
   end
 end
 

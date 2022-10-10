@@ -236,24 +236,24 @@ packer.startup({
         "mfussenegger/nvim-dap",
         module = "dap",
         setup = function()
-          require("mvim.dap.dap").setup()
+          require("mvim.config.nvim-dap").setup()
         end,
         config = function()
-          require("mvim.dap.dap").config()
+          require("mvim.config.nvim-dap").config()
         end,
       },
       {
         "rcarriga/nvim-dap-ui",
         after = "nvim-dap",
         config = function()
-          require("mvim.dap.ui").setup()
+          require("mvim.config.nvim-dap-ui").setup()
         end,
       },
       {
         "theHamsta/nvim-dap-virtual-text",
         after = "nvim-dap",
         config = function()
-          require("mvim.dap.virtual-text").setup()
+          require("nvim-dap-virtual-text").setup()
         end,
       },
     })
