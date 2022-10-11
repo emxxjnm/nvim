@@ -3,6 +3,7 @@ local M = {}
 function M.setup()
   local bufferline = require("bufferline")
   local icons = mo.style.icons
+
   bufferline.setup({
     options = {
       tab_size = 7,
@@ -57,6 +58,7 @@ function M.setup()
       show_close_icon = false,
       sort_by = "insert_after_current",
     },
+    highlights = require("catppuccin.groups.integrations.bufferline").get(),
   })
 
   local map = vim.keymap.set

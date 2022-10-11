@@ -55,7 +55,6 @@ function M.setup()
         enabled = true,
         colored_indent_levels = false,
       },
-      bufferline = true,
       hop = true,
       symbols_outline = false,
     },

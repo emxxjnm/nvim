@@ -1,6 +1,7 @@
 local default_workspace = {
   library = {
     vim.fn.expand("$VIMRUNTIME"),
+    -- vim.fn.stdpath("config"),
     require("lua-dev.sumneko").types(),
   },
 
@@ -36,6 +37,7 @@ local make_on_new_config = function(on_new_config, _)
       "nvim-treesitter",
       "LuaSnip",
       "catppuccin",
+      "bufferline.nvim",
     }
     add_packages_to_workspace(plugins, new_config)
   end)
