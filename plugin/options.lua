@@ -35,8 +35,8 @@ opt.confirm = true
 opt.completeopt = "menuone,noselect"
 
 -- Wild in command mode
--- opt.cmdheight = 0
-opt.pumblend = 5
+opt.cmdheight = 1
+-- opt.pumblend = 5
 opt.wildoptions = "pum"
 opt.wildignorecase = true
 
