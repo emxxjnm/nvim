@@ -3,7 +3,7 @@ local dev_opts = {
     enabled = true,
     vimruntime = true,
     types = true,
-    plugins = true,
+    plugins = false,
   },
   setup_jsonls = true,
   override = nil,
