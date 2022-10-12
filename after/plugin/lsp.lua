@@ -263,5 +263,5 @@ diagnostic.config({
 })
 
 lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, {
-  border = "none",
+  border = mo.style.border.current,
 })

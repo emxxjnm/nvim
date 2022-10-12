@@ -58,7 +58,7 @@ function M.setup()
     status_formatter = nil,
     max_file_length = 40000,
     preview_config = {
-      border = "rounded",
+      border = mo.style.border.current,
       style = "minimal",
       relative = "cursor",
       row = 0,

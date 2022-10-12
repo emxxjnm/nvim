@@ -26,6 +26,16 @@ function M.setup()
     experimental = {
       ghost_text = true,
     },
+    window = {
+      completion = {
+        border = mo.style.border.current,
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+      },
+      documentation = {
+        border = mo.style.border.current,
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+      },
+    },
     snippet = {
       expand = function(args)
         luasnip.lsp_expand(args.body)
@@ -79,7 +89,10 @@ function M.setup()
           fallback()
         end
       end, { "i", "s", "c" }),
-      ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
+      ["<CR>"] = cmp.mapping(
+        cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = false }),
+        { "i", "c" }
+      ),
       ["<C-e>"] = { i = cmp.mapping.abort(), c = cmp.mapping.close() },
       ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-8), { "i", "c" }),
       ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(8), { "i", "c" }),

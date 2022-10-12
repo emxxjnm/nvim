@@ -18,7 +18,7 @@ function M.setup()
       },
     },
     window = {
-      border = "none",
+      border = mo.style.border.current,
       winblend = 0,
     },
     layout = {

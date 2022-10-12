@@ -13,7 +13,7 @@ function M.setup()
 
   require("dressing").setup({
     input = {
-      winblend = 5,
+      winblend = 0,
       relative = "editor",
     },
     select = {

@@ -21,9 +21,9 @@ local config = {
     {
       elements = {
         "scopes",
-        "breakpoints",
         "stacks",
         "watches",
+        "breakpoints",
       },
       size = 0.3,
       position = "right",
@@ -53,7 +53,7 @@ local config = {
   floating = {
     max_height = nil,
     max_width = nil,
-    border = "single",
+    border = mo.style.border.current,
     mappings = {
       close = { "q", "<Esc>" },
     },

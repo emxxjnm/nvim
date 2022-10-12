@@ -43,7 +43,9 @@ for i = 1, #plugins do
   g["loaded_" .. plugins[i]] = 1
 end
 
-local namespace = {}
+local namespace = {
+  style = {},
+}
 
 _G.mo = mo or namespace
 

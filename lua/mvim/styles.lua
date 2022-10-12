@@ -1,4 +1,8 @@
 mo.style = {
+  border = {
+    current = "rounded",
+    line = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" },
+  },
   icons = {
     git = {
       added = "",

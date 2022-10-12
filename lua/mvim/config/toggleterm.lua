@@ -22,7 +22,7 @@ function M.setup()
       end
     end,
     float_opts = {
-      border = "rounded",
+      border = mo.style.border.current,
       width = function()
         return math.floor(vim.o.columns * 0.9)
       end,

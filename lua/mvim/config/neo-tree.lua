@@ -12,16 +12,18 @@ function M.setup()
     },
     source_selector = {
       winbar = true,
+      tabs_layout = "equal",
+      content_layout = "center",
       tab_labels = {
-        filesystem = " " .. icons.documents.root_folder .. " Files",
-        buffers = " " .. icons.misc.buffer .. " Buffers",
-        git_status = " " .. icons.git.source_control .. " Git",
+        filesystem = icons.documents.root_folder .. " Files",
+        buffers = icons.misc.buffer .. " Buffers",
+        git_status = icons.git.source_control .. " Git",
       },
-      separator = { left = "", right = "" },
+      separator = { left = "", right = "", override = "left" },
     },
     close_if_last_window = true,
     use_default_mappings = false,
-    popup_border_style = "rounded",
+    popup_border_style = "rounded", -- does not accept none
     event_handlers = {
       {
         event = "file_opened",
@@ -68,6 +70,7 @@ function M.setup()
     },
     window = {
       position = "right",
+      width = 42,
       mappings = {
         ["l"] = "open",
         ["L"] = "open",
