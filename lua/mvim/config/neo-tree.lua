@@ -103,7 +103,6 @@ function M.setup()
         ["?"] = "show_help",
       },
     },
-    nesting_rules = {},
     filesystem = {
       window = {
         mappings = {
@@ -127,13 +126,6 @@ function M.setup()
         hide_dotfiles = false,
         hide_gitignored = true,
         hide_hidden = true,
-        hide_by_name = {
-          -- "node_modules",
-        },
-        hide_by_pattern = {
-          --"*.meta",
-          --"*/src/*/tsconfig.json",
-        },
         always_show = {
           ".vim",
           ".vscode",
@@ -144,7 +136,6 @@ function M.setup()
           "__pycache__",
           ".mypy_cache",
         },
-        never_show_by_pattern = {},
       },
       follow_current_file = true,
       hijack_netrw_behavior = "open_current",

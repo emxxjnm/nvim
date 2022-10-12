@@ -6,7 +6,12 @@ function M.setup()
 
   bufferline.setup({
     options = {
-      tab_size = 7,
+      indicator = { icon = icons.misc.indicator, style = "icon" },
+      buffer_close_icon = icons.misc.cross,
+      modified_icon = icons.misc.dot,
+      close_icon = icons.misc.close,
+      left_trunc_marker = icons.misc.triangle_left,
+      right_trunc_marker = icons.misc.triangle_right,
       diagnostics = "nvim_lsp",
       diagnostics_update_in_insert = false,
       diagnostics_indicator = function(_, _, diagnostics)
@@ -49,6 +54,13 @@ function M.setup()
         {
           filetype = "packer",
           text = "Packer",
+          separator = true,
+          text_align = "center",
+          hightlight = "PanelHeading",
+        },
+        {
+          filetype = "dapui_scopes",
+          text = "Debugger",
           separator = true,
           text_align = "center",
           hightlight = "PanelHeading",

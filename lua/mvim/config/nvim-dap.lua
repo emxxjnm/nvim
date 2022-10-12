@@ -5,18 +5,18 @@ function M.setup()
   local map = vim.keymap.set
   local dap = require("dap")
 
-  fn.sign_define("DapBreakpoint", {
-    text = mo.style.icons.dap.breakpoint,
-    texthl = "DapBreakpoint",
-    linehl = "",
-    numhl = "",
-  })
-
-  fn.sign_define("DapStopped", {
-    text = mo.style.icons.dap.stopped,
-    texthl = "DapStopped",
-    linehl = "",
-    numhl = "DapStopped",
+  fn.sign_define({
+    {
+      name = "DapBreakpoint",
+      text = mo.style.icons.dap.breakpoint,
+      texthl = "DapBreakpoint",
+    },
+    {
+      name = "DapStopped",
+      text = mo.style.icons.dap.stopped,
+      texthl = "DapStopped",
+      numhl = "DapStopped",
+    },
   })
 
   map("n", "<leader>b", dap.toggle_breakpoint, {
