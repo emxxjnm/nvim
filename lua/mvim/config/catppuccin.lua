@@ -1,10 +1,12 @@
 local M = {}
 
 function M.setup()
+  local colors = require("catppuccin.palettes").get_palette()
+
   require("catppuccin").setup({
     compile_path = vim.fn.stdpath("cache") .. "/catppuccin",
     transparent_background = true,
-    term_colors = true,
+    term_colors = false,
     dim_inactive = {
       enabled = false,
       shade = "dark",
@@ -59,7 +61,13 @@ function M.setup()
       symbols_outline = false,
     },
     color_overrides = {},
-    highlight_overrides = {},
+    highlight_overrides = {
+      all = {
+        FloatBorder = { fg = colors.surface2 },
+        TelescopeBorder = { fg = colors.surface2 },
+        WhichKeyBorder = { fg = colors.surface2 },
+      },
+    },
   })
 end
 
