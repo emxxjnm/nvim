@@ -32,7 +32,39 @@ packer.startup({
 
     use("kyazdani42/nvim-web-devicons")
 
-    -- index page
+    -- schemea/theme
+    use({
+      "catppuccin/nvim",
+      as = "catppuccin",
+      run = function()
+        require("catppuccin").compile()
+      end,
+      config = function()
+        vim.g.catppuccin_flavour = "frappe"
+        require("mvim.config.catppuccin").setup()
+        vim.cmd.colorscheme("catppuccin")
+      end,
+    })
+
+    -- status line
+    use({
+      "nvim-lualine/lualine.nvim",
+      after = "catppuccin",
+      config = function()
+        require("mvim.config.lualine").setup()
+      end,
+    })
+
+    -- tab
+    use({
+      "akinsho/bufferline.nvim",
+      after = "catppuccin",
+      config = function()
+        require("mvim.config.bufferline").setup()
+      end,
+    })
+
+    -- bashboard
     use({
       "goolord/alpha-nvim",
       config = function()
@@ -154,7 +186,7 @@ packer.startup({
         "williamboman/mason.nvim",
         config = function()
           require("mason").setup({
-            ui = { border = "none" },
+            ui = { border = mo.style.border.current },
           })
         end,
       },
@@ -175,7 +207,7 @@ packer.startup({
             bind = true,
             fix_pos = false,
             hint_scheme = "Comment",
-            handler_opts = { border = "none" },
+            handler_opts = { border = mo.style.border.current },
           })
         end,
       },
@@ -253,7 +285,7 @@ packer.startup({
         "theHamsta/nvim-dap-virtual-text",
         after = "nvim-dap",
         config = function()
-          require("nvim-dap-virtual-text").setup()
+          require("nvim-dap-virtual-text").setup({ highlight_new_as_changed = true })
         end,
       },
     })
@@ -278,43 +310,11 @@ packer.startup({
       end,
     })
 
-    -- schemea/theme
-    use({
-      "catppuccin/nvim",
-      as = "catppuccin",
-      run = function()
-        require("catppuccin").compile()
-      end,
-      config = function()
-        vim.g.catppuccin_flavour = "frappe"
-        require("mvim.config.catppuccin").setup()
-        vim.cmd.colorscheme("catppuccin")
-      end,
-    })
-
     -- termnail
     use({
       "akinsho/toggleterm.nvim",
       config = function()
         require("mvim.config.toggleterm").setup()
-      end,
-    })
-
-    -- status line
-    use({
-      "nvim-lualine/lualine.nvim",
-      after = "catppuccin",
-      config = function()
-        require("mvim.config.lualine").setup()
-      end,
-    })
-
-    -- tab
-    use({
-      "akinsho/bufferline.nvim",
-      after = "catppuccin",
-      config = function()
-        require("mvim.config.bufferline").setup()
       end,
     })
 
@@ -364,7 +364,7 @@ packer.startup({
       removed_sym = icons.misc.remove,
       moved_sym = icons.misc.arrow_swap,
       header_sym = icons.misc.dash,
-      prompt_border = "none",
+      prompt_border = mo.style.border.current,
     },
     git = {
       clone_timeout = 120,
