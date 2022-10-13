@@ -3,6 +3,8 @@ local M = {}
 local fn = vim.fn
 local lsp = vim.lsp
 local fmt = string.format
+local levels = vim.log.levels
+local notify_once = vim.notify_once
 
 ---This function allows reading a per project `settings.josn` file
 ---in the `.vim` directory of the project
@@ -11,21 +13,43 @@ local fmt = string.format
 function M.common_on_init(client)
   local settings = client.workspace_folders[1].name .. "/.vim/settings.json"
   if fn.filereadable(settings) == 0 then
+    notify_once(
+      "LSP init: file `settings.json` can not be read",
+      levels.ERROR,
+      { title = "LSP Settings " }
+    )
     return true
   end
+
   local ok, json = pcall(fn.readfile, settings)
   if not ok then
+    notify_once(
+      "LSP init: read file `settings.json` failed",
+      levels.ERROR,
+      { title = "LSP Settings" }
+    )
     return true
   end
-  local overrides = vim.json.decode(table.concat(json, "\n"))
+
+  local status, overrides = pcall(vim.json.decode, table.concat(json, "\n"))
+  if not status then
+    notify_once(
+      "LSP init: unmarshall `settings.json` file failed",
+      levels.ERROR,
+      { title = "LSP Settings" }
+    )
+    return true
+  end
+
   for name, config in pairs(overrides) do
     if name == client.name then
       client.config = vim.tbl_deep_extend("force", client.config, config)
       client.notify("workspace/didChangeConfiguration")
+
       vim.schedule(function()
         local path = fn.fnamemodify(settings, ":~:.")
         local msg = fmt("loaded local settings for %s from %s", client.name, path)
-        vim.notify_once(msg, vim.log.levels.INFO, { title = "LSP Settings" })
+        notify_once(msg, levels.INFO, { title = "LSP Settings" })
       end)
     end
   end
