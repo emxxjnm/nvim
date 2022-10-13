@@ -204,15 +204,6 @@ mo.augroup("LspSetupCommands", {
   },
 })
 
-local function sign(name, icon)
-  fn.sign_define(name, { text = icon, texthl = name, numhl = name })
-end
-
-sign("DiagnosticSignHint", icons.hint)
-sign("DiagnosticSignInfo", icons.info)
-sign("DiagnosticSignWarn", icons.warn)
-sign("DiagnosticSignError", icons.error)
-
 local ns = api.nvim_create_namespace("severe-diagnostics")
 
 --- Restricts nvim's diagnostic signs to only the single most severe one per line
@@ -252,6 +243,7 @@ diagnostic.config({
   virtual_text = false,
   float = {
     header = "",
+    border = mo.style.border.current,
     source = true,
     focusable = false,
     prefix = function(d, i)
@@ -259,6 +251,33 @@ diagnostic.config({
       local prefix = fmt("%d. %s ", i, icons[level:lower()])
       return prefix, "Diagnostic" .. level
     end,
+  },
+})
+
+fn.sign_define({
+  {
+    text = icons.hint,
+    name = "DiagnosticSignHint",
+    numhl = "DiagnosticSignHint",
+    texthl = "DiagnosticSignHint",
+  },
+  {
+    text = icons.info,
+    name = "DiagnosticSignInfo",
+    numhl = "DiagnosticSignInfo",
+    texthl = "DiagnosticSignInfo",
+  },
+  {
+    text = icons.warn,
+    name = "DiagnosticSignWarn",
+    numhl = "DiagnosticSignWarn",
+    texthl = "DiagnosticSignWarn",
+  },
+  {
+    text = icons.error,
+    name = "DiagnosticSignError",
+    numhl = "DiagnosticSignError",
+    texthl = "DiagnosticSignError",
   },
 })
 
