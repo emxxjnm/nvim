@@ -75,7 +75,6 @@ packer.startup({
     -- file explorer
     use({
       "kyazdani42/nvim-tree.lua",
-      disable = true,
       config = function()
         require("mvim.config.nvim-tree").setup()
       end,
@@ -185,9 +184,7 @@ packer.startup({
 
         "williamboman/mason.nvim",
         config = function()
-          require("mason").setup({
-            ui = { border = mo.style.border.current },
-          })
+          require("mvim.config.mason").setup()
         end,
       },
       {
