@@ -59,6 +59,11 @@ mo.augroup("PlaceLastEdit", {
   },
 })
 
+local quit_as_last_buffer = {
+  "NvimTree",
+  "packer",
+}
+
 mo.augroup("SmartClose", {
   {
     event = "FileType",
@@ -74,7 +79,8 @@ mo.augroup("SmartClose", {
     pattern = "*",
     nested = true,
     command = function()
-      if #api.nvim_list_wins() == 1 and api.nvim_buf_get_name(0):match("NvimTree_") ~= nil then
+      local ft = api.nvim_buf_get_option(0, "filetype")
+      if #api.nvim_list_wins() == 1 and vim.tbl_contains(quit_as_last_buffer, ft) then
         vim.cmd.quit()
       end
     end,
