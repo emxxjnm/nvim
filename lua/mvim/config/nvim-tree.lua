@@ -17,7 +17,7 @@ function M.setup()
     select_prompts = true,
     view = {
       adaptive_size = true,
-      width = 38,
+      width = 42,
       side = "right",
       mappings = {
         custom_only = false,
