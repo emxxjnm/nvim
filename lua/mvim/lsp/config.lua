@@ -13,7 +13,7 @@ M.json_decode = vim.json and vim.json.decode or fn.json_decode
 ---@param client table<string, any> lsp client
 ---@return boolean
 function M.common_on_init(client)
-  local settings = client.workspace_folders[1].name .. mo.config.metadir .. "/settings.json"
+  local settings = client.workspace_folders[1].name .. "/" .. mo.config.metadir .. "/settings.json"
   if fn.filereadable(settings) == 0 then
     notify_once(
       "LSP init: file `settings.json` can not be read",

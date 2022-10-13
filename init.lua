@@ -46,7 +46,7 @@ end
 local namespace = {
   style = {},
   config = {
-    metadir = ".vim/",
+    metadir = ".vim",
   },
 }
 
