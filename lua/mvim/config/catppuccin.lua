@@ -10,7 +10,7 @@ function M.setup()
       keywords = { "bold" },
     },
     integrations = {
-      nvimtree = false,
+      nvimtree = true,
       dashboard = false,
       hop = true,
       neotree = true,
