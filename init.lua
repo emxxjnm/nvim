@@ -45,6 +45,9 @@ end
 
 local namespace = {
   style = {},
+  config = {
+    metadir = ".vim/",
+  },
 }
 
 _G.mo = mo or namespace

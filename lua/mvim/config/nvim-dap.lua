@@ -56,7 +56,7 @@ function M.config()
     command = "python",
     args = { "-m", "debugpy.adapter" },
   }
-  require("dap.ext.vscode").load_launchjs()
+  require("dap.ext.vscode").load_launchjs(vim.fn.getcwd() .. mo.config.metadir .. "/launch.json")
 end
 
 return M

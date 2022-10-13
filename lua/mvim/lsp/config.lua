@@ -6,12 +6,14 @@ local fmt = string.format
 local levels = vim.log.levels
 local notify_once = vim.notify_once
 
+M.json_decode = vim.json and vim.json.decode or fn.json_decode
+
 ---This function allows reading a per project `settings.josn` file
 ---in the `.vim` directory of the project
 ---@param client table<string, any> lsp client
 ---@return boolean
 function M.common_on_init(client)
-  local settings = client.workspace_folders[1].name .. "/.vim/settings.json"
+  local settings = client.workspace_folders[1].name .. mo.config.metadir .. "/settings.json"
   if fn.filereadable(settings) == 0 then
     notify_once(
       "LSP init: file `settings.json` can not be read",
@@ -31,7 +33,7 @@ function M.common_on_init(client)
     return true
   end
 
-  local status, overrides = pcall(vim.json.decode, table.concat(json, "\n"))
+  local status, overrides = pcall(M.json_decode, table.concat(json, "\n"))
   if not status then
     notify_once(
       "LSP init: unmarshall `settings.json` file failed",
