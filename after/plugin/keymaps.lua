@@ -71,11 +71,11 @@ keymap.set("i", "<C-u>", "_<Esc>mzwbgUiw`zi<Del>", {
   desc = "mark word text uppercase",
 })
 
-keymap.set("n", "<M-Up>", "<cmd>move-2<CR>==", {
+keymap.set("n", "<M-Up>", "<cmd>move .-2<CR>==", {
   silent = true,
   desc = "Move current line up",
 })
-keymap.set("n", "<M-Down>", "<cmd>move+<CR>==", {
+keymap.set("n", "<M-Down>", "<cmd>move .+1<CR>==", {
   silent = true,
   desc = "Move current line down",
 })
@@ -173,6 +173,15 @@ keymap.set("i", "jj", [[col('.') == 1 ? '<Esc>' : '<Esc>l']], {
   desc = "Escape and move to the right preserve the cursor position",
 })
 
+keymap.set("i", "<M-Up>", "<Esc><Cmd>move .-2<CR>==gi", {
+  silent = true,
+  desc = "Move current line down",
+})
+keymap.set("i", "<M-Down>", "<Esc><Cmd>move .+1<CR>==gi", {
+  silent = true,
+  desc = "Move current line up",
+})
+
 -- ============ Visual ===========
 keymap.set("v", "<leader>y", '"+y', {
   silent = true,
@@ -186,4 +195,14 @@ keymap.set("v", ">", ">gv", {
 keymap.set("v", "<", "<gv", {
   silent = true,
   desc = "Visual shifting(does not exit visual mode)",
+})
+
+-- ============ Visual block ===========
+keymap.set("x", "<M-Up>", ":move '<-2<CR>gv-gv", {
+  silent = true,
+  desc = "Move current line/block up",
+})
+keymap.set("x", "<M-Down>", ":move '>+1<CR>gv-gv", {
+  silent = true,
+  desc = "Move current line/block down",
 })
