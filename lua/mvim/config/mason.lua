@@ -7,9 +7,9 @@ function M.setup()
     ui = {
       border = mo.style.border.current,
       icons = {
-        package_installed = icons.misc.check,
-        package_pending = icons.misc.refresh,
-        package_uninstalled = icons.misc.cross,
+        package_installed = icons.misc.installed,
+        package_pending = icons.misc.pedding,
+        package_uninstalled = icons.misc.uninstalled,
       },
       keymaps = {
         apply_language_filter = "f",
