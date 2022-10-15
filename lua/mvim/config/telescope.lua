@@ -84,47 +84,57 @@ function M.setup()
 
   map("n", "<leader>ff", builtin.find_files, {
     silent = true,
-    desc = "telescope: Find files in your current working directory",
+    desc = "Find files in current project",
   })
 
   map("n", "<leader>fg", telescope.extensions.live_grep_args.live_grep_args, {
     silent = true,
-    desc = "telescope: Search for a string in your current working directory",
+    desc = "Search for a string in project",
   })
 
   map("n", "<leader>fr", builtin.oldfiles, {
     silent = true,
-    desc = "telescope: Lists previously open files",
+    desc = "Lists previously open files",
   })
 
   map("n", "<leader>fp", telescope.extensions.projects.projects, {
     silent = true,
-    desc = "telescope: Lists previously open projects",
+    desc = "Lists previously open projects",
   })
 
   map("n", "<leader>fb", builtin.buffers, {
     silent = true,
-    desc = "telescope: Lists open buffers in current neovim instance",
+    desc = "Lists open buffers",
   })
 
   map("n", "<leader>fc", builtin.current_buffer_fuzzy_find, {
     silent = true,
-    desc = "telescope: Live fuzzy search inside of the currently open buffer",
+    desc = "Live fuzzy search",
   })
 
   map("n", "<leader>fd", builtin.diagnostics, {
     silent = true,
-    desc = "telescope: Lists Diagnostics for all open buffers",
+    desc = "Lists Diagnostics",
   })
 
   map("n", "<leader>fs", builtin.lsp_document_symbols, {
     silent = true,
-    desc = "telescope: Lists LSP document symbols in the current buffer",
+    desc = "Lists LSP document symbols",
+  })
+
+  map("n", "<leader>ft", telescope.extensions["todo-comments"].todo, {
+    silent = true,
+    desc = "Search all project todos",
+  })
+
+  map("n", "<leader>fk", builtin.keymaps, {
+    silent = true,
+    desc = "Lists normal mode keymappings",
   })
 
   map("n", "<leader>f?", builtin.help_tags, {
     silent = true,
-    desc = "telescope: Lists available help tags",
+    desc = "Lists available help tags",
   })
 end
 

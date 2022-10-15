@@ -117,6 +117,14 @@ packer.startup({
         end,
       },
       {
+        "folke/todo-comments.nvim",
+        requires = "nvim-lua/plenary.nvim",
+        after = { "telescope.nvim" },
+        config = function()
+          require("mvim.config.todo-comments").setup()
+        end,
+      },
+      {
         "stevearc/dressing.nvim",
         after = "telescope.nvim",
         config = function()
