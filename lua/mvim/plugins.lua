@@ -208,7 +208,7 @@ packer.startup({
           })
         end,
       },
-      "folke/lua-dev.nvim",
+      "folke/neodev.nvim",
       "b0o/SchemaStore.nvim",
     })
 

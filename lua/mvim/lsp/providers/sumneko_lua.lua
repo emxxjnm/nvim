@@ -2,7 +2,7 @@ local default_workspace = {
   library = {
     vim.fn.expand("$VIMRUNTIME"),
     vim.fn.stdpath("config"),
-    require("lua-dev.config").types(),
+    require("neodev.config").types(),
   },
 
   maxPreload = 5000,
