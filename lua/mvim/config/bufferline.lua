@@ -9,7 +9,7 @@ function M.setup()
       indicator = { icon = icons.misc.indicator, style = "icon" },
       buffer_close_icon = icons.misc.cross,
       modified_icon = icons.misc.dot,
-      close_icon = icons.misc.close,
+      close_icon = icons.misc.bold_close,
       left_trunc_marker = icons.misc.triangle_left,
       right_trunc_marker = icons.misc.triangle_right,
       diagnostics = "nvim_lsp",
