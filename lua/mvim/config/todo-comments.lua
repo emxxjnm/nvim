@@ -1,7 +1,7 @@
 local M = {}
 
 local icons = mo.style.icons
-local colors = require("catppuccin.palettes").get_palette()
+local colors = mo.style.palettes
 
 function M.setup()
   require("todo-comments").setup({

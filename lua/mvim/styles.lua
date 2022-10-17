@@ -1,4 +1,5 @@
 mo.style = {
+  palettes = {},
   border = {
     current = "rounded",
     line = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" },
@@ -64,7 +65,7 @@ mo.style = {
       history = "",
       vim = "",
       exit = "",
-      ellipsis = "…",
+      ellipsis = "",
       electron = "",
       bookmark = "",
       target = "",

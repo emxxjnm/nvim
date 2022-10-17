@@ -1,7 +1,7 @@
 local M = {}
 
-local colors = require("catppuccin.palettes").get_palette() or {}
 local icons = mo.style.icons
+local colors = mo.style.palettes
 
 local fn = vim.fn
 local bo = vim.bo
