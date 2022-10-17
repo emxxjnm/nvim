@@ -35,14 +35,14 @@ function M.setup()
       s = { name = "+split" },
     },
     ["["] = {
-      ["%"] = "matchup: Go to prev",
-      c = "textobjects: Go to prev class",
-      f = "textobjects: Go to prev function",
+      ["%"] = "matchup: Move to prev",
+      c = "textobjects: Move to prev class",
+      f = "textobjects: Move to prev function",
     },
     ["]"] = {
-      ["%"] = "matchup: Go to next",
-      c = "testojbects: Go to next class",
-      f = "testojbects: Go to next function",
+      ["%"] = "matchup: Move to next",
+      c = "testojbects: Move to next class",
+      f = "testojbects: Move to next function",
     },
   })
 end

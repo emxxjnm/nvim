@@ -148,8 +148,8 @@ local function setup_keymaps(bufnr)
   keymap.set("n", "gbr", helper.buffer_references, with_desc("LSP: Buffer references"))
   keymap.set("n", "gi", helper.implementations, with_desc("LSP: Implementations"))
 
-  keymap.set("n", "[d", diagnostic.goto_prev, with_desc("LSP: Go to prev diagnostic"))
-  keymap.set("n", "]d", diagnostic.goto_next, with_desc("LSP: Go to next diagnostic"))
+  keymap.set("n", "[d", diagnostic.goto_prev, with_desc("LSP: Move to the prev diagnostic"))
+  keymap.set("n", "]d", diagnostic.goto_next, with_desc("LSP: Move to the next diagnostic"))
 
   -- Docs
   keymap.set("n", "K", lsp.buf.hover, with_desc("LSP: Hover"))
