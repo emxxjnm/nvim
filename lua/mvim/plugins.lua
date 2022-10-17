@@ -353,6 +353,13 @@ packer.startup({
       end,
     })
 
+    use({
+      "rcarriga/nvim-notify",
+      config = function()
+        require("mvim.config.notify").setup()
+      end,
+    })
+
     -- Misc
     use({
       "dstein64/vim-startuptime",
