@@ -82,8 +82,8 @@ function M.setup()
         ["P"] = { "toggle_preview", config = { use_float = true } },
         ["<Esc>"] = "revert_preview",
 
-        ["s"] = "open_split",
-        ["S"] = "open_vsplit",
+        ["s"] = "open_vsplit",
+        ["S"] = "open_split",
 
         ["R"] = "refresh",
         ["a"] = { "add", config = { show_path = "none" } },
