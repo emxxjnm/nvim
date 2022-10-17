@@ -56,17 +56,17 @@ end
 function M.common_on_exit() end
 
 function M.common_capabilities()
+  local ok, cmp_nvim_lsp = mo.require("cmp_nvim_lsp")
+  if ok then
+    return cmp_nvim_lsp.default_capabilities()
+  end
+
   local capabilities = lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.foldingRange = {
     dynamicRegistration = false,
     lineFoldingOnly = true,
   }
-
-  local ok, cmp_nvim_lsp = mo.require("cmp_nvim_lsp")
-  if ok then
-    capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
-  end
 
   return capabilities
 end
