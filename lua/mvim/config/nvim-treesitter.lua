@@ -48,8 +48,10 @@ function M.setup()
         enable = true,
         include_surrounding_whitespace = true,
         keymaps = {
-          ["af"] = "@function.outer",
-          ["if"] = "@function.inner",
+          ["ac"] = { query = "@function.outer", desc = "TS: all class" },
+          ["ic"] = { query = "@function.inner", desc = "TS: inner class" },
+          ["af"] = { query = "@function.outer", desc = "TS: all function" },
+          ["if"] = { query = "@function.inner", desc = "TS: inner function" },
         },
       },
       move = {
