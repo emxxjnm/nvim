@@ -58,12 +58,12 @@ function M.setup()
         enable = true,
         set_jumps = true,
         goto_next_start = {
-          ["]c"] = "@class.outer",
-          ["[f"] = "@function.outer",
+          ["]c"] = { query = "@class.outer", desc = "TS: Next class start" },
+          ["]f"] = { query = "@function.outer", desc = "TS: Next function start" },
         },
         goto_previous_start = {
-          ["[c"] = "@class.outer",
-          ["[f"] = "@function.outer",
+          ["[c"] = { query = "@class.outer", desc = "TS: Prev class start" },
+          ["[f"] = { query = "@function.outer", desc = "TS: Prev function start" },
         },
       },
     },
