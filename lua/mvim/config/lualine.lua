@@ -109,7 +109,13 @@ local diff = {
 }
 
 local location = {
-  "location",
+  function()
+    local line = fn.line(".")
+    local lines = fn.line("$")
+    local col = fn.virtcol(".")
+    return string.format("%3d/%d:%-2d", line, lines, col)
+  end,
+  icon = icons.misc.milestone,
   color = { gui = "bold" },
 }
 

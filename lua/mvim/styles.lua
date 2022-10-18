@@ -97,6 +97,7 @@ mo.style = {
       tower = "",
       group = "",
       gg = "",
+      milestone = "",
       progress = {
         "██",
         "▇▇",
