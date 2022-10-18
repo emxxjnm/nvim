@@ -22,17 +22,21 @@ function M.setup()
       mappings = {
         custom_only = false,
         list = {
-          { key = { "l", "<CR>", "o" }, action = "edit" },
+          { key = { "l", "<CR>", "o", "<2-LeftMouse>" }, action = "edit" },
           { key = { "h" }, action = "close_node" },
-          { key = "v", action = "vsplit" },
+          { key = "s", action = "vsplit" },
+          { key = "S", action = "split" },
           { key = "O", action = "cd" },
           { key = "H", action = "toggle_git_ignored" },
           { key = "D", action = "toggle_dotfiles" },
+          { key = "z", action = "expand_all" },
+          { key = "Z", action = "collapse_all" },
         },
       },
     },
     renderer = {
       highlight_opened_files = "name",
+      highlight_git = true,
       root_folder_modifier = ":~",
       indent_markers = {
         enable = true,
