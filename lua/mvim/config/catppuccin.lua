@@ -19,7 +19,6 @@ function M.setup()
       which_key = true,
       dap = { enabled = true, enable_ui = true },
     },
-    custom_highlights = {},
     highlight_overrides = {
       all = {
         FloatBorder = { fg = colors.surface2 },
