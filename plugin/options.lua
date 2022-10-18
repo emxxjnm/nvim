@@ -1,68 +1,99 @@
-local opt, fn = vim.opt, vim.fn
-
-local undo_dir = fn.stdpath("cache") .. "/undo"
-local swap_dir = fn.stdpath("cache") .. "/swap"
-local backup_dir = fn.stdpath("cache") .. "/backup"
+local o, opt = vim.o, vim.opt
+local icons = mo.style.icons
 
 -- Indentation
-opt.wrap = false
-opt.textwidth = 100
-opt.autoindent = true
-opt.shiftwidth = 2
-opt.expandtab = true
-opt.shiftround = true
+o.wrap = false
+o.textwidth = 100
+
+o.expandtab = true
+o.shiftwidth = 2
+o.shiftround = true
+
+o.smartindent = true
 
 -- line
-opt.number = true
-opt.relativenumber = true
-opt.cursorline = true
+o.number = true
+o.relativenumber = true
+
+o.cursorline = true
 
 -- fold
-opt.foldlevel = 99
-opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+o.foldlevel = 99
+o.foldcolumn = "1"
+o.foldmethod = "expr"
+o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- display
-opt.signcolumn = "yes"
+o.signcolumn = "yes"
+
+o.fileencoding = "UTF-8"
+
 -- opt.clipboard = "unnamedplus"
-opt.termguicolors = true
-opt.laststatus = 3
-opt.showmode = false
-opt.scrolloff = 7
-opt.sidescrolloff = 5
-opt.pumheight = 12
-opt.confirm = true
-opt.completeopt = "menuone,noselect"
+
+o.termguicolors = true
+
+o.laststatus = 3
+
+o.scrolloff = 7
+o.sidescrolloff = 5
+
+o.pumheight = 12
+
+o.completeopt = "menuone,noselect"
+
+o.confirm = true
+
+opt.fillchars = {
+  eob = " ",
+  fold = " ",
+  foldsep = " ",
+  foldopen = icons.documents.expanded,
+  foldclose = icons.documents.collapsed,
+}
 
 -- Wild in command mode
-opt.cmdheight = 1
--- opt.pumblend = 5
-opt.wildoptions = "pum"
-opt.wildignorecase = true
+o.showcmd = false
+
+o.showmode = false
+
+o.cmdheight = 1
+
+o.wildoptions = "pum"
+o.wildignorecase = true
+o.wildmode = "longest:full,full"
 
 -- match and search
-opt.incsearch = true
-opt.smartcase = true
-opt.ignorecase = true
+o.incsearch = true
+o.smartcase = true
+o.ignorecase = true
 
 -- Timings
-opt.timeoutlen = 500
-opt.updatetime = 500
+o.timeoutlen = 500
+o.updatetime = 500
 
 -- Window splitting
-opt.splitright = true
-opt.splitbelow = true
+o.splitright = true
+o.splitbelow = true
 
 -- Backup and Swap
-opt.backup = true
-opt.swapfile = true
-opt.undofile = true
-opt.undodir = undo_dir
-opt.directory = swap_dir
-opt.backupdir = backup_dir
+o.swapfile = true
+o.directory = mo.config.swapdir
 
--- Format
-opt.formatoptions = "12qcrntjlv"
+o.undofile = true
+o.undodir = mo.config.undodir
+
+o.backup = true
+o.backupdir = mo.config.backupdir
 
 -- Message output on vim actions
-opt.shortmess = "AoOtTfFscW"
+opt.shortmess = {
+  f = true,
+  s = true,
+  o = true,
+  O = true,
+  t = true,
+  T = true,
+  A = true,
+  c = true,
+  F = true,
+}

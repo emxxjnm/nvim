@@ -14,7 +14,7 @@ if not pcall(require, "impatient") then
   print("Failed to load impatient.")
 end
 
-local g = vim.g
+local g, fn = vim.g, vim.fn
 
 g.mapleader = " "
 g.maplocalleader = " "
@@ -47,6 +47,9 @@ local namespace = {
   style = {},
   config = {
     metadir = ".vim",
+    swapdir = fn.stdpath("cache") .. "/swap",
+    undodir = fn.stdpath("cache") .. "/undo",
+    backupdir = fn.stdpath("cache") .. "/backup",
   },
 }
 
