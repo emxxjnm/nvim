@@ -8,12 +8,7 @@ local fmt = string.format
 local keymap = vim.keymap
 local diagnostic = vim.diagnostic
 
-local icons = {
-  error = "",
-  warn = "",
-  info = "",
-  hint = "",
-}
+local icons = mo.style.icons.diagnostics
 
 local function highlight_references()
   local ok, ts_utils = mo.require("nvim-treesitter.ts_utils")
@@ -169,11 +164,6 @@ local function on_attach(client, bufnr)
   setup_keymaps(bufnr)
   setup_autocmd(client, bufnr)
   setup_options(bufnr)
-
-  local navic_ok, navic = pcall(require, "nvim-navic")
-  if navic_ok and client.server_capabilities.documentSymbolProvider then
-    navic.attach(client, bufnr)
-  end
 end
 
 mo.augroup("LspSetupCommands", {
@@ -204,6 +194,7 @@ mo.augroup("LspSetupCommands", {
   },
 })
 
+-- handler overrides
 local ns = api.nvim_create_namespace("severe-diagnostics")
 
 --- Restricts nvim's diagnostic signs to only the single most severe one per line
@@ -213,6 +204,7 @@ local function max_diagnostic(callback)
     -- Get all diagnostics from the whole buffer rather than just the
     -- diagnostics passed to the handler
     local diagnostics = vim.diagnostic.get(bufnr)
+
     -- Find the "worst" diagnostic per line
     local max_severity_per_line = {}
     for _, d in pairs(diagnostics) do
@@ -221,10 +213,20 @@ local function max_diagnostic(callback)
         max_severity_per_line[d.lnum] = d
       end
     end
-    -- Pass the filtered diagnostics (with our custom namespace) to the original handler
+
+    -- Pass the filtered diagnostics (with our custom namespace)
+    -- to the original handler
     callback(ns, bufnr, vim.tbl_values(max_severity_per_line), opts)
   end
 end
+
+local signs_handler = diagnostic.handlers.signs
+diagnostic.handlers.signs = vim.tbl_extend("force", signs_handler, {
+  show = max_diagnostic(signs_handler.show),
+  hide = function(_, bufnr)
+    signs_handler.hide(ns, bufnr)
+  end,
+})
 
 local virt_text_handler = diagnostic.handlers.virtual_text or {}
 diagnostic.handlers.virtual_text = vim.tbl_extend("force", virt_text_handler, {
