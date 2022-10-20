@@ -62,7 +62,7 @@ function M.setup()
           return "[g"
         end
         vim.schedule(function()
-          gs.prev_hunk({ navigation_message = false })
+          gs.prev_hunk()
         end)
         return "<Ignore>"
       end, { expr = true, desc = "Git: Go to prev hunk" })
@@ -72,7 +72,7 @@ function M.setup()
           return "]g"
         end
         vim.schedule(function()
-          gs.next_hunk({ navigation_message = false })
+          gs.next_hunk()
         end)
         return "<Ignore>"
       end, { expr = true, desc = "Git: Go to next hunk" })
@@ -81,7 +81,7 @@ function M.setup()
       set_keymap("n", "<leader>gp", gs.preview_hunk, { silent = true, desc = "Git: Preview hunk" })
 
       -- Text object
-      -- set_keymap({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")
+      set_keymap({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>")
     end,
   })
 end
