@@ -1,6 +1,7 @@
 local M = {}
 
 local fmt = string.format
+local levels = vim.log.levels
 
 local lsp_utils = require("mvim.lsp.utils")
 local server_mapping = require("mason-lspconfig.mappings.server")
@@ -65,13 +66,21 @@ function M.setup(name, config)
   end
 
   if not registry.is_installed(pkg_name) then
-    vim.notify(fmt("Installation in progress for [%s]", name))
+    vim.notify_once(
+      fmt("Installation in progress for [%s]", name),
+      levels.INFO,
+      { title = "LSP Setup" }
+    )
     local pkg = registry.get_package(pkg_name)
     pkg:install():once(
       "closed",
       vim.schedule_wrap(function()
         if pkg:is_installed() then
-          vim.notify(fmt("Installation complete for [%s]", name))
+          vim.notify_once(
+            fmt("Installation complete for [%s]", name),
+            levels.INFO,
+            { title = "LSP Setup" }
+          )
           local conf = resolve_config(name, resolve_mason_config(name), config)
           launch_server(name, conf)
         end
