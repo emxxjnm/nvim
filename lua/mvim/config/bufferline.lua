@@ -1,8 +1,9 @@
 local M = {}
+local icons = mo.style.icons
+local colors = mo.style.palettes
 
 function M.setup()
   local bufferline = require("bufferline")
-  local icons = mo.style.icons
 
   bufferline.setup({
     options = {
@@ -33,39 +34,50 @@ function M.setup()
         {
           filetype = "NvimTree",
           text = "Explorer",
-          text_align = "center",
           separator = true,
+          text_align = "center",
+          highlight = "PanelHeading",
         },
         {
           filetype = "neo-tree",
           text = "Explorer",
-          text_align = "center",
           separator = true,
+          text_align = "center",
+          highlight = "PanelHeading",
         },
         {
           filetype = "undotree",
           text = "Undotree",
           separator = true,
           text_align = "center",
+          highlight = "PanelHeading",
         },
         {
           filetype = "packer",
           text = "Packer",
           separator = true,
           text_align = "center",
+          highlight = "PanelHeading",
         },
         {
           filetype = "dapui_scopes",
           text = "Debugger",
           separator = true,
           text_align = "center",
+          highlight = "PanelHeading",
         },
       },
       show_buffer_close_icons = false,
       show_close_icon = false,
       sort_by = "insert_after_current",
     },
-    highlights = require("catppuccin.groups.integrations.bufferline").get(),
+    highlights = require("catppuccin.groups.integrations.bufferline").get({
+      custom = {
+        all = {
+          buffer_selected = { fg = colors.lavender },
+        },
+      },
+    }),
   })
 
   local map = vim.keymap.set
