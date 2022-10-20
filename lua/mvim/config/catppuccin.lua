@@ -19,14 +19,13 @@ function M.setup()
       which_key = true,
       dap = { enabled = true, enable_ui = true },
     },
-    highlight_overrides = {
-      all = {
-        FloatBorder = { fg = colors.surface2 },
-        TelescopeBorder = { fg = colors.surface2 },
-        WhichKeyBorder = { fg = colors.surface2 },
-        NeoTreeFloatBorder = { fg = colors.surface2 },
-        IndentBlanklineContextChar = { fg = colors.overlay0 },
-      },
+    custom_highlights = {
+      PanelHeading = { fg = colors.lavender, bold = true },
+      FloatBorder = { fg = colors.surface2 },
+      TelescopeBorder = { fg = colors.surface2 },
+      WhichKeyBorder = { fg = colors.surface2 },
+      NeoTreeFloatBorder = { fg = colors.surface2 },
+      IndentBlanklineContextChar = { fg = colors.overlay0 },
     },
   })
 
