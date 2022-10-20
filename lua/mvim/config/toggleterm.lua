@@ -14,6 +14,14 @@ function M.setup()
     direction = "horizontal",
     autochdir = true,
     close_on_exit = true,
+    highlights = {
+      NormalFloat = {
+        link = "NormalFloat",
+      },
+      FloatBorder = {
+        link = "FloatBorder",
+      },
+    },
     size = function(term)
       if term.direction == "horizontal" then
         return 15
@@ -29,7 +37,6 @@ function M.setup()
       height = function()
         return math.floor(vim.o.lines * 0.9)
       end,
-      winblend = 0,
     },
   })
 end
