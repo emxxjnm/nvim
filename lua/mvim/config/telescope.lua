@@ -8,7 +8,7 @@ function M.setup()
   telescope.setup({
     defaults = {
       prompt_prefix = mo.style.icons.misc.telescope .. " ",
-      selection_caret = mo.style.icons.misc.selection .. " ",
+      selection_caret = mo.style.icons.misc.fish .. " ",
       file_ignore_patterns = {
         ".git/",
         "^dist/",
