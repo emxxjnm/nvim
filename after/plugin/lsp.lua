@@ -23,7 +23,7 @@ local function highlight_references()
       node_type == "string"
       or node_type == "string_fragment"
       or node_type == "template_string"
-      or node_type == "documnet"
+      or node_type == "document"
     then
       return
     end
@@ -125,7 +125,7 @@ local function setup_autocmd(client, bufnr)
 end
 
 ---setup the lsp keymap
---@param bufnr number
+---@param bufnr number
 local function setup_keymaps(bufnr)
   local function with_desc(desc)
     return { buffer = bufnr, silent = true, desc = desc }
@@ -251,7 +251,7 @@ diagnostic.config({
     prefix = function(d, i)
       local level = diagnostic.severity[d.severity]
       local prefix = fmt("%d. %s ", i, icons[level:lower()])
-      return prefix, "Diagnostic" .. level
+      return prefix, "DiagnosticFloating" .. level
     end,
   },
 })
