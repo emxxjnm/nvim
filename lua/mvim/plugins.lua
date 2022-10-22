@@ -40,7 +40,6 @@ packer.startup({
         require("catppuccin").compile()
       end,
       config = function()
-        vim.g.catppuccin_flavour = "frappe"
         require("mvim.config.catppuccin").setup()
         vim.cmd.colorscheme("catppuccin")
       end,

@@ -4,9 +4,10 @@ function M.setup()
   local colors = require("catppuccin.palettes").get_palette()
 
   require("catppuccin").setup({
+    flavour = "frappe",
     transparent_background = true,
     styles = {
-      functions = { "bold", "italic" },
+      functions = { "italic" },
       keywords = { "bold" },
     },
     integrations = {
@@ -21,10 +22,6 @@ function M.setup()
     },
     custom_highlights = {
       PanelHeading = { fg = colors.lavender, bold = true },
-      FloatBorder = { fg = colors.surface2 },
-      TelescopeBorder = { fg = colors.surface2 },
-      WhichKeyBorder = { fg = colors.surface2 },
-      NeoTreeFloatBorder = { fg = colors.surface2 },
       IndentBlanklineContextChar = { fg = colors.overlay0 },
     },
   })
