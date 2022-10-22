@@ -1,8 +1,20 @@
-local keymap = vim.keymap
 local cmd = vim.cmd
+local keymap = vim.keymap
 
 -- editing
-keymap.set("n", "<leader>w", cmd.write, {
+keymap.set("n", "<leader>w", function()
+  local buf_name = vim.api.nvim_buf_get_name(0)
+  if buf_name == nil or buf_name == "" then
+    local root = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+    vim.ui.input({ prompt = "Input filename, current workspace: " .. root }, function(input)
+      if input ~= nil then
+        cmd.write(input)
+      end
+    end)
+  else
+    cmd.write()
+  end
+end, {
   silent = true,
   desc = "Write the buffer to the current file",
 })
