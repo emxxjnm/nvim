@@ -11,17 +11,23 @@ function M.setup()
       keywords = { "bold" },
     },
     integrations = {
-      nvimtree = true,
-      dashboard = false,
       hop = true,
-      neotree = true,
-      notify = true,
       mason = true,
+      neotree = true,
+      nvimtree = true,
       which_key = true,
+      dashboard = false,
       dap = { enabled = true, enable_ui = true },
     },
     custom_highlights = {
+      -- custom
       PanelHeading = { fg = colors.lavender, bold = true },
+
+      -- overrider
+      FloatBorder = { fg = colors.overlay1 },
+      TelescopeBorder = { fg = colors.overlay1 },
+      WhichKeyBorder = { fg = colors.overlay1 },
+      NeoTreeFloatBorder = { fg = colors.overlay1 },
       IndentBlanklineContextChar = { fg = colors.overlay0 },
     },
   })
