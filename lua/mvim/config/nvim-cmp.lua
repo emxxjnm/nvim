@@ -116,9 +116,11 @@ function M.setup()
   })
 
   cmp.setup.cmdline(":", {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-      { name = "cmdline", keyword_pattern = [=[[^[:blank:]\!]*]=] },
       { name = "path" },
+    }, {
+      { name = "cmdline" },
     }),
   })
 end
