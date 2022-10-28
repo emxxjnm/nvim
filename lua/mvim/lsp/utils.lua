@@ -38,7 +38,7 @@ function M.client_is_configured(name, ft)
   ft = ft or vim.bo.filetype
   local active_autocmds = vim.api.nvim_get_autocmds({ event = "FileType", pattern = ft })
   for _, result in ipairs(active_autocmds) do
-    if result.command:match(name) then
+    if result.desc ~= nil and result.desc:match("server " .. name .. " ") then
       return true
     end
   end

@@ -19,7 +19,7 @@ o.cursorline = true
 
 -- fold
 o.foldlevel = 99
-o.foldcolumn = "1"
+-- o.foldcolumn = "1"
 o.foldmethod = "expr"
 o.foldexpr = "nvim_treesitter#foldexpr()"
 
