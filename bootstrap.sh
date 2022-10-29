@@ -21,16 +21,16 @@ declare -a __cache_dirs=(
 function detect_platform() {
   OS="$(uname -s)"
   case "$OS" in
-  Linux)
-    RECOMMEND_INSTALL="sudo apt inistall -y"
-    ;;
-  Darwin)
-    RECOMMEND_INSTALL="brew install"
-    ;;
-  *)
-    echo "OS $OS is not currently supported."
-    exit 1
-    ;;
+    Linux)
+      RECOMMEND_INSTALL="sudo apt inistall -y"
+      ;;
+    Darwin)
+      RECOMMEND_INSTALL="brew install"
+      ;;
+    *)
+      echo "OS $OS is not currently supported."
+      exit 1
+      ;;
   esac
 }
 

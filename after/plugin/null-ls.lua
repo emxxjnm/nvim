@@ -8,20 +8,17 @@ null_ls.setup({
   sources = {
     -- lua
     null_ls.builtins.formatting.stylua.with({
-      condition = function()
+      condition = function(utils)
         return vim.fn.executable("stylua")
-          and not vim.tbl_isempty(
-            vim.fs.find(
-              { ".stylua.toml", "stylua.toml" },
-              { path = vim.fn.expand("%:p"), upward = true }
-            )
-          )
+          and utils.root_has_file({ "stylua..toml", ".stylua.toml" })
       end,
     }),
 
     -- shell
-    -- null_ls.builtins.diagnostics.shellcheck,
-    null_ls.builtins.formatting.shfmt,
+    null_ls.builtins.diagnostics.shellcheck,
+    null_ls.builtins.formatting.shfmt.with({
+      extra_args = { "-i", "2", "-ci", "-bn" },
+    }),
 
     -- markdown
     null_ls.builtins.formatting.markdownlint,
