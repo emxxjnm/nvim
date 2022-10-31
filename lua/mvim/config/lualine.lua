@@ -21,14 +21,27 @@ local conditions = {
 local mode = {
   "mode",
   fmt = function(str)
-    return " " .. string.sub(str, 1, 1) .. " "
+    return string.sub(str, 1, 1)
   end,
+  separator = {
+    left = icons.misc.left_half_circle_thick,
+    right = icons.misc.right_half_circle_thick,
+  },
 }
 
 local branch = {
   "branch",
   icon = icons.git.branch,
   color = { gui = "bold" },
+  separator = {
+    right = icons.misc.right_half_circle_thick,
+  },
+}
+
+local filetype = {
+  "filetype",
+  icon_only = true,
+  padding = { right = 0, left = 1 },
 }
 
 local filename = {
@@ -40,7 +53,8 @@ local filename = {
 local filesize = {
   "filesize",
   icon = icons.misc.creation,
-  color = { fg = colors.lavender },
+  color = { fg = colors.teal },
+  padding = { left = 0, right = 1 },
   condition = conditions.buffer_not_empty,
 }
 
@@ -65,6 +79,26 @@ local treesitter = {
     local ts = vim.treesitter.highlighter.active[buf]
     return { fg = ts and not tbl_isempty(ts) and colors.green or colors.red }
   end,
+}
+
+local python_env = {
+  function()
+    if bo.filetype == "python" then
+      local venv = vim.env.VIRTUAL_ENV
+      if venv then
+        local venv_name = fn.fnamemodify(venv, ":t")
+        local ok, devicons = pcall(require, "nvim-web-devicons")
+        if ok then
+          local icon, _ = devicons.get_icon(".py")
+          return string.format(icon .. " (%s)", venv_name)
+        end
+        return string.format("(%s)", venv_name)
+      end
+    end
+    return ""
+  end,
+  color = { fg = colors.lavender },
+  cond = conditions.hide_in_width,
 }
 
 local lsp = {
@@ -92,11 +126,22 @@ local lsp = {
     list_extend(buf_client_names, linters)
 
     local clients = fn.uniq(buf_client_names)
-    return icons.misc.lsp .. " LSP:" .. table.concat(clients, "┇")
+    return icons.misc.lsp .. " LSP(s): [" .. table.concat(clients, " · ") .. "]"
   end,
   color = { fg = colors.mauve },
   cond = conditions.hide_in_width,
 }
+
+local function diff_source()
+  local gitsigns = vim.b.gitsigns_status_dict
+  if gitsigns then
+    return {
+      added = gitsigns.added,
+      modified = gitsigns.changed,
+      removed = gitsigns.removed,
+    }
+  end
+end
 
 local diff = {
   "diff",
@@ -105,6 +150,7 @@ local diff = {
     modified = icons.git.modified .. " ",
     removed = icons.git.deleted .. " ",
   },
+  source = diff_source,
   cond = conditions.hide_in_width,
 }
 
@@ -116,6 +162,7 @@ local location = {
     return string.format("%3d/%d:%-2d", line, lines, col)
   end,
   icon = icons.misc.milestone,
+  separator = { left = icons.misc.left_half_circle_thick },
   color = { gui = "bold" },
 }
 
@@ -128,27 +175,23 @@ local progress = {
     local index = math.ceil(line_ratio * #chars)
     return chars[index]
   end,
+  color = { fg = colors.surface0 },
 }
 
 local spaces = {
   function()
     if not api.nvim_buf_get_option(0, "expandtab") then
-      return "Tab:" .. api.nvim_buf_get_option(0, "tabstop")
+      return "Tab: " .. api.nvim_buf_get_option(0, "tabstop")
     end
     local size = api.nvim_buf_get_option(0, "shiftwidth")
     if size == 0 then
       size = api.nvim_buf_get_option(0, "tabstop")
     end
-    return "SP:" .. size
+    return "Spaces: " .. size
   end,
+  padding = { left = 1, right = 2 },
   cond = conditions.hide_in_width,
   color = { fg = colors.sapphire },
-}
-
-local filetype = {
-  "filetype",
-  icon_only = true,
-  padding = { right = 2, left = 1 },
 }
 
 function M.setup()
@@ -156,8 +199,8 @@ function M.setup()
     options = {
       icons_enabled = true,
       theme = "catppuccin",
-      component_separators = { left = "", right = "" },
-      section_separators = { left = "", right = "" },
+      component_separators = "",
+      section_separators = "",
       disabled_filetypes = {
         statusline = {
           "qf",
@@ -187,13 +230,13 @@ function M.setup()
     sections = {
       lualine_a = { mode },
       lualine_b = { branch },
-      lualine_c = { filename, diff, diagnostics },
-      lualine_x = { lsp, treesitter, spaces, filesize, filetype },
+      lualine_c = { diff, diagnostics },
+      lualine_x = { python_env, lsp, treesitter, spaces, filesize },
       lualine_y = { location },
       lualine_z = { progress },
     },
     inactive_sections = {
-      lualine_a = { filename },
+      lualine_a = { filetype, filename },
       lualine_b = {},
       lualine_c = {},
       lualine_x = {},

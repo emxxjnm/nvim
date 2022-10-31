@@ -19,7 +19,7 @@ function M.setup()
         buffers = icons.misc.buffer .. " Buffers",
         git_status = icons.git.source_control .. " Git",
       },
-      separator = { left = "", right = "", override = "left" },
+      separator = "",
     },
     close_if_last_window = true,
     use_default_mappings = false,
@@ -35,8 +35,8 @@ function M.setup()
     default_component_configs = {
       indent = {
         with_markers = true,
-        indent_marker = "│",
-        last_indent_marker = "└",
+        indent_marker = icons.documents.indent,
+        last_indent_marker = icons.documents.last_indent,
         with_expanders = true,
         expander_collapsed = icons.documents.collapsed,
         expander_expanded = icons.documents.expanded,
@@ -48,7 +48,7 @@ function M.setup()
         default = icons.documents.file,
       },
       modified = {
-        symbol = icons.misc.circle,
+        symbol = icons.misc.dot,
       },
       name = {
         trailing_slash = false,
@@ -60,6 +60,7 @@ function M.setup()
           modified = icons.git.modified,
           deleted = icons.git.deleted,
           renamed = icons.git.renamed,
+
           untracked = icons.git.untracked,
           ignored = icons.git.ignored,
           unstaged = icons.git.unstaged,
