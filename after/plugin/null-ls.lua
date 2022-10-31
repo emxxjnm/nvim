@@ -10,7 +10,7 @@ null_ls.setup({
     null_ls.builtins.formatting.stylua.with({
       condition = function(utils)
         return vim.fn.executable("stylua")
-          and utils.root_has_file({ "stylua..toml", ".stylua.toml" })
+          and utils.root_has_file({ "stylua.toml", ".stylua.toml" })
       end,
     }),
 
