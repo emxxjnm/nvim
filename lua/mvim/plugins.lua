@@ -30,7 +30,7 @@ packer.startup({
 
     use("nvim-lua/plenary.nvim")
 
-    use("kyazdani42/nvim-web-devicons")
+    use("nvim-tree/nvim-web-devicons")
 
     -- schemea/theme
     use({
@@ -347,6 +347,7 @@ packer.startup({
 
     use({
       "kevinhwang91/nvim-ufo",
+      disable = true,
       requires = "kevinhwang91/promise-async",
       config = function()
         require("mvim.config.nvim-ufo").setup()

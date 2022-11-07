@@ -3,13 +3,10 @@ local icons = mo.style.icons
 
 -- Indentation
 o.wrap = false
-o.textwidth = 100
 
 o.expandtab = true
 o.shiftwidth = 2
 o.shiftround = true
-
-o.smartindent = true
 
 -- line
 o.number = true
