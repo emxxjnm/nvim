@@ -22,6 +22,7 @@ o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- display
 o.signcolumn = "yes"
+o.conceallevel = 2
 
 o.fileencoding = "UTF-8"
 
