@@ -2,23 +2,41 @@ local M = {}
 
 function M.setup()
   local hop = require("hop")
-  hop.setup({ keys = "etovxqpdygfbzcisuran" })
+
+  hop.setup({
+    keys = "etovxqpdygfbzcisuran",
+  })
 
   local map = vim.keymap.set
+  local hint = require("hop.hint")
 
   map({ "x", "n", "o" }, "f", function()
     hop.hint_char1({
-      direction = require("hop.hint").HintDirection.AFTER_CURSOR,
-      current_line_only = true,
+      direction = hint.HintDirection.AFTER_CURSOR,
+      multi_windows = true,
     })
-  end, { desc = "hop: Move to next char" })
+  end, { silent = true, remap = true, desc = "hop: Move to next character" })
 
   map({ "x", "n", "o" }, "F", function()
     hop.hint_char1({
-      direction = require("hop.hint").HintDirection.BEFORE_CURSOR,
-      current_line_only = true,
+      direction = hint.HintDirection.BEFORE_CURSOR,
+      multi_windows = true,
     })
-  end, { desc = "hop: Move to previous char" })
+  end, { silent = true, remap = true, desc = "hop: Move to prev character" })
+
+  map({ "x", "n", "o" }, "s", function()
+    hop.hint_char2({
+      direction = hint.HintDirection.AFTER_CURSOR,
+      multi_windows = true,
+    })
+  end, { silent = true, remap = true, desc = "hop: Move to next bigrams" })
+
+  map({ "x", "n", "o" }, "S", function()
+    hop.hint_char2({
+      direction = hint.HintDirection.BEFORE_CURSOR,
+      multi_windows = true,
+    })
+  end, { silent = true, remap = true, desc = "hop: Move to prev bigrams" })
 
   map({ "x", "n" }, "<leader>k", function()
     hop.hint_words()
