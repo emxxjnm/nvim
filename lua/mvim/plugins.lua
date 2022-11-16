@@ -363,6 +363,7 @@ packer.startup({
 
     use({
       "rcarriga/nvim-notify",
+      disable = true,
       config = function()
         require("mvim.config.notify").setup()
       end,

@@ -15,7 +15,7 @@ function M.setup()
       right_trunc_marker = icons.misc.triangle_right,
       diagnostics = "nvim_lsp",
       diagnostics_update_in_insert = false,
-      diagnostics_indicator = function(_, _, diagnostics)
+      diagnostics_indicator = function(_, _, diagnostics, _)
         local symbols = {
           error = icons.diagnostics.error .. " ",
           warning = icons.diagnostics.warn .. " ",
