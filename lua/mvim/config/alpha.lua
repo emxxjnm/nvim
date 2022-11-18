@@ -17,8 +17,9 @@ function M.setup()
 
   local version = vim.version()
   local plugins = #vim.tbl_keys(packer_plugins)
-  local nvim_version_info =
-    format(icons.misc.vim .. " Neovim v%d.%d.%d", version.major, version.minor, version.patch)
+  local nvim_version_info = version
+      and format(icons.misc.vim .. " Neovim v%d.%d.%d", version.major, version.minor, version.patch)
+    or " Unknow Neovim version"
   local nvim_information = {
     type = "text",
     val = format(
@@ -30,21 +31,16 @@ function M.setup()
     opts = { position = "center", hl = "Conceal" },
   }
 
-  dashboard.section.header.opts.hl = "Type"
+  dashboard.section.header.opts.hl = "Function"
   dashboard.section.header.val = mo.style.banner
 
   dashboard.section.buttons.val = {
-    button("Statement", "n", icons.documents.file .. "  New File", ":ene! <BAR> startinsert <CR>"),
-    button("Include", "f", icons.misc.search .. "  Find File", ":Telescope find_files <CR>"),
-    button(
-      "Structure",
-      "p",
-      icons.documents.empty_folder_open .. "  Find Project",
-      ":Telescope projects <CR>"
-    ),
+    button("Statement", "n", icons.documents.new_file .. "  New File", ":ene | startinsert <CR>"),
+    button("Special", "f", icons.misc.search .. "  Find File", ":Telescope find_files <CR>"),
+    button("Structure", "p", icons.documents.repo .. "  Find Project", ":Telescope projects <CR>"),
     button("Operator", "r", icons.misc.history .. "  Recent Files", ":Telescope oldfiles <CR>"),
     button("String", "c", icons.misc.vim .. "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),
-    button("Conditional", "q", icons.misc.exit .. "  Quit Neovim", ":qa<CR>"),
+    button("Error", "q", icons.misc.exit .. "  Quit Neovim", ":qa<CR>"),
   }
 
   dashboard.section.footer.val = "Myles Mo"
