@@ -4,14 +4,14 @@ function M.setup()
   local colors = require("catppuccin.palettes").get_palette()
 
   require("catppuccin").setup({
-    flavour = "frappe",
+    flavour = "mocha",
     transparent_background = true,
     styles = {
-      functions = { "italic" },
       keywords = { "bold" },
+      functions = { "italic" },
     },
     integrations = {
-      hop = true,
+      leap = true,
       mason = true,
       neotree = true,
       nvimtree = true,
@@ -28,6 +28,7 @@ function M.setup()
       TelescopeBorder = { fg = colors.overlay1 },
       WhichKeyBorder = { fg = colors.overlay1 },
       NeoTreeFloatBorder = { fg = colors.overlay1 },
+
       IndentBlanklineContextChar = { fg = colors.overlay0 },
     },
   })

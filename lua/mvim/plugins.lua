@@ -333,9 +333,31 @@ packer.startup({
     -- like easymotion, but more powerful
     use({
       "phaazon/hop.nvim",
+      disable = true,
       config = function()
         require("mvim.config.hop").setup()
       end,
+    })
+
+    use({
+      {
+        "ggandor/leap.nvim",
+        keys = { "s", "S" },
+        config = function()
+          require("mvim.config.leap").setup()
+        end,
+      },
+      {
+        "ggandor/flit.nvim",
+        keys = { "f", "F" },
+        wants = { "leap.nvim" },
+        after = "leap.nvim",
+        config = function()
+          require("flit").setup({
+            labeled_modes = "nvo",
+          })
+        end,
+      },
     })
 
     use({
@@ -382,7 +404,7 @@ packer.startup({
       working_sym = icons.misc.refresh,
       error_sym = icons.misc.cross,
       done_sym = icons.misc.check,
-      removed_sym = icons.misc.remove,
+      removed_sym = icons.misc.close,
       moved_sym = icons.misc.arrow_swap,
       header_sym = icons.misc.dash,
       prompt_border = mo.style.border.current,
