@@ -2,14 +2,6 @@ local M = {}
 
 local null_ls = require("null-ls")
 
----@param fun function
----@return fun() @function that calls the provided fun, but with no args
-function M.fn(fun)
-  return function()
-    return fun()
-  end
-end
-
 ---@param t table table
 local function find(t, func)
   for _, entry in pairs(t) do
@@ -85,6 +77,49 @@ function M.list_registered_linters(filetype)
     return providers[m] or {}
   end, alternative_methods))
   return names
+end
+
+function M.formatter_filter(client)
+  local exclude = ({
+    lua = { "sumneko_lua" },
+    typescript = { "tsserver" },
+  })[vim.bo.filetype]
+
+  if not exclude then
+    return true
+  end
+  return not vim.tbl_contains(exclude, client.name)
+end
+
+---@param opts? table<string, any>
+function M.format(opts)
+  opts = opts or {}
+  vim.lsp.buf.format({
+    bufnr = opts.bufnr,
+    async = opts.async,
+    filter = M.formatter_filter,
+  })
+end
+
+M.FEATURES = {
+  DIAGNOSTICS = { name = "diagnostics" },
+  CODELENS = { name = "codelens", provider = "codeLenSProvider" },
+  HIGHLIGHT = { name = "highlight", provider = "documentHighlightProvider" },
+  FORMATTING = { name = "formatting", provider = "documentFormattingProvider" },
+}
+
+--- Create augroups for each LSP feature and track
+--- which capabilities each client registers in a buffer
+---@param bufnr integer
+---@param client table
+---@return fun(feature: table, commands: fun(provider: string): Autocommand[])
+function M.augroup_factory(client, bufnr)
+  return function(feature, commands)
+    local provider, name = feature.provider, feature.name
+    if not provider or client.server_capabilities[provider] then
+      mo.augroup(string.format("LspCommands_%d_%s", bufnr, name), commands(provider))
+    end
+  end
 end
 
 return M
