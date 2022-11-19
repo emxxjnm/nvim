@@ -33,6 +33,12 @@ function M.setup()
         numhl = "GitSignsChangeNr",
         linehl = "GitSignsChangeLn",
       },
+      untracked = {
+        hl = "GitSignsAdd",
+        text = "┆",
+        numhl = "GitSignsAddNr",
+        linehl = "GitSignsAddLn",
+      },
     },
     current_line_blame = true,
     current_line_blame_opts = {
