@@ -330,15 +330,6 @@ packer.startup({
       end,
     })
 
-    -- like easymotion, but more powerful
-    use({
-      "phaazon/hop.nvim",
-      disable = true,
-      config = function()
-        require("mvim.config.hop").setup()
-      end,
-    })
-
     use({
       {
         "ggandor/leap.nvim",
@@ -380,14 +371,6 @@ packer.startup({
       "folke/which-key.nvim",
       config = function()
         require("mvim.config.which-key").setup()
-      end,
-    })
-
-    use({
-      "rcarriga/nvim-notify",
-      disable = true,
-      config = function()
-        require("mvim.config.notify").setup()
       end,
     })
 
