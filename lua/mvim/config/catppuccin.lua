@@ -21,7 +21,7 @@ function M.setup()
     },
     custom_highlights = {
       -- custom
-      PanelHeading = { fg = colors.lavender, bold = true },
+      PanelHeading = { fg = colors.lavender, style = { "bold", "italic" } },
 
       -- overrider
       FloatBorder = { fg = colors.overlay1 },

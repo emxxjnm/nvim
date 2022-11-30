@@ -40,7 +40,7 @@ local components = {
 
   branch = {
     "branch",
-    icon = icons.git.branch,
+    icon = { icons.git.branch, color = { fg = colors.pink, gui = "bold" } },
     color = { gui = "bold" },
     separator = {
       right = icons.misc.right_half_circle_thick,
@@ -159,7 +159,7 @@ local components = {
       local col = fn.virtcol(".")
       return string.format("%3d/%d:%-2d", line, lines, col)
     end,
-    icon = icons.misc.milestone,
+    icon = { icons.misc.milestone, color = { fg = colors.pink, gui = "bold" } },
     separator = { left = icons.misc.left_half_circle_thick },
     color = { gui = "bold" },
   },
