@@ -4,7 +4,6 @@ function M.setup()
   local icons = mo.style.icons
 
   require("nvim-tree").setup({
-    create_in_closed_folder = true,
     root_dirs = {
       ".git/",
       ".stylua.toml",

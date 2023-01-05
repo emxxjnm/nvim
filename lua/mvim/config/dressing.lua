@@ -13,8 +13,10 @@ function M.setup()
 
   require("dressing").setup({
     input = {
-      winblend = 0,
       relative = "editor",
+      win_options = {
+        winblend = 0,
+      },
     },
     select = {
       telescope = require("telescope.themes").get_dropdown({
