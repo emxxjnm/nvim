@@ -1,4 +1,4 @@
-local utils = require("mvim.lsp.utils")
+local utils = require("mvim.plugins.lsp.utils")
 
 local fmt = string.format
 local icons = mo.style.icons.diagnostics
@@ -24,32 +24,10 @@ diagnostic.config({
   },
 })
 
-fn.sign_define({
-  {
-    text = icons.hint,
-    name = "DiagnosticSignHint",
-    numhl = "DiagnosticSignHint",
-    texthl = "DiagnosticSignHint",
-  },
-  {
-    text = icons.info,
-    name = "DiagnosticSignInfo",
-    numhl = "DiagnosticSignInfo",
-    texthl = "DiagnosticSignInfo",
-  },
-  {
-    text = icons.warn,
-    name = "DiagnosticSignWarn",
-    numhl = "DiagnosticSignWarn",
-    texthl = "DiagnosticSignWarn",
-  },
-  {
-    text = icons.error,
-    name = "DiagnosticSignError",
-    numhl = "DiagnosticSignError",
-    texthl = "DiagnosticSignError",
-  },
-})
+for name, icon in pairs(icons) do
+  name = "DiagnosticSign" .. name:gsub("^%l", string.upper)
+  fn.sign_define(name, { text = icon, texthl = name })
+end
 
 api.nvim_create_autocmd("LspAttach", {
   callback = function(args)

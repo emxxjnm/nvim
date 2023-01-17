@@ -22,9 +22,9 @@ o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- display
 o.signcolumn = "yes"
-o.conceallevel = 2
 
-o.fileencoding = "UTF-8"
+-- o.modifiable = true
+-- o.fileencoding = "utf-8"
 
 -- opt.clipboard = "unnamedplus"
 
@@ -44,6 +44,7 @@ o.confirm = true
 opt.fillchars = {
   eob = " ",
   fold = " ",
+  msgsep = " ",
   foldsep = " ",
   foldopen = icons.documents.expanded,
   foldclose = icons.documents.collapsed,
@@ -95,3 +96,6 @@ opt.shortmess = {
   c = true,
   F = true,
 }
+
+-- fix markdown indentation settings
+vim.g.markdown_recommended_style = 0

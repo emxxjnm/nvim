@@ -73,59 +73,23 @@ keymap.set("n", "]<space>", [[<Cmd>put =repeat(nr2char(10), v:count1)<CR>]], {
   desc = "Add empty line below",
 })
 
--- cahnge
-keymap.set("n", "<leader>U", "gUiw`]", {
-  silent = true,
-  desc = "make word text uppercase",
-})
-keymap.set("i", "<C-u>", "_<Esc>mzwbgUiw`zi<Del>", {
-  silent = true,
-  desc = "mark word text uppercase",
-})
+-- change
+keymap.set("n", "<leader>U", "gUiw`]", { desc = "make word text uppercase" })
+keymap.set("i", "<C-u>", "_<Esc>mzwbgUiw`zi<Del>", { desc = "mark word text uppercase" })
 
-keymap.set("n", "<M-Up>", "<cmd>move .-2<CR>==", {
-  silent = true,
-  desc = "Move current line up",
-})
-keymap.set("n", "<M-Down>", "<cmd>move .+1<CR>==", {
-  silent = true,
-  desc = "Move current line down",
-})
+-- move line
+keymap.set("n", "<M-Up>", "<cmd>move .-2<CR>==", { desc = "Move current line up" })
+keymap.set("n", "<M-Down>", "<cmd>move .+1<CR>==", { desc = "Move current line down" })
 
-keymap.set("n", "<leader>sh", ":set splitright<CR>:vsplit<CR>", {
-  silent = true,
-  desc = "Split left",
-})
-keymap.set("n", "<leader>sl", ":set nosplitright<CR>:vsplit<CR>:set splitright<CR>", {
-  silent = true,
-  desc = "Split right",
-})
-keymap.set("n", "<leader>sk", ":set splitbelow<CR>:split<CR>", {
-  silent = true,
-  desc = "Split above",
-})
-keymap.set("n", "<leader>sj", ":set nosplitbelow<CR>:split<CR>:set splitbelow<CR>", {
-  silent = true,
-  desc = "Split below",
-})
+-- split window
+keymap.set("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
+keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 
--- resize the window
-keymap.set("n", "<Up>", ":res -2<CR>", {
-  silent = true,
-  desc = "resize current window",
-})
-keymap.set("n", "<Down>", ":res +2<CR>", {
-  silent = true,
-  desc = "resize current window",
-})
-keymap.set("n", "<Left>", ":vertical resize -2<CR>", {
-  silent = true,
-  desc = "resize current window",
-})
-keymap.set("n", "<Right>", ":vertical resize +2<CR>", {
-  silent = true,
-  desc = "resize current window",
-})
+-- resize window
+keymap.set("n", "<Up>", "<Cmd>resize +2<CR>", { desc = "resize current window" })
+keymap.set("n", "<Down>", "<Cmd>resize -2<CR>", { desc = "resize current window" })
+keymap.set("n", "<Left>", "<Cmd>vertical resize -2<CR>", { desc = "resize current window" })
+keymap.set("n", "<Right>", "<Cmd>vertical resize +2<CR>", { desc = "resize current window" })
 
 -- windows
 keymap.set("n", "<leader>d", function()
@@ -140,17 +104,12 @@ keymap.set("n", "<leader>D", ":%bdelete|edit#|bdelete#<CR>", {
   desc = "Unload and delete other buffers",
 })
 
-keymap.set("n", "<leader>gg", require("mvim.external").lazygit, {
-  silent = true,
-  desc = "Lazygit",
-})
-
-keymap.set("n", "j", [[(v:count > 1 ? 'm`' . v:count : '') . 'gj']], {
+keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", {
   expr = true,
   silent = true,
   desc = "Store relative line number jumps",
 })
-keymap.set("n", "k", [[(v:count > 1 ? 'm`' . v:count : '') . 'gk']], {
+keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", {
   expr = true,
   silent = true,
   desc = "Store relative line number jumps",
@@ -178,6 +137,10 @@ keymap.set("n", [[<leader>}]], [[ciw{<C-r>"}<Esc>]], {
   desc = "wrap with braces",
 })
 
+keymap.set({ "i", "n" }, "<esc>", "<cmd>nohlsearch<cr><esc>", {
+  desc = "Escape and clear hlsearch",
+})
+
 -- ============ Insert ===========
 keymap.set("i", "jj", [[col('.') == 1 ? '<Esc>' : '<Esc>l']], {
   expr = true,
@@ -185,14 +148,9 @@ keymap.set("i", "jj", [[col('.') == 1 ? '<Esc>' : '<Esc>l']], {
   desc = "Escape and move to the right preserve the cursor position",
 })
 
-keymap.set("i", "<M-Up>", "<Esc><Cmd>move .-2<CR>==gi", {
-  silent = true,
-  desc = "Move current line down",
-})
-keymap.set("i", "<M-Down>", "<Esc><Cmd>move .+1<CR>==gi", {
-  silent = true,
-  desc = "Move current line up",
-})
+-- move line
+keymap.set("i", "<M-Up>", "<Esc><Cmd>move .-2<CR>==gi", { desc = "Move current line down" })
+keymap.set("i", "<M-Down>", "<Esc><Cmd>move .+1<CR>==gi", { desc = "Move current line up" })
 
 -- ============ Visual ===========
 keymap.set("v", "<leader>y", '"+y', {

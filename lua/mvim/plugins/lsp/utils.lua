@@ -1,6 +1,9 @@
 local M = {}
 
-local null_ls = require("null-ls")
+local ok, null_ls = pcall(require, "null-ls")
+if not ok then
+  return
+end
 
 ---@param t table table
 local function find(t, func)
@@ -83,6 +86,7 @@ function M.formatter_filter(client)
   local exclude = ({
     lua = { "sumneko_lua" },
     typescript = { "tsserver" },
+    vue = { "volar" },
   })[vim.bo.filetype]
 
   if not exclude then

@@ -1,26 +1,6 @@
 local api = vim.api
 local fmt = string.format
 
----Determine if a value of any type is empty
----@param item any
----@return boolean?
-function mo.isempty(item)
-  if not item then
-    return true
-  end
-  local item_type = type(item)
-  if item_type == "string" then
-    return item == ""
-  end
-  if item_type == "number" then
-    return item == 0
-  end
-  if item_type == "table" then
-    return vim.tbl_isempty(item)
-  end
-  return item ~= nil
-end
-
 -------------------------------------------------------------------------------
 -- Augroup
 -------------------------------------------------------------------------------
@@ -76,41 +56,4 @@ function mo.clear_augroup(name)
       api.nvim_clear_autocmds({ group = name })
     end)
   end)
-end
-
----Require a module using `pcall` and report any error
----@param module string
----@param opts table?
----@return boolean, any
-function mo.require(module, opts)
-  opts = opts or { slient = false }
-  local ok, result = pcall(require, module)
-  if not ok and not opts.silent then
-    if opts.message then
-      result = opts.message .. "\n" .. result
-    end
-    vim.notify(result, vim.log.levels.ERROR, { title = fmt("Error requiring %s", module) })
-  end
-  return ok, result
-end
-
----Call the given function and use `vim.notify` to notify of any errors
----this function is a wrapper around `xpcall` which allows having a single
----error handler for all errors
----@param msg string?
----@param func function
----@vararg any
----@return boolean, any
----@overload fun(fun:function, ...): boolean, any
-function mo.wrap_error(msg, func, ...)
-  local args = { ... }
-  if type(msg) == "function" then
-    args, func, msg = { func, unpack(args) }, msg, nil
-  end
-  return xpcall(func, function(err)
-    msg = msg and fmt("%s:\n%s", msg, err) or err
-    vim.schedule(function()
-      vim.notify(msg, vim.log.levels.ERROR, { title = "ERROR" })
-    end)
-  end, unpack(args))
 end

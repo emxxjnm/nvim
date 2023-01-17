@@ -1,5 +1,5 @@
-local utils = require("mvim.lsp.utils")
-local helper = require("mvim.lsp.helper")
+local utils = require("mvim.plugins.lsp.utils")
+local helper = require("mvim.plugins.lsp.helper")
 
 local lsp, keymap, diagnostic = vim.lsp, vim.keymap.set, vim.diagnostic
 

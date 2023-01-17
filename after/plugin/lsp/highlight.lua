@@ -1,4 +1,4 @@
-local utils = require("mvim.lsp.utils")
+local utils = require("mvim.plugins.lsp.utils")
 
 local api, lsp = vim.api, vim.lsp
 
