@@ -9,7 +9,11 @@
 
 ### 🪡 Prepare
 
-* Font([INPUT](https://input.djr.com/preview/?size=14&language=python&theme=base16-dark&family=InputSans&width=300&weight=300&line-height=1.2&a=ss&g=ss&i=serifs_round&l=serifs_round&zero=0&asterisk=height&braces=straight&preset=default&customize=please))
+* [Wallpaper](https://wallhaven.cc/w/zyxvqy)
+
+* [Terminal: Kitty](https://sw.kovidgoyal.net/kitty/)
+
+* [Font: input](https://input.djr.com/preview/?size=14&language=python&theme=base16-dark&family=InputSans&width=300&weight=300&line-height=1.2&a=ss&g=ss&i=serifs_round&l=serifs_round&zero=0&asterisk=height&braces=straight&preset=default&customize=please)
 
 ```bash
 # patch font
