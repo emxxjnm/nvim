@@ -121,7 +121,10 @@ function M.augroup_factory(client, bufnr)
   return function(feature, commands)
     local provider, name = feature.provider, feature.name
     if not provider or client.server_capabilities[provider] then
-      mo.augroup(string.format("LspCommands_%d_%s", bufnr, name), commands(provider))
+      require("mvim.utils").augroup(
+        string.format("LspCommands_%d_%s", bufnr, name),
+        commands(provider)
+      )
     end
   end
 end

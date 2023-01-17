@@ -27,6 +27,5 @@ local namespace = {
 
 _G.mo = mo or namespace
 
-require("mvim.utils")
 require("mvim.styles")
 require("mvim.config.lazy")

@@ -1,6 +1,7 @@
 local keymap = vim.keymap.set
+local augroup = require("mvim.utils").augroup
 
-mo.augroup("PlaceLastLoc", {
+augroup("PlaceLastLoc", {
   {
     event = "BufReadPost",
     pattern = "*",
@@ -19,7 +20,7 @@ mo.augroup("PlaceLastLoc", {
   },
 })
 
-mo.augroup("SmartClose", {
+augroup("SmartClose", {
   {
     event = "FileType",
     pattern = { "qf", "help", "man", "lspinfo", "startuptime", "spectre_panel" },
@@ -31,7 +32,7 @@ mo.augroup("SmartClose", {
   },
 })
 
-mo.augroup("EslintFormat", {
+augroup("EslintFormat", {
   {
     event = "BufWritePre",
     pattern = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.vue" },
@@ -40,7 +41,7 @@ mo.augroup("EslintFormat", {
   },
 })
 
-mo.augroup("SetupTerminalMappings", {
+augroup("SetupTerminalMappings", {
   {
     event = { "TermOpen" },
     pattern = "term://*",

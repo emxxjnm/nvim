@@ -1,5 +1,4 @@
-local api = vim.api
-local fmt = string.format
+local M = {}
 
 -------------------------------------------------------------------------------
 -- Augroup
@@ -27,13 +26,13 @@ local fmt = string.format
 ---@param name string
 ---@param commands Autocommand[]
 ---@return number augroup id
-function mo.augroup(name, commands)
+function M.augroup(name, commands)
   assert(name ~= "User", "The name of an augroup CANNOT be User")
-  assert(#commands > 0, fmt("You must specify at least on autocommand for %s", name))
-  local group_id = api.nvim_create_augroup(name, { clear = true })
+  assert(#commands > 0, string.format("You must specify at least on autocommand for %s", name))
+  local group_id = vim.api.nvim_create_augroup(name, { clear = true })
   for _, autocmd in ipairs(commands) do
     local is_callback = type(autocmd.command) == "function"
-    api.nvim_create_autocmd(autocmd.event, {
+    vim.api.nvim_create_autocmd(autocmd.event, {
       group = group_id,
       pattern = autocmd.pattern,
       desc = autocmd.desc,
@@ -50,10 +49,12 @@ end
 ---Clean autocommand in a group if it exists
 ---This is safer than trying to delete the augroup itself
 --@param name string augroup name
-function mo.clear_augroup(name)
+function M.clear_augroup(name)
   vim.schedule(function()
     pcall(function()
-      api.nvim_clear_autocmds({ group = name })
+      vim.api.nvim_clear_autocmds({ group = name })
     end)
   end)
 end
+
+return M
