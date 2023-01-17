@@ -283,7 +283,7 @@ local M = {
               end
             end
 
-            local utils = require("mvim.lsp.utils")
+            local utils = require("mvim.plugins.lsp.utils")
             local formatters = utils.list_registered_formatters(buf_ft)
             ---@diagnostic disable-next-line: missing-parameter
             vim.list_extend(buf_client_names, formatters)
