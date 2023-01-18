@@ -2,24 +2,29 @@ local utils = require("mvim.plugins.lsp.utils")
 
 local fmt = string.format
 local icons = mo.style.icons.diagnostics
-local fn, api, lsp, diagnostic = vim.fn, vim.api, vim.lsp, vim.diagnostic
+local fn, api, lsp = vim.fn, vim.api, vim.lsp
 
 -- Diagnostic configuration
-diagnostic.config({
-  signs = true,
-  underline = true,
+vim.diagnostic.config({
   severity_sort = true,
-  update_in_insert = false,
   virtual_text = false,
   float = {
     header = "",
+    source = false,
     border = mo.style.border.current,
-    source = true,
-    focusable = false,
-    prefix = function(d, i)
-      local level = diagnostic.severity[d.severity]
-      local prefix = fmt("%d. %s ", i, icons[level:lower()])
+    prefix = function(d)
+      local level = vim.diagnostic.severity[d.severity]
+      local prefix = fmt("%s ", icons[level:lower()])
       return prefix, "DiagnosticFloating" .. level
+    end,
+    format = function(d)
+      local source = string.gsub(d.source, "%.$", "")
+      return fmt("%s: %s", source, d.message)
+    end,
+    suffix = function(d)
+      local code = d.code or (d.user_data and d.user_data.lsp.code)
+      local suffix = code and fmt(" (%s)", code) or ""
+      return suffix, "Comment"
     end,
   },
 })
