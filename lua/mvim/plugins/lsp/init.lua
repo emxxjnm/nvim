@@ -191,10 +191,9 @@ local M = {
 
   {
     "ray-x/lsp_signature.nvim",
-    dependencies = { "neovim/nvim-lspconfig" },
+    event = "BufReadPost",
     opts = {
       bind = true,
-      fix_pos = false,
       hint_scheme = "Comment",
       handler_opts = { border = mo.style.border.current },
     },
