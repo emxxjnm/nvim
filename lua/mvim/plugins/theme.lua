@@ -29,6 +29,11 @@ local M = {
         LazyButtonActive = { bg = "NONE", fg = colors.lavender, style = { " bold" } },
         LazySpecial = { fg = colors.sapphire },
 
+        -- LazyH1 = { bg = colors.peach, fg = colors.base, style = { "bold" } },
+        -- LazyButton = { bg = "NONE", fg = colors.subtext0 },
+        -- LazyButtonActive = { bg = colors.overlay1, fg = colors.base, style = { " bold" } },
+        -- LazySpecial = { fg = colors.sapphire },
+
         -- overrider
         FloatBorder = { fg = colors.overlay1 },
         TelescopeBorder = { fg = colors.overlay1 },

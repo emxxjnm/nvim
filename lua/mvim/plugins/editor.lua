@@ -31,7 +31,7 @@ local M = {
       },
       close_if_last_window = true,
       use_default_mappings = false,
-      popup_border_style = mo.style.border.current,
+      popup_border_style = "rounded", -- no support "none"
       event_handlers = {
         {
           event = "file_opened",
@@ -355,7 +355,6 @@ local M = {
       textobjects = {
         select = {
           enable = true,
-          include_surrounding_whitespace = true,
           keymaps = {
             ["ac"] = { query = "@function.outer", desc = "TS: all class" },
             ["ic"] = { query = "@function.inner", desc = "TS: inner class" },
@@ -365,7 +364,6 @@ local M = {
         },
         move = {
           enable = true,
-          set_jumps = true,
           goto_next_start = {
             ["]c"] = { query = "@class.outer", desc = "TS: Next class start" },
             ["]f"] = { query = "@function.outer", desc = "TS: Next function start" },

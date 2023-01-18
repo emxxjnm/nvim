@@ -104,6 +104,7 @@ local M = {
       },
     },
   },
+
   {
     "folke/which-key.nvim",
     event = "VeryLazy",
@@ -140,7 +141,6 @@ local M = {
         ["<leader>"] = {
           f = { name = "+Telescope" },
           g = { name = "+Git" },
-          s = { name = "+Split" },
         },
       })
     end,
