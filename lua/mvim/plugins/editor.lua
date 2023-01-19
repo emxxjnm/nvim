@@ -1,4 +1,4 @@
-local icons = mo.style.icons
+local icons = mo.styles.icons
 
 local M = {
   -- file explorer
@@ -167,8 +167,8 @@ local M = {
 
       return {
         defaults = {
-          prompt_prefix = mo.style.icons.misc.telescope .. " ",
-          selection_caret = mo.style.icons.misc.fish .. " ",
+          prompt_prefix = mo.styles.icons.misc.telescope .. " ",
+          selection_caret = mo.styles.icons.misc.fish .. " ",
           file_ignore_patterns = {
             ".git/",
             "^dist/",

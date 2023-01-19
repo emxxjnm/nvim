@@ -16,8 +16,8 @@ g.mapleader = " "
 g.maplocalleader = " "
 
 local namespace = {
-  style = {},
-  config = {
+  styles = {},
+  settings = {
     metadir = ".vim",
     swapdir = fn.stdpath("cache") .. "/swap",
     undodir = fn.stdpath("cache") .. "/undo",
@@ -27,5 +27,4 @@ local namespace = {
 
 _G.mo = mo or namespace
 
-require("mvim.styles")
-require("mvim.config.lazy")
+require("mvim.config").setup()

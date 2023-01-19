@@ -22,7 +22,7 @@ local M = {
       end
     end,
     float_opts = {
-      border = mo.style.border.current,
+      border = mo.styles.border,
       width = function()
         return math.floor(vim.o.columns * 0.9)
       end,

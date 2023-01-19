@@ -1,5 +1,6 @@
 local o, opt = vim.o, vim.opt
-local icons = mo.style.icons
+local icons = mo.styles.icons
+local settings = mo.settings
 
 -- Indentation
 o.wrap = false
@@ -76,13 +77,13 @@ o.splitbelow = true
 
 -- Backup and Swap
 o.swapfile = true
-o.directory = mo.config.swapdir
+o.directory = settings.swapdir
 
 o.undofile = true
-o.undodir = mo.config.undodir
+o.undodir = settings.undodir
 
 o.backup = true
-o.backupdir = mo.config.backupdir
+o.backupdir = mo.settings.backupdir
 
 -- Message output on vim actions
 opt.shortmess = {

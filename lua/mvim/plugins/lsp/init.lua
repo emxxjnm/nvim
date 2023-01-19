@@ -9,16 +9,15 @@ local M = {
       { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
       {
         "williamboman/mason.nvim",
-        cmd = "Mason",
         opts = {
           ui = {
             width = 0.8,
             height = 0.8,
-            border = mo.style.border.current,
+            border = mo.styles.border,
             icons = {
-              package_installed = mo.style.icons.misc.installed,
-              package_pending = mo.style.icons.misc.pedding,
-              package_uninstalled = mo.style.icons.misc.uninstalled,
+              package_installed = mo.styles.icons.misc.installed,
+              package_pending = mo.styles.icons.misc.pedding,
+              package_uninstalled = mo.styles.icons.misc.uninstalled,
             },
             keymaps = { apply_language_filter = "f" },
           },
@@ -68,7 +67,6 @@ local M = {
             "html",
             "css",
             "less",
-            "sass",
             "scss",
             "javascriptreact",
             "typescriptreact",
@@ -92,10 +90,20 @@ local M = {
           },
         },
       },
-      setup = {},
+      -- you can do any additional lsp server setup here
+      -- return true if you don't want this server to be setup with lspconfig
+      ---@type table<string, fun(server:string, opts: table):boolean?>
+      setup = {
+        -- example to setup with typescript.nvim
+        -- tsserver = function(_, opts)
+        --   require("typescript").setup({ server = opts })
+        --   return true
+        -- end,
+        -- Specify * to use this function as a fallback for any server
+        -- ["*"] = function(server, opts) end,
+      },
     },
     config = function(_, opts)
-      -- resolve config
       local json_decode = vim.json and vim.json.decode or vim.fn.json_decode
 
       ---This function allows reading a per project `settings.josn` file
@@ -105,7 +113,7 @@ local M = {
       local function common_on_init(client)
         local settings = client.workspace_folders[1].name
           .. "/"
-          .. mo.config.metadir
+          .. mo.settings.metadir
           .. "/settings.json"
         if vim.fn.filereadable(settings) == 0 then
           return true
@@ -195,7 +203,7 @@ local M = {
     opts = {
       bind = true,
       hint_scheme = "Comment",
-      handler_opts = { border = mo.style.border.current },
+      handler_opts = { border = mo.styles.border },
     },
   },
 

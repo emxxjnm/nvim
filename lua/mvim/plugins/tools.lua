@@ -72,8 +72,8 @@ local M = {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufReadPre",
     opts = {
-      char = mo.style.icons.documents.indent,
-      char_list = { mo.style.icons.documents.dash_indent },
+      char = mo.styles.icons.documents.indent,
+      char_list = { mo.styles.icons.documents.dash_indent },
       show_current_context = true,
       show_first_indent_level = false,
       filetype_exclude = { "help", "alpha", "neo-tree", "lazy" },
@@ -100,7 +100,7 @@ local M = {
       user_default_options = {
         names = false,
         mode = "virtualtext",
-        virtualtext = mo.style.icons.misc.cloud .. " ",
+        virtualtext = mo.styles.icons.misc.cloud .. " ",
       },
     },
   },
@@ -121,12 +121,12 @@ local M = {
         },
       },
       icons = {
-        breadcrumb = mo.style.icons.misc.double_right,
-        separator = mo.style.icons.misc.gg .. " ",
-        group = mo.style.icons.misc.plus,
+        breadcrumb = mo.styles.icons.misc.double_right,
+        separator = mo.styles.icons.misc.gg .. " ",
+        group = mo.styles.icons.misc.plus,
       },
       window = {
-        border = mo.style.border.current,
+        border = mo.styles.border,
       },
       layout = {
         spacing = 5,

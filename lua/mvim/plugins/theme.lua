@@ -3,9 +3,10 @@ local M = {
   name = "catppuccin",
   lazy = false,
   priority = 1000,
+  build = ":CatppuccinCompile",
   opts = {
     flavour = "mocha",
-    transparent_background = true,
+    transparent_background = mo.styles.transparent,
     styles = {
       keywords = { "bold" },
       functions = { "italic" },
@@ -14,9 +15,10 @@ local M = {
       leap = true,
       mason = true,
       neotree = true,
-
       which_key = true,
+      nvimtree = false,
       dashboard = false,
+      ts_rainbow = false,
       dap = { enabled = true, enable_ui = true },
     },
     custom_highlights = function(colors)

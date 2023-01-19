@@ -42,5 +42,5 @@ diagnostic.handlers.virtual_text = vim.tbl_extend("force", virt_text_handler, {
 })
 
 lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, {
-  border = mo.style.border.current,
+  border = mo.styles.border,
 })

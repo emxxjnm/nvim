@@ -1,4 +1,4 @@
-local icons = mo.style.icons
+local icons = mo.styles.icons
 
 local M = {
   "mfussenegger/nvim-dap",
@@ -76,7 +76,7 @@ local M = {
             },
           },
           floating = {
-            border = mo.style.border.current,
+            border = mo.styles.border,
           },
         })
       end,
@@ -136,7 +136,7 @@ function M.init()
   })
 
   require("dap.ext.vscode").load_launchjs(
-    vim.fn.getcwd() .. "/" .. mo.config.metadir .. "/launch.json"
+    vim.fn.getcwd() .. "/" .. mo.settings.metadir .. "/launch.json"
   )
 end
 

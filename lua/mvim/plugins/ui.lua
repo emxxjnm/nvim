@@ -1,4 +1,4 @@
-local icons = mo.style.icons
+local icons = mo.styles.icons
 
 local M = {
   -- dashboard
@@ -17,7 +17,7 @@ local M = {
         return btn
       end
 
-      dashboard.section.header.val = mo.style.banner
+      dashboard.section.header.val = mo.styles.banner
       dashboard.section.buttons.val = {
         button(
           "Statement",
@@ -285,11 +285,9 @@ local M = {
 
             local utils = require("mvim.plugins.lsp.utils")
             local formatters = utils.list_registered_formatters(buf_ft)
-            ---@diagnostic disable-next-line: missing-parameter
             vim.list_extend(buf_client_names, formatters)
 
             local linters = utils.list_registered_linters(buf_ft)
-            ---@diagnostic disable-next-line: missing-parameter
             vim.list_extend(buf_client_names, linters)
 
             local clients = fn.uniq(buf_client_names)

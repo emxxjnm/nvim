@@ -21,15 +21,15 @@ local M = {
     end
 
     return {
-      global = {
+      defaults = {
         experimental = { ghost_text = true },
         window = {
           completion = {
-            border = mo.style.border.current,
+            border = mo.styles.border,
             winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
           },
           documentation = {
-            border = mo.style.border.current,
+            border = mo.styles.border,
             winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
           },
         },
@@ -42,14 +42,21 @@ local M = {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
-          { name = "buffer" },
+          {
+            name = "buffer",
+            option = {
+              get_bufnrs = function()
+                return api.nvim_list_bufs()
+              end,
+            },
+          },
         }),
         formatting = {
           fields = { "kind", "abbr", "menu" },
           format = function(entry, item)
             item.kind = string.format(
               "%s %s",
-              mo.style.icons.lsp.kinds[item.kind:lower()],
+              mo.styles.icons.lsp.kinds[item.kind:lower()],
               item.kind
             )
             item.menu = source_names[entry.source.name] or entry.source.name
@@ -110,7 +117,8 @@ local M = {
   end,
   config = function(_, opts)
     local cmp = require("cmp")
-    cmp.setup(opts.global)
+    cmp.setup(opts.defaults)
+
     cmp.setup.cmdline({ "/", "?" }, opts.search)
     cmp.setup.cmdline(":", opts.command)
   end,
@@ -146,7 +154,7 @@ local M = {
             [types.choiceNode] = {
               active = {
                 virt_text = {
-                  { mo.style.icons.misc.snow .. " ", "Type" },
+                  { mo.styles.icons.misc.snow .. " ", "Type" },
                 },
               },
             },

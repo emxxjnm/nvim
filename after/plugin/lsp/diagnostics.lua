@@ -1,7 +1,7 @@
 local utils = require("mvim.plugins.lsp.utils")
 
 local fmt = string.format
-local icons = mo.style.icons.diagnostics
+local icons = mo.styles.icons.diagnostics
 local fn, api, lsp = vim.fn, vim.api, vim.lsp
 
 -- Diagnostic configuration
@@ -11,7 +11,7 @@ vim.diagnostic.config({
   float = {
     header = "",
     source = false,
-    border = mo.style.border.current,
+    border = mo.styles.border,
     prefix = function(d)
       local level = vim.diagnostic.severity[d.severity]
       local prefix = fmt("%s ", icons[level:lower()])

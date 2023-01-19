@@ -1,8 +1,5 @@
-mo.style = {
-  border = {
-    current = "rounded",
-    line = { "🭽", "▔", "🭾", "▕", "🭿", "▁", "🭼", "▏" },
-  },
+mo.styles = {
+  transparent = true,
   icons = {
     git = {
       added = "",
@@ -174,3 +171,5 @@ mo.style = {
     [[                                                                            ]],
   },
 }
+
+mo.styles.border = mo.styles.transparent and "rounded" or "none"

@@ -2,8 +2,9 @@
 
 ## Preview
 
-![Neovim](https://user-images.githubusercontent.com/54089360/202839491-7ab99fdf-1e97-410c-a3c3-58e4ff962363.png)
-![Editor](https://user-images.githubusercontent.com/54089360/202839863-1b8b812b-9167-4bae-a393-4c34a7c38baa.png)
+|                                                                                                                               |                                                                                                                                |                                                                                                                                     |
+| :---------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: |
+| <img alt="Home" src="https://user-images.githubusercontent.com/54089360/213395579-9a06ab47-b81d-48a2-92fd-4616fadeea4d.jpg">  | <img alt="Editor" src="https://user-images.githubusercontent.com/54089360/213395915-e1aadfc9-2e3b-403f-8258-a6cf43563b87.jpg"> | <img alt="Completion" src="https://user-images.githubusercontent.com/54089360/213395968-a5dad009-2bd0-4182-b76e-eef33e4fbe2d.jpg">  |
 
 ## ⚙️ Install
 
