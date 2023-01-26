@@ -41,6 +41,7 @@ local M = {
         TelescopeBorder = { fg = colors.overlay1 },
         WhichKeyBorder = { fg = colors.overlay1 },
         NeoTreeFloatBorder = { fg = colors.overlay1 },
+        LspInfoBorder = { fg = colors.overlay1 },
 
         IndentBlanklineContextChar = { fg = colors.overlay0 },
       }

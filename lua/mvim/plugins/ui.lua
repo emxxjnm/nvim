@@ -218,7 +218,7 @@ local M = {
         filesize = {
           "filesize",
           icon = icons.misc.creation,
-          color = { fg = colors.teal },
+          color = { fg = colors.lavender },
           padding = { left = 0, right = 1 },
           condition = conditions.buffer_not_empty,
         },
@@ -283,7 +283,7 @@ local M = {
               end
             end
 
-            local utils = require("mvim.plugins.lsp.utils")
+            local utils = require("mvim.utils")
             local formatters = utils.list_registered_formatters(buf_ft)
             vim.list_extend(buf_client_names, formatters)
 

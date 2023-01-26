@@ -6,16 +6,18 @@ local function get_hight(self, _, max_lines)
 end
 
 local M = {
+
   -- library used by other plugins
-  "nvim-lua/plenary.nvim",
-  "kyazdani42/nvim-web-devicons",
-  "MunifTanjim/nui.nvim",
+  { "nvim-lua/plenary.nvim", lazy = true },
+
+  -- icons
+  { "nvim-tree/nvim-web-devicons", lazy = true },
+
+  -- ui components
+  { "MunifTanjim/nui.nvim", lazy = true },
 
   -- undotree
-  {
-    "mbbill/undotree",
-    event = "VeryLazy",
-  },
+  { "mbbill/undotree", event = "VeryLazy" },
 
   -- surround
   {
@@ -70,7 +72,7 @@ local M = {
 
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufReadPre",
+    event = "BufReadPost",
     opts = {
       char = mo.styles.icons.documents.indent,
       char_list = { mo.styles.icons.documents.dash_indent },

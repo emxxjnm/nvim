@@ -5,8 +5,16 @@ local M = {
     dependencies = {
       "williamboman/mason-lspconfig.nvim",
       "b0o/SchemaStore.nvim",
-      "hrsh7th/cmp-nvim-lsp",
-      { "folke/neodev.nvim", opts = { experimental = { pathStrict = true } } },
+      {
+        "folke/neodev.nvim",
+        opts = { experimental = { pathStrict = true } },
+      },
+      {
+        "hrsh7th/cmp-nvim-lsp",
+        cond = function()
+          return require("mvim.utils").has("nvim-cmp")
+        end,
+      },
       {
         "williamboman/mason.nvim",
         opts = {
@@ -159,7 +167,9 @@ local M = {
       end
 
       local function common_capabilities()
-        return require("cmp_nvim_lsp").default_capabilities()
+        return require("cmp_nvim_lsp").default_capabilities(
+          vim.lsp.protocol.make_client_capabilities()
+        )
       end
 
       local function resolve_config(name, ...)
@@ -178,22 +188,50 @@ local M = {
         return defaults
       end
 
-      require("mason-lspconfig").setup({ ensure_installed = vim.tbl_keys(opts.servers) })
-      require("mason-lspconfig").setup_handlers({
-        function(server)
-          local config = resolve_config(server, opts.servers[server] or {})
-          if opts.setup[server] then
-            if opts.setup[server](server, config) then
-              return
-            end
-          elseif opts.setup["*"] then
-            if opts.setup["*"] then
-              return
-            end
+      require("mvim.plugins.lsp.diagnostics").setup()
+
+      require("mvim.plugins.lsp.handlers").setup()
+
+      require("mvim.utils").on_attach(function(client, buffer)
+        require("mvim.plugins.lsp.format").on_attach(client, buffer)
+        require("mvim.plugins.lsp.keybinds").on_attach(client, buffer)
+
+        require("mvim.plugins.lsp.codelens").on_attach(client, buffer)
+        require("mvim.plugins.lsp.highlight").on_attach(client, buffer)
+      end)
+
+      local function setup_server(server)
+        local config = resolve_config(server, opts.servers[server] or {})
+        if opts.setup[server] then
+          if opts.setup[server](server, config) then
+            return
           end
-          require("lspconfig")[server].setup(config)
-        end,
-      })
+        elseif opts.setup["*"] then
+          if opts.setup["*"](server, config) then
+            return
+          end
+        end
+        require("lspconfig")[server].setup(config)
+      end
+
+      local mlsp = require("mason-lspconfig")
+      local available = mlsp.get_available_servers()
+
+      local ensure_installed = {} ---@type string[]
+      for server, server_opts in pairs(opts.servers) do
+        if server_opts then
+          server_opts = server_opts == true and {} or server_opts
+          -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
+          if server_opts.mason == false or not vim.tbl_contains(available, server) then
+            setup_server(server)
+          else
+            ensure_installed[#ensure_installed + 1] = server
+          end
+        end
+      end
+
+      mlsp.setup({ ensure_installed = ensure_installed })
+      mlsp.setup_handlers({ setup_server })
     end,
   },
 

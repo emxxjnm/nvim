@@ -1,8 +1,14 @@
 local cmd = vim.cmd
-local keymap = vim.keymap
+
+local function keymap(mode, lhs, rhs, opts)
+  local keys = require("lazy.core.handler").handlers.keys
+  if not keys.active[keys.parse({ lhs, mode = mode }).id] then
+    vim.keymap.set(mode, lhs, rhs, opts)
+  end
+end
 
 -- editing
-keymap.set("n", "<leader>w", function()
+keymap("n", "<leader>w", function()
   local buf_name = vim.api.nvim_buf_get_name(0)
   if buf_name == nil or buf_name == "" then
     local root = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
@@ -14,165 +20,123 @@ keymap.set("n", "<leader>w", function()
   else
     cmd.write()
   end
-end, {
-  silent = true,
-  desc = "Write the buffer to the current file",
-})
+end, { desc = "Write the buffer to the current file" })
 
 -- editing
-keymap.set("n", "<leader>q", cmd.quit, {
-  silent = true,
-  desc = "Quit the current window",
-})
+keymap("n", "<leader>q", cmd.quit, { desc = "Quit the current window" })
 
 -- editing
--- vim.keymap.set("n", "<leader>WQ", ":wa<CR>:q<CR>", {
-keymap.set("n", "<leader>WQ", function()
-  cmd.wall()
-  cmd.quit()
-end, {
-  silent = true,
-  desc = "Write all changed buffers and Quit the window",
-})
+keymap("n", "<leader>WQ", ":wa<CR>:q<CR>", { desc = "Write all buffers and Quit" })
 
 -- editing
-keymap.set("n", "<leader>Q", function()
+keymap("n", "<leader>Q", function()
   cmd.qall({ bang = true })
 end, {
-  silent = true,
   desc = "Exit Vim(Any changes to buffers are lost)",
 })
 
-keymap.set("n", "<leader>p", '"+p', {
-  silent = true,
-  desc = "Copy text to the system clipboard",
-})
+keymap("n", "<leader>p", '"+p', { desc = "Copy text to the system clipboard" })
 
 -- motion
-keymap.set("n", "<leader>;", "%", {
-  silent = true,
-  desc = "Find and jump to match item",
-})
+keymap("n", "<leader>;", "%", { desc = "Find and jump to match item" })
 
 -- motion
-keymap.set({ "n", "v" }, "H", "^", {
-  silent = true,
-  desc = "To the first non-blank character of the line",
-})
-keymap.set({ "n", "v" }, "L", "$", {
-  silent = true,
-  desc = "To the end of hte line",
-})
+keymap({ "n", "v" }, "H", "^", { desc = "To the first non-blank character of the line" })
+keymap({ "n", "v" }, "L", "$", { desc = "To the end of hte line" })
 
-keymap.set("n", "[<space>", [[<Cmd>put! =repeat(nr2char(10), v:count1)<CR>]], {
-  silent = true,
+keymap("n", "[<space>", [[<Cmd>put! =repeat(nr2char(10), v:count1)<CR>]], {
   desc = "Add empty line above",
 })
-keymap.set("n", "]<space>", [[<Cmd>put =repeat(nr2char(10), v:count1)<CR>]], {
-  silent = true,
+keymap("n", "]<space>", [[<Cmd>put =repeat(nr2char(10), v:count1)<CR>]], {
   desc = "Add empty line below",
 })
 
 -- change
-keymap.set("n", "<leader>U", "gUiw`]", { desc = "make word text uppercase" })
-keymap.set("i", "<C-u>", "_<Esc>mzwbgUiw`zi<Del>", { desc = "mark word text uppercase" })
+keymap("n", "<leader>U", "gUiw`]", { desc = "make word text uppercase" })
+keymap("i", "<C-u>", "_<Esc>mzwbgUiw`zi<Del>", { desc = "mark word text uppercase" })
 
 -- move line
-keymap.set("n", "<M-Up>", "<cmd>move .-2<CR>==", { desc = "Move current line up" })
-keymap.set("n", "<M-Down>", "<cmd>move .+1<CR>==", { desc = "Move current line down" })
+keymap("n", "<M-Up>", "<cmd>move .-2<CR>==", { desc = "Move current line up" })
+keymap("n", "<M-Down>", "<cmd>move .+1<CR>==", { desc = "Move current line down" })
 
 -- split window
-keymap.set("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
-keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
+keymap("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
+keymap("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
 
 -- resize window
-keymap.set("n", "<Up>", "<Cmd>resize +2<CR>", { desc = "resize current window" })
-keymap.set("n", "<Down>", "<Cmd>resize -2<CR>", { desc = "resize current window" })
-keymap.set("n", "<Left>", "<Cmd>vertical resize -2<CR>", { desc = "resize current window" })
-keymap.set("n", "<Right>", "<Cmd>vertical resize +2<CR>", { desc = "resize current window" })
+keymap("n", "<Up>", "<Cmd>resize +2<CR>", { desc = "resize current window" })
+keymap("n", "<Down>", "<Cmd>resize -2<CR>", { desc = "resize current window" })
+keymap("n", "<Left>", "<Cmd>vertical resize -2<CR>", { desc = "resize current window" })
+keymap("n", "<Right>", "<Cmd>vertical resize +2<CR>", { desc = "resize current window" })
 
 -- windows
-keymap.set("n", "<leader>d", function()
+keymap("n", "<leader>d", function()
   -- FIXME: vim will exit when explorer is opened
   cmd.bdelete({ bang = true })
 end, {
-  silent = true,
   desc = "Unload and delete current buffer",
 })
-keymap.set("n", "<leader>D", ":%bdelete|edit#|bdelete#<CR>", {
-  silent = true,
+keymap("n", "<leader>D", ":%bdelete|edit#|bdelete#<CR>", {
   desc = "Unload and delete other buffers",
 })
 
-keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", {
+keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", {
   expr = true,
-  silent = true,
   desc = "Store relative line number jumps",
 })
-keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", {
+keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", {
   expr = true,
-  silent = true,
   desc = "Store relative line number jumps",
 })
 
 -- ==Quotes
-keymap.set("n", [[<leader>"]], [[ciw"<C-r>""<Esc>]], {
-  silent = true,
+keymap("n", [[<leader>"]], [[ciw"<C-r>""<Esc>]], {
   desc = "wrap with double quotes",
 })
-keymap.set("n", [[<leader>']], [[ciw'<C-r>"'<Esc>]], {
-  silent = true,
+keymap("n", [[<leader>']], [[ciw'<C-r>"'<Esc>]], {
   desc = "wrap with single quotes",
 })
-keymap.set("n", [[<leader>`]], [[ciw`<C-r>"`<Esc>]], {
-  silent = true,
+keymap("n", [[<leader>`]], [[ciw`<C-r>"`<Esc>]], {
   desc = "wrap with back ticks",
 })
-keymap.set("n", [[<leader>)]], [[ciw(<C-r>")<Esc>]], {
-  silent = true,
+keymap("n", [[<leader>)]], [[ciw(<C-r>")<Esc>]], {
   desc = "wrap with parens",
 })
-keymap.set("n", [[<leader>}]], [[ciw{<C-r>"}<Esc>]], {
-  silent = true,
+keymap("n", [[<leader>}]], [[ciw{<C-r>"}<Esc>]], {
   desc = "wrap with braces",
 })
 
-keymap.set({ "i", "n" }, "<esc>", "<cmd>nohlsearch<cr><esc>", {
+keymap({ "i", "n" }, "<esc>", "<cmd>nohlsearch<cr><esc>", {
   desc = "Escape and clear hlsearch",
 })
 
 -- ============ Insert ===========
-keymap.set("i", "jj", [[col('.') == 1 ? '<Esc>' : '<Esc>l']], {
+keymap("i", "jj", [[col('.') == 1 ? '<Esc>' : '<Esc>l']], {
   expr = true,
   remap = true,
   desc = "Escape and move to the right preserve the cursor position",
 })
 
 -- move line
-keymap.set("i", "<M-Up>", "<Esc><Cmd>move .-2<CR>==gi", { desc = "Move current line down" })
-keymap.set("i", "<M-Down>", "<Esc><Cmd>move .+1<CR>==gi", { desc = "Move current line up" })
+keymap("i", "<M-Up>", "<Esc><Cmd>move .-2<CR>==gi", { desc = "Move current line down" })
+keymap("i", "<M-Down>", "<Esc><Cmd>move .+1<CR>==gi", { desc = "Move current line up" })
 
 -- ============ Visual ===========
-keymap.set("v", "<leader>y", '"+y', {
-  silent = true,
+keymap("v", "<leader>y", '"+y', {
   desc = "Paste system clipboard text",
 })
 
-keymap.set("v", ">", ">gv", {
-  silent = true,
+keymap("v", ">", ">gv", {
   desc = "Visual shifting(does not exit visual mode)",
 })
-keymap.set("v", "<", "<gv", {
-  silent = true,
+keymap("v", "<", "<gv", {
   desc = "Visual shifting(does not exit visual mode)",
 })
 
 -- ============ Visual block ===========
-keymap.set("x", "<M-Up>", ":move '<-2<CR>gv-gv", {
-  silent = true,
+keymap("x", "<M-Up>", ":move '<-2<CR>gv-gv", {
   desc = "Move current line/block up",
 })
-keymap.set("x", "<M-Down>", ":move '>+1<CR>gv-gv", {
-  silent = true,
+keymap("x", "<M-Down>", ":move '>+1<CR>gv-gv", {
   desc = "Move current line/block down",
 })

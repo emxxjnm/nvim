@@ -57,4 +57,62 @@ function M.clear_augroup(name)
   end)
 end
 
+---@param plugin string
+function M.has(plugin)
+  return require("lazy.core.config").plugins[plugin] ~= nil
+end
+
+---list providers
+---@param filetype string filetype
+---@return table providers null-ls providers
+function M.list_registered_providers_names(filetype)
+  local sources = require("null-ls.sources")
+  local available_sources = sources.get_available(filetype)
+  local registered = {}
+  for _, source in ipairs(available_sources) do
+    for method in pairs(source.methods) do
+      registered[method] = registered[method] or {}
+      table.insert(registered[method], source.name)
+    end
+  end
+  return registered
+end
+
+---list registered formatters
+---@param filetype string filetype
+---@return string[] providers name of the providers
+function M.list_registered_formatters(filetype)
+  local method = require("null-ls").methods.FORMATTING
+  local providers = M.list_registered_providers_names(filetype)
+  return providers[method] or {}
+end
+
+local alternative_methods = {
+  require("null-ls").methods.DIAGNOSTICS,
+  require("null-ls").methods.DIAGNOSTICS_ON_OPEN,
+  require("null-ls").methods.DIAGNOSTICS_ON_SAVE,
+}
+
+---list registered linters
+---@param filetype string filetype
+---@return string[] providers name of the providers
+function M.list_registered_linters(filetype)
+  local providers = M.list_registered_providers_names(filetype)
+  local names = vim.tbl_flatten(vim.tbl_map(function(m)
+    return providers[m] or {}
+  end, alternative_methods))
+  return names
+end
+
+---@param func fun(client, buffer)
+function M.on_attach(func)
+  vim.api.nvim_create_autocmd("LspAttach", {
+    callback = function(args)
+      local buffer = args.buf
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      func(client, buffer)
+    end,
+  })
+end
+
 return M
