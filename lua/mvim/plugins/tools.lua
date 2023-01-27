@@ -140,9 +140,12 @@ local M = {
       local wk = require("which-key")
       wk.setup(opts)
       wk.register({
+        ["]"] = { name = "+next" },
+        ["["] = { name = "+prev" },
         ["<leader>"] = {
-          f = { name = "+Telescope" },
-          g = { name = "+Git" },
+          c = { name = "+code" },
+          f = { name = "+find" },
+          g = { name = "+git" },
         },
       })
     end,
