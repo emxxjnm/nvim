@@ -162,6 +162,18 @@ local M = {
           custom = {
             all = {
               buffer_selected = { fg = colors.lavender },
+
+              error = { fg = colors.surface1 },
+              error_diagnostic = { fg = colors.surface1 },
+
+              warning = { fg = colors.surface1 },
+              warning_diagnostic = { fg = colors.surface1 },
+
+              info = { fg = colors.surface1 },
+              info_diagnostic = { fg = colors.surface1 },
+
+              hint = { fg = colors.surface1 },
+              hint_diagnostic = { fg = colors.surface1 },
             },
           },
         }),
@@ -283,11 +295,11 @@ local M = {
               end
             end
 
-            local utils = require("mvim.utils")
-            local formatters = utils.list_registered_formatters(buf_ft)
+            local U = require("mvim.utils")
+            local formatters = U.list_registered_formatters(buf_ft)
             vim.list_extend(buf_client_names, formatters)
 
-            local linters = utils.list_registered_linters(buf_ft)
+            local linters = U.list_registered_linters(buf_ft)
             vim.list_extend(buf_client_names, linters)
 
             local clients = fn.uniq(buf_client_names)
