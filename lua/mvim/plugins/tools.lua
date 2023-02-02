@@ -83,6 +83,59 @@ local M = {
   },
 
   {
+    "kevinhwang91/nvim-ufo",
+    dependencies = "kevinhwang91/promise-async",
+    event = "BufReadPost",
+    opts = {
+      open_fold_hl_timeout = 0,
+      enable_get_fold_virt_text = true,
+      preview = {
+        win_config = {
+          winblend = 0,
+          border = mo.styles.border,
+          winhighlight = "Normal:Folded",
+        },
+      },
+      fold_virt_text_handler = function(virt_text, lnum, end_lnum, width, truncate, ctx)
+        local result = {}
+        local suffix = (" %s [%d]"):format(mo.styles.icons.misc.ellipsis, end_lnum - lnum)
+        local cur_width = 0
+        local suffix_width = vim.api.nvim_strwidth(ctx.text)
+        local target_width = width - suffix_width
+
+        for _, chunk in ipairs(virt_text) do
+          local chunk_text = chunk[1]
+          local chunk_width = vim.api.nvim_strwidth(chunk_text)
+          if target_width > cur_width + chunk_width then
+            table.insert(result, chunk)
+          else
+            chunk_text = truncate(chunk_text, target_width - cur_width)
+            local hl_group = chunk[2]
+            table.insert(result, { chunk_text, hl_group })
+            chunk_width = vim.api.nvim_strwidth(chunk_text)
+            if cur_width + chunk_width < target_width then
+              suffix = suffix .. (" "):rep(target_width - cur_width - chunk_width)
+            end
+            break
+          end
+          cur_width = cur_width + chunk_width
+        end
+
+        table.insert(result, { suffix, "UfoFoldedEllipsis" })
+        return result
+      end,
+    },
+    init = function()
+      vim.keymap.set("n", "zR", function()
+        require("ufo").openAllFolds()
+      end, { desc = "Open all folds" })
+      vim.keymap.set("n", "zM", function()
+        require("ufo").closeAllFolds()
+      end, { desc = "Close all folds" })
+    end,
+  },
+
+  {
     "NvChad/nvim-colorizer.lua",
     event = "BufReadPre",
     opts = {
