@@ -28,7 +28,9 @@ function M.on_attach(client, buffer)
       {
         event = "BufWritePre",
         buffer = buffer,
-        command = M.format,
+        command = function(args)
+          M.format({ bufnr = args.buf, async = false })
+        end,
         desc = "LSP: Format on save",
       },
     })

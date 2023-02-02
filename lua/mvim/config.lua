@@ -9,7 +9,7 @@ function M.bootstrap()
   local lazypath = fn.stdpath("data") .. "/lazy/lazy.nvim"
 
   if not vim.loop.fs_stat(lazypath) then
-    vim.notify("Cloning Plugin Manager, will take a few minutes...")
+    vim.notify("cloning plugin manager, will take a few minutes...")
     fn.system({
       "git",
       "clone",
@@ -23,9 +23,10 @@ function M.bootstrap()
 
   require("lazy").setup({
     spec = "mvim.plugins",
-    -- checker = { enabled = true },
+    checker = { enabled = true },
     defaults = { lazy = true },
     install = { colorscheme = { "catppuccin" } },
+    change_detection = { notify = false },
     ui = {
       border = mo.styles.border,
       icons = {
@@ -70,7 +71,7 @@ end
 
 function M.load(name)
   local u = require("lazy.core.util")
-  local mod = "mvim.config." .. name
+  local mod = "mvim." .. name
   u.try(function()
     require(mod)
   end, {

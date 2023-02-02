@@ -40,9 +40,10 @@ local M = {
         eslint = {},
         gopls = {},
         jsonls = {
-          -- lazy-load schemastore when needed
           on_new_config = function(new_config)
-            new_config.settings.json.schemas = require("schemastore").json.schemas()
+            new_config.settings.json.schemas = new_config.settings.json.schemas or {}
+            ---@diagnostic disable-next-line: missing-parameter
+            vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
           end,
           settings = {
             json = {
@@ -81,9 +82,17 @@ local M = {
             "vue",
           },
         },
-        tsserver = {},
         vimls = {},
-        volar = {},
+        volar = {
+          -- take over Typescript
+          filetypes = {
+            "vue",
+            "typescript",
+            "javascript",
+            "javascriptreact",
+            "typescriptreact",
+          },
+        },
         yamlls = {
           settings = {
             yaml = {
@@ -147,11 +156,7 @@ local M = {
           return true
         end
 
-        if not overrides then
-          return true
-        end
-
-        for name, config in pairs(overrides) do
+        for name, config in pairs(overrides or {}) do
           if name == client.name then
             client.config = vim.tbl_deep_extend("force", client.config, config)
             client.notify("workspace/didChangeConfiguration")
@@ -167,9 +172,13 @@ local M = {
       end
 
       local function common_capabilities()
-        return require("cmp_nvim_lsp").default_capabilities(
-          vim.lsp.protocol.make_client_capabilities()
-        )
+        local capabilities = vim.lsp.protocol.make_client_capabilities()
+        -- Tell the server the capability of foldingRange :: nvim-ufo
+        capabilities.textDocument.foldingRange = {
+          dynamicRegistration = false,
+          lineFoldingOnly = true,
+        }
+        return require("cmp_nvim_lsp").default_capabilities(capabilities)
       end
 
       local function resolve_config(name, ...)

@@ -31,7 +31,7 @@ o.signcolumn = "yes"
 
 o.termguicolors = true
 
-o.laststatus = 3
+o.laststatus = 0
 
 o.scrolloff = 7
 o.sidescrolloff = 5

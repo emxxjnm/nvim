@@ -31,4 +31,5 @@ docker run --rm \
 
 * [ ] rgrep
 * [ ] fd
+* [ ] fzf
 * [ ] lazygit

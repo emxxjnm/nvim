@@ -3,6 +3,57 @@ local icons = mo.styles.icons
 local M = {
   "mfussenegger/nvim-dap",
   module = "dap",
+  keys = {
+    {
+      "<leader>b",
+      function()
+        require("dap").toggle_breakpoint()
+      end,
+      desc = "Toggle breakpoint",
+    },
+    {
+      "<F5>",
+      function()
+        require("dap").continue()
+      end,
+      desc = "Continue",
+    },
+    {
+      "<S-F5>",
+      function()
+        require("dap").terminate()
+      end,
+      desc = "Terminate",
+    },
+    {
+      "<F6>",
+      function()
+        require("dap").pause()
+      end,
+      desc = "Pause",
+    },
+    {
+      "<F10>",
+      function()
+        require("dap").step_over()
+      end,
+      desc = "Step over",
+    },
+    {
+      "<F11>",
+      function()
+        require("dap").step_into()
+      end,
+      desc = "Step into",
+    },
+    {
+      "<F12>",
+      function()
+        require("dap").step_out()
+      end,
+      desc = "Step out",
+    },
+  },
   dependencies = {
     {
       "rcarriga/nvim-dap-ui",
@@ -54,9 +105,7 @@ local M = {
               position = "right",
             },
             {
-              elements = {
-                "repl",
-              },
+              elements = { "repl" },
               size = 12,
               position = "bottom",
             },
@@ -89,9 +138,6 @@ local M = {
 }
 
 function M.init()
-  local keymap = vim.keymap.set
-  local dap = require("dap")
-
   vim.fn.sign_define({
     {
       name = "DapBreakpoint",
@@ -102,37 +148,7 @@ function M.init()
       name = "DapStopped",
       text = icons.dap.stopped,
       texthl = "DapStopped",
-      numhl = "DapStopped",
     },
-  })
-
-  keymap("n", "<leader>b", dap.toggle_breakpoint, {
-    silent = true,
-    desc = "dap: create or remove a breakpoint",
-  })
-  keymap("n", "<F5>", dap.continue, {
-    silent = true,
-    desc = "",
-  })
-  keymap("n", "<S-F5>", dap.terminate, {
-    silent = true,
-    desc = "dap: terminates the debug session",
-  })
-  keymap("n", "<F6>", dap.pause, {
-    silent = true,
-    desc = "dap: requests debug adapter to pause a thread",
-  })
-  keymap("n", "<F10>", dap.step_over, {
-    silent = true,
-    desc = "dap: requests the debugee to run again for one step",
-  })
-  keymap("n", "<F11>", dap.step_into, {
-    silent = true,
-    desc = "dap: requests the debugee to step into a function or method",
-  })
-  keymap("n", "<F12>", dap.step_out, {
-    silent = true,
-    desc = "dap: requests the debugee to step out of a function or method",
   })
 
   require("dap.ext.vscode").load_launchjs(

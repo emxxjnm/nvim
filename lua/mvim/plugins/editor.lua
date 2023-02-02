@@ -409,7 +409,7 @@ local M = {
         config = function()
           vim.g.matchup_matchparen_offscreen = {
             method = "popup",
-            fullwidth = 1,
+            fullwidth = true,
           }
         end,
       },

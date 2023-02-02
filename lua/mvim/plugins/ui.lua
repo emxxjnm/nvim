@@ -23,7 +23,7 @@ local M = {
           "Statement",
           "n",
           icons.documents.new_file .. "  New File",
-          ":ene | startinsert<CR>"
+          ":ene<Bar>startinsert<CR>"
         ),
         button("Special", "f", icons.misc.search .. "  Find File", ":Telescope find_files<CR>"),
         button("Operator", "r", icons.misc.history .. "  Recent Files", ":Telescope oldfiles<CR>"),
@@ -297,9 +297,11 @@ local M = {
 
             local U = require("mvim.utils")
             local formatters = U.list_registered_formatters(buf_ft)
+            ---@diagnostic disable-next-line: missing-parameter
             vim.list_extend(buf_client_names, formatters)
 
             local linters = U.list_registered_linters(buf_ft)
+            ---@diagnostic disable-next-line: missing-parameter
             vim.list_extend(buf_client_names, linters)
 
             local clients = fn.uniq(buf_client_names)
@@ -408,6 +410,11 @@ local M = {
         },
         inactive_sections = {
           lualine_a = { components.filetype, components.filename },
+          lualine_b = {},
+          lualine_c = {},
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {},
         },
       })
     end,

@@ -87,20 +87,19 @@ function M.list_registered_formatters(filetype)
   return providers[method] or {}
 end
 
-local alternative_methods = {
-  require("null-ls").methods.DIAGNOSTICS,
-  require("null-ls").methods.DIAGNOSTICS_ON_OPEN,
-  require("null-ls").methods.DIAGNOSTICS_ON_SAVE,
-}
-
 ---list registered linters
 ---@param filetype string filetype
 ---@return string[] providers name of the providers
 function M.list_registered_linters(filetype)
+  local nls = require("null-ls")
   local providers = M.list_registered_providers_names(filetype)
   local names = vim.tbl_flatten(vim.tbl_map(function(m)
     return providers[m] or {}
-  end, alternative_methods))
+  end, {
+    nls.methods.DIAGNOSTICS,
+    nls.methods.DIAGNOSTICS_ON_OPEN,
+    nls.methods.DIAGNOSTICS_ON_SAVE,
+  }))
   return names
 end
 

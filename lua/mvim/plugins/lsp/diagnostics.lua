@@ -22,8 +22,7 @@ function M.setup()
         return prefix, "DiagnosticFloating" .. level
       end,
       format = function(d)
-        local source = string.gsub(d.source, "%.$", "")
-        return fmt("%s: %s", source, d.message)
+        return d.source and fmt("%s: %s", string.gsub(d.source, "%.$", ""), d.message) or d.message
       end,
       suffix = function(d)
         local code = d.code or (d.user_data and d.user_data.lsp.code)
