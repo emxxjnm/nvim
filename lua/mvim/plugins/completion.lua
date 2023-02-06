@@ -54,11 +54,8 @@ local M = {
         formatting = {
           fields = { "kind", "abbr", "menu" },
           format = function(entry, item)
-            item.kind = string.format(
-              "%s %s",
-              mo.styles.icons.lsp.kinds[item.kind:lower()],
-              item.kind
-            )
+            item.kind =
+              string.format("%s %s", mo.styles.icons.lsp.kinds[item.kind:lower()], item.kind)
             item.menu = source_names[entry.source.name] or entry.source.name
             return item
           end,
