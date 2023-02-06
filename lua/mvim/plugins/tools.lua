@@ -11,7 +11,11 @@ local M = {
   { "nvim-lua/plenary.nvim", lazy = true },
 
   -- icons
-  { "nvim-tree/nvim-web-devicons", lazy = true },
+  {
+    "nvim-tree/nvim-web-devicons",
+    lazy = true,
+    commit = "a421d183ef37dfa13f51a5805bed2381aebf9080",
+  },
 
   -- ui components
   { "MunifTanjim/nui.nvim", lazy = true },
@@ -29,7 +33,8 @@ local M = {
   -- commnet
   {
     "numToStr/Comment.nvim",
-    event = "BufRead",
+    -- event = "BufRead",
+    event = "VeryLazy",
     opts = {
       ignore = "^$",
       pre_hook = function(ctx)
