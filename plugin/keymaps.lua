@@ -3,6 +3,8 @@ local cmd = vim.cmd
 local function keymap(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
   if not keys.active[keys.parse({ lhs, mode = mode }).id] then
+    opts = opts or {}
+    opts.silent = opts.silent ~= false
     vim.keymap.set(mode, lhs, rhs, opts)
   end
 end
@@ -56,8 +58,8 @@ keymap("n", "<leader>U", "gUiw`]", { desc = "make word text uppercase" })
 keymap("i", "<C-u>", "_<Esc>mzwbgUiw`zi<Del>", { desc = "mark word text uppercase" })
 
 -- move line
-keymap("n", "<M-Up>", "<cmd>move .-2<CR>==", { desc = "Move current line up" })
-keymap("n", "<M-Down>", "<cmd>move .+1<CR>==", { desc = "Move current line down" })
+keymap("n", "<M-Up>", "<Cmd>move .-2<CR>==", { desc = "Move current line up" })
+keymap("n", "<M-Down>", "<Cmd>move .+1<CR>==", { desc = "Move current line down" })
 
 -- split window
 keymap("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
