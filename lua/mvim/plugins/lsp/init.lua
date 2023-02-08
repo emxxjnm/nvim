@@ -1,7 +1,7 @@
 local M = {
   {
     "neovim/nvim-lspconfig",
-    event = "BufReadPre",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "williamboman/mason-lspconfig.nvim",
       "b0o/SchemaStore.nvim",
@@ -41,9 +41,9 @@ local M = {
         gopls = {},
         jsonls = {
           on_new_config = function(new_config)
+            local schemas = require("schemastore").json.schemas()
             new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-            ---@diagnostic disable-next-line: missing-parameter
-            vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
+            vim.list_extend(new_config.settings.json.schemas, schemas, 1, #schemas)
           end,
           settings = {
             json = {
@@ -256,7 +256,7 @@ local M = {
 
   {
     "jose-elias-alvarez/null-ls.nvim",
-    event = "BufReadPre",
+    event = { "BufReadPre", "BufNewFile" },
     opts = function()
       local nls = require("null-ls")
 

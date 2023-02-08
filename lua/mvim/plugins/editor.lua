@@ -315,7 +315,7 @@ local M = {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     keys = {
       { "<Tab>", mode = { "v" }, desc = "Increment selection" },
       { "<BS>", mode = { "n", "v" }, desc = "Schrink selection" },

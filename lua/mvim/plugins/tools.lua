@@ -11,11 +11,7 @@ local M = {
   { "nvim-lua/plenary.nvim", lazy = true },
 
   -- icons
-  {
-    "nvim-tree/nvim-web-devicons",
-    lazy = true,
-    commit = "a421d183ef37dfa13f51a5805bed2381aebf9080",
-  },
+  { "nvim-tree/nvim-web-devicons", lazy = true },
 
   -- ui components
   { "MunifTanjim/nui.nvim", lazy = true },
@@ -77,7 +73,7 @@ local M = {
 
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     opts = {
       char = mo.styles.icons.documents.indent,
       char_list = { mo.styles.icons.documents.dash_indent },

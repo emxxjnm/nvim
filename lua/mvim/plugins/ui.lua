@@ -52,8 +52,6 @@ local M = {
       return dashboard
     end,
     config = function(_, dashboard)
-      vim.b.miniindentscope_disable = true
-
       -- close Lazy and re-open when the dashboard is ready
       if vim.o.filetype == "lazy" then
         vim.cmd.close()
@@ -297,12 +295,10 @@ local M = {
 
             local U = require("mvim.utils")
             local formatters = U.list_registered_formatters(buf_ft)
-            ---@diagnostic disable-next-line: missing-parameter
-            vim.list_extend(buf_client_names, formatters)
+            vim.list_extend(buf_client_names, formatters, 1, #formatters)
 
             local linters = U.list_registered_linters(buf_ft)
-            ---@diagnostic disable-next-line: missing-parameter
-            vim.list_extend(buf_client_names, linters)
+            vim.list_extend(buf_client_names, linters, 1, #linters)
 
             local clients = fn.uniq(buf_client_names)
             return icons.misc.lsp .. " LSP(s): [" .. table.concat(clients, " · ") .. "]"
