@@ -43,15 +43,13 @@ function M.init()
   end
 
   local function toggle_lazygit()
-    Terminal
-      :new({
-        cmd = "lazygit",
-        dir = "git_dir",
-        hidden = true,
-        direction = "float",
-        on_open = float_handler,
-      })
-      :toggle()
+    Terminal:new({
+      cmd = "lazygit",
+      dir = "git_dir",
+      hidden = true,
+      direction = "float",
+      on_open = float_handler,
+    }):toggle()
   end
 
   vim.keymap.set("n", "<leader>gg", toggle_lazygit, {
