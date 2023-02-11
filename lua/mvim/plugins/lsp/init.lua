@@ -37,7 +37,18 @@ local M = {
         bashls = {},
         dockerls = {},
         cssls = {},
-        eslint = {},
+        eslint = {
+          on_attach = function(_, bufnr)
+            require("mvim.utils").augroup("AutoFixOnSave", {
+              {
+                event = "BufWritePre",
+                buffer = bufnr,
+                command = "EslintFixAll",
+                desc = "automatically execute `eslint fix` on save",
+              },
+            })
+          end,
+        },
         gopls = {},
         jsonls = {
           on_new_config = function(new_config)

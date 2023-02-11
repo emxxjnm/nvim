@@ -1,7 +1,6 @@
-local cmd = vim.cmd
-
 local function keymap(mode, lhs, rhs, opts)
   local keys = require("lazy.core.handler").handlers.keys
+  ---@cast keys LazyKeysHandler
   if not keys.active[keys.parse({ lhs, mode = mode }).id] then
     opts = opts or {}
     opts.silent = opts.silent ~= false
@@ -9,136 +8,98 @@ local function keymap(mode, lhs, rhs, opts)
   end
 end
 
--- editing
-keymap("n", "<leader>w", function()
-  local buf_name = vim.api.nvim_buf_get_name(0)
-  if buf_name == nil or buf_name == "" then
-    local root = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
-    vim.ui.input({ prompt = "Input filename, current workspace: " .. root }, function(input)
-      if input ~= nil then
-        cmd.write(input)
-      end
-    end)
-  else
-    cmd.write()
-  end
-end, { desc = "Write the buffer to the current file" })
+-- editing: save
+keymap("n", "<leader>w", "<Cmd>w<CR>", { desc = "Save file" })
+keymap("n", "<leader>W", "<Cmd>wa<CR>", { desc = "Save files" })
 
--- editing
-keymap("n", "<leader>q", cmd.quit, { desc = "Quit the current window" })
+-- editing: quit
+keymap("n", "<leader>q", "<Cmd>q<CR>", { desc = "Quit" })
+keymap("n", "<leader>Q", "<Cmd>q!<CR>", { desc = "Force quit" })
 
--- editing
-keymap("n", "<leader>WQ", ":wa<CR>:q<CR>", { desc = "Write all buffers and Quit" })
-
--- editing
-keymap("n", "<leader>Q", function()
-  cmd.qall({ bang = true })
-end, {
-  desc = "Exit Vim(Any changes to buffers are lost)",
-})
-
-keymap("n", "<leader>p", '"+p', { desc = "Copy text to the system clipboard" })
+-- copy/paste
+keymap("n", "<leader>p", '"+p', { desc = "Copy to clipboard" })
+keymap("v", "<leader>y", '"+y', { desc = "Paste clipboard text" })
 
 -- motion
-keymap("n", "<leader>;", "%", { desc = "Find and jump to match item" })
+keymap("n", "<leader>;", "%", { desc = "Jump to match item" })
 
 -- motion
-keymap({ "n", "v" }, "H", "^", { desc = "To the first non-blank character of the line" })
-keymap({ "n", "v" }, "L", "$", { desc = "To the end of hte line" })
-
-keymap("n", "[<space>", [[<Cmd>put! =repeat(nr2char(10), v:count1)<CR>]], {
-  desc = "Add empty line above",
-})
-keymap("n", "]<space>", [[<Cmd>put =repeat(nr2char(10), v:count1)<CR>]], {
-  desc = "Add empty line below",
-})
+keymap({ "n", "v" }, "H", "^", { desc = "To the first non-blank char of the line" })
+keymap({ "n", "v" }, "L", "$", { desc = "To the end of the line" })
 
 -- change
-keymap("n", "<leader>U", "gUiw`]", { desc = "make word text uppercase" })
-keymap("i", "<C-u>", "_<Esc>mzwbgUiw`zi<Del>", { desc = "mark word text uppercase" })
+keymap("n", "<leader>u", "gUiw", { desc = "Uppercase" })
+keymap("i", "<C-u>", "_<Esc>mzwbgUiw`zi<Del>", { desc = "Uppercase" })
 
 -- move line
-keymap("n", "<M-Up>", "<Cmd>move .-2<CR>==", { desc = "Move current line up" })
-keymap("n", "<M-Down>", "<Cmd>move .+1<CR>==", { desc = "Move current line down" })
+keymap("n", "<M-k>", "<Cmd>move .-2<CR>==", { desc = "Move up" })
+keymap("n", "<M-j>", "<Cmd>move .+1<CR>==", { desc = "Move down" })
+keymap("i", "<M-k>", "<Esc><Cmd>move .-2<CR>==gi", { desc = "Move up" })
+keymap("i", "<M-j>", "<Esc><Cmd>move .+1<CR>==gi", { desc = "Move down" })
+keymap("v", "<M-k>", ":move '<-2<cr>gv=gv", { desc = "Move up" })
+keymap("v", "<M-j>", ":move '>+1<cr>gv=gv", { desc = "Move down" })
 
 -- split window
-keymap("n", "<leader>-", "<C-W>s", { desc = "Split window below" })
-keymap("n", "<leader>|", "<C-W>v", { desc = "Split window right" })
+keymap("n", "<leader>-", "<C-W>s", { desc = "Split below" })
+keymap("n", "<leader>|", "<C-W>v", { desc = "Split right" })
+
+-- Move to window
+keymap("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
+keymap("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
+keymap("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
+keymap("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
 
 -- resize window
-keymap("n", "<Up>", "<Cmd>resize +2<CR>", { desc = "resize current window" })
-keymap("n", "<Down>", "<Cmd>resize -2<CR>", { desc = "resize current window" })
-keymap("n", "<Left>", "<Cmd>vertical resize -2<CR>", { desc = "resize current window" })
-keymap("n", "<Right>", "<Cmd>vertical resize +2<CR>", { desc = "resize current window" })
+keymap("n", "<Up>", "<Cmd>resize +2<CR>", { desc = "Increase window height" })
+keymap("n", "<Down>", "<Cmd>resize -2<CR>", { desc = "Decrease window height" })
+keymap("n", "<Left>", "<Cmd>vertical resize -2<CR>", { desc = "Increase window width" })
+keymap("n", "<Right>", "<Cmd>vertical resize +2<CR>", { desc = "Decrease window width" })
+
+-- Saner behavior of n and N
+keymap("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+keymap("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+keymap("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+keymap("n", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+keymap("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+keymap("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+
+keymap("v", ">", ">gv", { desc = "Visual shifting" })
+keymap("v", "<", "<gv", { desc = "Visual shifting" })
+
+-- Clear search with <esc>
+keymap({ "i", "n" }, "<esc>", "<Cmd>nohlsearch<CR><Esc>", { desc = "Escape and clear hlsearch" })
+
+-- better up/down
+keymap(
+  "n",
+  "j",
+  "v:count == 0 ? 'gj' : 'j'",
+  { expr = true, silent = true, desc = "Store relative line number jumps" }
+)
+keymap(
+  "n",
+  "k",
+  "v:count == 0 ? 'gk' : 'k'",
+  { expr = true, silent = true, desc = "Store relative line number jumps" }
+)
+
+keymap(
+  "i",
+  "jj",
+  [[col('.') == 1 ? '<Esc>' : '<Esc>l']],
+  { expr = true, remap = true, desc = "Escape and move to the right preserve the cursor position" }
+)
 
 -- windows
 keymap("n", "<leader>d", function()
   -- FIXME: vim will exit when explorer is opened
-  cmd.bdelete({ bang = true })
+  vim.cmd.bdelete({ bang = true })
 end, {
-  desc = "Unload and delete current buffer",
+  desc = "Delete buffer",
 })
-keymap("n", "<leader>D", ":%bdelete|edit#|bdelete#<CR>", {
-  desc = "Unload and delete other buffers",
-})
-
-keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", {
-  expr = true,
-  desc = "Store relative line number jumps",
-})
-keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", {
-  expr = true,
-  desc = "Store relative line number jumps",
-})
-
--- ==Quotes
-keymap("n", [[<leader>"]], [[ciw"<C-r>""<Esc>]], {
-  desc = "wrap with double quotes",
-})
-keymap("n", [[<leader>']], [[ciw'<C-r>"'<Esc>]], {
-  desc = "wrap with single quotes",
-})
-keymap("n", [[<leader>`]], [[ciw`<C-r>"`<Esc>]], {
-  desc = "wrap with back ticks",
-})
-keymap("n", [[<leader>)]], [[ciw(<C-r>")<Esc>]], {
-  desc = "wrap with parens",
-})
-keymap("n", [[<leader>}]], [[ciw{<C-r>"}<Esc>]], {
-  desc = "wrap with braces",
-})
-
-keymap({ "i", "n" }, "<esc>", "<cmd>nohlsearch<cr><esc>", {
-  desc = "Escape and clear hlsearch",
-})
-
--- ============ Insert ===========
-keymap("i", "jj", [[col('.') == 1 ? '<Esc>' : '<Esc>l']], {
-  expr = true,
-  remap = true,
-  desc = "Escape and move to the right preserve the cursor position",
-})
-
--- move line
-keymap("i", "<M-Up>", "<Esc><Cmd>move .-2<CR>==gi", { desc = "Move current line down" })
-keymap("i", "<M-Down>", "<Esc><Cmd>move .+1<CR>==gi", { desc = "Move current line up" })
-
--- ============ Visual ===========
-keymap("v", "<leader>y", '"+y', {
-  desc = "Paste system clipboard text",
-})
-
-keymap("v", ">", ">gv", {
-  desc = "Visual shifting(does not exit visual mode)",
-})
-keymap("v", "<", "<gv", {
-  desc = "Visual shifting(does not exit visual mode)",
-})
-
--- ============ Visual block ===========
-keymap("x", "<M-Up>", ":move '<-2<CR>gv-gv", {
-  desc = "Move current line/block up",
-})
-keymap("x", "<M-Down>", ":move '>+1<CR>gv-gv", {
-  desc = "Move current line/block down",
-})
+keymap(
+  "n",
+  "<leader>D",
+  "<Cmd>%bdelete<Bar>edit#<Bar>bdelete#<CR>",
+  { desc = "Delete other buffers" }
+)

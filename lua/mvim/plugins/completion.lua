@@ -2,22 +2,21 @@ local M = {
   "hrsh7th/nvim-cmp",
   event = { "InsertEnter", "CmdlineEnter" },
   opts = function()
-    local api = vim.api
-    local cmp = require("cmp")
-    local luasnip = require("luasnip")
-
     local source_names = {
-      luasnip = "(Snip)",
-      nvim_lsp = "(LSP)",
-      buffer = "(Buf)",
-      path = "(Path)",
-      cmdline = "(Cmd)",
+      luasnip = "[Snip]",
+      nvim_lsp = "[LSP]",
+      buffer = "[Buf]",
+      path = "[Path]",
+      cmdline = "[Cmd]",
     }
 
+    local cmp, luasnip = require("cmp"), require("luasnip")
+
     local function has_words_before()
-      local line, col = unpack(api.nvim_win_get_cursor(0))
+      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
       return col ~= 0
-        and api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+        and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s")
+          == nil
     end
 
     return {
@@ -46,7 +45,7 @@ local M = {
             name = "buffer",
             option = {
               get_bufnrs = function()
-                return api.nvim_list_bufs()
+                return vim.api.nvim_list_bufs()
               end,
             },
           },
@@ -130,7 +129,7 @@ local M = {
       build = "make install_jsregexp",
       keys = {
         {
-          "<C-l>",
+          "<C-o>",
           function()
             if require("luasnip").choice_active() then
               require("luasnip").change_choice(1)

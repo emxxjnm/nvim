@@ -6,7 +6,13 @@ local M = {
     "nvim-neo-tree/neo-tree.nvim",
     cmd = "Neotree",
     keys = {
-      { "<C-n>", "<Cmd>Neotree toggle reveal<CR>", desc = "Explorer(NeoTree)" },
+      {
+        "<C-n>",
+        function()
+          require("neo-tree.command").execute({ toggle = true, reveal = true })
+        end,
+        desc = "Explorer(NeoTree)",
+      },
     },
     deactivate = function()
       vim.cmd([[Neotree close]])

@@ -1,16 +1,14 @@
-local M = {}
-
 require("mvim.styles")
-
-local fn = vim.fn
 local icons = mo.styles.icons
 
+local M = {}
+
 function M.bootstrap()
-  local lazypath = fn.stdpath("data") .. "/lazy/lazy.nvim"
+  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
   if not vim.loop.fs_stat(lazypath) then
     vim.notify("cloning plugin manager, will take a few minutes...")
-    fn.system({
+    vim.fn.system({
       "git",
       "clone",
       "--filter=blob:none",
@@ -23,7 +21,6 @@ function M.bootstrap()
 
   require("lazy").setup({
     spec = "mvim.plugins",
-    checker = { enabled = true },
     defaults = { lazy = true },
     install = { colorscheme = { "catppuccin" } },
     change_detection = { notify = false },
@@ -94,22 +91,22 @@ function M.setup()
   M.bootstrap()
 
   -- setup keymaps & autocmds
-  -- if fn.argc() == 0 then
-  --   -- autocmds and keymaps can wait to load
-  --   require("mvim.utils").augroup("MvimSetup", {
-  --     {
-  --       event = "User",
-  --       pattern = "VeryLazy",
-  --       command = function()
-  --         M.load("autocmds")
-  --         M.load("keymaps")
-  --       end,
-  --     },
-  --   })
-  -- else
-  --   M.load("autocmds")
-  --   M.load("keymaps")
-  -- end
+  if vim.fn.argc() == 0 then
+    -- autocmds and keymaps can wait to load
+    require("mvim.utils").augroup("OnMvimSetup", {
+      {
+        event = "User",
+        pattern = "VeryLazy",
+        command = function()
+          M.load("autocmds")
+          M.load("keymaps")
+        end,
+      },
+    })
+  else
+    M.load("autocmds")
+    M.load("keymaps")
+  end
 end
 
 return M

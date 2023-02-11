@@ -1,6 +1,33 @@
 local keymap = vim.keymap.set
 local U = require("mvim.utils")
 
+if not mo.styles.transparent then
+  U.augroup("AutoCursorLine", {
+    {
+      event = { "InsertLeave", "WinEnter" },
+      command = function()
+        local ok, cl = pcall(vim.api.nvim_win_get_var, 0, "auto-cursorline")
+        if ok and cl then
+          vim.wo.cursorline = true
+          vim.api.nvim_win_del_var(0, "auto-cursorline")
+        end
+      end,
+      desc = "Hide cursor line in inactive window",
+    },
+    {
+      event = { "InsertEnter", "WinLeave" },
+      command = function()
+        local cl = vim.wo.cursorline
+        if cl then
+          vim.api.nvim_win_set_var(0, "auto-cursorline", cl)
+          vim.wo.cursorline = false
+        end
+      end,
+      desc = "Show cursor line only in active window",
+    },
+  })
+end
+
 U.augroup("PlaceLastLoc", {
   {
     event = "BufReadPost",
@@ -29,63 +56,5 @@ U.augroup("SmartClose", {
       keymap("n", "q", "<Cmd>close<CR>", { noremap = true, silent = true })
     end,
     desc = "Close certain filetypes by pressing <q>",
-  },
-})
-
-U.augroup("AutoCursorLine", {
-  {
-    event = { "InsertLeave", "WinEnter" },
-    command = function()
-      local ok, cl = pcall(vim.api.nvim_win_get_var, 0, "auto-cursorline")
-      if ok and cl then
-        vim.wo.cursorline = true
-        vim.api.nvim_win_del_var(0, "auto-cursorline")
-      end
-    end,
-    desc = "Hide cursor line in inactive window",
-  },
-  {
-    event = { "InsertEnter", "WinLeave" },
-    command = function()
-      local cl = vim.wo.cursorline
-      if cl then
-        vim.api.nvim_win_set_var(0, "auto-cursorline", cl)
-        vim.wo.cursorline = false
-      end
-    end,
-    desc = "Show cursor line only in active window",
-  },
-})
-
-U.augroup("EslintFormat", {
-  {
-    event = "BufWritePre",
-    pattern = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.vue" },
-    command = "EslintFixAll",
-    desc = "Auto exec eslint fix on save",
-  },
-})
-
-U.augroup("SetupTerminalMappings", {
-  {
-    event = { "TermOpen" },
-    pattern = "term://*toggleterm#*",
-    command = function()
-      local opts = { buffer = 0, silent = true }
-      keymap("t", "jj", [[<C-\><C-n>]], opts)
-      keymap("t", "<Esc>", [[<C-\><C-n>]], opts)
-      keymap("t", "<C-w>", [[<C-\><C-n><C-w>]], opts)
-      keymap("t", "<C-h>", [[<C-\><C-n><C-w>h]], opts)
-      keymap("t", "<C-j>", [[<C-\><C-n><C-w>j]], opts)
-      keymap("t", "<C-k>", [[<C-\><C-n><C-w>k]], opts)
-      keymap("t", "<C-l>", [[<C-\><C-n><C-w>l]], opts)
-      keymap("t", "<leader><Tab>", "<Cmd>close \\| :bnext<CR>", opts)
-
-      keymap("n", "<C-h>", [[<C-\><C-n><C-w>hi]], opts)
-      keymap("n", "<C-j>", [[<C-\><C-n><C-w>ji]], opts)
-      keymap("n", "<C-k>", [[<C-\><C-n><C-w>ki]], opts)
-      keymap("n", "<C-l>", [[<C-\><C-n><C-w>li]], opts)
-    end,
-    desc = "Setup toggleterm keymap",
   },
 })

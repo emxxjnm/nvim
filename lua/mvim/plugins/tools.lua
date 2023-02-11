@@ -1,12 +1,4 @@
-local function get_hight(self, _, max_lines)
-  local results = #self.finder.results
-  local PADDING = 4 -- this represents the size of the telescope window
-  local LIMIT = math.floor(max_lines / 2)
-  return (results <= (LIMIT - PADDING) and results + PADDING or LIMIT)
-end
-
 local M = {
-
   -- library used by other plugins
   { "nvim-lua/plenary.nvim", lazy = true },
 
@@ -22,15 +14,23 @@ local M = {
   -- surround
   {
     "kylechui/nvim-surround",
-    event = "BufRead",
-    config = true,
+    keys = {
+      { "ys", desc = "add surround" },
+      { "ds", desc = "delete surround" },
+      { "cs", desc = "replace surround" },
+    },
+    opts = {
+      move_cursor = false,
+    },
   },
 
   -- commnet
   {
     "numToStr/Comment.nvim",
-    -- event = "BufRead",
-    event = "VeryLazy",
+    keys = {
+      { "gc", mode = { "n", "v" }, desc = "linewise comment" },
+      { "gb", mode = { "n", "v" }, desc = "blockwise comment" },
+    },
     opts = {
       ignore = "^$",
       pre_hook = function(ctx)
@@ -54,14 +54,24 @@ local M = {
   -- easily jump to any location and enhanced f/t motions for Leap
   {
     "ggandor/leap.nvim",
-    event = "VeryLazy",
     keys = {
-      { "s", "<Plug>(leap-forward)", remap = true, desc = "Jump forward" },
-      { "S", "<Plug>(leap-backward)", remap = true, desc = "Jump backward" },
+      {
+        "s",
+        function()
+          require("leap").leap({})
+        end,
+        desc = "leap forward",
+      },
+      {
+        "S",
+        function()
+          require("leap").leap({ backward = true })
+        end,
+        desc = "leap backward",
+      },
     },
     dependencies = {
       "ggandor/flit.nvim",
-      keys = { "f", "F" },
       opts = {
         labeled_modes = "nvo",
       },
@@ -138,21 +148,14 @@ local M = {
 
   {
     "NvChad/nvim-colorizer.lua",
-    event = "BufReadPre",
+    ft = function()
+      local plugin = require("lazy.core.config").spec.plugins["nvim-colorizer.lua"]
+      local opts = require("lazy.core.plugin").values(plugin, "opts", false)
+      return opts.filetypes or {}
+    end,
     opts = {
-      filetypes = {
-        "css",
-        "vue",
-        "scss",
-        "less",
-        "html",
-        "lua",
-      },
-      buftypes = {
-        "*",
-        "!prompt",
-        "!popup",
-      },
+      filetypes = { "vue", "css", "scss", "less", "html" },
+      buftypes = { "*", "!prompt", "!popup" },
       user_default_options = {
         names = false,
         mode = "virtualtext",
@@ -178,7 +181,7 @@ local M = {
       },
       icons = {
         breadcrumb = mo.styles.icons.misc.double_right,
-        separator = mo.styles.icons.misc.gg .. " ",
+        separator = mo.styles.icons.misc.arrows .. " ",
         group = mo.styles.icons.misc.plus,
       },
       window = {
@@ -200,6 +203,7 @@ local M = {
           c = { name = "+code" },
           f = { name = "+find" },
           g = { name = "+git" },
+          t = { name = "+terminal" },
         },
       })
     end,
@@ -207,28 +211,47 @@ local M = {
 
   {
     "stevearc/dressing.nvim",
-    event = "VeryLazy",
-    opts = {
-      input = {
-        relative = "editor",
-        win_options = { winblend = 0 },
-      },
-      select = {
-        telescope = require("telescope.themes").get_dropdown({
-          layout_config = { height = get_hight },
-        }),
-        get_config = function(opts)
-          if opts.kind == "codeaction" then
-            return {
-              backend = "telescope",
-              telescope = require("telescope.themes").get_cursor({
-                layout_config = { height = get_hight },
-              }),
-            }
-          end
-        end,
-      },
-    },
+    init = function()
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.select = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.select(...)
+      end
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.input = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.input(...)
+      end
+    end,
+    opts = function()
+      local function get_hight(self, _, max_lines)
+        local results = #self.finder.results
+        local PADDING = 4
+        local LIMIT = math.floor(max_lines / 2)
+        return (results <= (LIMIT - PADDING) and results + PADDING or LIMIT)
+      end
+
+      return {
+        input = {
+          win_options = { winblend = 0 },
+        },
+        select = {
+          telescope = require("telescope.themes").get_dropdown({
+            layout_config = { height = get_hight },
+          }),
+          get_config = function(opts)
+            if opts.kind == "codeaction" then
+              return {
+                backend = "telescope",
+                telescope = require("telescope.themes").get_cursor({
+                  layout_config = { height = get_hight },
+                }),
+              }
+            end
+          end,
+        },
+      }
+    end,
   },
 }
 
