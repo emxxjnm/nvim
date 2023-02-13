@@ -72,6 +72,7 @@ local M = {
     },
     dependencies = {
       "ggandor/flit.nvim",
+      keys = { "f", "F" },
       opts = {
         labeled_modes = "nvo",
       },
