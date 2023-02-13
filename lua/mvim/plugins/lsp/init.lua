@@ -38,11 +38,11 @@ local M = {
         dockerls = {},
         cssls = {},
         eslint = {
-          on_attach = function(_, bufnr)
+          on_attach = function()
             require("mvim.utils").augroup("AutoFixOnSave", {
               {
                 event = "BufWritePre",
-                buffer = bufnr,
+                pattern = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.vue" },
                 command = "EslintFixAll",
                 desc = "automatically execute `eslint fix` on save",
               },
