@@ -2,7 +2,7 @@ local M = {}
 
 function M.filter(client)
   local exclude = ({
-    lua = { "sumneko_lua" },
+    lua = { "lua_ls" },
     typescript = { "tsserver" },
     vue = { "volar" },
   })[vim.bo.filetype]
