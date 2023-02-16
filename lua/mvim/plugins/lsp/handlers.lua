@@ -32,9 +32,8 @@ local virt_text_handler = vim.diagnostic.handlers.virtual_text
 function M.setup()
   require("lspconfig.ui.windows").default_options.border = mo.styles.border
 
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = mo.styles.border,
-  })
+  vim.lsp.handlers["textDocument/hover"] =
+    vim.lsp.with(vim.lsp.handlers.hover, { border = mo.styles.border })
 
   vim.diagnostic.handlers.signs = vim.tbl_extend("force", signs_handler, {
     show = M.max_diagnostic(signs_handler.show),
