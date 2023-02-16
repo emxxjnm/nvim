@@ -12,7 +12,7 @@ local M = {
     },
     current_line_blame = true,
     current_line_blame_opts = { virt_text_priority = 100 },
-    current_line_blame_formatter = "<author>, <author_time> · <summary>",
+    current_line_blame_formatter = " <author>, <author_time> · <summary> ",
     preview_config = { border = mo.styles.border },
     on_attach = function(bufnr)
       local gs = package.loaded.gitsigns
