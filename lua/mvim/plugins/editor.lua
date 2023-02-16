@@ -369,6 +369,8 @@ local M = {
             ["ic"] = { query = "@function.inner", desc = "TS: inner class" },
             ["af"] = { query = "@function.outer", desc = "TS: all function" },
             ["if"] = { query = "@function.inner", desc = "TS: inner function" },
+            ["iA"] = { query = "@assignment.lhs", desc = "TS: assignment lhs" },
+            ["aA"] = { query = "@assignment.rhs", desc = "TS: assignment rhs" },
           },
         },
         move = {
