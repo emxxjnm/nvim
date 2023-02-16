@@ -23,10 +23,11 @@ function M.get()
       { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
 
       { "K", vim.lsp.buf.hover, desc = "Hover" },
+      { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
       {
         "<C-k>",
         vim.lsp.buf.signature_help,
-        mode = { "i", "n" },
+        mode = "i",
         desc = "Signature Help",
         has = "signatureHelp",
       },
@@ -36,9 +37,7 @@ function M.get()
 
       { "<leader>cf", format, desc = "Format Document", has = "documentFormatting" },
       { "<leader>cf", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
-
       { "<leader>cr", vim.lsp.buf.rename, expr = true, desc = "Rename", has = "rename" },
-
       {
         "<leader>ca",
         vim.lsp.buf.code_action,
@@ -106,15 +105,17 @@ function M.buffer_references(opts)
       return
     end
 
-    pickers.new(opts, {
-      prompt_title = "LSP References(buffer)",
-      finder = finders.new_table({
-        results = locations,
-        entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts),
-      }),
-      previewer = config.qflist_previewer(opts),
-      sorter = config.generic_sorter(opts),
-    }):find()
+    pickers
+      .new(opts, {
+        prompt_title = "LSP References(buffer)",
+        finder = finders.new_table({
+          results = locations,
+          entry_maker = opts.entry_maker or make_entry.gen_from_quickfix(opts),
+        }),
+        previewer = config.qflist_previewer(opts),
+        sorter = config.generic_sorter(opts),
+      })
+      :find()
   end)
 end
 
