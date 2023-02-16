@@ -38,7 +38,7 @@ o.sidescrolloff = 5
 
 o.pumheight = 12
 
-o.completeopt = "menuone,noselect"
+o.completeopt = "menu,menuone,noselect"
 
 o.confirm = true
 
