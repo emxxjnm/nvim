@@ -105,12 +105,16 @@ end
 
 ---@param func fun(client, buffer)
 function M.on_attach(func)
-  vim.api.nvim_create_autocmd("LspAttach", {
-    callback = function(args)
-      local buffer = args.buf
-      local client = vim.lsp.get_client_by_id(args.data.client_id)
-      func(client, buffer)
-    end,
+  M.augroup("LspSetupCommands", {
+    {
+      event = "LspAttach",
+      command = function(args)
+        local buffer = args.buf
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        func(client, buffer)
+      end,
+      desc = "Setup the language server autocommands",
+    },
   })
 end
 
