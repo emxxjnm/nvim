@@ -377,6 +377,7 @@ local M = {
             statusline = {
               "qf",
               "lazy",
+              "help",
               "alpha",
               "mason",
               "toggleterm",
