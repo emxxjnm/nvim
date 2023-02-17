@@ -33,3 +33,110 @@ docker run --rm \
 * [ ] fd
 * [ ] fzf
 * [ ] lazygit
+
+### ⌨️  Keymaps
+
+#### General
+
+| Key              | Description                             | Mode                |
+| ------           | ---                                     | ---                 |
+| H                | To the first non-blank char of the line | **n**, **v**        |
+| L                | To the end of the line                  | **n**, **v**        |
+| jj               | Exit insert mode                        | **i**               |
+| &lt;Up&gt;       | Increase window height                  | **n**               |
+| &lt;Down&gt;     | Decrease window height                  | **n**               |
+| &lt;Left&gt;     | Decrease window width                   | **n**               |
+| &lt;Right&gt;    | Increase window width                   | **n**               |
+| &lt;C-h&gt;      | Go to left window                       | **n**               |
+| &lt;C-j&gt;      | Go to lower window                      | **n**               |
+| &lt;C-k&gt;      | Go to upper window                      | **n**               |
+| &lt;C-l&gt;      | Go to right window                      | **n**               |
+| &lt;M-j&gt;      | Move down                               | **n**, **i**, **v** |
+| &lt;M-k&gt;      | Move up                                 | **n**, **i**, **v** |
+| &lt;leader&gt;w  | Save file                               | **n**               |
+| &lt;leader&gt;W  | Save files                              | **n**               |
+| &lt;leader&gt;q  | Quit                                    | **n**               |
+| &lt;leader&gt;Q  | Force quit                              | **n**               |
+| &lt;leader&gt;p  | Past clipboard text                     | **n**               |
+| &lt;leader&gt;y  | Copy to clipboard                       | **v**               |
+| &lt;leader&gt;u  | Uppercase                               | **n**               |
+| &lt;C-u&gt;      | Uppercase                               | **i**               |
+| &lt;leader&gt;-  | Split below                             | **n**               |
+| &lt;leader&gt;\| | Split right                             | **n**               |
+
+### LSP
+
+| Key              | Description           | Mode           |
+| --------------   | --------------        | -------------- |
+| gd               | Goto Definition       | **n**          |
+| gD               | Goto Declaration      | **n**          |
+| gr               | References            | **n**          |
+| gi               | Goto Implementation   | **n**          |
+| gt               | Goto Type Definition  | **n**          |
+| K                | Hover                 | **n**          |
+| gK               | Signature Help        | **n**          |
+| &lt;C-k&gt;      | Signature Help        | **i**          |
+| [d               | Next Diagnostic       | **n**          |
+| ]d               | Prev Diagnostic       | **n**          |
+| &lt;leader&gt;ca | Signature Help        | **n**          |
+| &lt;leader&gt;cr | Rename                | **n**          |
+| &lt;leader&gt;cf | Format Document/Range | **n**, **v**   |
+| &lt;leader&gt;cl | Lsp info              | **n**          |
+
+### DAP
+
+| Key             | Description       | Mode           |
+| --------------  | --------------    | -------------- |
+| &lt;leader&gt;b | Toggle breakpoint | **n**          |
+| &lt;F5&gt;      | Continue          | **n**          |
+| &lt;S-F5&gt;    | Terminate         | **n**          |
+| &lt;M-S-F5&gt;  | Restart           | **n**          |
+| &lt;F6&gt;      | Pause             | **n**          |
+| &lt;F10&gt;     | Step over         | **n**          |
+| &lt;F11&gt;     | Step into         | **n**          |
+| &lt;F12&gt;     | Step out          | **n**          |
+
+### Neo-tree
+
+| Key            | Description          | Mode           |
+| -------------- | --------------       | -------------- |
+| &lt;C-n&gt;    | Toggle file explorer | **n**          |
+
+### Telescope
+
+| Key              | Description          | Mode           |
+| --------------   | --------------       | -------------- |
+| &lt;leader&gt;ff | Find files           | **n**          |
+| &lt;leader&gt;fg | Find in files (grep) | **n**          |
+| &lt;leader&gt;fr | Recent files         | **n**          |
+| &lt;leader&gt;fp | Recent projects      | **n**          |
+| &lt;leader&gt;fc | Fuzzy search         | **n**          |
+| &lt;leader&gt;fb | List buffers         | **n**          |
+| &lt;leader&gt;fd | List diagnostics     | **n**          |
+| &lt;leader&gt;fs | List symbols         | **n**          |
+| &lt;leader&gt;ft | List todos           | **n**          |
+
+### Gitsings
+
+| Key              | Description    | Mode           |
+| --------------   | -------------- | -------------- |
+| [g               | Prev hunk      | **n**          |
+| ]g               | Next hunk      | **n**          |
+| &lt;leader&gt;gp | Preview hunk   | **n**          |
+| ig               | Select hunk    | **o**, **x**   |
+
+### Toggleterm
+
+| Key               | Description         | Mode           |
+| --------------    | --------------      | -------------- |
+| &lt;C-\&gt;       | Toggle terminal     | **n**          |
+| &lt;leader&gt;t=  | Float terminal      | **n**          |
+| &lt;leader&gt;t\| | Vertical terminal   | **n**          |
+| &lt;leader&gt;t-  | Horizontal terminal | **n**          |
+| &lt;leader&gt;gg  | Lazygit             | **n**          |
+
+### LuaSnip
+
+| Key            | Description     | Mode           |
+| -------------- | --------------  | -------------- |
+| &lt;C-o&gt;    | Select  options | **i**          |
