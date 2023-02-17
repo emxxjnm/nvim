@@ -84,7 +84,7 @@ local M = {
 
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = { "BufReadPost", "BufNewFile" },
+    event = { "BufReadPre", "BufNewFile" },
     opts = {
       char = mo.styles.icons.documents.indent,
       char_list = { mo.styles.icons.documents.dash_indent },
