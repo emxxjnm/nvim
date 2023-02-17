@@ -1,4 +1,3 @@
-local keymap = vim.keymap.set
 local U = require("mvim.utils")
 
 if not mo.styles.transparent then
@@ -53,8 +52,32 @@ U.augroup("SmartClose", {
     pattern = { "qf", "help", "man", "lspinfo", "startuptime", "spectre_panel" },
     command = function(event)
       vim.bo[event.buf].buflisted = false
-      keymap("n", "q", "<Cmd>close<CR>", { noremap = true, silent = true })
+      vim.keymap.set("n", "q", "<Cmd>close<CR>", { noremap = true, silent = true })
     end,
     desc = "Close certain filetypes by pressing <q>",
+  },
+})
+
+U.augroup("CheckOutsideTime", {
+  {
+    event = { "WinEnter", "BufWinEnter", "BufWinLeave", "BufRead", "BufEnter", "FocusGained" },
+    pattern = "*",
+    command = "checktime",
+    desc = "Check if we need to reload the file when it changed",
+  },
+})
+
+U.augroup("TextYankHighlight", {
+  {
+    event = { "TextYankPost" },
+    pattern = "*",
+    command = function()
+      vim.highlight.on_yank({
+        timeout = 500,
+        on_visual = false,
+        higroup = "Visual",
+      })
+    end,
+    desc = "Highlight on yank",
   },
 })
