@@ -17,8 +17,8 @@ keymap("n", "<leader>q", "<Cmd>q<CR>", { desc = "Quit" })
 keymap("n", "<leader>Q", "<Cmd>q!<CR>", { desc = "Force quit" })
 
 -- copy/paste
-keymap("n", "<leader>p", '"+p', { desc = "Copy to clipboard" })
-keymap("v", "<leader>y", '"+y', { desc = "Paste clipboard text" })
+keymap("n", "<leader>p", '"+p', { desc = "Paste clipboard text" })
+keymap("v", "<leader>y", '"+y', { desc = "Copy to clipboard" })
 
 -- motion
 keymap("n", "<leader>;", "%", { desc = "Jump to match item" })
