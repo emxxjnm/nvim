@@ -73,7 +73,7 @@ local M = {
           local version = vim.version()
           local nvim_version_info = version
               and string.format(
-                icons.misc.vim .. " Neovim v%d.%d.%d",
+                icons.misc.vim .. " Neovim(v%d.%d.%d)",
                 version.major,
                 version.minor,
                 version.patch
@@ -81,10 +81,10 @@ local M = {
             or " Unknow Neovim version"
 
           dashboard.section.footer.val = string.format(
-            "--- %s, %s %d plugins in %d ms ---",
+            "--- %s loaded %d %s plugins in %d ms ---",
             nvim_version_info,
-            icons.misc.electron,
             stats.count,
+            icons.misc.electron,
             ms
           )
           pcall(vim.cmd.AlphaRedraw)

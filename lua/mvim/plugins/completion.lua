@@ -2,23 +2,7 @@ local M = {
   "hrsh7th/nvim-cmp",
   event = { "InsertEnter", "CmdlineEnter" },
   opts = function()
-    local source_names = {
-      luasnip = "[Snip]",
-      nvim_lsp = "[LSP]",
-      buffer = "[Buf]",
-      path = "[Path]",
-      cmdline = "[Cmd]",
-    }
-
     local cmp, luasnip = require("cmp"), require("luasnip")
-
-    local function has_words_before()
-      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-      return col ~= 0
-        and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s")
-          == nil
-    end
-
     return {
       defaults = {
         experimental = { ghost_text = true },
@@ -41,6 +25,7 @@ local M = {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
+          { name = "neorg" },
           {
             name = "buffer",
             option = {
@@ -55,7 +40,14 @@ local M = {
           format = function(entry, item)
             item.kind =
               string.format("%s %s", mo.styles.icons.lsp.kinds[item.kind:lower()], item.kind)
-            item.menu = source_names[entry.source.name] or entry.source.name
+            item.menu = ({
+              luasnip = "[Snip]",
+              nvim_lsp = "[LSP]",
+              buffer = "[Buf]",
+              path = "[Path]",
+              cmdline = "[Cmd]",
+              neorg = "[Norg]",
+            })[entry.source.name] or entry.source.name
             return item
           end,
         },
@@ -65,8 +57,6 @@ local M = {
               cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
             elseif luasnip.expand_or_locally_jumpable() then
               luasnip.expand_or_jump()
-            elseif has_words_before() then
-              cmp.complete()
             else
               fallback()
             end

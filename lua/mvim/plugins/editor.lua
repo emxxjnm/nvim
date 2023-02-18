@@ -160,15 +160,15 @@ local M = {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     keys = {
-      { "<leader>ff", "<Cmd>Telescope find_files<CR>", desc = "find files" },
-      { "<leader>fg", "<Cmd>Telescope live_grep_args<CR>", desc = "find in files (Grep)" },
-      { "<leader>fr", "<Cmd>Telescope oldfiles<CR>", desc = "recent files" },
-      { "<leader>fp", "<Cmd>Telescope projects<CR>", desc = "recent projects" },
-      { "<leader>fc", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "fuzzy search" },
-      { "<leader>fb", "<Cmd>Telescope buffers<CR>", desc = "list buffers" },
-      { "<leader>fd", "<Cmd>Telescope diagnostics<CR>", desc = "list diagnostics" },
-      { "<leader>fs", "<Cmd>Telescope lsp_document_symbols<CR>", desc = "list symbols" },
-      { "<leader>ft", "<Cmd>Telescope todo-comments todo<CR>", desc = "list todo" },
+      { "<leader>ff", "<Cmd>Telescope find_files<CR>", desc = "Find files" },
+      { "<leader>fg", "<Cmd>Telescope live_grep_args<CR>", desc = "Find in files (Grep)" },
+      { "<leader>fr", "<Cmd>Telescope oldfiles<CR>", desc = "Recent files" },
+      { "<leader>fp", "<Cmd>Telescope projects<CR>", desc = "Recent projects" },
+      { "<leader>fc", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "Fuzzy search" },
+      { "<leader>fb", "<Cmd>Telescope buffers<CR>", desc = "List buffers" },
+      { "<leader>fd", "<Cmd>Telescope diagnostics<CR>", desc = "List diagnostics" },
+      { "<leader>fs", "<Cmd>Telescope lsp_document_symbols<CR>", desc = "List symbols" },
+      { "<leader>ft", "<Cmd>Telescope todo-comments todo<CR>", desc = "List todo" },
     },
     opts = function()
       local actions = require("telescope.actions")
@@ -262,6 +262,22 @@ local M = {
       {
         "folke/todo-comments.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
+        keys = {
+          {
+            "[t",
+            function()
+              require("todo-comments").jump_prev()
+            end,
+            desc = "Previous todo comment",
+          },
+          {
+            "]t",
+            function()
+              require("todo-comments").jump_next()
+            end,
+            desc = "Next todo comment",
+          },
+        },
         opts = function()
           local colors = require("catppuccin.palettes").get_palette()
 

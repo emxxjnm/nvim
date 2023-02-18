@@ -1,10 +1,10 @@
 local M = {
   "akinsho/toggleterm.nvim",
   keys = {
-    { [[<C-\>]], desc = "toggle terminal" },
-    { "<leader>t=", "<Cmd>ToggleTerm direction=float<CR>", desc = "float terminal" },
-    { "<leader>t-", "<Cmd>ToggleTerm direction=horizontal<CR>", desc = "horizontal terminal" },
-    { "<leader>t|", "<Cmd>ToggleTerm direction=vertical<CR>", desc = "vertical terminal" },
+    { [[<C-\>]], desc = "Toggle terminal" },
+    { "<leader>t=", "<Cmd>ToggleTerm direction=float<CR>", desc = "Float terminal" },
+    { "<leader>t-", "<Cmd>ToggleTerm direction=horizontal<CR>", desc = "Horizontal terminal" },
+    { "<leader>t|", "<Cmd>ToggleTerm direction=vertical<CR>", desc = "Vertical terminal" },
     {
       "<leader>gg",
       function()
@@ -22,7 +22,7 @@ local M = {
           end,
         }):toggle()
       end,
-      desc = "lazygit",
+      desc = "Lazygit",
     },
   },
   opts = {
