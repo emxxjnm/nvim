@@ -25,7 +25,6 @@ local M = {
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
-          { name = "neorg" },
           {
             name = "buffer",
             option = {
@@ -46,7 +45,6 @@ local M = {
               buffer = "[Buf]",
               path = "[Path]",
               cmdline = "[Cmd]",
-              neorg = "[Norg]",
             })[entry.source.name] or entry.source.name
             return item
           end,

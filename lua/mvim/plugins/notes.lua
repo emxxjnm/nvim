@@ -1,8 +1,8 @@
 local M = {
   {
     "dhruvasagar/vim-table-mode",
-    ft = { "markdown" },
-    cmd = { "TableModeToggle" },
+    ft = "markdown",
+    cmd = "TableModeToggle",
   },
 
   -- markdown preview
@@ -11,7 +11,7 @@ local M = {
     build = function()
       vim.fn["mkdp#util#install"]()
     end,
-    ft = { "markdown" },
+    ft = "markdown",
     cmd = { "MarkdownPreview", "MarkdownPreviewToggle" },
   },
 }

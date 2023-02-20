@@ -356,7 +356,6 @@ local M = {
         "json",
         "lua",
         "markdown",
-        "norg",
         "python",
         "scss",
         "toml",
