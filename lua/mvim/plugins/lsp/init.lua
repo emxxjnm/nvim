@@ -133,8 +133,6 @@ local M = {
       },
     },
     config = function(_, opts)
-      local json_decode = vim.json and vim.json.decode or vim.fn.json_decode
-
       ---This function allows reading a per project `settings.josn` file
       ---in the `.vim` directory of the project
       ---@param client table<string, any> lsp client
@@ -150,21 +148,13 @@ local M = {
 
         local ok, json = pcall(vim.fn.readfile, settings)
         if not ok then
-          vim.notify_once(
-            "LSP init: read file `settings.json` failed",
-            vim.log.levels.ERROR,
-            { title = "LSP Settings" }
-          )
+          vim.notify_once("LSP init: read file `settings.json` failed", vim.log.levels.ERROR)
           return true
         end
 
-        local status, overrides = pcall(json_decode, table.concat(json, "\n"))
+        local status, overrides = pcall(vim.json.decode, table.concat(json, "\n"))
         if not status then
-          vim.notify_once(
-            "LSP init: unmarshall `settings.json` file failed",
-            vim.log.levels.ERROR,
-            { title = "LSP Settings" }
-          )
+          vim.notify_once("LSP init: unmarshall `settings.json` file failed", vim.log.levels.ERROR)
           return true
         end
 
@@ -175,8 +165,8 @@ local M = {
 
             vim.schedule(function()
               local path = vim.fn.fnamemodify(settings, ":~:.")
-              local msg = "loaded local settings for " .. client.name .. "from " .. path
-              vim.notify_once(msg, vim.log.levels.INFO, { title = "LSP Settings" })
+              local msg = "loaded local settings for " .. client.name .. " from " .. path
+              vim.notify_once(msg, vim.log.levels.INFO)
             end)
           end
         end
