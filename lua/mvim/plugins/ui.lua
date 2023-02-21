@@ -93,10 +93,9 @@ local M = {
     end,
   },
 
-  -- buffer line
   {
     "akinsho/bufferline.nvim",
-    event = "BufAdd",
+    event = "BufReadPre",
     keys = {
       { "[b", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev buffer" },
       { "]b", "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer" },
