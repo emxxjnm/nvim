@@ -60,7 +60,7 @@ o.cmdheight = 1
 
 o.wildoptions = "pum"
 o.wildignorecase = true
-o.wildmode = "longest:full,full"
+o.wildmode = "list:full"
 
 -- match and search
 o.incsearch = true
