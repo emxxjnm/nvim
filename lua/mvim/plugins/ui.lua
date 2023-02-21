@@ -113,17 +113,12 @@ local M = {
           left_trunc_marker = icons.misc.triangle_left,
           right_trunc_marker = icons.misc.triangle_right,
           diagnostics = "nvim_lsp",
-          diagnostics_indicator = function(_, _, diagnostics, _)
-            local symbols = {
-              error = icons.diagnostics.error .. " ",
-              warning = icons.diagnostics.warn .. " ",
-              info = icons.diagnostics.info .. " ",
-              hint = icons.diagnostics.hint .. " ",
-            }
+          diagnostics_indicator = function(_, _, diagnostics)
             local result = {}
             for name, count in pairs(diagnostics) do
-              if symbols[name] and count > 0 then
-                table.insert(result, symbols[name] .. count)
+              name = name:match("warn") and "warn" or name
+              if icons.diagnostics[name] and count > 0 then
+                table.insert(result, icons.diagnostics[name] .. " " .. count)
               end
             end
             return #result > 0 and table.concat(result, " ") or ""
