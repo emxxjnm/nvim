@@ -118,4 +118,33 @@ function M.on_attach(func)
   })
 end
 
+---@param scope "workspace" | "document"
+function M.lsp_symbols(scope)
+  -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#symbolKind
+  local symbols = {
+    "Variable",
+    "Function",
+    "Constant",
+    "Class",
+    "Property",
+    "Method",
+    "Enum",
+    "Interface",
+    "Boolean",
+    "Number",
+    "String",
+    "Array",
+    "Constructor",
+  }
+  return function()
+    vim.ui.select(symbols, { prompt = "Select which symbol" }, function(item)
+      if scope == "workspace" then
+        require("telescope.builtin").lsp_workspace_symbols({ query = item })
+      else
+        require("telescope.builtin").lsp_document_symbols({ symbols = item })
+      end
+    end)
+  end
+end
+
 return M

@@ -1,4 +1,5 @@
 local icons = mo.styles.icons
+local U = require("mvim.utils")
 
 local M = {
   -- file explorer
@@ -167,8 +168,10 @@ local M = {
       { "<leader>fc", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "Fuzzy search" },
       { "<leader>fb", "<Cmd>Telescope buffers<CR>", desc = "List buffers" },
       { "<leader>fd", "<Cmd>Telescope diagnostics<CR>", desc = "List diagnostics" },
-      { "<leader>fs", "<Cmd>Telescope lsp_document_symbols<CR>", desc = "List symbols" },
+      { "<leader>fs", U.lsp_symbols("document"), desc = "Goto symbol" },
+      { "<leader>fS", U.lsp_symbols("workspace"), desc = "Goto symbol (Workspace)" },
       { "<leader>ft", "<Cmd>Telescope todo-comments todo<CR>", desc = "List todo" },
+      { "<leader>fR", "<Cmd>Telescope resume<CR>", desc = "Resume" },
     },
     opts = function()
       local actions = require("telescope.actions")
