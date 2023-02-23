@@ -70,19 +70,19 @@ local M = {
         callback = function()
           local stats = require("lazy").stats()
           local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-          local version = vim.version()
-          local nvim_version_info = version
-              and string.format(
-                icons.misc.vim .. " Neovim(v%d.%d.%d)",
-                version.major,
-                version.minor,
-                version.patch
-              )
-            or " Unknow Neovim version"
+          local v = vim.version() or {}
+          local version = string.format(
+            "%s Neovim v%d.%d.%d%s",
+            icons.misc.vim,
+            v.major,
+            v.minor,
+            v.patch,
+            v.prerelease and "(nightly)" or ""
+          )
 
           dashboard.section.footer.val = string.format(
             "--- %s loaded %d %s plugins in %d ms ---",
-            nvim_version_info,
+            version,
             stats.count,
             icons.misc.electron,
             ms
@@ -99,6 +99,12 @@ local M = {
     keys = {
       { "[b", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev buffer" },
       { "]b", "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer" },
+      { "<leader>bp", "<Cmd>BufferLinePick<CR>", desc = "Buffer pick" },
+      { "<leader>bP", "<Cmd>BufferLinePickClose<CR>", desc = "Pick close" },
+      { "<leader>b[", "<Cmd>BufferLineMovePrev<CR>", desc = "Move prev" },
+      { "<leader>b]", "<Cmd>BufferLineMoveNext<CR>", desc = "Move next" },
+      { "<leader>bL", "<Cmd>BufferLineCloseLeft<CR>", desc = "Close to the left" },
+      { "<leader>bR", "<Cmd>BufferLineCloseRight<CR>", desc = "Close to the right" },
     },
     opts = function()
       local colors = require("catppuccin.palettes").get_palette()
@@ -361,6 +367,12 @@ local M = {
           cond = conditions.hide_in_width,
           color = { fg = colors.sapphire },
         },
+
+        clock = {
+          function()
+            return icons.misc.clock .. " " .. os.date("%R")
+          end,
+        },
       }
       require("lualine").setup({
         options = {
@@ -399,7 +411,7 @@ local M = {
             components.filesize,
           },
           lualine_y = { components.location },
-          lualine_z = { components.progress },
+          lualine_z = { components.clock },
         },
         inactive_sections = {
           lualine_a = { components.filetype, components.filename },

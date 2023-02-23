@@ -187,7 +187,9 @@ local M = {
         ["]"] = { name = "+next" },
         ["["] = { name = "+prev" },
         ["<leader>"] = {
+          b = { name = "+buffer" },
           c = { name = "+code" },
+          d = { name = "+debug" },
           f = { name = "+find" },
           g = { name = "+git" },
           t = { name = "+terminal" },

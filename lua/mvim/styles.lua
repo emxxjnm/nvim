@@ -96,6 +96,7 @@ mo.styles = {
       key = "",
       setting = "",
       task = "✔",
+      clock = "",
       left_half_circle_thick = "",
       right_half_circle_thick = "",
       progress = {

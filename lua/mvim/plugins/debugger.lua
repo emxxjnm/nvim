@@ -1,11 +1,12 @@
 local icons = mo.styles.icons
 
+-- stop: shift + F5; restart: command + shift + F5
 local M = {
   "mfussenegger/nvim-dap",
   module = "dap",
   keys = {
     {
-      "<leader>b",
+      "<leader>db",
       function()
         require("dap").toggle_breakpoint()
       end,
@@ -19,11 +20,18 @@ local M = {
       desc = "Continue",
     },
     {
-      "<S-F5>",
+      "<F17>", -- shift + F5
       function()
         require("dap").terminate()
       end,
       desc = "Terminate",
+    },
+    {
+      "<S-F5>", -- command + shift + F5
+      function()
+        require("dap").restart()
+      end,
+      desc = "Restart",
     },
     {
       "<F6>",
@@ -57,6 +65,15 @@ local M = {
   dependencies = {
     {
       "rcarriga/nvim-dap-ui",
+      keys = {
+        {
+          "<leader>du",
+          function()
+            require("dapui").toggle()
+          end,
+          desc = "Toggle DAP UI",
+        },
+      },
       opts = {
         icons = {
           expanded = icons.documents.expanded,
@@ -94,27 +111,14 @@ local M = {
 
         dap.listeners.after.event_initialized["dapui_config"] = function()
           local breakpoints = require("dap.breakpoints").get()
-          if vim.tbl_isempty(breakpoints) then
-            dap.repl.open({ height = 12 })
-          else
-            dapui.open({})
-          end
+          local args = vim.tbl_isempty(breakpoints) and nil or { layout = 2 }
+          dapui.open(args)
         end
 
         dap.listeners.before.event_stopped["dapui_config"] = function(_, body)
           if body.reason == "breakpoint" then
-            dapui.open({})
+            dapui.open()
           end
-        end
-
-        dap.listeners.before.event_terminated["dapui_config"] = function()
-          dap.repl.close()
-          dapui.close({})
-        end
-
-        dap.listeners.before.event_exited["dapui_config"] = function()
-          dap.repl.close()
-          dapui.close({})
         end
       end,
     },
@@ -150,6 +154,9 @@ function M.config()
     type = "executable",
     command = "python",
     args = { "-m", "debugpy.adapter" },
+    options = {
+      source_filetype = "python",
+    },
   }
 end
 

@@ -124,6 +124,7 @@ local M = {
 
             ["/"] = "fuzzy_finder",
             ["D"] = "fuzzy_finder_directory",
+            ["#"] = "fuzzy_sorter",
 
             ["f"] = "filter_on_submit",
             ["F"] = "clear_filter",

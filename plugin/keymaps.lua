@@ -91,15 +91,6 @@ keymap(
 )
 
 -- windows
-keymap("n", "<leader>d", function()
-  -- FIXME: vim will exit when explorer is opened
-  vim.cmd.bdelete({ bang = true })
-end, {
-  desc = "Delete buffer",
-})
-keymap(
-  "n",
-  "<leader>D",
-  "<Cmd>%bdelete<Bar>edit#<Bar>bdelete#<CR>",
-  { desc = "Delete other buffers" }
-)
+-- FIXME: vim will exit when explorer is opened
+keymap("n", "<leader>bd", "<Cmd>bdelete!<CR>", { desc = "Delete current" })
+keymap("n", "<leader>bD", "<Cmd>%bdelete<Bar>edit#<Bar>bdelete#<CR>", { desc = "Delete others" })

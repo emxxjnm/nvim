@@ -38,31 +38,31 @@ docker run --rm \
 
 #### General
 
-| Key              | Description                             | Mode                |
-| ------           | ---                                     | ---                 |
-| H                | To the first non-blank char of the line | **n**, **v**        |
-| L                | To the end of the line                  | **n**, **v**        |
-| jj               | Exit insert mode                        | **i**               |
-| &lt;Up&gt;       | Increase window height                  | **n**               |
-| &lt;Down&gt;     | Decrease window height                  | **n**               |
-| &lt;Left&gt;     | Decrease window width                   | **n**               |
-| &lt;Right&gt;    | Increase window width                   | **n**               |
-| &lt;C-h&gt;      | Go to left window                       | **n**               |
-| &lt;C-j&gt;      | Go to lower window                      | **n**               |
-| &lt;C-k&gt;      | Go to upper window                      | **n**               |
-| &lt;C-l&gt;      | Go to right window                      | **n**               |
-| &lt;M-j&gt;      | Move down                               | **n**, **i**, **v** |
-| &lt;M-k&gt;      | Move up                                 | **n**, **i**, **v** |
-| &lt;leader&gt;w  | Save file                               | **n**               |
-| &lt;leader&gt;W  | Save files                              | **n**               |
-| &lt;leader&gt;q  | Quit                                    | **n**               |
-| &lt;leader&gt;Q  | Force quit                              | **n**               |
-| &lt;leader&gt;p  | Past clipboard text                     | **n**               |
-| &lt;leader&gt;y  | Copy to clipboard                       | **v**               |
-| &lt;leader&gt;u  | Uppercase                               | **n**               |
-| &lt;C-u&gt;      | Uppercase                               | **i**               |
-| &lt;leader&gt;-  | Split below                             | **n**               |
-| &lt;leader&gt;\| | Split right                             | **n**               |
+| Key              | Description                   | Mode                |
+| ------           | ---                           | ---                 |
+| H                | To the first char of the line | **n**, **v**        |
+| L                | To the end of the line        | **n**, **v**        |
+| jj               | Exit insert mode              | **i**               |
+| &lt;Up&gt;       | Increase window height        | **n**               |
+| &lt;Down&gt;     | Decrease window height        | **n**               |
+| &lt;Left&gt;     | Decrease window width         | **n**               |
+| &lt;Right&gt;    | Increase window width         | **n**               |
+| &lt;C-h&gt;      | Go to left window             | **n**               |
+| &lt;C-j&gt;      | Go to lower window            | **n**               |
+| &lt;C-k&gt;      | Go to upper window            | **n**               |
+| &lt;C-l&gt;      | Go to right window            | **n**               |
+| &lt;M-j&gt;      | Move down                     | **n**, **i**, **v** |
+| &lt;M-k&gt;      | Move up                       | **n**, **i**, **v** |
+| &lt;leader&gt;w  | Save file                     | **n**               |
+| &lt;leader&gt;W  | Save files                    | **n**               |
+| &lt;leader&gt;q  | Quit                          | **n**               |
+| &lt;leader&gt;Q  | Force quit                    | **n**               |
+| &lt;leader&gt;p  | Past clipboard text           | **n**               |
+| &lt;leader&gt;y  | Copy to clipboard             | **v**               |
+| &lt;leader&gt;u  | Uppercase                     | **n**               |
+| &lt;C-u&gt;      | Uppercase                     | **i**               |
+| &lt;leader&gt;-  | Split below                   | **n**               |
+| &lt;leader&gt;\| | Split right                   | **n**               |
 
 ### LSP
 
@@ -85,16 +85,17 @@ docker run --rm \
 
 ### DAP
 
-| Key             | Description       | Mode           |
-| --------------  | --------------    | -------------- |
-| &lt;leader&gt;b | Toggle breakpoint | **n**          |
-| &lt;F5&gt;      | Continue          | **n**          |
-| &lt;S-F5&gt;    | Terminate         | **n**          |
-| &lt;M-S-F5&gt;  | Restart           | **n**          |
-| &lt;F6&gt;      | Pause             | **n**          |
-| &lt;F10&gt;     | Step over         | **n**          |
-| &lt;F11&gt;     | Step into         | **n**          |
-| &lt;F12&gt;     | Step out          | **n**          |
+| Key              | Description       | Mode           |
+| --------------   | --------------    | -------------- |
+| &lt;leader&gt;db | Toggle breakpoint | **n**          |
+| &lt;F5&gt;       | Continue          | **n**          |
+| &lt;S-F5&gt;     | Terminate         | **n**          |
+| &lt;M-S-F5&gt;   | Restart           | **n**          |
+| &lt;F6&gt;       | Pause             | **n**          |
+| &lt;F10&gt;      | Step over         | **n**          |
+| &lt;F11&gt;      | Step into         | **n**          |
+| &lt;F12&gt;      | Step out          | **n**          |
+| &lt;leader&gt;du | Toggle DAP UI     | **n**          |
 
 ### Neo-tree
 
@@ -140,3 +141,14 @@ docker run --rm \
 | Key            | Description     | Mode           |
 | -------------- | --------------  | -------------- |
 | &lt;C-o&gt;    | Select  options | **i**          |
+
+### Bufferline
+
+| Key              | Description        | Mode           |
+| --------------   | --------------     | -------------- |
+| [b               | Prev buffer        | **n**          |
+| ]b               | Next buffer        | **n**          |
+| &lt;leader&gt;bp | Buffer pick        | **n**          |
+| &lt;leader&gt;bP | Pick close         | **n**          |
+| &lt;leader&gt;bL | Close to the left  | **n**          |
+| &lt;leader&gt;bR | Close to the right | **n**          |
