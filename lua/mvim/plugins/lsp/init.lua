@@ -1,9 +1,9 @@
 local M = {
   {
-    "neovim/nvim-lspconfig",
+    "williamboman/mason-lspconfig.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "williamboman/mason-lspconfig.nvim",
+      "neovim/nvim-lspconfig",
       "b0o/SchemaStore.nvim",
       {
         "folke/neodev.nvim",
@@ -59,6 +59,7 @@ local M = {
           end,
           settings = {
             json = {
+              format = { enable = true },
               validate = { enable = true },
             },
           },
