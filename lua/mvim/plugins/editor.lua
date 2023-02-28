@@ -164,6 +164,7 @@ local M = {
     keys = {
       { "<leader>ff", "<Cmd>Telescope find_files<CR>", desc = "Find files" },
       { "<leader>fg", "<Cmd>Telescope live_grep_args<CR>", desc = "Find in files (Grep)" },
+      { "<leader>fw", "<Cmd>Telescope grep_string<CR>", desc = "Find word" },
       { "<leader>fr", "<Cmd>Telescope oldfiles<CR>", desc = "Recent files" },
       { "<leader>fp", "<Cmd>Telescope projects<CR>", desc = "Recent projects" },
       { "<leader>fc", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "Fuzzy search" },
