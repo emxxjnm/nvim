@@ -32,6 +32,7 @@ local M = {
                 return vim.api.nvim_list_bufs()
               end,
             },
+            keyword_length = 3,
           },
         }),
         formatting = {
