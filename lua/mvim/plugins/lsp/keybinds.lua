@@ -10,7 +10,7 @@ function M.get()
   ---@class PluginLspKeys
   M._keys = M._keys
     or {
-      { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition" },
+      { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition", has = "definition" },
       { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
       { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
       { "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementation" },
