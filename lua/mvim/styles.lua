@@ -60,6 +60,7 @@ mo.styles = {
       treesitter = "",
       telescope = "",
       fish = "",
+      text = "",
       creation = "",
       search = "",
       star = "",
