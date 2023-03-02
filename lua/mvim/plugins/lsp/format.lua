@@ -1,16 +1,8 @@
 local M = {}
 
 function M.filter(client)
-  local exclude = ({
-    lua = { "lua_ls" },
-    typescript = { "tsserver" },
-    vue = { "volar" },
-  })[vim.bo.filetype]
-
-  if not exclude then
-    return true
-  end
-  return not vim.tbl_contains(exclude, client.name)
+  local disabled_ls = { "lua_ls", "volar" }
+  return not vim.tbl_contains(disabled_ls, client.name)
 end
 
 function M.format(opts)

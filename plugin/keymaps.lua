@@ -70,25 +70,10 @@ keymap("v", "<", "<gv", { desc = "Visual shifting" })
 keymap({ "i", "n" }, "<esc>", "<Cmd>nohlsearch<CR><Esc>", { desc = "Escape and clear hlsearch" })
 
 -- better up/down
-keymap(
-  "n",
-  "j",
-  "v:count == 0 ? 'gj' : 'j'",
-  { expr = true, silent = true, desc = "Store relative line number jumps" }
-)
-keymap(
-  "n",
-  "k",
-  "v:count == 0 ? 'gk' : 'k'",
-  { expr = true, silent = true, desc = "Store relative line number jumps" }
-)
+keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
-keymap(
-  "i",
-  "jj",
-  [[col('.') == 1 ? '<Esc>' : '<Esc>l']],
-  { expr = true, remap = true, desc = "Escape and move to the right preserve the cursor position" }
-)
+keymap("i", "jj", [[col('.') == 1 ? '<Esc>' : '<Esc>l']], { expr = true })
 
 -- windows
 -- FIXME: vim will exit when explorer is opened
