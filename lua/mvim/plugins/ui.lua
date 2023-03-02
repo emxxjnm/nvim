@@ -22,15 +22,21 @@ local M = {
         button(
           "Statement",
           "n",
-          icons.documents.new_file .. "  New File",
+          icons.documents.new_file .. "  New file",
           ":ene<Bar>startinsert<CR>"
         ),
-        button("Special", "f", icons.misc.search .. "  Find File", ":Telescope find_files<CR>"),
-        button("Operator", "r", icons.misc.history .. "  Recent Files", ":Telescope oldfiles<CR>"),
+        button(
+          "Identifier",
+          "g",
+          icons.misc.text .. "  Find text",
+          ":Telescope live_grep_args<CR>"
+        ),
+        button("Special", "f", icons.misc.search .. "  Find file", ":Telescope find_files<CR>"),
+        button("Operator", "r", icons.misc.history .. "  Recent files", ":Telescope oldfiles<CR>"),
         button(
           "Structure",
           "p",
-          icons.documents.repo .. "  Recent Projects",
+          icons.documents.repo .. "  Recent projects",
           ":Telescope projects<CR>"
         ),
         button("String", "c", icons.misc.vim .. "  Config", ":e $MYVIMRC<CR>"),
