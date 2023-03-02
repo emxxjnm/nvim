@@ -406,71 +406,13 @@ local M = {
           },
         },
       },
-      autotag = {
-        enable = true,
-        filetypes = {
-          "vue",
-          "tsx",
-          "jsx",
-          "xml",
-          "html",
-          "javascript",
-          "typescript",
-          "javascriptreact",
-          "typescriptreact",
-        },
-      },
-      matchup = { enable = true },
     },
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
     end,
     dependencies = {
-      "windwp/nvim-ts-autotag",
-      "nvim-treesitter/nvim-treesitter-textobjects",
-      "JoosepAlviste/nvim-ts-context-commentstring",
-      {
-        "andymass/vim-matchup",
-        keys = {
-          { "[%", desc = "matchup: Move to prev" },
-          { "]%", desc = "matchup: Move to next" },
-        },
-        config = function()
-          vim.g.matchup_matchparen_offscreen = {
-            method = "popup",
-            fullwidth = true,
-          }
-        end,
-      },
-      {
-        "windwp/nvim-autopairs",
-        dependencies = { "nvim-cmp" },
-        opts = {
-          check_ts = true,
-          ignored_next_char = string.gsub([[ [%w%%%'%[%"%.] ]], "%s+", ""),
-          fast_wrap = { map = "<M-e>" },
-        },
-        config = function(_, opts)
-          local autopairs = require("nvim-autopairs")
-          local Rule = require("nvim-autopairs.rule")
-          local ts_conds = require("nvim-autopairs.ts-conds")
-          local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-
-          require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
-
-          autopairs.setup(opts)
-
-          autopairs.add_rules({
-            -- Typing { when {| -> {{ | }} in Vue files
-            Rule("{{", "  }", "vue"):set_end_pair_length(2):with_pair(ts_conds.is_ts_node("text")),
-
-            -- Typing = when () -> () => {|}
-            Rule("%(.*%)%s*%=$", "> {}", { "typescript", "typescriptreact", "javascript", "vue" })
-              :use_regex(true)
-              :set_end_pair_length(1),
-          })
-        end,
-      },
+      { "nvim-treesitter/nvim-treesitter-textobjects" },
+      { "JoosepAlviste/nvim-ts-context-commentstring" },
     },
   },
 }
