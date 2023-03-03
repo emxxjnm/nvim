@@ -57,21 +57,19 @@ local M = {
   },
   init = function()
     require("mvim.utils").augroup("TerminalMappings", {
-      {
-        event = { "TermOpen" },
-        pattern = "term://*toggleterm#*",
-        command = function()
-          local opts = { buffer = 0, silent = true }
-          vim.keymap.set("t", "jj", [[<C-\><C-n>]], opts)
-          vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], opts)
-          vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]], opts)
-          vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]], opts)
-          vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]], opts)
-          vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]], opts)
-          vim.keymap.set("t", "<leader><Tab>", "<Cmd>close \\| :bnext<CR>", opts)
-        end,
-        desc = "Setup toggleterm keymap",
-      },
+      event = { "TermOpen" },
+      pattern = "term://*toggleterm#*",
+      command = function()
+        local opts = { buffer = 0, silent = true }
+        vim.keymap.set("t", "jj", [[<C-\><C-n>]], opts)
+        vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], opts)
+        vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]], opts)
+        vim.keymap.set("t", "<C-j>", [[<C-\><C-n><C-w>j]], opts)
+        vim.keymap.set("t", "<C-k>", [[<C-\><C-n><C-w>k]], opts)
+        vim.keymap.set("t", "<C-l>", [[<C-\><C-n><C-w>l]], opts)
+        vim.keymap.set("t", "<leader><Tab>", "<Cmd>close \\| :bnext<CR>", opts)
+      end,
+      desc = "Setup toggleterm keymap",
     })
   end,
 }

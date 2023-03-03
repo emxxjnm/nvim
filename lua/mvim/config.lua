@@ -94,14 +94,12 @@ function M.setup()
   if vim.fn.argc() == 0 then
     -- autocmds and keymaps can wait to load
     require("mvim.utils").augroup("OnMvimSetup", {
-      {
-        event = "User",
-        pattern = "VeryLazy",
-        command = function()
-          M.load("autocmds")
-          M.load("keymaps")
-        end,
-      },
+      event = "User",
+      pattern = "VeryLazy",
+      command = function()
+        M.load("autocmds")
+        M.load("keymaps")
+      end,
     })
   else
     M.load("autocmds")

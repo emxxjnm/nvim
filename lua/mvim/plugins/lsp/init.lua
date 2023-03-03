@@ -41,12 +41,10 @@ local M = {
         eslint = {
           on_attach = function()
             require("mvim.utils").augroup("AutoFixOnSave", {
-              {
-                event = "BufWritePre",
-                pattern = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.vue" },
-                command = "EslintFixAll",
-                desc = "automatically execute `eslint fix` on save",
-              },
+              event = "BufWritePre",
+              pattern = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.vue" },
+              command = "EslintFixAll",
+              desc = "automatically execute `eslint fix` on save",
             })
           end,
         },

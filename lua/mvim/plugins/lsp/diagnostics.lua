@@ -33,13 +33,11 @@ function M.setup()
   })
 
   require("mvim.utils").augroup("LspDiagnostics", {
-    {
-      event = "CursorHold",
-      desc = "LSP: show diagnostics",
-      command = function()
-        vim.diagnostic.open_float({ scope = "cursor", focus = false })
-      end,
-    },
+    event = "CursorHold",
+    desc = "LSP: show diagnostics",
+    command = function()
+      vim.diagnostic.open_float({ scope = "cursor", focus = false })
+    end,
   })
 end
 

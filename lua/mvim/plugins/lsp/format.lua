@@ -17,14 +17,12 @@ end
 function M.on_attach(client, buffer)
   if client.server_capabilities["documentFormattingProvider"] then
     require("mvim.utils").augroup("LspFormat." .. buffer, {
-      {
-        event = "BufWritePre",
-        buffer = buffer,
-        command = function(args)
-          M.format({ bufnr = args.buf, async = false })
-        end,
-        desc = "LSP: Format on save",
-      },
+      event = "BufWritePre",
+      buffer = buffer,
+      command = function(args)
+        M.format({ bufnr = args.buf, async = false })
+      end,
+      desc = "LSP: Format on save",
     })
   end
 end

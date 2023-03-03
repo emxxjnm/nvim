@@ -25,20 +25,17 @@ end
 function M.on_attach(client, buffer)
   if client.server_capabilities["documentHighlightProvider"] then
     require("mvim.utils").augroup("LspHighlight." .. buffer, {
-      {
-        event = { "CursorHold", "CursorHoldI" },
-        buffer = buffer,
-        desc = "LSP: References",
-        command = highlight_references,
-      },
-      {
-        event = "CursorMoved",
-        desc = "LSP: References Clear",
-        buffer = buffer,
-        command = function()
-          vim.lsp.buf.clear_references()
-        end,
-      },
+      event = { "CursorHold", "CursorHoldI" },
+      buffer = buffer,
+      desc = "LSP: References",
+      command = highlight_references,
+    }, {
+      event = "CursorMoved",
+      desc = "LSP: References Clear",
+      buffer = buffer,
+      command = function()
+        vim.lsp.buf.clear_references()
+      end,
     })
   end
 end

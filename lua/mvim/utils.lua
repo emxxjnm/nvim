@@ -23,10 +23,11 @@ local M = {}
 
 ---Create an autocommand
 ---returns the group ID so that it can be cleared or maipulated.
----@param name string
----@param commands Autocommand[]
+---@param name string The name of the autocommand group
+---@param ... Autocommand A list of autocommands to create
 ---@return number augroup id
-function M.augroup(name, commands)
+function M.augroup(name, ...)
+  local commands = { ... }
   assert(name ~= "User", "The name of an augroup CANNOT be User")
   assert(#commands > 0, string.format("You must specify at least on autocommand for %s", name))
   local group_id = vim.api.nvim_create_augroup(name, { clear = true })
@@ -106,15 +107,13 @@ end
 ---@param func fun(client, buffer)
 function M.on_attach(func)
   M.augroup("LspSetupCommands", {
-    {
-      event = "LspAttach",
-      command = function(args)
-        local buffer = args.buf
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        func(client, buffer)
-      end,
-      desc = "Setup the language server autocommands",
-    },
+    event = "LspAttach",
+    command = function(args)
+      local buffer = args.buf
+      local client = vim.lsp.get_client_by_id(args.data.client_id)
+      func(client, buffer)
+    end,
+    desc = "Setup the language server autocommands",
   })
 end
 
