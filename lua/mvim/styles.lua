@@ -41,7 +41,6 @@ mo.styles = {
       expanded = "",
       new_file = "",
       file = "",
-      repo = "",
       files = "",
       file_symlink = "",
       folder = "",
@@ -56,6 +55,7 @@ mo.styles = {
     },
     misc = {
       lsp = "",
+      repo = "",
       buffer = "",
       treesitter = "",
       telescope = "",

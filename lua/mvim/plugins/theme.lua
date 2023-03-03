@@ -26,17 +26,56 @@ local M = {
         -- custom
         PanelHeading = { fg = colors.lavender, style = { "bold", "italic" } },
 
-        LazyH1 = { bg = "NONE", fg = colors.lavender, style = { "bold" } },
-        LazyButton = { bg = "NONE", fg = colors.overlay0 },
-        LazyButtonActive = { bg = "NONE", fg = colors.lavender, style = { " bold" } },
+        -- lazy.nvim
+        LazyH1 = {
+          bg = mo.styles.transparent and "NONE" or colors.peach,
+          fg = mo.styles.transparent and colors.lavender or colors.base,
+          style = { "bold" },
+        },
+        LazyButton = {
+          bg = "NONE",
+          fg = mo.styles.transparent and colors.overlay0 or colors.subtext0,
+        },
+        LazyButtonActive = {
+          bg = mo.styles.transparent and "NONE" or colors.overlay1,
+          fg = mo.styles.transparent and colors.lavender or colors.base,
+          style = { " bold" },
+        },
         LazySpecial = { fg = colors.sapphire },
 
-        -- LazyH1 = { bg = colors.peach, fg = colors.base, style = { "bold" } },
-        -- LazyButton = { bg = "NONE", fg = colors.subtext0 },
-        -- LazyButtonActive = { bg = colors.overlay1, fg = colors.base, style = { " bold" } },
-        -- LazySpecial = { fg = colors.sapphire },
+        -- gitsigns
+        GitSignsAddLn = mo.styles.transparent and { bg = colors.none } or { link = "DiffAdd" },
+        GitSignsChangeLn = mo.styles.transparent and { bg = colors.none } or {
+          link = "DiffChange",
+        },
+        GitSignsAddInline = mo.styles.transparent and {
+          fg = colors.green,
+          bg = colors.none,
+          style = { "bold" },
+        } or { link = "DiffAdd" },
+        GitSignsDeleteInline = mo.styles.transparent and {
+          fg = colors.red,
+          bg = colors.none,
+          style = { "bold" },
+        } or { link = "DiffDelete" },
+        GitSignsChangeInline = mo.styles.transparent and {
+          fg = colors.yellow,
+          bg = colors.none,
+          style = { "bold" },
+        } or { link = "DiffChange" },
+
+        GitSignsDeleteVirtLn = mo.styles.transparent and { fg = colors.red, bg = colors.none } or {
+          link = "DiffDelete",
+        },
+        GitSignsDeleteVirtLnInLine = mo.styles.transparent and {
+          fg = colors.red,
+          bg = colors.none,
+        } or {
+          link = "TermCursor",
+        },
 
         -- overrider
+        CmpItemMenu = { fg = colors.subtext1 },
         FloatBorder = { fg = colors.overlay1 },
         TelescopeBorder = { fg = colors.overlay1 },
         WhichKeyBorder = { fg = colors.overlay1 },

@@ -19,28 +19,12 @@ local M = {
 
       dashboard.section.header.val = mo.styles.banner
       dashboard.section.buttons.val = {
-        button(
-          "Statement",
-          "n",
-          icons.documents.new_file .. "  New file",
-          ":ene<Bar>startinsert<CR>"
-        ),
-        button(
-          "Identifier",
-          "g",
-          icons.misc.text .. "  Find text",
-          ":Telescope live_grep_args<CR>"
-        ),
-        button("Special", "f", icons.misc.search .. "  Find file", ":Telescope find_files<CR>"),
-        button("Operator", "r", icons.misc.history .. "  Recent files", ":Telescope oldfiles<CR>"),
-        button(
-          "Structure",
-          "p",
-          icons.documents.repo .. "  Recent projects",
-          ":Telescope projects<CR>"
-        ),
-        button("String", "c", icons.misc.vim .. "  Config", ":e $MYVIMRC<CR>"),
-        button("Error", "q", icons.misc.exit .. "  Quit", ":qa<CR>"),
+        button("Character", "n", icons.documents.new_file .. "  New file", "<Cmd>ene<Bar>star<CR>"),
+        button("Label", "g", icons.misc.text .. "  Find text", "<Cmd>Telescope live_grep_args<CR>"),
+        button("Special", "f", icons.misc.search .. "  Find file", "<Cmd>Telescope find_files<CR>"),
+        button("Macro", "r", icons.misc.history .. "  Recent files", "<Cmd>Telescope oldfiles<CR>"),
+        button("Winbar", "p", icons.misc.repo .. "  Recent project", "<Cmd>Telescope projects<CR>"),
+        button("Error", "q", icons.misc.exit .. "  Quit NVIM", "<Cmd>quitall<CR>"),
       }
 
       dashboard.section.header.opts.hl = "Function"
