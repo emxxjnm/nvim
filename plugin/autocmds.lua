@@ -26,7 +26,6 @@ end
 
 U.augroup("PlaceLastLoc", {
   event = "BufReadPost",
-  pattern = "*",
   command = function()
     if vim.bo.ft ~= "gitcommit" and vim.fn.win_gettype() ~= "popup" then
       local mark = vim.api.nvim_buf_get_mark(0, '"')
@@ -53,14 +52,12 @@ U.augroup("SmartClose", {
 
 U.augroup("CheckOutsideTime", {
   event = { "WinEnter", "BufWinEnter", "BufWinLeave", "BufRead", "BufEnter", "FocusGained" },
-  pattern = "*",
   command = "checktime",
   desc = "Check if we need to reload the file when it changed",
 })
 
 U.augroup("TextYankHighlight", {
   event = { "TextYankPost" },
-  pattern = "*",
   command = function()
     vim.highlight.on_yank({
       timeout = 500,
