@@ -82,12 +82,9 @@ local M = {
             },
           },
         },
-        tailwindcss = {
+        unocss = {
           filetypes = {
             "html",
-            "css",
-            "less",
-            "scss",
             "javascriptreact",
             "typescriptreact",
             "vue",
