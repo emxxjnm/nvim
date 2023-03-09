@@ -16,6 +16,8 @@
 
 * [Font: INPUT](https://input.djr.com/preview/?size=14&language=python&theme=base16-dark&family=InputSans&width=300&weight=300&line-height=1.2&a=ss&g=ss&i=serifs_round&l=serifs_round&zero=0&asterisk=height&braces=straight&preset=default&customize=please)
 
+* [ASCII Art Generator](https://patorjk.com/software/taag/#p=display&f=Soft&t=Type%20Something%20)
+
 ```bash
 # patch font
 docker run --rm \
