@@ -27,10 +27,6 @@ keymap("n", "<leader>;", "%", { desc = "Jump to match item" })
 keymap({ "n", "v" }, "H", "^", { desc = "To the first non-blank char of the line" })
 keymap({ "n", "v" }, "L", "$", { desc = "To the end of the line" })
 
--- change
-keymap("n", "<leader>u", "gUiw", { desc = "Uppercase" })
-keymap("i", "<C-u>", "_<Esc>mzwbgUiw`zi<Del>", { desc = "Uppercase" })
-
 -- move line
 keymap("n", "<M-k>", "<Cmd>move .-2<CR>==", { desc = "Move up" })
 keymap("n", "<M-j>", "<Cmd>move .+1<CR>==", { desc = "Move down" })
