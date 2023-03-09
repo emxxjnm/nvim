@@ -270,8 +270,8 @@ local M = {
         -- Typing { when {| -> {{ | }} in Vue files
         Rule("{{", "  }", "vue"):set_end_pair_length(2):with_pair(ts_conds.is_ts_node("text")),
 
-        -- Typing = when () -> () => {|}
-        Rule("%(.*%)%s*%=$", "> {}", { "typescript", "typescriptreact", "javascript", "vue" })
+        -- Typing = when () -> () => |
+        Rule("%(.*%)%s*%=$", ">  ", { "typescript", "typescriptreact", "javascript", "vue" })
           :use_regex(true)
           :set_end_pair_length(1),
       })
@@ -305,6 +305,7 @@ local M = {
     keys = {
       { "[%", desc = "matchup: Move to prev" },
       { "]%", desc = "matchup: Move to next" },
+      { "<leader>;", "<plug>(matchup-%)" },
     },
     config = function()
       vim.g.matchup_matchparen_offscreen = {
