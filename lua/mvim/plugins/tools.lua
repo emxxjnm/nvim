@@ -1,3 +1,5 @@
+local icons = mo.styles.icons
+
 local M = {
   -- library used by other plugins
   { "nvim-lua/plenary.nvim", lazy = true },
@@ -72,8 +74,8 @@ local M = {
     "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPre", "BufNewFile" },
     opts = {
-      char = mo.styles.icons.documents.indent,
-      char_list = { mo.styles.icons.documents.dash_indent },
+      char = icons.indent.solid,
+      char_list = { icons.indent.dash },
       show_current_context = true,
       show_first_indent_level = false,
       filetype_exclude = { "help", "alpha", "neo-tree", "lazy" },
@@ -96,7 +98,7 @@ local M = {
       },
       fold_virt_text_handler = function(virt_text, lnum, end_lnum, width, truncate, ctx)
         local result = {}
-        local suffix = (" %s [%d]"):format(mo.styles.icons.misc.ellipsis, end_lnum - lnum)
+        local suffix = (" %s [%d]"):format(icons.misc.ellipsis, end_lnum - lnum)
         local cur_width = 0
         local suffix_width = vim.api.nvim_strwidth(ctx.text)
         local target_width = width - suffix_width
@@ -149,7 +151,7 @@ local M = {
       user_default_options = {
         names = false,
         mode = "virtualtext",
-        virtualtext = mo.styles.icons.misc.cloud .. " ",
+        virtualtext = icons.misc.cloud .. " ",
       },
     },
   },
@@ -170,9 +172,9 @@ local M = {
         },
       },
       icons = {
-        breadcrumb = mo.styles.icons.misc.double_right,
-        separator = mo.styles.icons.misc.arrows .. " ",
-        group = mo.styles.icons.misc.plus,
+        breadcrumb = icons.navigation.breadcrumb,
+        separator = icons.navigation.arrows .. " ",
+        group = icons.misc.plus,
       },
       window = {
         border = mo.styles.border,
@@ -190,12 +192,13 @@ local M = {
         ["]"] = { name = "+next" },
         ["["] = { name = "+prev" },
         ["<leader>"] = {
-          b = { name = "+buffer" },
-          c = { name = "+code" },
-          d = { name = "+debug" },
-          f = { name = "+find" },
-          g = { name = "+git" },
-          t = { name = "+terminal" },
+          b = { name = "+ " .. icons.misc.buffer .. " buffer" },
+          c = { name = "+ " .. icons.misc.code .. " code" },
+          d = { name = "+ " .. icons.dap.bug .. " debug" },
+          f = { name = "+ " .. icons.misc.search .. " find" },
+          g = { name = "+ " .. icons.git.git .. " git" },
+          l = { name = "+ " .. icons.lsp.lsp .. " lsp" },
+          t = { name = "+ " .. icons.misc.terminal .. " terminal" },
         },
       })
     end,

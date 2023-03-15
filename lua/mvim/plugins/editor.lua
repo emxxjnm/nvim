@@ -36,7 +36,7 @@ local M = {
         tab_labels = {
           filesystem = icons.documents.root_folder .. " Files",
           buffers = icons.misc.buffer .. " Buffers",
-          git_status = icons.git.source_control .. " Git",
+          git_status = icons.git.git .. " Git",
         },
       },
       close_if_last_window = true,
@@ -53,8 +53,8 @@ local M = {
       default_component_configs = {
         indent = {
           with_markers = true,
-          indent_marker = icons.documents.indent,
-          last_indent_marker = icons.documents.last_indent,
+          indent_marker = icons.indent.solid,
+          last_indent_marker = icons.indent.last,
           with_expanders = true,
           expander_collapsed = icons.documents.collapsed,
           expander_expanded = icons.documents.expanded,
@@ -65,7 +65,7 @@ local M = {
           folder_empty = icons.documents.empty_folder,
           default = icons.documents.file,
         },
-        modified = { symbol = icons.misc.dot },
+        modified = { symbol = icons.documents.modified },
         name = { trailing_slash = false, use_git_status_colors = true },
         git_status = {
           symbols = {
@@ -295,23 +295,19 @@ local M = {
           return {
             keywords = {
               FIX = {
-                icon = icons.misc.tool,
+                icon = icons.todo.fix,
                 color = "fix",
                 alt = { "FIXME", "BUG", "FIXIT", "ISSUE" },
               },
-              TODO = { icon = icons.misc.tag, color = "todo" },
-              HACK = { icon = icons.misc.flame, color = "hack" },
-              WARN = { icon = icons.misc.bell, color = "warn", alt = { "WARNING", "XXX" } },
-              PERF = {
-                icon = icons.misc.rocket,
-                color = "perf",
-                alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" },
-              },
-              NOTE = { icon = icons.misc.comment, color = "note" },
+              TODO = { icon = icons.todo.todo, color = "todo" },
+              HACK = { icon = icons.todo.hack, color = "hack" },
+              WARN = { icon = icons.todo.warn, color = "warn", alt = { "WARNING", "XXX" } },
+              PERF = { icon = icons.todo.perf, color = "perf", alt = { "OPTIM" } },
+              NOTE = { icon = icons.todo.note, color = "note" },
               TEST = {
-                icon = icons.misc.tower,
+                icon = icons.todo.test,
                 color = "test",
-                alt = { "TESTING", "PASSED", "FAILED" },
+                alt = { "PASSED", "FAILED" },
               },
             },
             highlight = {

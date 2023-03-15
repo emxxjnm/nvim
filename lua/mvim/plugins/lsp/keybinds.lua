@@ -40,7 +40,9 @@ function M.get()
         has = "codeAction",
       },
 
-      { "<leader>cl", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+      { "<leader>ll", "<cmd>LspLog<cr>", desc = "Lsp Log" },
+      { "<leader>li", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
+      { "<leader>lr", "<cmd>LspRestart<cr>", desc = "Lsp Restart" },
     }
   return M._keys
 end

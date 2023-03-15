@@ -24,9 +24,9 @@ local M = {
             height = 0.8,
             border = mo.styles.border,
             icons = {
-              package_installed = mo.styles.icons.misc.installed,
-              package_pending = mo.styles.icons.misc.pedding,
-              package_uninstalled = mo.styles.icons.misc.uninstalled,
+              package_installed = mo.styles.icons.plugin.installed,
+              package_pending = mo.styles.icons.plugin.pedding,
+              package_uninstalled = mo.styles.icons.plugin.uninstalled,
             },
             keymaps = { apply_language_filter = "f" },
           },
@@ -44,7 +44,7 @@ local M = {
               event = "BufWritePre",
               pattern = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.vue" },
               command = "EslintFixAll",
-              desc = "automatically execute `eslint fix` on save",
+              desc = "Automatically execute `eslint fix` on save",
             })
           end,
         },

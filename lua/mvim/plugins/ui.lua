@@ -13,14 +13,19 @@ local M = {
         local details = select(2, ...)
         local icon = details:match("[^%w%s]+")
         btn.opts.hl = { { hl, 0, #icon + 1 } }
-        btn.opts.hl_shortcut = "MatchParen"
+        btn.opts.hl_shortcut = "Title"
         return btn
       end
 
       dashboard.section.header.val = mo.styles.banner
       dashboard.section.buttons.val = {
         button("Character", "n", icons.documents.new_file .. "  New file", "<Cmd>ene<Bar>star<CR>"),
-        button("Label", "g", icons.misc.text .. "  Find text", "<Cmd>Telescope live_grep_args<CR>"),
+        button(
+          "Label",
+          "g",
+          icons.lsp.kinds.text .. "  Find text",
+          "<Cmd>Telescope live_grep_args<CR>"
+        ),
         button("Special", "f", icons.misc.search .. "  Find file", "<Cmd>Telescope find_files<CR>"),
         button("Macro", "r", icons.misc.history .. "  Recent files", "<Cmd>Telescope oldfiles<CR>"),
         button("Winbar", "p", icons.misc.repo .. "  Recent project", "<Cmd>Telescope projects<CR>"),
@@ -74,7 +79,7 @@ local M = {
             "--- %s loaded %d %s plugins in %d ms ---",
             version,
             stats.count,
-            icons.misc.electron,
+            icons.plugin.plugin,
             ms
           )
           pcall(vim.cmd.AlphaRedraw)
@@ -102,12 +107,12 @@ local M = {
 
       return {
         options = {
-          indicator = { icon = icons.misc.indicator, style = "icon" },
-          buffer_close_icon = icons.misc.cross,
-          modified_icon = icons.misc.dot,
-          close_icon = icons.misc.bold_close,
-          left_trunc_marker = icons.misc.triangle_left,
-          right_trunc_marker = icons.misc.triangle_right,
+          indicator = { icon = icons.navigation.indicator, style = "icon" },
+          buffer_close_icon = icons.documents.close,
+          modified_icon = icons.documents.modified,
+          close_icon = icons.documents.close,
+          left_trunc_marker = icons.navigation.triangle_left,
+          right_trunc_marker = icons.navigation.triangle_right,
           diagnostics = "nvim_lsp",
           diagnostics_indicator = function(_, _, diagnostics)
             local result = {}
@@ -199,7 +204,7 @@ local M = {
           icon = { icons.git.branch, color = { fg = colors.pink, gui = "bold" } },
           color = { gui = "bold" },
           separator = {
-            right = icons.misc.right_half_circle_thick,
+            right = icons.navigation.right_half_circle_thick,
           },
         },
 
@@ -291,7 +296,7 @@ local M = {
             vim.list_extend(buf_client_names, linters, 1, #linters)
 
             local clients = fn.uniq(buf_client_names)
-            return icons.misc.lsp .. " LSP(s): [" .. table.concat(clients, " · ") .. "]"
+            return icons.lsp.lsp .. " LSP(s): [" .. table.concat(clients, " · ") .. "]"
           end,
           color = { fg = colors.mauve },
           cond = conditions.hide_in_width,
@@ -326,7 +331,7 @@ local M = {
             return string.format("%3d/%d:%-2d", line, lines, col)
           end,
           icon = { icons.misc.milestone, color = { fg = colors.pink, gui = "bold" } },
-          separator = { left = icons.misc.left_half_circle_thick },
+          separator = { left = icons.navigation.left_half_circle_thick },
           color = { gui = "bold" },
         },
 
