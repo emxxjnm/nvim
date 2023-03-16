@@ -24,7 +24,6 @@ local M = {
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
           { name = "luasnip" },
-          { name = "path" },
           {
             name = "buffer",
             option = {
@@ -32,8 +31,9 @@ local M = {
                 return vim.api.nvim_list_bufs()
               end,
             },
-            keyword_length = 3,
+            keyword_length = 2,
           },
+          { name = "path" },
         }),
         formatting = {
           fields = { "kind", "abbr", "menu" },
