@@ -11,7 +11,15 @@ function M.setup()
 
   vim.diagnostic.config({
     severity_sort = true,
-    virtual_text = false,
+    virtual_text = {
+      source = false,
+      severity = vim.diagnostic.severity.ERROR,
+      spacing = 1,
+      format = function(d)
+        local level = vim.diagnostic.severity[d.severity]
+        return fmt("%s %s", icons[level:lower()], d.message)
+      end,
+    },
     float = {
       header = "",
       source = false,
