@@ -33,10 +33,13 @@ local M = {
       { "gc", mode = { "n", "v" }, desc = "linewise comment" },
       { "gb", mode = { "n", "v" }, desc = "blockwise comment" },
     },
-    opts = {
-      ignore = "^$",
-      pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-    },
+    opts = function()
+      local ok, tcs = pcall(require, "ts_context_commentstring.integrations.comment_nvim")
+      return {
+        ignore = "^$",
+        pre_hook = ok and tcs and tcs.create_pre_hook() or nil,
+      }
+    end,
   },
 
   -- easily jump to any location and enhanced f/t motions for Leap
