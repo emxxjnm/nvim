@@ -259,6 +259,7 @@ local M = {
       local nls = require("null-ls")
 
       return {
+        border = mo.styles.border,
         sources = {
           -- lua
           nls.builtins.formatting.stylua.with({
