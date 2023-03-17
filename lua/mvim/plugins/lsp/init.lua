@@ -106,11 +106,6 @@ local M = {
             yaml = {
               validate = true,
               format = { enable = true },
-              schemas = {
-                ["https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json"] = "docker-compose.yml",
-                ["https://json.schemastore.org/pre-commit-config.json"] = ".pre-commit-config.yaml",
-                kubernetes = "/*.k8s.yaml",
-              },
             },
           },
         },
@@ -221,8 +216,8 @@ local M = {
         require("lspconfig")[server].setup(config)
       end
 
-      local mlsp = require("mason-lspconfig")
-      local available = mlsp.get_available_servers()
+      local mason_available, mlsp = pcall(require, "mason-lspconfig")
+      local available = mason_available and mlsp.get_available_servers() or {}
 
       local ensure_installed = {} ---@type string[]
       for server, server_opts in pairs(opts.servers) do
@@ -237,8 +232,10 @@ local M = {
         end
       end
 
-      mlsp.setup({ ensure_installed = ensure_installed })
-      mlsp.setup_handlers({ setup_server })
+      if mason_available then
+        mlsp.setup({ ensure_installed = ensure_installed })
+        mlsp.setup_handlers({ setup_server })
+      end
     end,
   },
 
