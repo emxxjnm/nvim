@@ -66,8 +66,8 @@ keymap("v", "<", "<gv", { desc = "Visual shifting" })
 keymap({ "i", "n" }, "<esc>", "<Cmd>nohlsearch<CR><Esc>", { desc = "Escape and clear hlsearch" })
 
 -- better up/down
-keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, desc = "Move cursor up" })
+keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, desc = "Move cursor down" })
 
 keymap("i", "jj", [[col('.') == 1 ? '<Esc>' : '<Esc>l']], { expr = true })
 
