@@ -66,20 +66,24 @@ function M.bootstrap()
   })
 end
 
+---@param name "autocmds" | "options" | "keymaps"
 function M.load(name)
-  local u = require("lazy.core.util")
-  local mod = "mvim." .. name
-  u.try(function()
-    require(mod)
-  end, {
-    msg = "Failed loading " .. mod,
-    on_error = function(msg)
-      local modpath = require("lazy.core.cache").find(mod)
-      if modpath then
-        u.error(msg)
-      end
-    end,
-  })
+  local Util = require("lazy.core.util")
+  local function _load(mod)
+    Util.try(function()
+      require(mod)
+    end, {
+      msg = "Failed loading " .. mod,
+      on_error = function(msg)
+        local info = require("lazy.core.cache").find(mod)
+        if info == nil or (type(info) == "table" and #info == 0) then
+          return
+        end
+        Util.error(msg)
+      end,
+    })
+  end
+  _load("mvim" .. name)
   if vim.bo.filetype == "lazy" then
     -- HACK: LazyVim may have overwritten options of the Lazy ui, so reset this here
     vim.cmd([[do VimResized]])
@@ -92,14 +96,14 @@ function M.setup()
 
   -- setup keymaps & autocmds
   if vim.fn.argc() == 0 then
-    -- autocmds and keymaps can wait to load
-    require("mvim.utils").augroup("OnMvimSetup", {
+    require("mvim.utils").augroup("MVim", {
       event = "User",
       pattern = "VeryLazy",
       command = function()
         M.load("autocmds")
         M.load("keymaps")
       end,
+      desc = "Load autocmds and keymaps lazy",
     })
   else
     M.load("autocmds")
