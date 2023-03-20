@@ -2,7 +2,7 @@
   "setupScript": {
     "prefix": "setup",
     "body": [
-      "<script setup lang=\"${1|ts,js|}\">",
+      "<script setup lang=\"${1|ts,js,tsx}\">",
       "$0",
       "</script>"
     ],
