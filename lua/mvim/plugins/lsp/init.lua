@@ -124,72 +124,6 @@ local M = {
       },
     },
     config = function(_, opts)
-      ---This function allows reading a per project `settings.josn` file
-      ---in the `.vim` directory of the project
-      ---@param client table<string, any> lsp client
-      ---@return boolean
-      local function common_on_init(client)
-        local settings = client.workspace_folders[1].name
-          .. "/"
-          .. mo.settings.metadir
-          .. "/settings.json"
-        if vim.fn.filereadable(settings) == 0 then
-          return true
-        end
-
-        local ok, json = pcall(vim.fn.readfile, settings)
-        if not ok then
-          vim.notify_once("LSP init: read file `settings.json` failed", vim.log.levels.ERROR)
-          return true
-        end
-
-        local status, overrides = pcall(vim.json.decode, table.concat(json, "\n"))
-        if not status then
-          vim.notify_once("LSP init: unmarshall `settings.json` file failed", vim.log.levels.ERROR)
-          return true
-        end
-
-        for name, config in pairs(overrides or {}) do
-          if name == client.name then
-            client.config = vim.tbl_deep_extend("force", client.config, config)
-            client.notify("workspace/didChangeConfiguration")
-
-            vim.schedule(function()
-              local path = vim.fn.fnamemodify(settings, ":~:.")
-              local msg = "loaded local settings for " .. client.name .. " from " .. path
-              vim.notify_once(msg, vim.log.levels.INFO)
-            end)
-          end
-        end
-        return true
-      end
-
-      local function common_capabilities()
-        local capabilities = vim.lsp.protocol.make_client_capabilities()
-        -- Tell the server the capability of foldingRange :: nvim-ufo
-        capabilities.textDocument.foldingRange = {
-          dynamicRegistration = false,
-          lineFoldingOnly = true,
-        }
-        return require("cmp_nvim_lsp").default_capabilities(capabilities)
-      end
-
-      local function resolve_config(name, ...)
-        local defaults = {
-          on_init = common_on_init,
-          capabilities = common_capabilities(),
-        }
-
-        local has_provider, cfg = pcall(require, "mvim.plugins.lsp.providers." .. name)
-        if has_provider then
-          defaults = vim.tbl_deep_extend("force", defaults, cfg) or {}
-        end
-
-        defaults = vim.tbl_deep_extend("force", defaults, ...) or {}
-
-        return defaults
-      end
-
       require("mvim.plugins.lsp.diagnostics").setup()
 
       require("mvim.plugins.lsp.handlers").setup()
@@ -203,7 +137,7 @@ local M = {
       end)
 
       local function setup_server(server)
-        local config = resolve_config(server, opts.servers[server] or {})
+        local config = require("mvim.utils").resolve_config(server, opts.servers[server] or {})
         if opts.setup[server] then
           if opts.setup[server](server, config) then
             return
@@ -216,15 +150,19 @@ local M = {
         require("lspconfig")[server].setup(config)
       end
 
-      local mason_available, mlsp = pcall(require, "mason-lspconfig")
-      local available = mason_available and mlsp.get_available_servers() or {}
+      local mlsp_available, mlsp = pcall(require, "mason-lspconfig")
+      local all_mlsp_servers = {}
+      if mlsp_available then
+        all_mlsp_servers =
+          vim.tbl_keys(require("mason-lspconfig.mappings.server").package_to_lspconfig)
+      end
 
       local ensure_installed = {} ---@type string[]
       for server, server_opts in pairs(opts.servers) do
         if server_opts then
           server_opts = server_opts == true and {} or server_opts
           -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
-          if server_opts.mason == false or not vim.tbl_contains(available, server) then
+          if server_opts.mason == false or not vim.tbl_contains(all_mlsp_servers, server) then
             setup_server(server)
           else
             ensure_installed[#ensure_installed + 1] = server
@@ -232,7 +170,7 @@ local M = {
         end
       end
 
-      if mason_available then
+      if mlsp_available then
         mlsp.setup({ ensure_installed = ensure_installed })
         mlsp.setup_handlers({ setup_server })
       end
