@@ -1,5 +1,5 @@
 mo.styles = {
-  transparent = true,
+  transparent = false,
   icons = {
     git = {
       git = "",
@@ -98,7 +98,7 @@ mo.styles = {
       exit = "",
       ellipsis = "",
       snow = "",
-      cloud = "",
+      palette = "",
       plus = "",
       pulse = "",
       lazy = "鈴",

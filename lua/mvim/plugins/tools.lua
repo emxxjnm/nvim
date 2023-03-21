@@ -154,7 +154,7 @@ local M = {
       user_default_options = {
         names = false,
         mode = "virtualtext",
-        virtualtext = icons.misc.cloud .. " ",
+        virtualtext = icons.misc.palette .. " ",
       },
     },
   },
