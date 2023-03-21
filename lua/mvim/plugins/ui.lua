@@ -195,8 +195,12 @@ local M = {
         mode = {
           "mode",
           fmt = function(str)
-            return " " .. string.sub(str, 1, 1) .. " "
+            return string.sub(str, 1, 1)
           end,
+          separator = {
+            right = icons.navigation.right_half_circle_thick,
+            left = icons.navigation.left_half_circle_thick,
+          },
         },
 
         branch = {
@@ -296,7 +300,7 @@ local M = {
             vim.list_extend(buf_client_names, linters, 1, #linters)
 
             local clients = fn.uniq(buf_client_names)
-            return icons.lsp.lsp .. " LSP(s): [" .. table.concat(clients, " · ") .. "]"
+            return icons.lsp.lsp .. " LSP(s):[" .. table.concat(clients, " · ") .. "]"
           end,
           color = { fg = colors.mauve },
           cond = conditions.hide_in_width,
@@ -350,13 +354,13 @@ local M = {
         spaces = {
           function()
             if not api.nvim_buf_get_option(0, "expandtab") then
-              return "Tab: " .. api.nvim_buf_get_option(0, "tabstop")
+              return "Tab:" .. api.nvim_buf_get_option(0, "tabstop")
             end
             local size = api.nvim_buf_get_option(0, "shiftwidth")
             if size == 0 then
               size = api.nvim_buf_get_option(0, "tabstop")
             end
-            return "Spaces: " .. size
+            return "Spaces:" .. size
           end,
           padding = { left = 1, right = 2 },
           cond = conditions.hide_in_width,
@@ -367,6 +371,10 @@ local M = {
           function()
             return icons.misc.clock .. " " .. os.date("%R")
           end,
+          separator = {
+            right = icons.navigation.right_half_circle_thick,
+            left = icons.navigation.left_half_circle_thick,
+          },
         },
       }
       require("lualine").setup({
