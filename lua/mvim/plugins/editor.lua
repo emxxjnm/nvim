@@ -373,7 +373,7 @@ local M = {
         "yaml",
       },
       highlight = { enable = true },
-      indent = { enable = true, disable = { "yaml", "python" } },
+      indent = { enable = true },
       incremental_selection = {
         enable = true,
         keymaps = {
