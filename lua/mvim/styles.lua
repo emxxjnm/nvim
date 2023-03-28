@@ -17,8 +17,10 @@ mo.styles = {
     },
     dap = {
       bug = "",
-      breakpoint = "󰄛", -- md
-      stopped = "󰋇", -- md
+      signs = {
+        breakpoint = "󰄛", -- md
+        stopped = "󰋇", -- md
+      },
       controls = {
         pause = "",
         play = "",

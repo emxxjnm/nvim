@@ -3,7 +3,6 @@ local icons = mo.styles.icons
 -- stop: shift + F5; restart: command + shift + F5
 local M = {
   "mfussenegger/nvim-dap",
-  module = "dap",
   keys = {
     {
       "<leader>db",
@@ -93,7 +92,7 @@ local M = {
           },
           {
             elements = { "repl" },
-            size = 12,
+            size = 0.24,
             position = "bottom",
           },
         },
@@ -104,23 +103,6 @@ local M = {
           border = mo.styles.border,
         },
       },
-      config = function(_, opts)
-        local dap, dapui = require("dap"), require("dapui")
-
-        dapui.setup(opts)
-
-        dap.listeners.after.event_initialized["dapui_config"] = function()
-          local breakpoints = require("dap.breakpoints").get()
-          local args = vim.tbl_isempty(breakpoints) and nil or { layout = 2 }
-          dapui.open(args)
-        end
-
-        dap.listeners.before.event_stopped["dapui_config"] = function(_, body)
-          if body.reason == "breakpoint" then
-            dapui.open()
-          end
-        end
-      end,
     },
     {
       "theHamsta/nvim-dap-virtual-text",
@@ -128,36 +110,40 @@ local M = {
     },
   },
   init = function()
-    vim.fn.sign_define({
-      {
-        name = "DapBreakpoint",
-        text = icons.dap.breakpoint,
-        texthl = "DapBreakpoint",
+    for name, icon in pairs(icons.dap.signs) do
+      name = "Dap" .. name:gsub("^%l", string.upper)
+      vim.fn.sign_define(name, { text = icon, texthl = name })
+    end
+  end,
+  config = function()
+    -- setup listener
+    local dap, dapui = require("dap"), require("dapui")
+    dap.listeners.after.event_initialized["dapui_config"] = function()
+      local breakpoints = require("dap.breakpoints").get()
+      local args = vim.tbl_isempty(breakpoints) and nil or { layout = 2 }
+      dapui.open(args)
+    end
+    dap.listeners.before.event_stopped["dapui_config"] = function(_, body)
+      if body.reason == "breakpoint" then
+        dapui.open()
+      end
+    end
+
+    -- load launch.json file
+    require("dap.ext.vscode").load_launchjs(
+      vim.fn.getcwd() .. "/" .. mo.settings.metadir .. "/launch.json"
+    )
+
+    -- setup adapter
+    dap.adapters.python = {
+      type = "executable",
+      command = "python",
+      args = { "-m", "debugpy.adapter" },
+      options = {
+        source_filetype = "python",
       },
-      {
-        name = "DapStopped",
-        text = icons.dap.stopped,
-        texthl = "DapStopped",
-      },
-    })
+    }
   end,
 }
-
-function M.config()
-  require("dap.ext.vscode").load_launchjs(
-    vim.fn.getcwd() .. "/" .. mo.settings.metadir .. "/launch.json"
-  )
-
-  local dap = require("dap")
-
-  dap.adapters.python = {
-    type = "executable",
-    command = "python",
-    args = { "-m", "debugpy.adapter" },
-    options = {
-      source_filetype = "python",
-    },
-  }
-end
 
 return M
