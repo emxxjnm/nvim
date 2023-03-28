@@ -61,8 +61,6 @@ docker run --rm \
 | &lt;leader&gt;Q  | Force quit                    | **n**               |
 | &lt;leader&gt;p  | Past clipboard text           | **n**               |
 | &lt;leader&gt;y  | Copy to clipboard             | **v**               |
-| &lt;leader&gt;u  | Uppercase                     | **n**               |
-| &lt;C-u&gt;      | Uppercase                     | **i**               |
 | &lt;leader&gt;-  | Split below                   | **n**               |
 | &lt;leader&gt;\| | Split right                   | **n**               |
 
