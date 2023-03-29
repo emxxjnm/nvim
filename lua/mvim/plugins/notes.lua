@@ -1,18 +1,29 @@
 local M = {
   {
     "dhruvasagar/vim-table-mode",
-    ft = "markdown",
     cmd = "TableModeToggle",
+    keys = { { "<leader>mt", "<Cmd>TableModeToggle<CR>", desc = "MarkDown table mode toggle" } },
   },
 
   -- markdown preview
   {
-    "iamcco/markdown-preview.nvim",
-    build = function()
-      vim.fn["mkdp#util#install"]()
-    end,
-    ft = "markdown",
-    cmd = { "MarkdownPreview", "MarkdownPreviewToggle" },
+    "toppair/peek.nvim",
+    build = "deno task --quiet build:fast",
+    keys = {
+      {
+        "<leader>mp",
+        function()
+          local peek = require("peek")
+          if peek.is_open() then
+            peek.close()
+          else
+            peek.open()
+          end
+        end,
+        desc = "Peek (Markdown Preview)",
+      },
+    },
+    opts = { theme = "dark", app = "browser" },
   },
 }
 

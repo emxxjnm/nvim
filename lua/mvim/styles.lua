@@ -109,6 +109,7 @@ mo.styles = {
       key = "",
       setting = "",
       task = "",
+      markdown = "",
       clock = "",
       progress = {
         "██",

@@ -201,6 +201,7 @@ local M = {
           f = { name = "+ " .. icons.misc.search .. " find" },
           g = { name = "+ " .. icons.git.git .. " git" },
           l = { name = "+ " .. icons.lsp.lsp .. " lsp" },
+          m = { name = "+ " .. icons.misc.markdown .. " markdown" },
           t = { name = "+ " .. icons.misc.terminal .. " terminal" },
         },
       })
