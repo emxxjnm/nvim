@@ -7,8 +7,8 @@ function M.bootstrap()
   local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
   if not vim.loop.fs_stat(lazypath) then
-    vim.notify("cloning plugin manager, will take a few minutes...")
-    vim.fn.system({
+    vim.notify("Cloning plugin manager, will take a few minutes...")
+    local output = vim.fn.system({
       "git",
       "clone",
       "--filter=blob:none",
@@ -16,6 +16,9 @@ function M.bootstrap()
       "https://github.com/folke/lazy.nvim.git",
       lazypath,
     })
+    if vim.api.nvim_get_vvar("shell_error") ~= 0 then
+      vim.api.nvim_err_writeln("Error cloning lazy.nvim repository...\n\n" .. output)
+    end
   end
   vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
