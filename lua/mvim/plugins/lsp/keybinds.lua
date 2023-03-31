@@ -13,10 +13,15 @@ function M.get()
       { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition", has = "definition" },
       { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
       { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
-      { "gi", "<cmd>Telescope lsp_implementations<cr>", desc = "Goto Implementation" },
+      {
+        "gi",
+        "<cmd>Telescope lsp_implementations<cr>",
+        desc = "Goto Implementation",
+        has = "references",
+      },
       { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
 
-      { "K", vim.lsp.buf.hover, desc = "Hover" },
+      { "K", vim.lsp.buf.hover, desc = "Hover", has = "hover" },
       { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
       {
         "<C-k>",
