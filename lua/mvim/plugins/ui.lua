@@ -300,8 +300,9 @@ local M = {
             vim.list_extend(buf_client_names, linters, 1, #linters)
 
             local clients = fn.uniq(buf_client_names)
-            return icons.lsp.lsp .. " LSP(s):[" .. table.concat(clients, " · ") .. "]"
+            return "LSP(s):[" .. table.concat(clients, " · ") .. "]"
           end,
+          icon = icons.lsp.lsp,
           color = { fg = colors.mauve },
           cond = conditions.hide_in_width,
         },
@@ -369,8 +370,9 @@ local M = {
 
         clock = {
           function()
-            return icons.misc.clock .. " " .. os.date("%R")
+            return os.date("%R")
           end,
+          icon = icons.misc.clock,
           separator = {
             right = icons.navigation.right_half_circle_thick,
             left = icons.navigation.left_half_circle_thick,
