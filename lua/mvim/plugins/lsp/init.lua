@@ -63,7 +63,6 @@ local M = {
           },
         },
         pylsp = {},
-        sqls = {},
         stylelint_lsp = {
           filetypes = { "html", "css", "less", "scss", "vue" },
           settings = {
