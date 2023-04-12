@@ -1,5 +1,7 @@
 local M = {}
 
+local U = require("mvim.utils")
+
 local function highlight_references()
   local status_ok, ts_utils = pcall(function()
     return require("nvim-treesitter.ts_utils")
@@ -23,8 +25,8 @@ local function highlight_references()
 end
 
 function M.on_attach(client, buffer)
-  if client.server_capabilities["documentHighlightProvider"] then
-    require("mvim.utils").augroup("LspHighlight." .. buffer, {
+  if client.server_capabilities[U.lsp_providers.HIGHLIGHT] then
+    U.augroup(("LspHighlight.%d"):format(buffer), {
       event = { "CursorHold", "CursorHoldI" },
       buffer = buffer,
       desc = "LSP: References",

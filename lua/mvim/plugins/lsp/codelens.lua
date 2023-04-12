@@ -1,9 +1,11 @@
 local M = {}
 
+local U = require("mvim.utils")
+
 function M.on_attach(client, buffer)
-  if client.server_capabilities["codeLenSProvider"] then
-    require("mvim.utils").augroup("LspCodelens." .. buffer, {
-      event = { "BufEnter", "CursorHold", "InsertLeave" },
+  if client.server_capabilities[U.lsp_providers.CODELENS] then
+    U.augroup(("LspCodelens.%d"):format(buffer), {
+      event = { "BufEnter", "BufWritePost", "InsertLeave" },
       buffer = buffer,
       desc = "LSP: code lens",
       command = function()

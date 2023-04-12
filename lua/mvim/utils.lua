@@ -108,6 +108,23 @@ end
 
 --- LSP utils
 
+---@enum
+-- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#serverCapabilities
+M.lsp_providers = {
+  HOVER = "hoverProvider",
+  RENAME = "renameProvider",
+  CODELENS = "codeLensProvider",
+  REFERENCES = "referencesProvider",
+  CODEACTION = "codeActionProvider",
+  DEFINITION = "definitionProvider",
+  DECLARATION = "declarationProvider",
+  IMPLEMENTATION = "implementationProvider",
+  HIGHLIGHT = "documentHighlightProvider",
+  SIGNATUREHELP = "signatureHelpProvider",
+  FORMATTING = "documentFormattingProvider",
+  RANGEFORMATTING = "documentRangeFormattingProvider",
+}
+
 ---@param func fun(client, buffer)
 function M.on_attach(func)
   M.augroup("LspSetupCommands", {
@@ -115,7 +132,9 @@ function M.on_attach(func)
     command = function(args)
       local buffer = args.buf
       local client = vim.lsp.get_client_by_id(args.data.client_id)
-      func(client, buffer)
+      if client then
+        func(client, buffer)
+      end
     end,
     desc = "Setup the language server autocommands",
   })
@@ -185,8 +204,8 @@ function M.resolve_config(name, ...)
 end
 
 ---@param scope "workspace" | "document"
+-- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#symbolKind
 function M.lsp_symbols(scope)
-  -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#symbolKind
   local symbols = {
     "File",
     "Module",

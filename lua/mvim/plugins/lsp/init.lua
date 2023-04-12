@@ -3,7 +3,14 @@ local M = {
     "williamboman/mason-lspconfig.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "neovim/nvim-lspconfig",
+      {
+        "neovim/nvim-lspconfig",
+        keys = {
+          { "<leader>ll", "<CMD>LspLog<CR>", desc = "Lsp Log" },
+          { "<leader>li", "<CMD>LspInfo<CR>", desc = "Lsp Info" },
+          { "<leader>lr", "<CMD>LspRestart<CR>", desc = "Lsp Restart" },
+        },
+      },
       "b0o/SchemaStore.nvim",
       {
         "folke/neodev.nvim",
@@ -102,9 +109,9 @@ local M = {
         lua_ls = {
           settings = {
             Lua = {
-              workspace = {
-                checkThirdParty = false,
-              },
+              format = { enable = false },
+              telemetry = { enable = false },
+              workspace = { checkThirdParty = false },
             },
           },
         },

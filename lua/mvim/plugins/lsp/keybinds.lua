@@ -1,60 +1,98 @@
 local M = {}
 
----@type PluginLspKeys
+local providers = require("mvim.utils").lsp_providers
+
 M._keys = nil
 
----@return (LazyKeys|{has?:string})[]
 function M.get()
-  local format = require("mvim.plugins.lsp.format").format
-
-  ---@class PluginLspKeys
   M._keys = M._keys
     or {
-      { "gd", "<cmd>Telescope lsp_definitions<cr>", desc = "Goto Definition", has = "definition" },
-      { "gr", "<cmd>Telescope lsp_references<cr>", desc = "References" },
-      { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+      {
+        "gd",
+        "<CMD>Telescope lsp_definitions<CR>",
+        desc = "Goto Definition",
+        depends = providers.DEFINITION,
+      },
+      {
+        "gD",
+        vim.lsp.buf.declaration,
+        desc = "Goto Declaration",
+        depends = providers.DECLARATION,
+      },
+      {
+        "gr",
+        "<CMD>Telescope lsp_references<CR>",
+        desc = "References",
+        depends = providers.REFERENCES,
+      },
       {
         "gi",
-        "<cmd>Telescope lsp_implementations<cr>",
+        "<CMD>Telescope lsp_implementations<CR>",
         desc = "Goto Implementation",
-        has = "references",
+        depends = providers.IMPLEMENTATION,
       },
-      { "gt", "<cmd>Telescope lsp_type_definitions<cr>", desc = "Goto Type Definition" },
-
-      { "K", vim.lsp.buf.hover, desc = "Hover", has = "hover" },
-      { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", has = "signatureHelp" },
+      {
+        "gt",
+        "<CMD>Telescope lsp_type_definitions<CR>",
+        desc = "Goto Type Definition",
+        depends = providers.DEFINITION,
+      },
+      {
+        "K",
+        vim.lsp.buf.hover,
+        desc = "Hover",
+        depends = providers.HOVER,
+      },
+      {
+        "gK",
+        vim.lsp.buf.signature_help,
+        desc = "Signature Help",
+        depends = providers.SIGNATUREHELP,
+      },
       {
         "<C-k>",
         vim.lsp.buf.signature_help,
         mode = "i",
         desc = "Signature Help",
-        has = "signatureHelp",
+        depends = providers.SIGNATUREHELP,
       },
-
-      { "[d", vim.diagnostic.goto_prev, desc = "Prev Diagnostic" },
-      { "]d", vim.diagnostic.goto_next, desc = "Next Diagnostic" },
-
-      { "<leader>cf", format, desc = "Format Document", has = "documentFormatting" },
-      { "<leader>cf", format, desc = "Format Range", mode = "v", has = "documentRangeFormatting" },
-      { "<leader>cr", vim.lsp.buf.rename, expr = true, desc = "Rename", has = "rename" },
+      {
+        "<leader>cf",
+        vim.lsp.buf.format,
+        desc = "Format Document",
+        depends = providers.FORMATTING,
+      },
+      {
+        "<leader>cf",
+        vim.lsp.buf.format,
+        desc = "Format Range",
+        mode = "v",
+        depends = providers.RANGEFORMATTING,
+      },
+      {
+        "<leader>cr",
+        vim.lsp.buf.rename,
+        expr = true,
+        desc = "Rename",
+        depends = providers.RENAME,
+      },
       {
         "<leader>ca",
         vim.lsp.buf.code_action,
         desc = "Code Action",
         mode = { "n", "v" },
-        has = "codeAction",
+        depends = providers.CODEACTION,
       },
 
-      { "<leader>ll", "<cmd>LspLog<cr>", desc = "Lsp Log" },
-      { "<leader>li", "<cmd>LspInfo<cr>", desc = "Lsp Info" },
-      { "<leader>lr", "<cmd>LspRestart<cr>", desc = "Lsp Restart" },
+      { "[d", vim.diagnostic.goto_prev, desc = "Prev Diagnostic" },
+      { "]d", vim.diagnostic.goto_next, desc = "Next Diagnostic" },
     }
   return M._keys
 end
 
 function M.on_attach(client, buffer)
   local Keys = require("lazy.core.handler.keys")
-  local keymaps = {} ---@type table<string,LazyKeys|{has?:string}>
+  local keymaps = {}
 
   for _, value in ipairs(M.get()) do
     local keys = Keys.parse(value)
@@ -66,9 +104,9 @@ function M.on_attach(client, buffer)
   end
 
   for _, keys in pairs(keymaps) do
-    if not keys.has or client.server_capabilities[keys.has .. "Provider"] then
+    if not keys.depends or client.server_capabilities[keys.depends] then
       local opts = Keys.opts(keys)
-      opts.has = nil
+      opts.depends = nil
       opts.silent = opts.silent ~= false
       opts.buffer = buffer
       vim.keymap.set(keys.mode or "n", keys[1], keys[2], opts)
