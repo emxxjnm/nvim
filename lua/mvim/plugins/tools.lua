@@ -17,9 +17,9 @@ local M = {
   {
     "kylechui/nvim-surround",
     keys = {
-      { "ys", desc = "add surround" },
-      { "ds", desc = "delete surround" },
-      { "cs", desc = "replace surround" },
+      { "ys", desc = "Add surround" },
+      { "ds", desc = "Delete surround" },
+      { "cs", desc = "Replace surround" },
     },
     opts = {
       move_cursor = false,
@@ -30,8 +30,8 @@ local M = {
   {
     "numToStr/Comment.nvim",
     keys = {
-      { "gc", mode = { "n", "v" }, desc = "linewise comment" },
-      { "gb", mode = { "n", "v" }, desc = "blockwise comment" },
+      { "gc", mode = { "n", "v" }, desc = "Linewise comment" },
+      { "gb", mode = { "n", "v" }, desc = "Blockwise comment" },
     },
     opts = function()
       local ok, tcs = pcall(require, "ts_context_commentstring.integrations.comment_nvim")
@@ -51,14 +51,14 @@ local M = {
         function()
           require("leap").leap({})
         end,
-        desc = "leap forward",
+        desc = "Leap forward",
       },
       {
         "S",
         function()
           require("leap").leap({ backward = true })
         end,
-        desc = "leap backward",
+        desc = "Leap backward",
       },
     },
     dependencies = {
@@ -177,7 +177,7 @@ local M = {
       icons = {
         breadcrumb = icons.navigation.breadcrumb,
         separator = icons.navigation.arrows .. " ",
-        group = icons.misc.plus,
+        group = "",
       },
       window = {
         border = mo.styles.border,
@@ -192,17 +192,17 @@ local M = {
       local wk = require("which-key")
       wk.setup(opts)
       wk.register({
-        ["]"] = { name = "+next" },
-        ["["] = { name = "+prev" },
+        ["]"] = { name = "Next" },
+        ["["] = { name = "Prev" },
         ["<leader>"] = {
-          b = { name = "+ " .. icons.misc.buffer .. " buffer" },
-          c = { name = "+ " .. icons.misc.code .. " code" },
-          d = { name = "+ " .. icons.dap.bug .. " debug" },
-          f = { name = "+ " .. icons.misc.search .. " find" },
-          g = { name = "+ " .. icons.git.git .. " git" },
-          l = { name = "+ " .. icons.lsp.lsp .. " lsp" },
-          m = { name = "+ " .. icons.misc.markdown .. " markdown" },
-          t = { name = "+ " .. icons.misc.terminal .. " terminal" },
+          b = { name = icons.misc.buffer .. " Buffer" },
+          c = { name = icons.misc.code .. " Code" },
+          d = { name = icons.dap.bug .. " Debugger" },
+          f = { name = icons.misc.search .. " Find" },
+          g = { name = icons.git.git .. " Git" },
+          l = { name = icons.lsp.lsp .. " LSP" },
+          m = { name = icons.misc.markdown .. " Markdown" },
+          t = { name = icons.misc.terminal .. " Terminal" },
         },
       })
     end,
@@ -310,9 +310,9 @@ local M = {
     "andymass/vim-matchup",
     event = "BufReadPost",
     keys = {
-      { "[%", desc = "matchup: Move to prev" },
-      { "]%", desc = "matchup: Move to next" },
-      { "<leader>;", "<plug>(matchup-%)" },
+      { "[%", desc = "Prev match item" },
+      { "]%", desc = "Next match item" },
+      { "<leader>;", "<plug>(matchup-%)", desc = "Find a match" },
     },
     config = function()
       vim.g.matchup_matchparen_offscreen = {

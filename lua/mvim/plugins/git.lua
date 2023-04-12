@@ -22,12 +22,12 @@ local M = {
       end
 
       -- Navigation
-      keymap("n", "[g", gs.prev_hunk, "Git: Prev hunk")
-      keymap("n", "]g", gs.next_hunk, "Git: Next hunk")
+      keymap("n", "[g", gs.prev_hunk, "Prev git hunk")
+      keymap("n", "]g", gs.next_hunk, "Next git hunk")
       -- Actions
-      keymap("n", "<leader>gp", gs.preview_hunk, "Git: Preview hunk")
+      keymap("n", "<leader>gp", gs.preview_hunk, "Preview hunk")
       -- Text object
-      keymap({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>", "Git: Select hunk")
+      keymap({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>", "Select git hunk")
     end,
   },
 }

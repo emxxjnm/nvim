@@ -15,6 +15,7 @@ local M = {
       leap = true,
       mason = true,
       neotree = true,
+      neotest = true,
       which_key = true,
       nvimtree = false,
       dashboard = false,
@@ -77,8 +78,8 @@ local M = {
         -- overrider
         CmpItemMenu = { fg = colors.subtext1 },
         FloatBorder = { fg = colors.overlay1 },
-        TelescopeBorder = { fg = colors.overlay1 },
-        WhichKeyBorder = { fg = colors.overlay1 },
+        -- TelescopeBorder = { fg = colors.overlay1 },
+        -- WhichKeyBorder = { fg = colors.overlay1 },
         NeoTreeFloatBorder = { fg = colors.overlay1 },
         LspInfoBorder = { fg = colors.overlay1 },
 

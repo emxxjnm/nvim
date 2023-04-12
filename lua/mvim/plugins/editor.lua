@@ -279,7 +279,7 @@ local M = {
             function()
               require("todo-comments").jump_prev()
             end,
-            desc = "Previous todo comment",
+            desc = "Prev todo comment",
           },
           {
             "]t",

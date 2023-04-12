@@ -113,7 +113,7 @@ local M = {
             end
           end,
           mode = { "s", "i" },
-          desc = "Select within a list of options",
+          desc = "Select option",
         },
       },
       opts = function()
