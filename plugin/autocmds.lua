@@ -28,7 +28,7 @@ U.augroup("PlaceLastLoc", {
   event = "BufReadPost",
   command = function()
     local excluded = { "gitcommit", "dap-repl" }
-    if vim.tbl_contains(excluded, vim.bo.filetype) and vim.fn.win_gettype() ~= "popup" then
+    if not vim.tbl_contains(excluded, vim.bo.filetype) and vim.fn.win_gettype() ~= "popup" then
       local mark = vim.api.nvim_buf_get_mark(0, '"')
       local line_nr = mark[1]
       local line_count = vim.api.nvim_buf_line_count(0)
