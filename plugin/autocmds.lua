@@ -27,7 +27,8 @@ end
 U.augroup("PlaceLastLoc", {
   event = "BufReadPost",
   command = function()
-    if vim.bo.ft ~= "gitcommit" and vim.fn.win_gettype() ~= "popup" then
+    local excluded = { "gitcommit", "dap-repl" }
+    if vim.tbl_contains(excluded, vim.bo.filetype) and vim.fn.win_gettype() ~= "popup" then
       local mark = vim.api.nvim_buf_get_mark(0, '"')
       local line_nr = mark[1]
       local line_count = vim.api.nvim_buf_line_count(0)
@@ -42,7 +43,17 @@ U.augroup("PlaceLastLoc", {
 
 U.augroup("SmartClose", {
   event = "FileType",
-  pattern = { "qf", "help", "man", "lspinfo", "startuptime", "spectre_panel" },
+  pattern = {
+    "qf",
+    "help",
+    "man",
+    "lspinfo",
+    "startuptime",
+    "spectre_panel",
+    "neotest-output",
+    "neotest-attach",
+    "neotest-summary",
+  },
   command = function(event)
     vim.bo[event.buf].buflisted = false
     vim.keymap.set("n", "q", "<Cmd>close<CR>", { noremap = true, silent = true })

@@ -143,6 +143,18 @@ local M = {
         source_filetype = "python",
       },
     }
+
+    dap.adapters.go = {
+      type = "server",
+      port = "${port}",
+      executable = {
+        command = "dlv",
+        args = { "dap", "-l", "127.0.0.1:" .. "${port}" },
+      },
+      options = {
+        initialize_timeout_sec = 10,
+      },
+    }
   end,
 }
 

@@ -152,3 +152,17 @@ docker run --rm \
 | &lt;leader&gt;bP | Pick close         | **n**          |
 | &lt;leader&gt;bL | Close to the left  | **n**          |
 | &lt;leader&gt;bR | Close to the right | **n**          |
+
+### Neotest
+
+| Key              | Description         | Mode           |
+| --------------   | --------------      | -------------- |
+| &lt;leader&gt;nn | Run                 | **n**          |
+| &lt;leader&gt;na | Attach              | **n**          |
+| &lt;leader&gt;nf | Run file            | **n**          |
+| &lt;leader&gt;nx | Stop                | **n**          |
+| &lt;leader&gt;no | Toggle output       | **n**          |
+| &lt;leader&gt;ns | Toggle summaryu     | **n**          |
+| &lt;leader&gt;np | Toggle output panel | **n**          |
+| [n               | Prev failed test    | **n**          |
+| ]n               | Next failed test    | **n**          |
