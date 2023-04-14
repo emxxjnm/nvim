@@ -80,7 +80,6 @@ local M = {
       char = icons.indent.solid,
       char_list = { icons.indent.dash },
       show_current_context = true,
-      show_first_indent_level = false,
       filetype_exclude = { "help", "alpha", "neo-tree", "lazy" },
     },
   },
