@@ -120,13 +120,19 @@ local M = {
     local dap, dapui = require("dap"), require("dapui")
     dap.listeners.after.event_initialized["dapui_config"] = function()
       local breakpoints = require("dap.breakpoints").get()
-      local args = vim.tbl_isempty(breakpoints) and nil or { layout = 2 }
+      local args = vim.tbl_isempty(breakpoints) and {} or { layout = 2 }
       dapui.open(args)
     end
     dap.listeners.before.event_stopped["dapui_config"] = function(_, body)
       if body.reason == "breakpoint" then
-        dapui.open()
+        dapui.open({})
       end
+    end
+    dap.listeners.before.event_terminated["dapui_config"] = function()
+      dapui.close({})
+    end
+    dap.listeners.before.event_exited["dapui_config"] = function()
+      dapui.close({})
     end
 
     -- load launch.json file
