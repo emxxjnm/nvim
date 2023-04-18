@@ -28,15 +28,15 @@ local M = {
       end
     end,
     opts = {
-      sources = { "filesystem", "buffers", "git_status" },
       source_selector = {
         winbar = true,
         separator = "",
         content_layout = "center",
-        tab_labels = {
-          filesystem = icons.documents.root_folder .. " Files",
-          buffers = icons.misc.buffer .. " Buffers",
-          git_status = icons.git.git .. " Git",
+        truncation_character = icons.misc.ellipsis,
+        sources = {
+          { source = "filesystem", display_name = icons.documents.root_folder .. " Files" },
+          { source = "buffers", display_name = icons.misc.buffer .. " Buffers" },
+          { source = "git_status", display_name = icons.git.git .. " Git" },
         },
       },
       close_if_last_window = true,
@@ -66,7 +66,11 @@ local M = {
           default = icons.documents.file,
         },
         modified = { symbol = icons.documents.modified },
-        name = { trailing_slash = false, use_git_status_colors = true },
+        name = {
+          trailing_slash = false,
+          highlight_opened_files = true,
+          use_git_status_colors = true,
+        },
         git_status = {
           symbols = {
             added = icons.git.added,
