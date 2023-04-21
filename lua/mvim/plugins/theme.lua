@@ -44,46 +44,12 @@ local M = {
         },
         LazySpecial = { fg = colors.sapphire },
 
-        -- gitsigns
-        GitSignsAddLn = mo.styles.transparent and { bg = colors.none } or { link = "DiffAdd" },
-        GitSignsChangeLn = mo.styles.transparent and { bg = colors.none } or {
-          link = "DiffChange",
-        },
-        GitSignsAddInline = mo.styles.transparent and {
-          fg = colors.green,
-          bg = colors.none,
-          style = { "bold" },
-        } or { link = "DiffAdd" },
-        GitSignsDeleteInline = mo.styles.transparent and {
-          fg = colors.red,
-          bg = colors.none,
-          style = { "bold" },
-        } or { link = "DiffDelete" },
-        GitSignsChangeInline = mo.styles.transparent and {
-          fg = colors.yellow,
-          bg = colors.none,
-          style = { "bold" },
-        } or { link = "DiffChange" },
-
-        GitSignsDeleteVirtLn = mo.styles.transparent and { fg = colors.red, bg = colors.none } or {
-          link = "DiffDelete",
-        },
-        GitSignsDeleteVirtLnInLine = mo.styles.transparent and {
-          fg = colors.red,
-          bg = colors.none,
-        } or {
-          link = "TermCursor",
-        },
-
-        -- overrider
         CmpItemMenu = { fg = colors.subtext1 },
         FloatBorder = { fg = colors.overlay1 },
-        -- TelescopeBorder = { fg = colors.overlay1 },
-        -- WhichKeyBorder = { fg = colors.overlay1 },
         NeoTreeFloatBorder = { fg = colors.overlay1 },
         LspInfoBorder = { fg = colors.overlay1 },
 
-        IndentBlanklineContextChar = { fg = colors.overlay0 },
+        MiniIndentscopeSymbol = { fg = colors.overlay0 },
       }
     end,
   },

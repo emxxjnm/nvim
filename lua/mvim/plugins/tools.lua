@@ -79,9 +79,33 @@ local M = {
     opts = {
       char = icons.indent.solid,
       char_list = { icons.indent.dash },
-      show_current_context = true,
-      filetype_exclude = { "help", "alpha", "neo-tree", "lazy" },
+      show_current_context = false,
+      show_trailing_blankline_indent = false,
+      filetype_exclude = { "help", "alpha", "neo-tree", "lazy", "mason" },
     },
+  },
+
+  {
+    "echasnovski/mini.indentscope",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      symbol = icons.indent.solid,
+      options = {
+        try_as_border = true,
+        indent_at_cursor = false,
+      },
+    },
+    init = function()
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = { "help", "alpha", "neo-tree", "lazy", "mason" },
+        callback = function()
+          vim.b.miniindentscope_disable = true
+        end,
+      })
+    end,
+    config = function(_, opts)
+      require("mini.indentscope").setup(opts)
+    end,
   },
 
   {
