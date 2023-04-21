@@ -149,7 +149,7 @@ docker run --rm \
 | [b               | Prev buffer        | **n**          |
 | ]b               | Next buffer        | **n**          |
 | &lt;leader&gt;bp | Buffer pick        | **n**          |
-| &lt;leader&gt;bP | Pick close         | **n**          |
+| &lt;leader&gt;bc | Pick close         | **n**          |
 | &lt;leader&gt;bL | Close to the left  | **n**          |
 | &lt;leader&gt;bR | Close to the right | **n**          |
 
