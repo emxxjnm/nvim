@@ -1,5 +1,5 @@
 mo.styles = {
-  transparent = true,
+  transparent = false,
   icons = {
     git = {
       git = "",

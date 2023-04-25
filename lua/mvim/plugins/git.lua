@@ -3,12 +3,12 @@ local M = {
   event = { "BufReadPre", "BufNewFile" },
   opts = {
     signs = {
-      add = { text = "│" }, -- alternatives: █
-      change = { text = "│" }, -- alternatives: ░ ⣿
-      delete = { text = "_" },
-      topdelete = { text = "‾" },
-      changedelete = { text = "~" },
-      untracked = { text = "┆" },
+      add = { text = "┃" },
+      change = { text = "┃" },
+      delete = { text = "" },
+      topdelete = { text = "" },
+      changedelete = { text = "┃" },
+      untracked = { text = "┃" },
     },
     current_line_blame = true,
     current_line_blame_opts = { virt_text_priority = 100 },

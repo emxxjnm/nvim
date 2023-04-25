@@ -1,5 +1,4 @@
 require("mvim.styles")
-local icons = mo.styles.icons
 
 local M = {}
 
@@ -30,25 +29,25 @@ function M.bootstrap()
     ui = {
       border = mo.styles.border,
       icons = {
-        loaded = icons.plugin.installed,
-        not_loaded = icons.plugin.uninstalled,
-        cmd = icons.misc.terminal,
-        config = icons.misc.setting,
-        event = icons.lsp.kinds.event,
-        ft = icons.documents.file,
-        init = icons.dap.controls.play,
-        keys = icons.misc.key,
-        plugin = icons.plugin.plugin,
-        runtime = icons.misc.vim,
-        source = icons.lsp.kinds.snippet,
-        start = icons.dap.play,
-        task = icons.misc.task,
-        lazy = icons.misc.lazy,
+        loaded = I.plugin.installed,
+        not_loaded = I.plugin.uninstalled,
+        cmd = I.misc.terminal,
+        config = I.misc.setting,
+        event = I.lsp.kinds.event,
+        ft = I.documents.file,
+        init = I.dap.controls.play,
+        keys = I.misc.key,
+        plugin = I.plugin.plugin,
+        runtime = I.misc.vim,
+        source = I.lsp.kinds.snippet,
+        start = I.dap.play,
+        task = I.misc.task,
+        lazy = I.misc.lazy,
         list = {
-          icons.misc.creation,
-          icons.misc.fish,
-          icons.misc.star,
-          icons.misc.pulse,
+          I.misc.creation,
+          I.misc.fish,
+          I.misc.star,
+          I.misc.pulse,
         },
       },
     },
@@ -94,6 +93,8 @@ function M.load(name)
 end
 
 function M.setup()
+  _G.I = mo.styles.icons
+
   -- bootstrap lazy.nvim
   M.bootstrap()
 

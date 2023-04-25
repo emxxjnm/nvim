@@ -92,6 +92,7 @@ return {
               end
               require("neotest").output.open({ position_id = pos_id, adapter = adapter_id })
             end
+            return client
           end,
         },
         adapters = {

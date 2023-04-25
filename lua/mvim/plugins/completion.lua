@@ -38,8 +38,7 @@ local M = {
       formatting = {
         fields = { "kind", "abbr", "menu" },
         format = function(entry, item)
-          item.kind =
-            string.format("%s %s", mo.styles.icons.lsp.kinds[item.kind:lower()], item.kind)
+          item.kind = string.format("%s %s", I.lsp.kinds[item.kind:lower()], item.kind)
           item.menu = ({
             luasnip = "[Snip]",
             nvim_lsp = "[LSP]",
@@ -127,7 +126,7 @@ local M = {
             [types.choiceNode] = {
               active = {
                 virt_text = {
-                  { mo.styles.icons.misc.snow .. " ", "Type" },
+                  { I.misc.snow .. " ", "Type" },
                 },
               },
             },

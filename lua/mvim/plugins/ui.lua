@@ -1,93 +1,4 @@
-local icons = mo.styles.icons
-
 local M = {
-  -- dashboard
-  {
-    "goolord/alpha-nvim",
-    event = "VimEnter",
-    opts = function()
-      local dashboard = require("alpha.themes.dashboard")
-
-      local function button(hl, ...)
-        local btn = dashboard.button(...)
-        local details = select(2, ...)
-        local icon = details:match("[^%w%s]+")
-        btn.opts.hl = { { hl, 0, #icon + 1 } }
-        btn.opts.hl_shortcut = "Title"
-        return btn
-      end
-
-      dashboard.section.header.val = mo.styles.banner
-      dashboard.section.buttons.val = {
-        button("Character", "n", icons.documents.new_file .. "  New file", "<Cmd>ene<Bar>star<CR>"),
-        button(
-          "Label",
-          "g",
-          icons.lsp.kinds.text .. "  Find text",
-          "<Cmd>Telescope live_grep_args<CR>"
-        ),
-        button("Special", "f", icons.misc.search .. "  Find file", "<Cmd>Telescope find_files<CR>"),
-        button("Macro", "r", icons.misc.history .. "  Recent files", "<Cmd>Telescope oldfiles<CR>"),
-        button("Winbar", "p", icons.misc.repo .. "  Recent project", "<Cmd>Telescope projects<CR>"),
-        button("Error", "q", icons.misc.exit .. "  Quit NVIM", "<Cmd>quitall<CR>"),
-      }
-
-      dashboard.section.header.opts.hl = "Function"
-      dashboard.section.footer.opts.hl = "Conceal"
-
-      dashboard.config.layout = {
-        { type = "padding", val = 5 },
-        dashboard.section.header,
-        { type = "padding", val = 1 },
-        dashboard.section.buttons,
-        { type = "padding", val = 1 },
-        dashboard.section.footer,
-      }
-
-      return dashboard
-    end,
-    config = function(_, dashboard)
-      -- close Lazy and re-open when the dashboard is ready
-      if vim.o.filetype == "lazy" then
-        vim.cmd.close()
-        vim.api.nvim_create_autocmd("User", {
-          pattern = "AlphaReady",
-          callback = function()
-            require("lazy").show()
-          end,
-        })
-      end
-
-      require("alpha").setup(dashboard.config)
-
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "LazyVimStarted",
-        callback = function()
-          local stats = require("lazy").stats()
-          local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-          local v = vim.version() or {}
-          local version = string.format(
-            "%s Neovim v%d.%d.%d%s",
-            icons.misc.vim,
-            v.major,
-            v.minor,
-            v.patch,
-            v.prerelease and "(nightly)" or ""
-          )
-
-          dashboard.section.footer.val = string.format(
-            "--- %s loaded %d %s plugins in %d ms ---",
-            version,
-            stats.count,
-            icons.plugin.plugin,
-            ms
-          )
-          pcall(vim.cmd.AlphaRedraw)
-        end,
-      })
-    end,
-  },
-
   {
     "akinsho/bufferline.nvim",
     event = "BufReadPre",
@@ -107,19 +18,19 @@ local M = {
 
       return {
         options = {
-          indicator = { icon = icons.navigation.indicator, style = "icon" },
-          buffer_close_icon = icons.documents.close,
-          modified_icon = icons.documents.modified,
-          close_icon = icons.documents.close,
-          left_trunc_marker = icons.navigation.triangle_left,
-          right_trunc_marker = icons.navigation.triangle_right,
+          indicator = { icon = I.navigation.indicator, style = "icon" },
+          buffer_close_icon = I.documents.close,
+          modified_icon = I.documents.modified,
+          close_icon = I.documents.close,
+          left_trunc_marker = I.navigation.triangle_left,
+          right_trunc_marker = I.navigation.triangle_right,
           diagnostics = "nvim_lsp",
           diagnostics_indicator = function(_, _, diagnostics)
             local result = {}
             for name, count in pairs(diagnostics) do
               name = name:match("warn") and "warn" or name
-              if icons.diagnostics[name] and count > 0 then
-                table.insert(result, icons.diagnostics[name] .. " " .. count)
+              if I.diagnostics[name] and count > 0 then
+                table.insert(result, I.diagnostics[name] .. " " .. count)
               end
             end
             return #result > 0 and table.concat(result, " ") or ""
@@ -198,17 +109,17 @@ local M = {
             return string.sub(str, 1, 1)
           end,
           separator = {
-            right = icons.navigation.right_half_circle_thick,
-            left = icons.navigation.left_half_circle_thick,
+            right = I.navigation.right_half_circle_thick,
+            left = I.navigation.left_half_circle_thick,
           },
         },
 
         branch = {
           "branch",
-          icon = { icons.git.branch, color = { fg = colors.pink, gui = "bold" } },
+          icon = { I.git.branch, color = { fg = colors.pink, gui = "bold" } },
           color = { gui = "bold" },
           separator = {
-            right = icons.navigation.right_half_circle_thick,
+            right = I.navigation.right_half_circle_thick,
           },
         },
 
@@ -226,7 +137,7 @@ local M = {
 
         filesize = {
           "filesize",
-          icon = icons.misc.creation,
+          icon = I.misc.creation,
           color = { fg = colors.lavender },
           padding = { left = 0, right = 1 },
           condition = conditions.buffer_not_empty,
@@ -237,16 +148,16 @@ local M = {
           sources = { "nvim_diagnostic" },
           sections = { "error", "warn", "info", "hint" },
           symbols = {
-            error = icons.diagnostics.error .. " ",
-            warn = icons.diagnostics.warn .. " ",
-            info = icons.diagnostics.info .. " ",
-            hint = icons.diagnostics.hint .. " ",
+            error = I.diagnostics.error .. " ",
+            warn = I.diagnostics.warn .. " ",
+            info = I.diagnostics.info .. " ",
+            hint = I.diagnostics.hint .. " ",
           },
         },
 
         treesitter = {
           function()
-            return icons.misc.treesitter
+            return I.misc.treesitter
           end,
           color = function()
             local buf = api.nvim_get_current_buf()
@@ -302,7 +213,7 @@ local M = {
             local clients = fn.uniq(buf_client_names)
             return "LSP(s):[" .. table.concat(clients, " · ") .. "]"
           end,
-          icon = icons.lsp.lsp,
+          icon = I.lsp.lsp,
           color = { fg = colors.mauve },
           cond = conditions.hide_in_width,
         },
@@ -321,9 +232,9 @@ local M = {
             end
           end,
           symbols = {
-            added = icons.git.added .. " ",
-            modified = icons.git.modified .. " ",
-            removed = icons.git.deleted .. " ",
+            added = I.git.added .. " ",
+            modified = I.git.modified .. " ",
+            removed = I.git.deleted .. " ",
           },
           cond = conditions.hide_in_width,
         },
@@ -335,8 +246,8 @@ local M = {
             local col = fn.virtcol(".")
             return string.format("%3d/%d:%-2d", line, lines, col)
           end,
-          icon = { icons.misc.milestone, color = { fg = colors.pink, gui = "bold" } },
-          separator = { left = icons.navigation.left_half_circle_thick },
+          icon = { I.misc.milestone, color = { fg = colors.pink, gui = "bold" } },
+          separator = { left = I.navigation.left_half_circle_thick },
           color = { gui = "bold" },
         },
 
@@ -344,7 +255,7 @@ local M = {
           function()
             local current_line = fn.line(".")
             local total_lines = fn.line("$")
-            local chars = icons.misc.progress
+            local chars = I.misc.progress
             local line_ratio = current_line / total_lines
             local index = math.ceil(line_ratio * #chars)
             return chars[index]
@@ -372,10 +283,10 @@ local M = {
           function()
             return os.date("%R")
           end,
-          icon = icons.misc.clock,
+          icon = I.misc.clock,
           separator = {
-            right = icons.navigation.right_half_circle_thick,
-            left = icons.navigation.left_half_circle_thick,
+            right = I.navigation.right_half_circle_thick,
+            left = I.navigation.left_half_circle_thick,
           },
         },
       }

@@ -1,5 +1,3 @@
-local icons = mo.styles.icons
-
 -- stop: shift + F5; restart: command + shift + F5
 local M = {
   "mfussenegger/nvim-dap",
@@ -14,7 +12,7 @@ local M = {
     {
       "<F5>",
       function()
-        require("dap").continue({})
+        require("dap").continue()
       end,
       desc = "Continue",
     },
@@ -75,9 +73,9 @@ local M = {
       },
       opts = {
         icons = {
-          expanded = icons.documents.expanded,
-          collapsed = icons.documents.collapsed,
-          current_frame = icons.documents.collapsed,
+          expanded = I.documents.expanded,
+          collapsed = I.documents.collapsed,
+          current_frame = I.documents.collapsed,
         },
         layouts = {
           {
@@ -97,7 +95,7 @@ local M = {
           },
         },
         controls = {
-          icons = icons.dap.controls,
+          icons = I.dap.controls,
         },
         floating = {
           border = mo.styles.border,
@@ -110,7 +108,7 @@ local M = {
     },
   },
   init = function()
-    for name, icon in pairs(icons.dap.signs) do
+    for name, icon in pairs(I.dap.signs) do
       name = "Dap" .. name:gsub("^%l", string.upper)
       vim.fn.sign_define(name, { text = icon, texthl = name })
     end
@@ -120,19 +118,13 @@ local M = {
     local dap, dapui = require("dap"), require("dapui")
     dap.listeners.after.event_initialized["dapui_config"] = function()
       local breakpoints = require("dap.breakpoints").get()
-      local args = vim.tbl_isempty(breakpoints) and {} or { layout = 2 }
+      local args = vim.tbl_isempty(breakpoints) and nil or { layout = 2 }
       dapui.open(args)
     end
     dap.listeners.before.event_stopped["dapui_config"] = function(_, body)
       if body.reason == "breakpoint" then
         dapui.open({})
       end
-    end
-    dap.listeners.before.event_terminated["dapui_config"] = function()
-      dapui.close({})
-    end
-    dap.listeners.before.event_exited["dapui_config"] = function()
-      dapui.close({})
     end
 
     -- load launch.json file
