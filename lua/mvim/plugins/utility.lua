@@ -13,8 +13,31 @@ local M = {
 
   {
     "kevinhwang91/nvim-ufo",
-    dependencies = "kevinhwang91/promise-async",
     event = "BufReadPost",
+    dependencies = { "kevinhwang91/promise-async" },
+    keys = {
+      {
+        "zR",
+        function()
+          require("ufo").openAllFolds()
+        end,
+        desc = "Open all folds",
+      },
+      {
+        "zM",
+        function()
+          require("ufo").closeAllFolds()
+        end,
+        desc = "Close all folds",
+      },
+      {
+        "zP",
+        function()
+          require("ufo").peekFoldedLinesUnderCursor()
+        end,
+        desc = "Preview fold",
+      },
+    },
     opts = {
       open_fold_hl_timeout = 0,
       enable_get_fold_virt_text = true,
@@ -26,9 +49,8 @@ local M = {
         },
       },
       fold_virt_text_handler = function(virt_text, lnum, end_lnum, width, truncate, ctx)
-        local result = {}
-        local suffix = (" %s [%d]"):format(I.misc.ellipsis, end_lnum - lnum)
-        local cur_width = 0
+        local result, cur_width, padding = {}, 0, ""
+        local suffix = (" ---[%d]--- "):format(end_lnum - lnum)
         local suffix_width = vim.api.nvim_strwidth(ctx.text)
         local target_width = width - suffix_width
 
@@ -43,28 +65,28 @@ local M = {
             table.insert(result, { chunk_text, hl_group })
             chunk_width = vim.api.nvim_strwidth(chunk_text)
             if cur_width + chunk_width < target_width then
-              suffix = suffix .. (" "):rep(target_width - cur_width - chunk_width)
+              padding = padding .. (" "):rep(target_width - cur_width - chunk_width)
             end
             break
           end
           cur_width = cur_width + chunk_width
         end
 
-        table.insert(result, { suffix, "UfoFoldedEllipsis" })
+        local end_text = ctx.get_fold_virt_text(end_lnum)
+        -- reformat the end text to trim excess whitespace from
+        -- indentation usually the first item is indentation
+        if end_text[1] and end_text[1][1] then
+          end_text[1][1] = end_text[1][1]:gsub("[%s\t]+", "")
+        end
+
+        vim.list_extend(result, { { suffix, "UfoFoldedEllipsis" }, unpack(end_text) })
+        table.insert(result, { padding, "" })
         return result
       end,
       provider_selector = function()
         return { "treesitter", "indent" }
       end,
     },
-    init = function()
-      vim.keymap.set("n", "zR", function()
-        require("ufo").openAllFolds()
-      end, { desc = "Open all folds" })
-      vim.keymap.set("n", "zM", function()
-        require("ufo").closeAllFolds()
-      end, { desc = "Close all folds" })
-    end,
   },
 
   {
