@@ -340,6 +340,28 @@ local M = {
       })
     end,
   },
+
+  {
+    "luukvbaal/statuscol.nvim",
+    event = "BufReadPre",
+    config = function()
+      local builtin = require("statuscol.builtin")
+      local sign_name = { "Diagnostic", "Dap" }
+      local todo_opts = require("mvim.utils").opts("todo-comments.nvim")
+      local todo_keywords = vim.tbl_keys(todo_opts.keywords or {})
+      vim.list_extend(sign_name, todo_keywords)
+      require("statuscol").setup({
+        bt_ignore = { "terminal", "nofile" },
+        relculright = true,
+        segments = {
+          { sign = { name = sign_name, maxwidth = 1, auto = true } },
+          { text = { builtin.lnumfunc, " " } },
+          { sign = { name = { "GitSigns" }, maxwidth = 1, colwidth = 1, auto = true } },
+          { text = { builtin.foldfunc, " " } },
+        },
+      })
+    end,
+  },
 }
 
 return M
