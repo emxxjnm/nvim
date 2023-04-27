@@ -183,12 +183,9 @@ local M = {
         require("lspconfig")[server].setup(config)
       end
 
-      local mlsp_available, mlsp = pcall(require, "mason-lspconfig")
-      local all_mlsp_servers = {}
-      if mlsp_available then
-        all_mlsp_servers =
-          vim.tbl_keys(require("mason-lspconfig.mappings.server").package_to_lspconfig)
-      end
+      local mlsp = require("mason-lspconfig")
+      local all_mlsp_servers =
+        vim.tbl_keys(require("mason-lspconfig.mappings.server").package_to_lspconfig)
 
       local ensure_installed = {} ---@type string[]
       for server, server_opts in pairs(opts.servers) do
@@ -203,10 +200,8 @@ local M = {
         end
       end
 
-      if mlsp_available then
-        mlsp.setup({ ensure_installed = ensure_installed })
-        mlsp.setup_handlers({ setup_server })
-      end
+      mlsp.setup({ ensure_installed = ensure_installed })
+      mlsp.setup_handlers({ setup_server })
     end,
   },
 
