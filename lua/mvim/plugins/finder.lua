@@ -55,9 +55,6 @@ local M = {
             preview_height = 0.7,
           },
         },
-        path_display = {
-          truncate = 3,
-        },
         mappings = {
           i = {
             ["<C-j>"] = actions.move_selection_next,
