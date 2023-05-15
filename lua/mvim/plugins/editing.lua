@@ -20,7 +20,7 @@ local M = {
     dependencies = { "hrsh7th/nvim-cmp" },
     opts = {
       check_ts = true,
-      ignored_next_char = string.gsub([[ [%w%%%'%[%"%.] ]], "%s+", ""),
+      ignored_next_char = [=[[%w%%%'%[%"%.%`%$]]=],
       fast_wrap = { map = "<M-e>" },
     },
     config = function(_, opts)

@@ -190,7 +190,7 @@ local M = {
         lsp = {
           function()
             local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
-            if vim.tbl_isempty(buf_clients) then
+            if #buf_clients == 0 then
               return "LS Inactive"
             end
 

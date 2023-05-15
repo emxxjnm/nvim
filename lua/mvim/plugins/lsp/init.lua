@@ -98,7 +98,7 @@ local M = {
         },
         pylsp = {},
         stylelint_lsp = {
-          filetypes = { "html", "css", "less", "scss", "vue" },
+          filetypes = { "css", "less", "scss", "vue" },
           settings = {
             stylelintplus = {
               autoFixOnSave = true,
@@ -117,7 +117,6 @@ local M = {
         },
         unocss = {
           filetypes = {
-            "html",
             "javascriptreact",
             "typescriptreact",
             "vue",

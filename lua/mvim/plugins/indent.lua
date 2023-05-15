@@ -29,9 +29,6 @@ local M = {
         end,
       })
     end,
-    config = function(_, opts)
-      require("mini.indentscope").setup(opts)
-    end,
   },
 }
 
