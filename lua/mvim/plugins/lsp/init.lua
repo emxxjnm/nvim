@@ -50,7 +50,18 @@ local M = {
             require("mvim.utils").augroup("AutoFixOnSave", {
               event = "BufWritePre",
               pattern = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.vue" },
-              command = "EslintFixAll",
+              command = function(args)
+                local client = vim.lsp.get_active_clients({ bufnr = args.buf, name = "eslint" })[1]
+                if client then
+                  local diag = vim.diagnostic.get(
+                    args.buf,
+                    { namespace = vim.lsp.diagnostic.get_namespace(client.id) }
+                  )
+                  if #diag > 0 then
+                    vim.cmd("EslintFixAll")
+                  end
+                end
+              end,
               desc = "Automatically execute `eslint fix` on save",
             })
           end,
