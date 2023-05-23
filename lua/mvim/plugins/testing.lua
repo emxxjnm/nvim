@@ -66,6 +66,11 @@ return {
         desc = "Prev failed test",
       },
     },
+    dependencies = {
+      { "nvim-neotest/neotest-go" },
+      { "nvim-neotest/neotest-python" },
+      { "nvim-neotest/neotest-plenary" },
+    },
     config = function()
       require("neotest").setup({
         output = {
@@ -105,10 +110,5 @@ return {
         },
       })
     end,
-    dependencies = {
-      { "nvim-neotest/neotest-go" },
-      { "nvim-neotest/neotest-python" },
-      { "nvim-neotest/neotest-plenary" },
-    },
   },
 }

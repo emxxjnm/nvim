@@ -89,7 +89,8 @@ local M = {
   -- lualine
   {
     "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
+    -- event = "VeryLazy",
+    event = "BufReadPost",
     config = function()
       local fn, api = vim.fn, vim.api
       local colors = require("catppuccin.palettes").get_palette()
@@ -347,10 +348,8 @@ local M = {
     event = "BufReadPre",
     config = function()
       local builtin = require("statuscol.builtin")
-      local sign_name = { "Diagnostic", "Dap" }
-      local todo_opts = require("mvim.utils").opts("todo-comments.nvim")
-      local todo_keywords = vim.tbl_keys(todo_opts.keywords or {})
-      vim.list_extend(sign_name, todo_keywords)
+      local sign_name = { "Diagnostic*", "Dap*", "todo%-sign%-", "neotest_*" }
+
       require("statuscol").setup({
         bt_ignore = { "terminal", "nofile" },
         relculright = true,
