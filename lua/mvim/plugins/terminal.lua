@@ -59,8 +59,8 @@ local M = {
     require("mvim.utils").augroup("TerminalMappings", {
       event = { "TermOpen" },
       pattern = "term://*toggleterm#*",
-      command = function()
-        local opts = { buffer = 0, silent = true }
+      command = function(args)
+        local opts = { buffer = args.buf, silent = true }
         vim.keymap.set("t", "jj", [[<C-\><C-n>]], opts)
         vim.keymap.set("t", "<Esc>", [[<C-\><C-n>]], opts)
         vim.keymap.set("t", "<C-h>", [[<C-\><C-n><C-w>h]], opts)

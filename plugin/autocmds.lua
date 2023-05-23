@@ -1,28 +1,26 @@
 local U = require("mvim.utils")
 
-if not mo.styles.transparent then
-  U.augroup("AutoCursorLine", {
-    event = { "InsertLeave", "WinEnter" },
-    command = function()
-      local ok, cl = pcall(vim.api.nvim_win_get_var, 0, "auto-cursorline")
-      if ok and cl then
-        vim.wo.cursorline = true
-        vim.api.nvim_win_del_var(0, "auto-cursorline")
-      end
-    end,
-    desc = "Hide cursor line in inactive window",
-  }, {
-    event = { "InsertEnter", "WinLeave" },
-    command = function()
-      local cl = vim.wo.cursorline
-      if cl then
-        vim.api.nvim_win_set_var(0, "auto-cursorline", cl)
-        vim.wo.cursorline = false
-      end
-    end,
-    desc = "Show cursor line only in active window",
-  })
-end
+U.augroup("AutoCursorLine", {
+  event = { "InsertLeave", "WinEnter" },
+  command = function()
+    local ok, cl = pcall(vim.api.nvim_win_get_var, 0, "auto-cursorline")
+    if ok and cl then
+      vim.wo.cursorline = true
+      vim.api.nvim_win_del_var(0, "auto-cursorline")
+    end
+  end,
+  desc = "Hide cursor line in inactive window",
+}, {
+  event = { "InsertEnter", "WinLeave" },
+  command = function()
+    local cl = vim.wo.cursorline
+    if cl then
+      vim.api.nvim_win_set_var(0, "auto-cursorline", cl)
+      vim.wo.cursorline = false
+    end
+  end,
+  desc = "Show cursor line only in active window",
+})
 
 U.augroup("PlaceLastLoc", {
   event = "BufReadPost",
@@ -54,8 +52,8 @@ U.augroup("SmartClose", {
     "neotest-attach",
     "neotest-summary",
   },
-  command = function(event)
-    vim.bo[event.buf].buflisted = false
+  command = function(args)
+    vim.bo[args.buf].buflisted = false
     vim.keymap.set("n", "q", "<Cmd>close<CR>", { noremap = true, silent = true })
   end,
   desc = "Close certain filetypes by pressing <q>",

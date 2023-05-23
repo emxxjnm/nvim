@@ -14,6 +14,7 @@ o.number = true
 o.relativenumber = true
 
 o.cursorline = true
+o.cursorlineopt = "number"
 
 -- fold
 o.foldlevel = 99
