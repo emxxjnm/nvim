@@ -20,6 +20,11 @@ local M = {
               vim.api.nvim_buf_del_keymap(term.bufnr, "t", "<Esc>")
             end
           end,
+          on_close = function()
+            if require("mvim.utils").has("neo-tree.nvim") then
+              require("neo-tree.sources.git_status").refresh()
+            end
+          end,
         }):toggle()
       end,
       desc = "Lazygit",
