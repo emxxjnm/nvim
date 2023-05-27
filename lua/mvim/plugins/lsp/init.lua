@@ -90,6 +90,7 @@ local M = {
               usePlaceholders = true,
               completeUnimported = true,
               staticcheck = true,
+              semanticTokens = true,
               directoryFilters = { "-node_modules" },
             },
           },
@@ -210,8 +211,7 @@ local M = {
         end
       end
 
-      mlsp.setup({ ensure_installed = ensure_installed })
-      mlsp.setup_handlers({ setup_server })
+      mlsp.setup({ ensure_installed = ensure_installed, handlers = { setup_server } })
     end,
   },
 
