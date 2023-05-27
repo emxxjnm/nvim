@@ -1,3 +1,5 @@
+local U = require("mvim.utils")
+
 local M = {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = "Neotree",
@@ -125,8 +127,11 @@ local M = {
           ["D"] = "fuzzy_finder_directory",
           ["#"] = "fuzzy_sorter",
 
-          ["f"] = "filter_on_submit",
-          ["F"] = "clear_filter",
+          -- ["f"] = "filter_on_submit",
+          -- ["F"] = "clear_filter",
+
+          ["f"] = "telescope_find",
+          ["g"] = "telescope_grep",
 
           ["<BS>"] = "navigate_up",
           ["."] = "set_root",
@@ -150,6 +155,14 @@ local M = {
           "__pycache__",
           ".mypy_cache",
         },
+      },
+      commands = {
+        telescope_find = function(state)
+          U.find_or_grep("find", state)
+        end,
+        telescope_grep = function(state)
+          U.find_or_grep("grep", state)
+        end,
       },
       follow_current_file = true,
     },
