@@ -213,7 +213,7 @@ local M = {
             vim.list_extend(buf_client_names, linters, 1, #linters)
 
             local clients = fn.uniq(buf_client_names)
-            return "LSP(s):[" .. table.concat(clients, " · ") .. "]"
+            return string.format("LSP(s):[%s]", table.concat(clients, " • "))
           end,
           icon = I.lsp.lsp,
           color = { fg = colors.mauve },

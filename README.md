@@ -9,7 +9,6 @@
 
 ## ⚙️ Install
 
-
 ### 🪡 Prepare
 
 * [Wallpaper](https://wallhaven.cc/w/zyxvqy)
@@ -33,7 +32,7 @@ docker run --rm \
 
 ### 🔗 Dependencies
 
-* [ ] rgrep
+* [ ] ripgrep
 * [ ] fd
 * [ ] fzf
 * [ ] lazygit
