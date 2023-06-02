@@ -127,13 +127,6 @@ local M = {
             },
           },
         },
-        unocss = {
-          filetypes = {
-            "javascriptreact",
-            "typescriptreact",
-            "vue",
-          },
-        },
         vimls = {},
         volar = {
           -- take over Typescript
