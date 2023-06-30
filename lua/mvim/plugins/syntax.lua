@@ -3,10 +3,15 @@ local M = {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     event = { "BufReadPost", "BufNewFile" },
+    cmd = { "TSUpdateSync" },
     keys = {
       { "<Tab>", mode = { "v" }, desc = "Increment selection" },
       { "<BS>", mode = { "n", "v" }, desc = "Schrink selection" },
       { "<CR>", mode = { "n", "v" }, desc = "Increment selection" },
+    },
+    dependencies = {
+      { "nvim-treesitter/nvim-treesitter-textobjects" },
+      { "JoosepAlviste/nvim-ts-context-commentstring" },
     },
     opts = {
       ensure_installed = {
@@ -73,10 +78,6 @@ local M = {
     config = function(_, opts)
       require("nvim-treesitter.configs").setup(opts)
     end,
-    dependencies = {
-      { "nvim-treesitter/nvim-treesitter-textobjects" },
-      { "JoosepAlviste/nvim-ts-context-commentstring" },
-    },
   },
 
   -- surround

@@ -85,10 +85,22 @@ function M.load(name)
       end,
     })
   end
-  _load("mvim" .. name)
+
+  _load("mvim." .. name)
+
   if vim.bo.filetype == "lazy" then
     -- HACK: LazyVim may have overwritten options of the Lazy ui, so reset this here
     vim.cmd([[do VimResized]])
+  end
+end
+
+M.did_init = false
+function M.init()
+  if not M.did_init then
+    M.did_init = true
+
+    -- M.load("options")
+    require("mvim.config").load("options")
   end
 end
 
@@ -99,7 +111,7 @@ function M.setup()
   M.bootstrap()
 
   -- setup keymaps & autocmds
-  if vim.fn.argc() == 0 then
+  if vim.fn.argc(-1) == 0 then
     require("mvim.utils").augroup("MVim", {
       event = "User",
       pattern = "VeryLazy",

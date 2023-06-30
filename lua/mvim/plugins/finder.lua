@@ -5,16 +5,13 @@ local M = {
   cmd = "Telescope",
   keys = {
     { "<leader>ff", "<Cmd>Telescope find_files<CR>", desc = "Find files" },
-    { "<leader>fg", "<Cmd>Telescope live_grep_args<CR>", desc = "Find in files (Grep)" },
     { "<leader>fw", "<Cmd>Telescope grep_string<CR>", desc = "Find word" },
     { "<leader>fr", "<Cmd>Telescope oldfiles<CR>", desc = "Recent files" },
-    { "<leader>fp", "<Cmd>Telescope projects<CR>", desc = "Recent projects" },
     { "<leader>fc", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "Fuzzy search" },
     { "<leader>fb", "<Cmd>Telescope buffers<CR>", desc = "List buffers" },
     { "<leader>fd", "<Cmd>Telescope diagnostics<CR>", desc = "List diagnostics" },
     { "<leader>fs", U.lsp_symbols("document"), desc = "Goto symbol" },
     { "<leader>fS", U.lsp_symbols("workspace"), desc = "Goto symbol (Workspace)" },
-    { "<leader>ft", "<Cmd>Telescope todo-comments todo<CR>", desc = "List todo" },
     { "<leader>fR", "<Cmd>Telescope resume<CR>", desc = "Resume" },
   },
   opts = function()
@@ -98,17 +95,23 @@ local M = {
       },
     }
   end,
-  config = function(_, opts)
-    local telescope = require("telescope")
-    telescope.setup(opts)
-
-    telescope.load_extension("fzf")
-    telescope.load_extension("projects")
-    telescope.load_extension("live_grep_args")
-  end,
   dependencies = {
-    "nvim-telescope/telescope-live-grep-args.nvim",
-    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      build = "make",
+      config = function()
+        require("telescope").load_extension("fzf")
+      end,
+    },
+    {
+      "nvim-telescope/telescope-live-grep-args.nvim",
+      keys = {
+        { "<leader>fg", "<Cmd>Telescope live_grep_args<CR>", desc = "Find in files (Grep)" },
+      },
+      config = function()
+        require("telescope").load_extension("live_grep_args")
+      end,
+    },
     {
       "folke/todo-comments.nvim",
       dependencies = { "nvim-lua/plenary.nvim" },
@@ -127,6 +130,7 @@ local M = {
           end,
           desc = "Next todo comment",
         },
+        { "<leader>ft", "<Cmd>Telescope todo-comments todo<CR>", desc = "List todo" },
       },
       opts = function()
         local colors = require("catppuccin.palettes").get_palette()
@@ -165,15 +169,24 @@ local M = {
           },
         }
       end,
+      config = function(_, opts)
+        require("todo-comments").setup(opts)
+        require("telescope").load_extension("todo-comments")
+      end,
     },
     {
       "ahmedkhalf/project.nvim",
-      config = function()
-        require("project_nvim").setup({
-          manual_mode = false,
-          patterns = { ".git", "pyproject.toml", "go.mod", "Makefile" },
-          show_hidden = true,
-        })
+      keys = {
+        { "<leader>fp", "<Cmd>Telescope projects<CR>", desc = "Recent projects" },
+      },
+      opts = {
+        manual_mode = false,
+        patterns = { ".git", "pyproject.toml", "go.mod", "Makefile" },
+        show_hidden = true,
+      },
+      config = function(_, opts)
+        require("project_nvim").setup(opts)
+        require("telescope").load_extension("projects")
       end,
     },
   },

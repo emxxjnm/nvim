@@ -17,8 +17,8 @@ keymap("n", "<leader>q", "<Cmd>q<CR>", { desc = "Quit" })
 keymap("n", "<leader>Q", "<Cmd>q!<CR>", { desc = "Force quit" })
 
 -- copy/paste
-keymap("n", "<leader>p", '"+p', { desc = "Paste clipboard text" })
-keymap("v", "<leader>y", '"+y', { desc = "Copy to clipboard" })
+-- keymap("n", "<leader>p", '"+p', { desc = "Paste clipboard text" })
+-- keymap("v", "<leader>y", '"+y', { desc = "Copy to clipboard" })
 
 -- motion
 keymap("n", "<leader>;", "%", { desc = "Jump to match item" })
@@ -66,12 +66,10 @@ keymap("v", "<", "<gv", { desc = "Visual shifting" })
 keymap({ "i", "n" }, "<esc>", "<Cmd>nohlsearch<CR><Esc>", { desc = "Escape and clear hlsearch" })
 
 -- better up/down
-keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, desc = "Move cursor up" })
-keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, desc = "Move cursor down" })
+keymap({ "n", "v" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, desc = "Move cursor up" })
+keymap({ "n", "v" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, desc = "Move cursor down" })
 
 keymap("i", "jj", [[col('.') == 1 ? '<Esc>' : '<Esc>l']], { expr = true })
 
 -- windows
--- FIXME: vim will exit when explorer is opened
-keymap("n", "<leader>bd", "<Cmd>bdelete!<CR>", { desc = "Delete current" })
-keymap("n", "<leader>bD", "<Cmd>%bdelete<Bar>edit#<Bar>bdelete#<CR>", { desc = "Delete others" })
+keymap("n", "<leader>bd", "<Cmd>bdelete!<CR>", { desc = "Close current" })

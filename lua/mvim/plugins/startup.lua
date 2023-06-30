@@ -56,7 +56,7 @@ local M = {
       callback = function()
         local stats = require("lazy").stats()
         local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-        local v = vim.version() or {}
+        local v = vim.version()
         local version = string.format(
           "%s Neovim v%d.%d.%d%s",
           I.misc.vim,

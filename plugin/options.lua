@@ -14,7 +14,7 @@ o.number = true
 o.relativenumber = true
 
 o.cursorline = true
-o.cursorlineopt = "number"
+o.cursorlineopt = mo.styles.transparent and "number" or "number,line"
 
 -- fold
 o.foldlevel = 99
@@ -28,7 +28,7 @@ o.signcolumn = "yes"
 -- o.modifiable = true
 -- o.fileencoding = "utf-8"
 
--- opt.clipboard = "unnamedplus"
+opt.clipboard = "unnamedplus"
 
 o.termguicolors = true
 

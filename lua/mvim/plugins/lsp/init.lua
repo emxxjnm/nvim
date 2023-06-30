@@ -89,7 +89,6 @@ local M = {
               },
               usePlaceholders = true,
               completeUnimported = true,
-              staticcheck = true,
               semanticTokens = true,
               directoryFilters = { "-node_modules" },
             },

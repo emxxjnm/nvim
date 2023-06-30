@@ -9,6 +9,7 @@ local M = {
       { "<leader>bc", "<Cmd>BufferLinePickClose<CR>", desc = "Pick close" },
       { "<leader>b[", "<Cmd>BufferLineMovePrev<CR>", desc = "Move prev" },
       { "<leader>b]", "<Cmd>BufferLineMoveNext<CR>", desc = "Move next" },
+      { "<leader>bD", "<Cmd>BufferLineCloseOthers<CR>", desc = "Close others" },
       { "<leader>bL", "<Cmd>BufferLineCloseLeft<CR>", desc = "Close to the left" },
       { "<leader>bR", "<Cmd>BufferLineCloseRight<CR>", desc = "Close to the right" },
     },
@@ -58,6 +59,7 @@ local M = {
               highlight = "PanelHeading",
             },
           },
+          move_wraps_at_ends = true,
           show_close_icon = false,
           separator_style = mo.styles.transparent and "thin" or "slope",
           show_buffer_close_icons = false,
@@ -346,11 +348,11 @@ local M = {
   {
     "luukvbaal/statuscol.nvim",
     event = "BufReadPre",
-    config = function()
+    opts = function()
       local builtin = require("statuscol.builtin")
       local sign_name = { "Diagnostic*", "Dap*", "todo%-sign%-", "neotest_*" }
 
-      require("statuscol").setup({
+      return {
         bt_ignore = { "terminal", "nofile" },
         relculright = true,
         segments = {
@@ -359,7 +361,7 @@ local M = {
           { sign = { name = { "GitSigns" }, maxwidth = 1, colwidth = 1, auto = true } },
           { text = { builtin.foldfunc, " " } },
         },
-      })
+      }
     end,
   },
 }

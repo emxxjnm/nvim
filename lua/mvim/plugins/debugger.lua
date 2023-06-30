@@ -153,6 +153,17 @@ local M = {
         initialize_timeout_sec = 10,
       },
     }
+
+    -- https://github.com/rcarriga/nvim-dap-ui/issues/248
+    require("mvim.utils").augroup("DapReplOptions", {
+      event = "BufWinEnter",
+      pattern = { "\\[dap-repl\\]", "DAP *" },
+      command = vim.schedule_wrap(function(args)
+        local win = vim.fn.bufwinid(args.buf)
+        vim.api.nvim_win_set_option(win, "wrap", true)
+        -- vim.api.nvim_win_set_option(win, "statuscolumn", "")
+      end),
+    })
   end,
 }
 
