@@ -27,7 +27,7 @@ local fmt = string.format
 ---returns the group ID so that it can be cleared or maipulated.
 ---@param name string The name of the autocommand group
 ---@param ... Autocommand A list of autocommands to create
----@return number augroup id
+---@return number augroup_id
 function M.augroup(name, ...)
   local commands = { ... }
   assert(name ~= "User", "The name of an augroup CANNOT be User")
@@ -51,7 +51,7 @@ end
 
 ---Clean autocommand in a group if it exists
 ---This is safer than trying to delete the augroup itself
---@param name string augroup name
+---@param name string augroup name
 function M.clear_augroup(name)
   vim.schedule(function()
     pcall(function()
@@ -60,12 +60,16 @@ function M.clear_augroup(name)
   end)
 end
 
----@param plugin string
+---Check if the plugin exists
+---@param plugin string plugin name
+---@return boolean
 function M.has(plugin)
   return require("lazy.core.config").spec.plugins[plugin] ~= nil
 end
 
----@param name string
+---Get the specified plugin opts
+---@param name string plugin name
+---@return table plugin_opts
 function M.opts(name)
   local plugin = require("lazy.core.config").plugins[name]
   if not plugin then
@@ -135,6 +139,7 @@ M.lsp_providers = {
   RANGEFORMATTING = "documentRangeFormattingProvider",
 }
 
+---Setup lsp autocmds
 ---@param func fun(client, buffer)
 function M.on_attach(func)
   M.augroup("LspSetupCommands", {
@@ -187,6 +192,8 @@ function M.common_on_init(client)
   return true
 end
 
+---LSP capabilities
+---@return table capabilities
 function M.common_capabilities()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   -- Tell the server the capability of foldingRange :: nvim-ufo
@@ -197,6 +204,10 @@ function M.common_capabilities()
   return require("cmp_nvim_lsp").default_capabilities(capabilities)
 end
 
+---Resolve lsp config
+---@param name string lsp server name
+---@param ... table a list lsp config
+---@return table config lsp config
 function M.resolve_config(name, ...)
   local defaults = {
     on_init = M.common_on_init,
@@ -213,8 +224,8 @@ function M.resolve_config(name, ...)
   return defaults
 end
 
+---https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#symbolKind
 ---@param scope "workspace" | "document"
--- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#symbolKind
 function M.lsp_symbols(scope)
   local symbols = {
     "File",
