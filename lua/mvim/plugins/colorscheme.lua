@@ -21,9 +21,10 @@ local M = {
       dashboard = false,
       ts_rainbow = false,
       dap = { enabled = true, enable_ui = true },
+      telescope = { enabled = true, style = mo.styles.transparent and nil or "nvchad" },
     },
     custom_highlights = function(colors)
-      local default = {
+      return {
         -- custom
         PanelHeading = {
           fg = colors.lavender,
@@ -61,27 +62,6 @@ local M = {
           bg = mo.styles.transparent and "NONE" or colors.mantle,
         },
       }
-
-      local telescope = {
-        TelescopePromptNormal = { bg = colors.crust },
-        TelescopePromptTitle = { fg = colors.subtext0 },
-        TelescopePromptBorder = { bg = colors.crust, fg = colors.crust },
-        TelescopePromptPrefix = { bg = colors.crust, fg = colors.flamingo },
-
-        TelescopeResultsNormal = { bg = colors.mantle },
-        TelescopeResultsTitle = { fg = colors.subtext0 },
-        TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
-
-        TelescopePreviewNormal = { bg = colors.crust },
-        TelescopePreviewTitle = { fg = colors.subtext0 },
-        TelescopePreviewBorder = { bg = colors.crust, fg = colors.crust },
-      }
-
-      if not mo.styles.transparent then
-        return vim.tbl_extend("keep", default, telescope)
-      end
-
-      return default
     end,
   },
   config = function(_, opts)
