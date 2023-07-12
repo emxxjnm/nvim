@@ -22,7 +22,15 @@ function detect_platform() {
   OS="$(uname -s)"
   case "$OS" in
     Linux)
-      RECOMMEND_INSTALL="sudo apt inistall -y"
+      if [ -f "/etc/arch-release" ] || [ -f "/etc/artix-release" ]; then
+        RECOMMEND_INSTALL="sudo pacman -S"
+      elif [ -f "/etc/fedora-release" ] || [ -f "/etc/redhat-release" ]; then
+        RECOMMEND_INSTALL="sudo dnf install -y"
+      elif [ -f "/etc/gentoo-release" ]; then
+        RECOMMEND_INSTALL="emerge -tv"
+      else # assume debian based
+        RECOMMEND_INSTALL="sudo apt install -y"
+      fi
       ;;
     Darwin)
       RECOMMEND_INSTALL="brew install"
@@ -36,8 +44,8 @@ function detect_platform() {
 
 function msg() {
   local text="$1"
-  local div_width="80"
-  printf "%${div_width}s\n" ' ' | tr ' ' -
+  # local div_width="80"
+  # printf "%${div_width}s\n" ' ' | tr ' ' -
   printf "%s\n" "$text"
 }
 
@@ -54,11 +62,11 @@ function print_missing_dep_msg() {
 }
 
 function check_neovim_min_version() {
-  local verify_version_cmd='if !has("nvim-0.8") | cquit | else | quit | endif'
+  local verify_version_cmd='if !has("nvim-0.9") | cquit | else | quit | endif'
 
   # exit with an error if min_version not found
   if ! nvim --headless -u NONE -c "$verify_version_cmd"; then
-    echo "[ERROR]: requires at least Neovim v0.7 or higher"
+    echo "[ERROR]: LunarVim requires at least Neovim v0.9 or higher"
     exit 1
   fi
 }
@@ -86,6 +94,12 @@ function verify_cache_dirs() {
   done
 }
 
+function setup_nvim() {
+  echo "Preparing Lazy setup"
+
+  nvim -u "$NVIM_CONFIG_DIR/init.lua" --headless -c 'quitall'
+}
+
 function main() {
   msg "Detecting platform for managing any additional neovim dependencies"
   detect_platform
@@ -93,6 +107,9 @@ function main() {
   check_system_deps
 
   verify_cache_dirs
+
+  setup_nvim
+
   msg "Nvim bootstrap had completed."
 }
 
