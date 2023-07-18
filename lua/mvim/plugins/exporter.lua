@@ -16,7 +16,6 @@ local M = {
     vim.cmd([[Neotree close]])
   end,
   init = function()
-    vim.g.neo_tree_remove_legacy_commands = 1
     if vim.fn.argc() == 1 then
       local stat = vim.loop.fs_stat(vim.fn.argv(0))
       if stat and stat.type == "directory" then
@@ -164,7 +163,7 @@ local M = {
           U.find_or_grep("grep", state)
         end,
       },
-      follow_current_file = true,
+      follow_current_file = { enabled = true },
     },
   },
 }
