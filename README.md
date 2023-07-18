@@ -9,7 +9,7 @@
 
 ## ⚙️ Install
 
-### Try it with docker
+### 🐳 Try it with docker
 
 ```bash
 docker run -w /root -it --rm alpine:edge sh -uelic '

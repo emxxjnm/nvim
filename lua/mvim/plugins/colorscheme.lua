@@ -12,14 +12,13 @@ local M = {
       functions = { "italic" },
     },
     integrations = {
-      leap = true,
       mason = true,
       neotree = true,
       neotest = true,
       which_key = true,
       nvimtree = false,
       dashboard = false,
-      ts_rainbow = false,
+      rainbow_delimiters = false,
       dap = { enabled = true, enable_ui = true },
       telescope = { enabled = true, style = mo.styles.transparent and nil or "nvchad" },
     },
@@ -60,6 +59,21 @@ local M = {
         FloatTitle = {
           fg = colors.subtext0,
           bg = mo.styles.transparent and "NONE" or colors.mantle,
+        },
+
+        FlashBackdrop = { fg = colors.overlay0 },
+        FlashLabel = {
+          fg = colors.green,
+          bg = mo.styles.transparent and "NONE" or colors.base,
+          style = { "bold" },
+        },
+        FlashMatch = {
+          fg = colors.lavender,
+          bg = mo.styles.transparent and "NONE" or colors.base,
+        },
+        FlashCurrent = {
+          fg = colors.peach,
+          bg = mo.styles.transparent and "NONE" or colors.base,
         },
       }
     end,

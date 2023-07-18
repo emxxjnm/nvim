@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# TODO: check and create dependencies
-
 declare -r XDG_CACHE_HOME="${XDG_CACHE_HOME:-"$HOME/.cache"}"
 declare -r XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-"$HOME/.config"}"
 
@@ -89,7 +87,7 @@ function verify_cache_dirs() {
   for dir in "${__cache_dirs[@]}"; do
     if [ ! -d "$dir" ]; then
       mkdir -p "$dir"
-      msg "Create cache directory:<$dir> complete."
+      msg "Create cache directory: <$dir> complete."
     fi
   done
 }

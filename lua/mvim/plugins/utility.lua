@@ -202,6 +202,48 @@ local M = {
       }
     end,
   },
+
+  {
+    "folke/flash.nvim",
+    keys = {
+      { "f", mode = { "n", "x", "o" } },
+      { "F", mode = { "n", "x", "o" } },
+      { "t", mode = { "n", "x", "o" } },
+      { "T", mode = { "n", "x", "o" } },
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "S",
+        mode = { "n", "o", "x" },
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
+    },
+    opts = {
+      jump = {
+        pos = "end",
+      },
+      modes = {
+        char = {
+          highlight = {
+            matches = false,
+          },
+          -- autohide = true,
+          jump_labels = function(motion)
+            return vim.v.count == 0 and motion:find("[ftFT]")
+          end,
+        },
+      },
+    },
+  },
 }
 
 return M
