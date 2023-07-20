@@ -1,38 +1,36 @@
 local U = require("mvim.utils")
 
--- U.augroup("AutoCursorLine", {
---   event = { "InsertLeave", "WinEnter" },
---   command = function()
---     local ok, cl = pcall(vim.api.nvim_win_get_var, 0, "auto-cursorline")
---     if ok and cl then
---       vim.wo.cursorline = true
---       vim.api.nvim_win_del_var(0, "auto-cursorline")
---     end
---   end,
---   desc = "Hide cursor line in inactive window",
--- }, {
---   event = { "InsertEnter", "WinLeave" },
---   command = function()
---     local cl = vim.wo.cursorline
---     if cl then
---       vim.api.nvim_win_set_var(0, "auto-cursorline", cl)
---       vim.wo.cursorline = false
---     end
---   end,
---   desc = "Show cursor line only in active window",
--- })
+local cursorline_bt_exclude = { "terminal" }
+local cursorline_ft_exclude = { "alpha", "toggleterm", "neo-tree-popup", "TelescopePrompt" }
 
-local ignore_buftype = { "quickfix", "nofile", "help", "terminal" }
-local ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" }
+-- Works better on non-transparent backgrounds
+U.augroup("AutoCursorLine", {
+  event = { "BufEnter", "InsertLeave" },
+  command = function(args)
+    vim.wo.cursorline = not vim.wo.previewwindow
+      and not vim.tbl_contains(cursorline_bt_exclude, vim.bo[args.buf].buftype)
+      and not vim.tbl_contains(cursorline_ft_exclude, vim.bo[args.buf].filetype)
+  end,
+  desc = "Hide cursor line in inactive window",
+}, {
+  event = { "BufLeave", "InsertEnter" },
+  command = function()
+    vim.wo.cursorline = false
+  end,
+  desc = "Show cursor line only in active window",
+})
 
-U.augroup("PlaceLastLoc", {
+local last_place_bt_ignore = { "quickfix", "nofile", "help", "terminal" }
+local last_place_ft_ignore = { "gitcommit", "gitrebase", "svn", "hgcommit" }
+
+U.augroup("LastPlaceLoc", {
   event = { "BufWinEnter", "FileType" },
   command = function()
-    if vim.tbl_contains(ignore_buftype, vim.bo.buftype) then
+    if vim.tbl_contains(last_place_bt_ignore, vim.bo.buftype) then
       return
     end
 
-    if vim.tbl_contains(ignore_filetype, vim.bo.filetype) then
+    if vim.tbl_contains(last_place_ft_ignore, vim.bo.filetype) then
       -- reset cursor to first line
       vim.cmd("normal! gg")
       return
