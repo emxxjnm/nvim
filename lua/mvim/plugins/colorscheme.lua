@@ -57,23 +57,8 @@ local M = {
         },
 
         FloatTitle = {
-          fg = colors.subtext0,
-          bg = mo.styles.transparent and "NONE" or colors.mantle,
-        },
-
-        FlashBackdrop = { fg = colors.overlay0 },
-        FlashLabel = {
-          fg = colors.green,
-          bg = mo.styles.transparent and "NONE" or colors.base,
-          style = { "bold" },
-        },
-        FlashMatch = {
-          fg = colors.lavender,
-          bg = mo.styles.transparent and "NONE" or colors.base,
-        },
-        FlashCurrent = {
-          fg = colors.peach,
-          bg = mo.styles.transparent and "NONE" or colors.base,
+          fg = mo.styles.transparent and colors.lavender or colors.base,
+          bg = mo.styles.transparent and "NONE" or colors.lavender,
         },
       }
     end,
