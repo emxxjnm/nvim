@@ -100,10 +100,9 @@ local M = {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
       config = function()
-        local Config = require("lazy.core.config")
-        if Config.plugins["telescope.nvim"] and Config.plugins["telescope.nvim"]._.loaded then
+        U.on_load("telescope.nvim", function()
           require("telescope").load_extension("fzf")
-        end
+        end)
       end,
     },
     {

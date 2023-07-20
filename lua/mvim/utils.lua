@@ -79,6 +79,28 @@ function M.opts(name)
   return Plugin.values(plugin, "opts", false)
 end
 
+---Execute code when a plugin loads
+---@param name string plugin name
+---@param fn fun(name: string)
+function M.on_load(name, fn)
+  local Config = require("lazy.core.config")
+  if Config.plugins[name] and Config.plugins[name]._.loaded then
+    vim.schedule(function()
+      fn(name)
+    end)
+  else
+    vim.api.nvim_create_autocmd("User", {
+      pattern = "LazyLoad",
+      callback = function(args)
+        if args.data == name then
+          fn(name)
+          return true
+        end
+      end,
+    })
+  end
+end
+
 ---list providers
 ---@param filetype string filetype
 ---@return table providers null-ls providers
