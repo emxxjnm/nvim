@@ -42,6 +42,7 @@ local M = {
         l = { name = I.lsp.lsp .. " LSP" },
         m = { name = I.misc.markdown .. " Markdown" },
         t = { name = I.misc.terminal .. " Terminal" },
+        o = { name = I.misc.option .. " Option" },
       },
     })
   end,

@@ -26,6 +26,7 @@ function M.bootstrap()
     defaults = { lazy = true },
     install = { colorscheme = { "catppuccin" } },
     change_detection = { notify = false },
+    checker = { enabled = true, notify = false },
     ui = {
       border = mo.styles.border,
       icons = {
@@ -37,7 +38,7 @@ function M.bootstrap()
         ft = I.documents.file,
         init = I.dap.controls.play,
         keys = I.misc.key,
-        plugin = I.plugin.plugin,
+        plugin = I.plugin.plugin .. " ",
         runtime = I.misc.vim,
         source = I.lsp.kinds.snippet,
         start = I.dap.play,

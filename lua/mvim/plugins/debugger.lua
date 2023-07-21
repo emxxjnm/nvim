@@ -101,6 +101,29 @@ local M = {
           border = mo.styles.border,
         },
       },
+      config = function(_, opts)
+        -- setup listener
+        local dap, dapui = require("dap"), require("dapui")
+
+        dapui.setup(opts)
+
+        dap.listeners.after.event_initialized["dapui_config"] = function()
+          local breakpoints = require("dap.breakpoints").get()
+          local args = vim.tbl_isempty(breakpoints) and {} or { layout = 2 }
+          dapui.open(args)
+        end
+        dap.listeners.before.event_stopped["dapui_config"] = function(_, body)
+          if body.reason == "breakpoint" then
+            dapui.open({})
+          end
+        end
+        dap.listeners.before.event_terminated["dapui_config"] = function()
+          dapui.close({})
+        end
+        -- dap.listeners.before.event_exited["dapui_config"] = function()
+        --   dapui.close({})
+        -- end
+      end,
     },
     {
       "theHamsta/nvim-dap-virtual-text",
@@ -110,28 +133,16 @@ local M = {
   init = function()
     for name, icon in pairs(I.dap.signs) do
       name = "Dap" .. name:gsub("^%l", string.upper)
-      vim.fn.sign_define(name, { text = icon, texthl = name })
+      vim.fn.sign_define(name, { text = icon, texthl = name, numhl = name })
     end
   end,
   config = function()
-    -- setup listener
-    local dap, dapui = require("dap"), require("dapui")
-    dap.listeners.after.event_initialized["dapui_config"] = function()
-      local breakpoints = require("dap.breakpoints").get()
-      local args = vim.tbl_isempty(breakpoints) and nil or { layout = 2 }
-      dapui.open(args)
-    end
-    dap.listeners.before.event_stopped["dapui_config"] = function(_, body)
-      if body.reason == "breakpoint" then
-        dapui.open({})
-      end
-    end
-
     -- load launch.json file
     require("dap.ext.vscode").load_launchjs(
       vim.fn.getcwd() .. "/" .. mo.settings.metadir .. "/launch.json"
     )
 
+    local dap = require("dap")
     -- setup adapter
     dap.adapters.python = {
       type = "executable",
