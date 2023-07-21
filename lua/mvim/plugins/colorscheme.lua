@@ -27,22 +27,22 @@ local M = {
         -- custom
         PanelHeading = {
           fg = colors.lavender,
-          bg = mo.styles.transparent and "NONE" or colors.crust,
+          bg = mo.styles.transparent and colors.none or colors.crust,
           style = { "bold", "italic" },
         },
 
         -- lazy.nvim
         LazyH1 = {
-          bg = mo.styles.transparent and "NONE" or colors.peach,
+          bg = mo.styles.transparent and colors.none or colors.peach,
           fg = mo.styles.transparent and colors.lavender or colors.base,
           style = { "bold" },
         },
         LazyButton = {
-          bg = "NONE",
+          bg = colors.none,
           fg = mo.styles.transparent and colors.overlay0 or colors.subtext0,
         },
         LazyButtonActive = {
-          bg = mo.styles.transparent and "NONE" or colors.overlay1,
+          bg = mo.styles.transparent and colors.none or colors.overlay1,
           fg = mo.styles.transparent and colors.lavender or colors.base,
           style = { " bold" },
         },
@@ -53,12 +53,12 @@ local M = {
 
         FloatBorder = {
           fg = mo.styles.transparent and colors.overlay1 or colors.mantle,
-          bg = mo.styles.transparent and "NONE" or colors.mantle,
+          bg = mo.styles.transparent and colors.none or colors.mantle,
         },
 
         FloatTitle = {
           fg = mo.styles.transparent and colors.lavender or colors.base,
-          bg = mo.styles.transparent and "NONE" or colors.lavender,
+          bg = mo.styles.transparent and colors.none or colors.lavender,
         },
       }
     end,
