@@ -159,6 +159,27 @@ local M = {
           },
         },
 
+        diff = {
+          "diff",
+          source = function()
+            ---@diagnostic disable-next-line: undefined-field
+            local gitsigns = vim.b.gitsigns_status_dict
+            if gitsigns then
+              return {
+                added = gitsigns.added,
+                modified = gitsigns.changed,
+                removed = gitsigns.removed,
+              }
+            end
+          end,
+          symbols = {
+            added = I.git.added .. " ",
+            modified = I.git.modified .. " ",
+            removed = I.git.deleted .. " ",
+          },
+          cond = conditions.hide_in_width,
+        },
+
         treesitter = {
           function()
             return I.misc.treesitter
@@ -222,25 +243,21 @@ local M = {
           cond = conditions.hide_in_width,
         },
 
-        diff = {
-          "diff",
-          source = function()
-            ---@diagnostic disable-next-line: undefined-field
-            local gitsigns = vim.b.gitsigns_status_dict
-            if gitsigns then
-              return {
-                added = gitsigns.added,
-                modified = gitsigns.changed,
-                removed = gitsigns.removed,
-              }
-            end
+        dap = {
+          function()
+            return require("dap").status()
           end,
-          symbols = {
-            added = I.git.added .. " ",
-            modified = I.git.modified .. " ",
-            removed = I.git.deleted .. " ",
-          },
-          cond = conditions.hide_in_width,
+          icon = I.dap.bug,
+          color = { fg = colors.yellow },
+          cond = function()
+            return package.loaded["dap"] and require("dap").status() ~= ""
+          end,
+        },
+
+        lazy = {
+          require("lazy.status").updates,
+          color = { fg = colors.subtext0 },
+          cond = require("lazy.status").has_updates,
         },
 
         location = {
@@ -326,9 +343,11 @@ local M = {
           lualine_x = {
             components.python_env,
             components.lsp,
+            components.dap,
             components.treesitter,
             components.spaces,
             components.filesize,
+            components.lazy,
           },
           lualine_y = { components.location },
           lualine_z = { components.clock },
