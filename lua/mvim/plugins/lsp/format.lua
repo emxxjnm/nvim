@@ -16,7 +16,7 @@ function M.toggle()
 end
 
 function M.on_attach(client, buffer)
-  if client.server_capabilities[U.lsp_providers.FORMATTING] then
+  if client.supports_method(U.lsp_providers.FORMATTING) then
     U.augroup(("LspFormatting.%d"):format(buffer), {
       event = "BufWritePre",
       buffer = buffer,

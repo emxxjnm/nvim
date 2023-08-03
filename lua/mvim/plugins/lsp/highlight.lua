@@ -25,7 +25,7 @@ local function highlight_references()
 end
 
 function M.on_attach(client, buffer)
-  if client.server_capabilities[U.lsp_providers.HIGHLIGHT] then
+  if client.supports_method(U.lsp_providers.HIGHLIGHT) then
     U.augroup(("LspHighlight.%d"):format(buffer), {
       event = { "CursorHold", "CursorHoldI" },
       buffer = buffer,

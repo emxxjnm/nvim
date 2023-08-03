@@ -92,19 +92,9 @@ end
 
 function M.on_attach(client, buffer)
   local Keys = require("lazy.core.handler.keys")
-  local keymaps = {}
 
-  for _, value in ipairs(M.get()) do
-    local keys = Keys.parse(value)
-    if keys[2] == vim.NIL or keys[2] == false then
-      keymaps[keys.id] = nil
-    else
-      keymaps[keys.id] = keys
-    end
-  end
-
-  for _, keys in pairs(keymaps) do
-    if not keys.depends or client.server_capabilities[keys.depends] then
+  for _, keys in pairs(M.get()) do
+    if not keys.depends or client.supports_method(keys.depends) then
       local opts = Keys.opts(keys)
       opts.depends = nil
       opts.silent = opts.silent ~= false
@@ -112,6 +102,16 @@ function M.on_attach(client, buffer)
       vim.keymap.set(keys.mode or "n", keys[1], keys[2], opts)
     end
   end
+
+  -- vim.iter(M.get()):each(function(m)
+  --   if not m.depends or client.supports_method(m.depends) then
+  --     local opts = Keys.opts(m)
+  --     opts.depends = nil
+  --     opts.silent = opts.silent ~= false
+  --     opts.buffer = buffer
+  --     vim.keymap.set(m.mode or "n", m[1], m[2], opts)
+  --   end
+  -- end)
 end
 
 return M

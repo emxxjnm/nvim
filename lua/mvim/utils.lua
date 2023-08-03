@@ -17,11 +17,11 @@ local fmt = string.format
 ---@class Autocommand
 ---@field desc string
 ---@field event  string | string[] autocommand events
----@field pattern string | string[] autocommand patterns
+---@field pattern? string | string[] autocommand patterns
 ---@field command string | fun(args: AutocmdArgs): boolean?
----@field nested  boolean
----@field once    boolean
----@field buffer  number
+---@field nested?  boolean
+---@field once?    boolean
+---@field buffer?  number
 
 ---Create an autocommand
 ---returns the group ID so that it can be cleared or maipulated.
@@ -168,18 +168,18 @@ end
 ---@enum
 -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#serverCapabilities
 M.lsp_providers = {
-  HOVER = "hoverProvider",
-  RENAME = "renameProvider",
-  CODELENS = "codeLensProvider",
-  REFERENCES = "referencesProvider",
-  CODEACTION = "codeActionProvider",
-  DEFINITION = "definitionProvider",
-  DECLARATION = "declarationProvider",
-  IMPLEMENTATION = "implementationProvider",
-  HIGHLIGHT = "documentHighlightProvider",
-  SIGNATUREHELP = "signatureHelpProvider",
-  FORMATTING = "documentFormattingProvider",
-  RANGEFORMATTING = "documentRangeFormattingProvider",
+  HOVER = "textDocument/hover",
+  RENAME = "textDocument/rename",
+  CODELENS = "textDocument/codeLens",
+  REFERENCES = "textDocument/references",
+  CODEACTION = "textDocument/codeAction",
+  DEFINITION = "textDocument/definition",
+  DECLARATION = "textDocument/declaration*",
+  IMPLEMENTATION = "textDocument/implementation*",
+  HIGHLIGHT = "textDocument/documentHighlight",
+  SIGNATUREHELP = "textDocument/signatureHelp",
+  FORMATTING = "textDocument/formatting",
+  RANGEFORMATTING = "textDocument/rangeFormatting",
 }
 
 ---Setup lsp autocmds
