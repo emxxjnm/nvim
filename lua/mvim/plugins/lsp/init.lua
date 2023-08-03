@@ -51,14 +51,17 @@ local M = {
               event = "BufWritePre",
               pattern = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.vue" },
               command = function(args)
-                local client = vim.lsp.get_active_clients({ bufnr = args.buf, name = "eslint" })[1]
-                if client then
-                  local diag = vim.diagnostic.get(
-                    args.buf,
-                    { namespace = vim.lsp.diagnostic.get_namespace(client.id) }
-                  )
-                  if #diag > 0 then
-                    vim.cmd("EslintFixAll")
+                if require("mvim.plugins.lsp.format").enabled() then
+                  local client =
+                    vim.lsp.get_active_clients({ bufnr = args.buf, name = "eslint" })[1]
+                  if client then
+                    local diag = vim.diagnostic.get(
+                      args.buf,
+                      { namespace = vim.lsp.diagnostic.get_namespace(client.id) }
+                    )
+                    if #diag > 0 then
+                      vim.cmd("EslintFixAll")
+                    end
                   end
                 end
               end,
@@ -96,9 +99,8 @@ local M = {
         },
         jsonls = {
           on_new_config = function(new_config)
-            local schemas = require("schemastore").json.schemas()
             new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-            vim.list_extend(new_config.settings.json.schemas, schemas, 1, #schemas)
+            vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
           end,
           settings = {
             json = {
@@ -113,7 +115,7 @@ local M = {
           settings = {
             stylelintplus = {
               autoFixOnSave = true,
-              autoFixOnformat = true,
+              autoFixOnFormat = true,
             },
           },
         },
@@ -138,10 +140,21 @@ local M = {
           },
         },
         yamlls = {
+          on_new_config = function(new_config)
+            new_config.settings.yaml.schemas = new_config.settings.yaml.schemas or {}
+            vim.list_extend(new_config.settings.yaml.schemas, require("schemastore").yaml.schemas())
+          end,
           settings = {
             yaml = {
               validate = true,
               format = { enable = true },
+              schemaStore = {
+                -- Must disable built-in schemaStore support to use
+                -- schemas from SchemaStore.nvim plugin
+                enable = false,
+                -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
+                url = "",
+              },
             },
           },
         },

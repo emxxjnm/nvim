@@ -6,6 +6,10 @@ M.opts = {
   autoformat = true,
 }
 
+function M.enabled()
+  return M.opts.autoformat
+end
+
 function M.toggle()
   M.opts.autoformat = not M.opts.autoformat
   if M.opts.autoformat then
