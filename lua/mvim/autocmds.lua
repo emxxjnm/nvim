@@ -96,3 +96,16 @@ U.augroup("TextYankHighlight", {
   end,
   desc = "Highlight on yank",
 })
+
+if U.has("neo-tree.nvim") then
+  U.augroup("RefreshGitStatus", {
+    pattern = "*.lazygit",
+    event = "TermClose",
+    command = function()
+      if package.loaded["neo-tree.sources.git_status"] then
+        require("neo-tree.sources.git_status").refresh()
+      end
+    end,
+    desc = "Refresh Neo-Tree git when closing lazygit",
+  })
+end

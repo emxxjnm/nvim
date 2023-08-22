@@ -12,9 +12,6 @@ local M = {
       desc = "Explorer(NeoTree)",
     },
   },
-  deactivate = function()
-    vim.cmd([[Neotree close]])
-  end,
   init = function()
     if vim.fn.argc() == 1 then
       local stat = vim.loop.fs_stat(vim.fn.argv(0))
@@ -42,7 +39,7 @@ local M = {
       {
         event = "file_opened",
         handler = function()
-          require("neo-tree").close_all()
+          require("neo-tree.command").execute({ action = "close" })
         end,
       },
     },

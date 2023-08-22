@@ -8,14 +8,14 @@ local fmt = string.format
 ---@class AutocmdArgs
 ---@field id number
 ---@field event string
----@field group string?
+---@field group? string
 ---@field buf number
 ---@field file string
 ---@field match string | number
 ---@field data any
 
 ---@class Autocommand
----@field desc string
+---@field desc? string
 ---@field event  string | string[] autocommand events
 ---@field pattern? string | string[] autocommand patterns
 ---@field command string | fun(args: AutocmdArgs): boolean?
