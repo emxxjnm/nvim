@@ -175,7 +175,7 @@ local M = {
     config = function(_, opts)
       require("mvim.plugins.lsp.diagnostics").setup()
 
-      require("mvim.plugins.lsp.handlers").setup()
+      require("mvim.plugins.lsp.ui").setup()
 
       require("mvim.utils").on_attach(function(client, buffer)
         require("mvim.plugins.lsp.format").on_attach(client, buffer)
@@ -226,6 +226,7 @@ local M = {
     event = "BufReadPost",
     opts = {
       bind = true,
+      fix_pos = true,
       hint_scheme = "Comment",
       handler_opts = { border = mo.styles.border },
     },
