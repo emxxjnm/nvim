@@ -238,13 +238,21 @@ end
 ---LSP capabilities
 ---@return table capabilities
 function M.common_capabilities()
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  -- Tell the server the capability of foldingRange :: nvim-ufo
-  capabilities.textDocument.foldingRange = {
-    dynamicRegistration = false,
-    lineFoldingOnly = true,
-  }
-  return require("cmp_nvim_lsp").default_capabilities(capabilities)
+  return vim.tbl_deep_extend(
+    "force",
+    vim.lsp.protocol.make_client_capabilities(),
+    M.has("cmp-nvim-lsp") and require("cmp_nvim_lsp").default_capabilities() or {},
+    M.has("nvim-ufo")
+        and {
+          textDocument = {
+            foldingRange = {
+              dynamicRegistration = false,
+              lineFoldingOnly = true,
+            },
+          },
+        }
+      or {}
+  )
 end
 
 ---Resolve lsp config
