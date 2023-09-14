@@ -5,8 +5,8 @@ local providers = require("mvim.utils").lsp_providers
 M._keys = nil
 
 function M.get()
-  M._keys = M._keys
-    or {
+  if not M._keys then
+    M._keys = {
       {
         "gd",
         "<CMD>Telescope lsp_definitions<CR>",
@@ -72,7 +72,6 @@ function M.get()
       {
         "<leader>cr",
         vim.lsp.buf.rename,
-        expr = true,
         desc = "Rename",
         depends = providers.RENAME,
       },
@@ -87,6 +86,7 @@ function M.get()
       { "[d", vim.diagnostic.goto_prev, desc = "Prev Diagnostic" },
       { "]d", vim.diagnostic.goto_next, desc = "Next Diagnostic" },
     }
+  end
   return M._keys
 end
 

@@ -74,26 +74,36 @@ local M = {
             gopls = {
               gofumpt = true,
               codelenses = {
-                generate = true,
                 gc_details = false,
+                generate = true,
+                regenerate_cgo = true,
+                run_govulncheck = true,
                 test = true,
                 tidy = true,
+                upgrade_dependency = true,
+                vendor = true,
               },
               hints = {
                 assignVariableTypes = true,
                 compositeLiteralFields = true,
+                compositeLiteralTypes = true,
                 constantValues = true,
                 functionTypeParameters = true,
                 parameterNames = true,
                 rangeVariableTypes = true,
               },
               analyses = {
+                fieldalignment = true,
+                nilness = true,
                 unusedparams = true,
+                unusedwrite = true,
+                useany = true,
               },
               usePlaceholders = true,
               completeUnimported = true,
+              staticcheck = true,
+              directoryFilters = { "-.git", "-node_modules" },
               semanticTokens = true,
-              directoryFilters = { "-node_modules" },
             },
           },
         },
@@ -223,6 +233,7 @@ local M = {
 
   {
     "ray-x/lsp_signature.nvim",
+    enabled = false,
     event = "BufReadPost",
     opts = {
       bind = true,

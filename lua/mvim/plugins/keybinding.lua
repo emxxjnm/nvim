@@ -36,11 +36,12 @@ local M = {
       ["<leader>"] = {
         b = { name = I.misc.buffer .. " Buffer" },
         c = { name = I.misc.code .. " Code" },
-        d = { name = I.dap.bug .. " Debugger" },
+        d = { name = I.dap.bug .. " Debug" },
         f = { name = I.misc.search .. " Find" },
         g = { name = I.git.git .. " Git" },
         l = { name = I.lsp.lsp .. " LSP" },
         m = { name = I.misc.markdown .. " Markdown" },
+        n = { name = I.todo.test .. " Test" },
         t = { name = I.misc.terminal .. " Terminal" },
         o = { name = I.misc.option .. " Option" },
       },
