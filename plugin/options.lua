@@ -61,7 +61,7 @@ o.cmdheight = 1
 
 o.wildoptions = "pum"
 o.wildignorecase = true
-o.wildmode = "list:full"
+o.wildmode = "longest:full,full"
 
 -- match and search
 o.incsearch = true
@@ -87,17 +87,7 @@ o.backup = true
 o.backupdir = mo.settings.backupdir
 
 -- Message output on vim actions
-opt.shortmess = {
-  f = true,
-  s = true,
-  o = true,
-  O = true,
-  t = true,
-  T = true,
-  A = true,
-  c = true,
-  F = true,
-}
+opt.shortmess:append({ W = true, I = true, c = true, C = true })
 
 -- fix markdown indentation settings
 vim.g.markdown_recommended_style = 0
