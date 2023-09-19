@@ -310,29 +310,6 @@ local M = {
             left = I.navigation.left_half_circle_thick,
           },
         },
-
-        copilot = {
-          function()
-            local status = require("copilot.api").status.data
-            return I.lsp.kinds.copilot .. (status.message or "")
-          end,
-          cond = function()
-            local ok, clients = pcall(vim.lsp.get_active_clients, { name = "copilot", bufnr = 0 })
-            return ok and #clients > 0
-          end,
-          color = function()
-            local status = require("copilot.api").status.data
-
-            return {
-              fg = ({
-                Normal = colors.blue,
-                Warning = colors.red,
-                InProgress = colors.yellow,
-              })[status.status] or colors.surface2,
-            }
-          end,
-          padding = { left = 0, right = 1 },
-        },
       }
 
       require("lualine").setup({
@@ -367,7 +344,6 @@ local M = {
           lualine_x = {
             components.python_env,
             components.lsp,
-            components.copilot,
             components.dap,
             components.treesitter,
             components.spaces,

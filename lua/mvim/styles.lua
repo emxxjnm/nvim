@@ -163,7 +163,6 @@ mo.styles = {
         object = "?",
         key = "?",
         null = "?",
-        copilot = "",
       },
     },
   },
