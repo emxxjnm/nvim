@@ -102,7 +102,7 @@ local M = {
           return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
         end,
         hide_in_width = function()
-          return vim.o.columns > 80
+          return vim.o.columns > 100
         end,
       }
 
@@ -144,7 +144,7 @@ local M = {
           icon = I.misc.creation,
           color = { fg = colors.lavender },
           padding = { left = 0, right = 1 },
-          condition = conditions.buffer_not_empty,
+          cond = conditions.buffer_not_empty and conditions.hide_in_width,
         },
 
         diagnostics = {
@@ -157,6 +157,7 @@ local M = {
             info = I.diagnostics.info .. " ",
             hint = I.diagnostics.hint .. " ",
           },
+          cond = conditions.hide_in_width,
         },
 
         diff = {
@@ -189,6 +190,7 @@ local M = {
             local ts = vim.treesitter.highlighter.active[buf]
             return { fg = ts and not vim.tbl_isempty(ts) and colors.green or colors.red }
           end,
+          cond = conditions.hide_in_width,
         },
 
         python_env = {
@@ -243,6 +245,39 @@ local M = {
           cond = conditions.hide_in_width,
         },
 
+        lsp_progress = {
+          function()
+            if not rawget(vim, "lsp") or vim.lsp.status then
+              return ""
+            end
+
+            local progress = vim.lsp.util.get_progress_messages()[1]
+
+            if progress.done then
+              vim.defer_fn(function()
+                vim.cmd.redrawstatus()
+              end, 1000)
+            end
+
+            local msg = progress.message or ""
+            local percentage = progress.percentage or 0
+            local title = progress.title or ""
+            local ms = vim.loop.hrtime() / 1000000
+            local frame = math.floor(ms / 120) % #I.misc.spinners
+            local content = string.format(
+              " %%<%s %s %s(%s%%%%) ",
+              I.misc.spinners[frame + 1],
+              title,
+              msg,
+              percentage
+            )
+
+            return content or ""
+          end,
+          color = { fg = colors.overlay0 },
+          cond = conditions.hide_in_width,
+        },
+
         dap = {
           function()
             return require("dap").status()
@@ -272,11 +307,11 @@ local M = {
           color = { gui = "bold" },
         },
 
-        progress = {
+        scrollbar = {
           function()
             local current_line = fn.line(".")
             local total_lines = fn.line("$")
-            local chars = I.misc.progress
+            local chars = I.misc.scrollbar
             local line_ratio = current_line / total_lines
             local index = math.ceil(line_ratio * #chars)
             return chars[index]
@@ -340,8 +375,12 @@ local M = {
         sections = {
           lualine_a = { components.mode },
           lualine_b = { components.branch },
-          lualine_c = { components.diff, components.diagnostics },
+          lualine_c = {
+            components.diff,
+            components.diagnostics,
+          },
           lualine_x = {
+            components.lsp_progress,
             components.python_env,
             components.lsp,
             components.dap,
@@ -354,7 +393,10 @@ local M = {
           lualine_z = { components.clock },
         },
         inactive_sections = {
-          lualine_a = { components.filetype, components.filename },
+          lualine_a = {
+            components.filetype,
+            components.filename,
+          },
           lualine_b = {},
           lualine_c = {},
           lualine_x = {},

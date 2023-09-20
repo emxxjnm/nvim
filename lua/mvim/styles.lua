@@ -112,7 +112,8 @@ mo.styles = {
       markdown = "",
       clock = "",
       option = "󰘵",
-      progress = {
+      spinners = { "", "󰪞", "󰪟", "󰪠", "󰪢", "󰪣", "󰪤", "󰪥" },
+      scrollbar = {
         "██",
         "▇▇",
         "▆▆",
