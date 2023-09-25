@@ -136,8 +136,6 @@ local M = {
         { "<leader>ft", "<Cmd>Telescope todo-comments todo<CR>", desc = "List todo" },
       },
       opts = function()
-        local colors = require("catppuccin.palettes").get_palette()
-
         return {
           keywords = {
             FIX = {
@@ -162,13 +160,13 @@ local M = {
             after = "",
           },
           colors = {
-            fix = { colors.red },
-            todo = { colors.green },
-            hack = { colors.peach },
-            warn = { colors.yellow },
-            perf = { colors.mauve },
-            note = { colors.blue },
-            test = { colors.sky },
+            fix = { mo.styles.palettes.red },
+            todo = { mo.styles.palettes.green },
+            hack = { mo.styles.palettes.peach },
+            warn = { mo.styles.palettes.yellow },
+            perf = { mo.styles.palettes.mauve },
+            note = { mo.styles.palettes.blue },
+            test = { mo.styles.palettes.sky },
           },
         }
       end,

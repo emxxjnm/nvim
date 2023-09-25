@@ -180,6 +180,7 @@ mo.styles = {
     [[  `--'  `--'    `------'      `-----'      `-'       `--'     `--'   `--'   ]],
     [[                                                                            ]],
   },
+  palettes = {},
 }
 
 mo.styles.border = mo.styles.transparent and "rounded" or "none"

@@ -14,7 +14,6 @@ local M = {
       { "<leader>bR", "<Cmd>BufferLineCloseRight<CR>", desc = "Close to the right" },
     },
     opts = function()
-      local colors = require("catppuccin.palettes").get_palette()
       local ctp = require("catppuccin.groups.integrations.bufferline")
 
       return {
@@ -68,19 +67,19 @@ local M = {
         highlights = ctp.get({
           custom = {
             all = {
-              buffer_selected = { fg = colors.lavender },
+              buffer_selected = { fg = mo.styles.palettes.lavender },
 
-              error = { fg = colors.surface1 },
-              error_diagnostic = { fg = colors.surface1 },
+              error = { fg = mo.styles.palettes.surface1 },
+              error_diagnostic = { fg = mo.styles.palettes.surface1 },
 
-              warning = { fg = colors.surface1 },
-              warning_diagnostic = { fg = colors.surface1 },
+              warning = { fg = mo.styles.palettes.surface1 },
+              warning_diagnostic = { fg = mo.styles.palettes.surface1 },
 
-              info = { fg = colors.surface1 },
-              info_diagnostic = { fg = colors.surface1 },
+              info = { fg = mo.styles.palettes.surface1 },
+              info_diagnostic = { fg = mo.styles.palettes.surface1 },
 
-              hint = { fg = colors.surface1 },
-              hint_diagnostic = { fg = colors.surface1 },
+              hint = { fg = mo.styles.palettes.surface1 },
+              hint_diagnostic = { fg = mo.styles.palettes.surface1 },
             },
           },
         }),
@@ -95,7 +94,6 @@ local M = {
     event = "BufReadPost",
     config = function()
       local fn, api = vim.fn, vim.api
-      local colors = require("catppuccin.palettes").get_palette()
 
       local conditions = {
         buffer_not_empty = function()
@@ -120,7 +118,7 @@ local M = {
 
         branch = {
           "branch",
-          icon = { I.git.branch, color = { fg = colors.pink, gui = "bold" } },
+          icon = { I.git.branch, color = { fg = mo.styles.palettes.pink, gui = "bold" } },
           color = { gui = "bold" },
           separator = {
             right = I.navigation.right_half_circle_thick,
@@ -136,13 +134,13 @@ local M = {
         filename = {
           "filename",
           file_status = false,
-          color = { fg = colors.lavender },
+          color = { fg = mo.styles.palettes.lavender },
         },
 
         filesize = {
           "filesize",
           icon = I.misc.creation,
-          color = { fg = colors.lavender },
+          color = { fg = mo.styles.palettes.lavender },
           padding = { left = 0, right = 1 },
           cond = conditions.buffer_not_empty and conditions.hide_in_width,
         },
@@ -188,7 +186,10 @@ local M = {
           color = function()
             local buf = api.nvim_get_current_buf()
             local ts = vim.treesitter.highlighter.active[buf]
-            return { fg = ts and not vim.tbl_isempty(ts) and colors.green or colors.red }
+            return {
+              fg = ts and not vim.tbl_isempty(ts) and mo.styles.palettes.green
+                or mo.styles.palettes.red,
+            }
           end,
           cond = conditions.hide_in_width,
         },
@@ -199,17 +200,18 @@ local M = {
               local venv = vim.env.VIRTUAL_ENV
               if venv then
                 local venv_name = fn.fnamemodify(venv, ":t")
-                local ok, devicons = pcall(require, "nvim-web-devicons")
-                if ok then
-                  local icon, _ = devicons.get_icon(".py")
-                  return string.format(icon .. " (%s)", venv_name)
-                end
                 return string.format("(%s)", venv_name)
               end
             end
             return ""
           end,
-          color = { fg = colors.lavender },
+          -- icon = function()
+          --   local devicons = require("nvim-web-devicons")
+          --   local icon, color = devicons.get_icon_color_by_filetype("python")
+          --   return { icon, color = { fg = color } }
+          -- end,
+          icon = { "󰌠", color = { fg = "#ffbc03" } },
+          color = { fg = mo.styles.palettes.lavender },
           cond = conditions.hide_in_width,
         },
 
@@ -241,7 +243,8 @@ local M = {
             return string.format("LSP(s):[%s]", table.concat(clients, " • "))
           end,
           icon = I.lsp.lsp,
-          color = { fg = colors.mauve },
+          -- color = { fg = colors.mauve },
+          color = { fg = mo.styles.palettes.mauve },
           cond = conditions.hide_in_width,
         },
 
@@ -274,7 +277,7 @@ local M = {
 
             return content or ""
           end,
-          color = { fg = colors.overlay0 },
+          color = { fg = mo.styles.palettes.overlay0 },
           cond = conditions.hide_in_width,
         },
 
@@ -283,7 +286,7 @@ local M = {
             return require("dap").status()
           end,
           icon = I.dap.bug,
-          color = { fg = colors.yellow },
+          color = { fg = mo.styles.palettes.yellow },
           cond = function()
             return package.loaded["dap"] and require("dap").status() ~= ""
           end,
@@ -291,7 +294,7 @@ local M = {
 
         lazy = {
           require("lazy.status").updates,
-          color = { fg = colors.subtext0 },
+          color = { fg = mo.styles.palettes.subtext0 },
           cond = require("lazy.status").has_updates,
         },
 
@@ -302,7 +305,7 @@ local M = {
             local col = fn.virtcol(".")
             return string.format("%3d/%d:%-2d", line, lines, col)
           end,
-          icon = { I.misc.milestone, color = { fg = colors.pink, gui = "bold" } },
+          icon = { I.misc.milestone, color = { fg = mo.styles.palettes.pink, gui = "bold" } },
           separator = { left = I.navigation.left_half_circle_thick },
           color = { gui = "bold" },
         },
@@ -316,7 +319,7 @@ local M = {
             local index = math.ceil(line_ratio * #chars)
             return chars[index]
           end,
-          color = { fg = colors.surface0 },
+          color = { fg = mo.styles.palettes.surface0 },
         },
 
         spaces = {
@@ -332,7 +335,7 @@ local M = {
           end,
           padding = { left = 1, right = 2 },
           cond = conditions.hide_in_width,
-          color = { fg = colors.sapphire },
+          color = { fg = mo.styles.palettes.sapphire },
         },
 
         clock = {
@@ -382,8 +385,8 @@ local M = {
           lualine_x = {
             components.lsp_progress,
             components.python_env,
-            components.lsp,
             components.dap,
+            components.lsp,
             components.treesitter,
             components.spaces,
             components.filesize,

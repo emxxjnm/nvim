@@ -65,7 +65,9 @@ local M = {
   },
   config = function(_, opts)
     require("catppuccin").setup(opts)
+
     vim.cmd.colorscheme("catppuccin")
+    mo.styles.palettes = require("catppuccin.palettes").get_palette()
   end,
 }
 
