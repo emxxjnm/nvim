@@ -5,6 +5,7 @@ local M = {
     local cmp, luasnip = require("cmp"), require("luasnip")
     local select = cmp.SelectBehavior.Select
     cmp.setup({
+      preselect = cmp.PreselectMode.None,
       experimental = { ghost_text = true },
       window = {
         completion = {
@@ -120,8 +121,7 @@ local M = {
 
         return {
           region_check_events = "CursorMoved,CursorHold,InsertEnter",
-          delete_check_events = "InsertLeave",
-          enable_autosnippets = true,
+          delete_check_events = "TextChanged",
           ext_opts = {
             [types.choiceNode] = {
               active = {
