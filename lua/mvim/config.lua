@@ -110,21 +110,21 @@ function M.setup()
   -- bootstrap lazy.nvim
   M.bootstrap()
 
-  -- setup keymaps & autocmds
-  if vim.fn.argc(-1) == 0 then
-    require("mvim.utils").augroup("MVim", {
-      event = "User",
-      pattern = "VeryLazy",
-      command = function()
-        M.load("autocmds")
-        M.load("keymaps")
-      end,
-      desc = "Load autocmds and keymaps lazy",
-    })
-  else
+  local lazy_autocmds = vim.fn.argc(-1) == 0
+  if not lazy_autocmds then
     M.load("autocmds")
-    M.load("keymaps")
   end
+
+  require("mvim.utils").augroup("Mvim", {
+    pattern = "VeryLazy",
+    event = "User",
+    command = function()
+      if lazy_autocmds then
+        M.load("autocmds")
+      end
+      M.load("keymaps")
+    end,
+  })
 end
 
 return M
