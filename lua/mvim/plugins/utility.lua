@@ -184,22 +184,10 @@ local M = {
     dependencies = {
       { "kkharji/sqlite.lua" },
     },
-    opts = function()
-      local mapping = require("yanky.telescope.mapping")
-      local mappings = mapping.get_defaults()
-      mappings.i["<c-p>"] = nil
-
-      return {
-        highlight = { timer = 200 },
-        ring = { storage = "sqlite" },
-        picker = {
-          telescope = {
-            use_default_mappings = false,
-            mappings = mappings,
-          },
-        },
-      }
-    end,
+    opts = {
+      highlight = { timer = 250 },
+      ring = { storage = "sqlite" },
+    },
   },
 
   {
