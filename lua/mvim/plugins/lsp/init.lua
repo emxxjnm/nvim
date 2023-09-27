@@ -266,6 +266,12 @@ local M = {
             extra_args = { "-i", "2", "-ci", "-bn" },
           }),
 
+          -- go
+          nls.builtins.code_actions.gomodifytags,
+          nls.builtins.code_actions.impl,
+          nls.builtins.formatting.gofumpt,
+          nls.builtins.formatting.goimports_reviser,
+
           -- markdown
           nls.builtins.formatting.markdownlint,
           nls.builtins.diagnostics.markdownlint,
