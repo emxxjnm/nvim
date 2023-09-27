@@ -68,6 +68,7 @@ U.augroup("CloseWithQ", {
     "qf",
     "man",
     "help",
+    "query",
     "lspinfo",
     "startuptime",
     "checkhealth",
