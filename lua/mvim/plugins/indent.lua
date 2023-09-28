@@ -1,19 +1,15 @@
 local M = {
   {
     "lukas-reineke/indent-blankline.nvim",
-    branch = "v3",
     event = { "BufReadPre", "BufNewFile" },
+    main = "ibl",
     opts = {
-      indent = {
-        char = I.indent.dash,
-      },
-      scope = {
-        enabled = false,
+      indent = { char = I.indent.dash },
+      scope = { enabled = false },
+      exclude = {
+        filetypes = { "help", "alpha", "neo-tree", "lazy", "mason" },
       },
     },
-    config = function(_, opts)
-      require("ibl").setup(opts)
-    end,
   },
 
   {
