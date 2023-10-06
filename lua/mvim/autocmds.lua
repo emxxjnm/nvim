@@ -25,12 +25,12 @@ local last_place_ft_ignore = { "gitcommit", "gitrebase", "svn", "hgcommit" }
 
 U.augroup("LastPlaceLoc", {
   event = { "BufWinEnter", "FileType" },
-  command = function()
-    if vim.tbl_contains(last_place_bt_ignore, vim.bo.buftype) then
+  command = function(args)
+    if vim.tbl_contains(last_place_bt_ignore, vim.bo[args.buf].buftype) then
       return
     end
 
-    if vim.tbl_contains(last_place_ft_ignore, vim.bo.filetype) then
+    if vim.tbl_contains(last_place_ft_ignore, vim.bo[args.buf].filetype) then
       -- reset cursor to first line
       vim.cmd("normal! gg")
       return
