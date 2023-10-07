@@ -4,7 +4,10 @@ local M = {
     event = { "BufReadPre", "BufNewFile" },
     main = "ibl",
     opts = {
-      indent = { char = I.indent.dash },
+      indent = {
+        char = I.indent.dash,
+        tab_char = I.indent.dash,
+      },
       scope = { enabled = false },
       exclude = {
         filetypes = { "help", "alpha", "neo-tree", "lazy", "mason" },
