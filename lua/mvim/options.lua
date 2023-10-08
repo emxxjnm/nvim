@@ -33,6 +33,12 @@ opt.clipboard = "unnamedplus"
 
 o.termguicolors = true
 
+o.cmdheight = 1
+
+o.ruler = false
+o.showcmd = false
+o.showmode = false
+
 o.laststatus = 0
 
 o.scrolloff = 7
@@ -52,13 +58,6 @@ opt.fillchars = {
   foldopen = icons.documents.expanded,
   foldclose = icons.documents.collapsed,
 }
-
--- Wild in command mode
-o.showcmd = false
-
-o.showmode = false
-
-o.cmdheight = 1
 
 o.wildoptions = "pum"
 o.wildignorecase = true
