@@ -24,6 +24,7 @@ o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- display
 o.signcolumn = "yes"
+-- o.smoothscroll = true
 
 -- o.modifiable = true
 -- o.fileencoding = "utf-8"
@@ -75,6 +76,8 @@ o.updatetime = 500
 -- Window splitting
 o.splitright = true
 o.splitbelow = true
+
+o.splitkeep = "screen"
 
 -- Backup and Swap
 o.swapfile = true

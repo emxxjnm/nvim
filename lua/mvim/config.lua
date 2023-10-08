@@ -125,6 +125,8 @@ function M.setup()
       M.load("keymaps")
     end,
   })
+
+  M.init()
 end
 
 return M
