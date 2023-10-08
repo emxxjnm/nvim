@@ -423,7 +423,7 @@ local M = {
         segments = {
           { sign = { name = sign_name, maxwidth = 1, auto = true } },
           { text = { builtin.lnumfunc, " " } },
-          { sign = { name = { "GitSigns" }, maxwidth = 1, colwidth = 1, auto = true } },
+          { sign = { namespace = { "gitsign" }, maxwidth = 1, colwidth = 1, auto = true } },
           { text = { builtin.foldfunc, " " } },
         },
       }
