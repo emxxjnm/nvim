@@ -42,6 +42,18 @@ local M = {
           require("neo-tree.command").execute({ action = "close" })
         end,
       },
+      {
+        event = "file_moved",
+        handler = function(data)
+          U.on_renamed(data.source, data.destination)
+        end,
+      },
+      {
+        event = "file_renamed",
+        handler = function(data)
+          U.on_renamed(data.source, data.destination)
+        end,
+      },
     },
     default_component_configs = {
       indent = {
@@ -163,6 +175,20 @@ local M = {
       follow_current_file = { enabled = true },
     },
   },
+  config = function(_, opts)
+    require("neo-tree").setup(opts)
+
+    U.augroup("GitStatusRefresh", {
+      pattern = "*lazygit",
+      event = "TermClose",
+      command = function()
+        if package.loaded["neo-tree.sources.git_status"] then
+          require("neo-tree.sources.git_status").refresh()
+        end
+      end,
+      desc = "Refresh Neo-Tree git when closing lazygit",
+    })
+  end,
 }
 
 return M
