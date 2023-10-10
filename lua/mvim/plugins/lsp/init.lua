@@ -17,12 +17,6 @@ local M = {
         opts = { experimental = { pathStrict = true } },
       },
       {
-        "hrsh7th/cmp-nvim-lsp",
-        cond = function()
-          return require("mvim.utils").has("nvim-cmp")
-        end,
-      },
-      {
         "williamboman/mason.nvim",
         cmd = "Mason",
         opts = {
@@ -151,8 +145,11 @@ local M = {
         },
         yamlls = {
           on_new_config = function(new_config)
-            new_config.settings.yaml.schemas = new_config.settings.yaml.schemas or {}
-            vim.list_extend(new_config.settings.yaml.schemas, require("schemastore").yaml.schemas())
+            new_config.settings.yaml.schemas = vim.tbl_deep_extend(
+              "force",
+              new_config.settings.yaml.schemas or {},
+              require("schemastore").yaml.schemas()
+            )
           end,
           settings = {
             yaml = {
