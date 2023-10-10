@@ -69,8 +69,9 @@ local M = {
         )
 
         dashboard.section.footer.val = string.format(
-          "--- %s loaded %d %s plugins in %d ms ---",
+          "--- %s loaded %d/%d %s plugins in %d ms ---",
           version,
+          stats.loaded,
           stats.count,
           I.plugin.plugin,
           ms
