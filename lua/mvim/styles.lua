@@ -164,6 +164,7 @@ mo.styles = {
         object = "?",
         key = "?",
         null = "?",
+        codeium = "󰘦",
       },
     },
   },

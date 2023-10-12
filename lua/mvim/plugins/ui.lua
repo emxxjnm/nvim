@@ -303,7 +303,8 @@ local M = {
             local line = fn.line(".")
             local lines = fn.line("$")
             local col = fn.virtcol(".")
-            return string.format("%3d/%d:%-2d", line, lines, col)
+            -- return string.format("%3d/%d:%-2d", line, lines, col)
+            return string.format("%d/%d:%d", line, lines, col)
           end,
           icon = { I.misc.milestone, color = { fg = mo.styles.palettes.pink, gui = "bold" } },
           separator = { left = I.navigation.left_half_circle_thick },

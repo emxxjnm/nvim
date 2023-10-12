@@ -1,99 +1,128 @@
 local M = {
   "hrsh7th/nvim-cmp",
   event = { "InsertEnter", "CmdlineEnter" },
-  config = function()
+  opts = function()
     local cmp, luasnip = require("cmp"), require("luasnip")
     local select = cmp.SelectBehavior.Select
-    cmp.setup({
-      preselect = cmp.PreselectMode.None,
-      experimental = { ghost_text = true },
-      window = {
-        completion = {
-          border = mo.styles.border,
-          winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-        },
-        documentation = {
-          border = mo.styles.border,
-          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-        },
-      },
-      snippet = {
-        expand = function(args)
-          luasnip.lsp_expand(args.body)
-        end,
-      },
-      sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "luasnip" },
-        {
-          name = "buffer",
-          option = {
-            get_bufnrs = function()
-              return vim.api.nvim_list_bufs()
-            end,
+    return {
+      global = {
+        preselect = cmp.PreselectMode.None,
+        experimental = { ghost_text = true },
+        window = {
+          completion = {
+            border = mo.styles.border,
+            winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
           },
-          keyword_length = 2,
+          documentation = {
+            border = mo.styles.border,
+            winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+          },
         },
-        { name = "path" },
-      }),
-      formatting = {
-        fields = { "kind", "abbr", "menu" },
-        format = function(entry, item)
-          item.kind = string.format("%s %s", I.lsp.kinds[item.kind:lower()], item.kind)
-          item.menu = ({
-            luasnip = "[Snip]",
-            nvim_lsp = "[LSP]",
-            buffer = "[Buf]",
-            path = "[Path]",
-            cmdline = "[Cmd]",
-          })[entry.source.name] or entry.source.name
-          return item
-        end,
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
+        sources = {
+          { name = "codeium", group_index = 1 },
+          { name = "nvim_lsp", group_index = 1 },
+          { name = "luasnip", group_index = 1 },
+          {
+            name = "buffer",
+            option = {
+              get_bufnrs = function()
+                return vim.api.nvim_list_bufs()
+              end,
+            },
+            keyword_length = 2,
+            group_index = 2,
+          },
+          { name = "path", group_index = 2 },
+        },
+        formatting = {
+          fields = { "kind", "abbr", "menu" },
+          format = function(entry, item)
+            item.kind = string.format("%s %s", I.lsp.kinds[item.kind:lower()], item.kind)
+            item.menu = ({
+              luasnip = "[Snip]",
+              nvim_lsp = "[LSP]",
+              buffer = "[Buf]",
+              path = "[Path]",
+              cmdline = "[Cmd]",
+              codeium = "[AI]",
+            })[entry.source.name] or entry.source.name
+            return item
+          end,
+        },
+        mapping = {
+          ["<Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item({ behavior = select })
+            elseif luasnip.expand_or_locally_jumpable() then
+              luasnip.expand_or_jump()
+            else
+              fallback()
+            end
+          end, { "i", "s", "c" }),
+          ["<S-Tab>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+            elseif luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { "i", "s", "c" }),
+          ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
+          ["<C-e>"] = { i = cmp.mapping.abort(), c = cmp.mapping.close() },
+          ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-8), { "i", "c" }),
+          ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(8), { "i", "c" }),
+          -- ["<C-c>"] = cmp.mapping.complete(),
+          ["<Down>"] = cmp.mapping(
+            cmp.mapping.select_next_item({ behavior = select }),
+            { "i", "c" }
+          ),
+          ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = select }), { "i", "c" }),
+        },
       },
-      mapping = {
-        ["<Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item({ behavior = select })
-          elseif luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
-          else
-            fallback()
-          end
-        end, { "i", "s", "c" }),
-        ["<S-Tab>"] = cmp.mapping(function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-          elseif luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
-          else
-            fallback()
-          end
-        end, { "i", "s", "c" }),
-        ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
-        ["<C-e>"] = { i = cmp.mapping.abort(), c = cmp.mapping.close() },
-        ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-8), { "i", "c" }),
-        ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(8), { "i", "c" }),
-        -- ["<C-c>"] = cmp.mapping.complete(),
-        ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = select }), { "i", "c" }),
-        ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = select }), { "i", "c" }),
+      cmdline = {
+        {
+          { "/", "?" },
+          {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = {
+              { name = "buffer" },
+            },
+          },
+        },
+        {
+          ":",
+          {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+              { name = "path" },
+            }, {
+              { name = "cmdline" },
+            }),
+          },
+        },
       },
-    })
+      -- filetype = {},
+      -- buffer = {}
+    }
+  end,
+  config = function(_, opts)
+    local cmp = require("cmp")
 
-    cmp.setup.cmdline({ "/", "?" }, {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = {
-        { name = "buffer" },
-      },
-    })
-
-    cmp.setup.cmdline(":", {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = cmp.config.sources({
-        { name = "path" },
-      }, {
-        { name = "cmdline" },
-      }),
-    })
+    for key, value in pairs(opts) do
+      if key == "global" then
+        cmp.setup(value)
+      else
+        for _, v in ipairs(value) do
+          cmp.setup[key](v[1], v[2])
+        end
+      end
+    end
   end,
   dependencies = {
     "hrsh7th/cmp-path",
@@ -139,6 +168,12 @@ local M = {
           paths = vim.fn.stdpath("config") .. "/snippets",
         })
       end,
+    },
+    {
+      "Exafunction/codeium.nvim",
+      cmd = "Codeium",
+      build = ":Codeium Auth",
+      opts = {},
     },
   },
 }
