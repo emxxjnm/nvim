@@ -112,7 +112,9 @@ local M = {
         { "<leader>fg", "<Cmd>Telescope live_grep_args<CR>", desc = "Find in files (Grep)" },
       },
       config = function()
-        require("telescope").load_extension("live_grep_args")
+        U.on_load("telescope.nvim", function()
+          require("telescope").load_extension("live_grep_args")
+        end)
       end,
     },
     {
@@ -172,7 +174,9 @@ local M = {
       end,
       config = function(_, opts)
         require("todo-comments").setup(opts)
-        require("telescope").load_extension("todo-comments")
+        U.on_load("telescope.nvim", function()
+          require("telescope").load_extension("todo-comments")
+        end)
       end,
     },
     {
@@ -187,7 +191,9 @@ local M = {
       },
       config = function(_, opts)
         require("project_nvim").setup(opts)
-        require("telescope").load_extension("projects")
+        U.on_load("telescope.nvim", function()
+          require("telescope").load_extension("projects")
+        end)
       end,
     },
   },
