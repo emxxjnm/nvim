@@ -1,84 +1,109 @@
 local M = {
-  "goolord/alpha-nvim",
+  "nvimdev/dashboard-nvim",
   event = "VimEnter",
   opts = function()
-    local dashboard = require("alpha.themes.dashboard")
+    local logo = string.rep("\n", 8) .. mo.styles.banner .. "\n\n"
+    local opts = {
+      theme = "doom",
+      hide = {
+        statusline = false,
+        tabline = false,
+        winbar = false,
+      },
+      config = {
+        header = vim.split(logo, "\n"),
+        center = {
+          {
+            action = "ene | startinsert",
+            desc = " New file",
+            desc_hl = "CursorLineNr",
+            icon = I.documents.new_file,
+            icon_hl = "Character",
+            key = "n",
+            key_hl = "Constant",
+          },
+          {
+            action = "Telescope find_files",
+            desc = " Find file",
+            desc_hl = "CursorLineNr",
+            icon = I.misc.search,
+            icon_hl = "Label",
+            key = "f",
+            key_hl = "Constant",
+          },
+          {
+            action = "Telescope live_grep_args",
+            desc = " Find text",
+            desc_hl = "CursorLineNr",
+            icon = I.lsp.kinds.text,
+            icon_hl = "Special",
+            key = "g",
+            key_hl = "Constant",
+          },
+          {
+            action = "Telescope oldfiles",
+            desc = " Recent files",
+            desc_hl = "CursorLineNr",
+            icon = I.misc.history,
+            icon_hl = "Macro",
+            key = "r",
+            key_hl = "Constant",
+          },
+          {
+            action = "Telescope projects",
+            desc = " Recent projects",
+            desc_hl = "CursorLineNr",
+            icon = I.misc.repo,
+            icon_hl = "Winbar",
+            key = "p",
+            key_hl = "Constant",
+          },
+          {
+            action = "qa",
+            desc = " Quit",
+            desc_hl = "CursorLineNr",
+            icon = I.misc.exit,
+            icon_hl = "Error",
+            key = "q",
+            key_hl = "Constant",
+          },
+        },
+        footer = function()
+          local stats = require("lazy").stats()
+          local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
 
-    local function button(hl, ...)
-      local btn = dashboard.button(...)
-      local details = select(2, ...)
-      local icon = details:match("[^%w%s]+")
-      btn.opts.hl = { { hl, 0, #icon + 1 } }
-      btn.opts.hl_shortcut = "Title"
-      return btn
+          local version = vim.version()
+
+          return {
+            string.format(
+              "%s Neovim v%d.%d.%d%s",
+              I.misc.vim,
+              version.major,
+              version.minor,
+              version.patch,
+              version.prerelease and "(nightly)" or ""
+            ) .. " loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms",
+          }
+        end,
+      },
+    }
+
+    for _, button in ipairs(opts.config.center) do
+      button.desc = button.desc .. string.rep(" ", 48 - #button.desc)
     end
 
-    dashboard.section.header.val = mo.styles.banner
-    dashboard.section.buttons.val = {
-      button("Character", "n", I.documents.new_file .. "  New file", "<Cmd>ene<Bar>star<CR>"),
-      button("Label", "g", I.lsp.kinds.text .. "  Find text", "<Cmd>Telescope live_grep_args<CR>"),
-      button("Special", "f", I.misc.search .. "  Find file", "<Cmd>Telescope find_files<CR>"),
-      button("Macro", "r", I.misc.history .. "  Recent files", "<Cmd>Telescope oldfiles<CR>"),
-      button("Winbar", "p", I.misc.repo .. "  Recent project", "<Cmd>Telescope projects<CR>"),
-      button("Error", "q", I.misc.exit .. "  Quit NVIM", "<Cmd>quitall<CR>"),
-    }
-
-    dashboard.section.header.opts.hl = "Function"
-    dashboard.section.footer.opts.hl = "Conceal"
-
-    dashboard.config.layout = {
-      { type = "padding", val = 5 },
-      dashboard.section.header,
-      { type = "padding", val = 1 },
-      dashboard.section.buttons,
-      { type = "padding", val = 1 },
-      dashboard.section.footer,
-    }
-
-    return dashboard
-  end,
-  config = function(_, dashboard)
     -- close Lazy and re-open when the dashboard is ready
     if vim.o.filetype == "lazy" then
       vim.cmd.close()
       vim.api.nvim_create_autocmd("User", {
-        once = true,
-        pattern = "AlphaReady",
+        pattern = "DashboardLoaded",
         callback = function()
           require("lazy").show()
         end,
       })
     end
 
-    require("alpha").setup(dashboard.config)
-
-    vim.api.nvim_create_autocmd("User", {
-      once = true,
-      pattern = "LazyVimStarted",
-      callback = function()
-        local stats = require("lazy").stats()
-        local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-        local v = vim.version()
-        local version = string.format(
-          "%s Neovim v%d.%d.%d%s",
-          I.misc.vim,
-          v.major,
-          v.minor,
-          v.patch,
-          v.prerelease and "(nightly)" or ""
-        )
-
-        dashboard.section.footer.val = string.format(
-          "--- %s loaded %d/%d %s plugins in %d ms ---",
-          version,
-          stats.loaded,
-          stats.count,
-          I.plugin.plugin,
-          ms
-        )
-        pcall(vim.cmd.AlphaRedraw)
-      end,
-    })
+    return opts
   end,
 }
 
