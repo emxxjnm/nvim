@@ -13,6 +13,7 @@ local M = {
 
   {
     "kevinhwang91/nvim-ufo",
+    -- enabled = false,
     event = "BufReadPost",
     dependencies = { "kevinhwang91/promise-async" },
     keys = {
@@ -151,45 +152,6 @@ local M = {
     end,
   },
 
-  -- better yank/paste
-  {
-    "gbprod/yanky.nvim",
-    keys = {
-      {
-        "<leader>p",
-        function()
-          require("telescope").extensions.yank_history.yank_history({})
-        end,
-        desc = "Open Yank History",
-      },
-      {
-        "y",
-        "<Plug>(YankyYank)",
-        mode = { "n", "x" },
-        desc = "Yank text",
-      },
-      {
-        "p",
-        "<Plug>(YankyPutAfter)",
-        mode = { "n", "x" },
-        desc = "Put yanked text after cursor",
-      },
-      {
-        "P",
-        "<Plug>(YankyPutBefore)",
-        mode = { "n", "x" },
-        desc = "Put yanked text before cursor",
-      },
-    },
-    dependencies = {
-      { "kkharji/sqlite.lua" },
-    },
-    opts = {
-      highlight = { timer = 250 },
-      ring = { storage = "sqlite" },
-    },
-  },
-
   {
     "folke/flash.nvim",
     keys = {
@@ -209,7 +171,7 @@ local M = {
         "S",
         mode = { "n", "x", "o" },
         function()
-          require("flash").treesitter()
+          require("flash").ureesitter()
         end,
         desc = "Flash Treesitter",
       },
@@ -220,14 +182,23 @@ local M = {
       },
       modes = {
         char = {
-          highlight = {
-            matches = false,
-          },
+          -- highlight = {
+          --   matches = false,
+          -- },
           -- autohide = true,
           jump_labels = function(motion)
+            -- never show jump labels by default
+            -- return false
+            -- Always show jump labels for ftFT
             return vim.v.count == 0 and motion:find("[ftFT]")
+            -- Show jump labels for ftFT in operator-pending mode
+            -- return vim.v.count == 0 and motion:find("[ftFT]") and vim.fn.mode(true):find("o")
           end,
         },
+      },
+      prompt = {
+        enabled = true,
+        prefix = { { I.misc.flash, "FlashPromptIcon" } },
       },
     },
   },

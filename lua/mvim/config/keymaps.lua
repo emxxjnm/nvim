@@ -1,24 +1,13 @@
-local function keymap(mode, lhs, rhs, opts)
-  local keys = require("lazy.core.handler").handlers.keys
-  ---@cast keys LazyKeysHandler
-  if not keys.active[keys.parse({ lhs, mode = mode }).id] then
-    opts = opts or {}
-    opts.silent = opts.silent ~= false
-    vim.keymap.set(mode, lhs, rhs, opts)
-  end
-end
+local Util = require("mvim.util")
+local keymap = vim.keymap.set
 
--- Editing: save
+-- Editing: write
 keymap("n", "<leader>w", "<Cmd>w<CR>", { desc = "Save file" })
 keymap("n", "<leader>W", "<Cmd>wa<CR>", { desc = "Save files" })
 
 -- Editing: quit
 keymap("n", "<leader>q", "<Cmd>q<CR>", { desc = "Quit" })
 keymap("n", "<leader>Q", "<Cmd>q!<CR>", { desc = "Force quit" })
-
--- Copy/Paste
--- keymap("n", "<leader>p", '"+p', { desc = "Paste clipboard text" })
--- keymap("v", "<leader>y", '"+y', { desc = "Copy to clipboard" })
 
 -- Motion
 keymap("n", "<leader>;", "%", { desc = "Jump to match item" })
@@ -52,10 +41,10 @@ keymap("n", "<Left>", "<Cmd>vertical resize -2<CR>", { desc = "Increase window w
 keymap("n", "<Right>", "<Cmd>vertical resize +2<CR>", { desc = "Decrease window width" })
 
 -- Saner behavior of n and N
-keymap("n", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+keymap("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
 keymap("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
 keymap("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
-keymap("n", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+keymap("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev search result" })
 keymap("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
 keymap("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
 
@@ -71,19 +60,24 @@ keymap({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, desc = "Mo
 
 keymap("i", "jj", [[col('.') == 1 ? '<Esc>' : '<Esc>l']], { expr = true })
 
--- Windows
-keymap("n", "<leader>bd", "<Cmd>bdelete!<CR>", { desc = "Close current" })
+-- Code format
+keymap({ "n", "v" }, "<leader>cf", function()
+  Util.format.format({ force = true })
+end, { desc = "Code format" })
 
 -- Toggle options
-keymap(
-  "n",
-  "<leader>of",
-  require("mvim.plugins.lsp.format").toggle,
-  { desc = "Toggle format on save" }
-)
+keymap("n", "<leader>of", function()
+  Util.format.toggle()
+end, { desc = "Toggle auto format(global)" })
+
+keymap("n", "<leader>oF", function()
+  Util.format.toggle(true)
+end, { desc = "Toggle auto format(buffer)" })
+
 keymap("n", "<leader>os", function()
-  require("mvim.utils").toggle("spell")
+  require("mvim.util").toggle("spell")
 end, { desc = "Toggle spelling" })
+
 keymap("n", "<leader>ow", function()
-  require("mvim.utils").toggle("wrap")
+  require("mvim.util").toggle("wrap")
 end, { desc = "Toggle word wrap" })

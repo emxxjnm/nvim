@@ -29,6 +29,7 @@ local M = {
       vim.api.nvim_create_autocmd("FileType", {
         pattern = { "help", "alpha", "neo-tree", "lazy", "mason" },
         callback = function()
+          ---@diagnostic disable-next-line: inject-field
           vim.b.miniindentscope_disable = true
         end,
       })

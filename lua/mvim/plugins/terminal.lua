@@ -21,7 +21,7 @@ local M = {
             end
           end,
           on_close = function()
-            if require("mvim.utils").has("neo-tree.nvim") then
+            if require("mvim.util").has("neo-tree.nvim") then
               require("neo-tree.sources.git_status").refresh()
             end
           end,
@@ -61,7 +61,7 @@ local M = {
     },
   },
   init = function()
-    require("mvim.utils").augroup("TerminalMappings", {
+    require("mvim.util").augroup("TerminalMappings", {
       event = { "TermOpen" },
       pattern = "term://*toggleterm#*",
       command = function(args)

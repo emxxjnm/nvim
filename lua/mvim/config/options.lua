@@ -1,3 +1,8 @@
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+vim.g.autoformat = true
+
 local o, opt = vim.o, vim.opt
 local icons = mo.styles.icons
 local settings = mo.settings
@@ -91,5 +96,5 @@ o.backupdir = mo.settings.backupdir
 -- Message output on vim actions
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
 
--- fix markdown indentation settings
-vim.g.markdown_recommended_style = 0
+opt.grepformat = "%f:%l:%c:%m"
+opt.grepprg = "rg --vimgrep"

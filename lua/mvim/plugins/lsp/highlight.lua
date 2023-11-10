@@ -1,6 +1,6 @@
 local M = {}
 
-local U = require("mvim.utils")
+local U = require("mvim.util")
 
 local function highlight_references()
   local status_ok, ts_utils = pcall(function()
@@ -25,7 +25,7 @@ local function highlight_references()
 end
 
 function M.on_attach(client, buffer)
-  if client.supports_method(U.lsp_providers.HIGHLIGHT) then
+  if client.supports_method(U.lsp.providers.HIGHLIGHT) then
     U.augroup(("LspHighlight.%d"):format(buffer), {
       event = { "CursorHold", "CursorHoldI" },
       buffer = buffer,

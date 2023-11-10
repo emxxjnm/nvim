@@ -1,3 +1,5 @@
+local Util = require("mvim.util")
+
 local M = {
   {
     "williamboman/mason-lspconfig.nvim",
@@ -10,11 +12,6 @@ local M = {
           { "<leader>li", "<CMD>LspInfo<CR>", desc = "Lsp Info" },
           { "<leader>lr", "<CMD>LspRestart<CR>", desc = "Lsp Restart" },
         },
-      },
-      "b0o/SchemaStore.nvim",
-      {
-        "folke/neodev.nvim",
-        opts = { experimental = { pathStrict = true } },
       },
       {
         "williamboman/mason.nvim",
@@ -33,36 +30,13 @@ local M = {
           },
         },
       },
+      { "folke/neodev.nvim", opts = {} },
     },
     opts = {
       servers = {
         bashls = {},
         dockerls = {},
         cssls = {},
-        eslint = {
-          on_attach = function()
-            require("mvim.utils").augroup("AutoFixOnSave", {
-              event = "BufWritePre",
-              pattern = { "*.ts", "*.tsx", "*.js", "*.jsx", "*.vue" },
-              command = function(args)
-                if require("mvim.plugins.lsp.format").enabled() then
-                  local client =
-                    vim.lsp.get_active_clients({ bufnr = args.buf, name = "eslint" })[1]
-                  if client then
-                    local diag = vim.diagnostic.get(
-                      args.buf,
-                      { namespace = vim.lsp.diagnostic.get_namespace(client.id) }
-                    )
-                    if #diag > 0 then
-                      vim.cmd("EslintFixAll")
-                    end
-                  end
-                end
-              end,
-              desc = "Automatically execute `eslint fix` on save",
-            })
-          end,
-        },
         gopls = {
           settings = {
             gopls = {
@@ -96,16 +70,12 @@ local M = {
               usePlaceholders = true,
               completeUnimported = true,
               staticcheck = true,
-              directoryFilters = { "-.git", "-node_modules" },
+              directoryFilters = { "-.git", "-node_modules", "-.nvim" },
               semanticTokens = true,
             },
           },
         },
         jsonls = {
-          on_new_config = function(new_config)
-            new_config.settings.json.schemas = new_config.settings.json.schemas or {}
-            vim.list_extend(new_config.settings.json.schemas, require("schemastore").json.schemas())
-          end,
           settings = {
             json = {
               format = { enable = true },
@@ -113,16 +83,16 @@ local M = {
             },
           },
         },
-        pylsp = {},
-        stylelint_lsp = {
-          filetypes = { "css", "less", "scss", "vue" },
-          settings = {
-            stylelintplus = {
-              autoFixOnSave = true,
-              autoFixOnFormat = true,
-            },
-          },
-        },
+        -- pylsp = {},
+        -- stylelint_lsp = {
+        --   filetypes = { "css", "less", "scss", "vue" },
+        --   settings = {
+        --     stylelintplus = {
+        --       autoFixOnSave = true,
+        --       autoFixOnFormat = true,
+        --     },
+        --   },
+        -- },
         lua_ls = {
           settings = {
             Lua = {
@@ -144,24 +114,10 @@ local M = {
           },
         },
         yamlls = {
-          on_new_config = function(new_config)
-            new_config.settings.yaml.schemas = vim.tbl_deep_extend(
-              "force",
-              new_config.settings.yaml.schemas or {},
-              require("schemastore").yaml.schemas()
-            )
-          end,
           settings = {
             yaml = {
               validate = true,
               format = { enable = true },
-              schemaStore = {
-                -- Must disable built-in schemaStore support to use
-                -- schemas from SchemaStore.nvim plugin
-                enable = false,
-                -- Avoid TypeError: Cannot read properties of undefined (reading 'length')
-                url = "",
-              },
             },
           },
         },
@@ -184,8 +140,7 @@ local M = {
 
       require("mvim.plugins.lsp.ui").setup()
 
-      require("mvim.utils").on_attach(function(client, buffer)
-        require("mvim.plugins.lsp.format").on_attach(client, buffer)
+      Util.lsp.on_attach(function(client, buffer)
         require("mvim.plugins.lsp.keybinds").on_attach(client, buffer)
 
         require("mvim.plugins.lsp.codelens").on_attach(client, buffer)
@@ -194,7 +149,7 @@ local M = {
 
       ---@param server string lsp server name
       local function setup_server(server)
-        local config = require("mvim.utils").resolve_config(server, opts.servers[server] or {})
+        local config = Util.lsp.resolve_config(server, opts.servers[server] or {})
         if opts.setup[server] then
           if opts.setup[server](server, config) then
             return
@@ -225,54 +180,6 @@ local M = {
       end
 
       mlsp.setup({ ensure_installed = ensure_installed, handlers = { setup_server } })
-    end,
-  },
-
-  {
-    "ray-x/lsp_signature.nvim",
-    enabled = false,
-    event = "BufReadPost",
-    opts = {
-      bind = true,
-      fix_pos = true,
-      hint_scheme = "Comment",
-      handler_opts = { border = mo.styles.border },
-    },
-  },
-
-  {
-    "nvimtools/none-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = function()
-      local nls = require("null-ls")
-
-      return {
-        border = mo.styles.border,
-        sources = {
-          -- lua
-          nls.builtins.formatting.stylua.with({
-            condition = function(utils)
-              return vim.fn.executable("stylua")
-                and utils.root_has_file({ "stylua.toml", ".stylua.toml" })
-            end,
-          }),
-
-          -- shell
-          nls.builtins.diagnostics.shellcheck,
-          nls.builtins.formatting.shfmt.with({
-            extra_args = { "-i", "2", "-ci", "-bn" },
-          }),
-
-          -- go
-          nls.builtins.code_actions.gomodifytags,
-          nls.builtins.code_actions.impl,
-
-          -- markdown
-          nls.builtins.formatting.markdownlint,
-          nls.builtins.diagnostics.markdownlint,
-        },
-        root_dir = require("null-ls.utils").root_pattern("Makefile", ".vim", ".git"),
-      }
     end,
   },
 }

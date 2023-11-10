@@ -174,41 +174,6 @@
     "body": "panic(\"$0\")",
     "description": "Snippet for panic"
   },
-  "http ResponseWriter *Request": {
-    "prefix": "wr",
-    "body": "${1:w} http.ResponseWriter, ${2:r} *http.Request",
-    "description": "Snippet for http Response"
-  },
-  "http.HandleFunc": {
-    "prefix": "hf",
-    "body": "${1:http}.HandleFunc(\"${2:/}\", ${3:handler})",
-    "description": "Snippet for http.HandleFunc()"
-  },
-  "http handler declaration": {
-    "prefix": "hand",
-    "body": "func $1(${2:w} http.ResponseWriter, ${3:r} *http.Request) {\n\t$0\n}",
-    "description": "Snippet for http handler declaration"
-  },
-  "http.Redirect": {
-    "prefix": "rd",
-    "body": "http.Redirect(${1:w}, ${2:r}, \"${3:/}\", ${4:http.StatusFound})",
-    "description": "Snippet for http.Redirect()"
-  },
-  "http.Error": {
-    "prefix": "herr",
-    "body": "http.Error(${1:w}, ${2:err}.Error(), ${3:http.StatusInternalServerError})",
-    "description": "Snippet for http.Error()"
-  },
-  "http.ListenAndServe": {
-    "prefix": "las",
-    "body": "http.ListenAndServe(\"${1::8080}\", ${2:nil})",
-    "description": "Snippet for http.ListenAndServe"
-  },
-  "http.Serve": {
-    "prefix": "sv",
-    "body": "http.Serve(\"${1::8080}\", ${2:nil})",
-    "description": "Snippet for http.Serve"
-  },
   "goroutine anonymous function": {
     "prefix": "go",
     "body": "go func($1) {\n\t$0\n}($2)",

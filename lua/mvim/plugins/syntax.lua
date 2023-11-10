@@ -9,6 +9,10 @@ local M = {
       { "<BS>", mode = { "n", "v" }, desc = "Schrink selection" },
       { "<CR>", mode = { "n", "v" }, desc = "Increment selection" },
     },
+    init = function(plugin)
+      require("lazy.core.loader").add_to_rtp(plugin)
+      require("nvim-treesitter.query_predicates")
+    end,
     dependencies = {
       { "nvim-treesitter/nvim-treesitter-textobjects" },
       {
@@ -91,9 +95,7 @@ local M = {
       { "ds", desc = "Delete surround" },
       { "cs", desc = "Replace surround" },
     },
-    opts = {
-      move_cursor = false,
-    },
+    opts = { move_cursor = false },
   },
 }
 

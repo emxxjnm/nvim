@@ -71,9 +71,10 @@ end
 
 ---@param name "autocmds" | "options" | "keymaps"
 function M.load(name)
-  local Util = require("lazy.core.util")
   local function _load(mod)
-    Util.try(function()
+    local U = require("lazy.core.util")
+
+    U.try(function()
       require(mod)
     end, {
       msg = "Failed loading " .. mod,
@@ -82,12 +83,12 @@ function M.load(name)
         if info == nil or (type(info) == "table" and #info == 0) then
           return
         end
-        Util.error(msg)
+        U.error(msg)
       end,
     })
   end
 
-  _load("mvim." .. name)
+  _load("mvim.config." .. name)
 
   if vim.bo.filetype == "lazy" then
     vim.cmd([[do VimResized]])
@@ -99,8 +100,7 @@ function M.init()
   if not M.did_init then
     M.did_init = true
 
-    -- M.load("options")
-    require("mvim.config").load("options")
+    M.load("options")
   end
 end
 
@@ -115,7 +115,7 @@ function M.setup()
     M.load("autocmds")
   end
 
-  require("mvim.utils").augroup("Mvim", {
+  require("mvim.util").augroup("Mvim", {
     pattern = "VeryLazy",
     event = "User",
     command = function()
@@ -123,6 +123,8 @@ function M.setup()
         M.load("autocmds")
       end
       M.load("keymaps")
+
+      require("mvim.util").format.setup()
     end,
   })
 end

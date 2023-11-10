@@ -1,6 +1,6 @@
 local M = {}
 
-local providers = require("mvim.utils").lsp_providers
+local providers = require("mvim.util").lsp.providers
 
 M._keys = nil
 
@@ -57,19 +57,6 @@ function M.get()
         depends = providers.SIGNATUREHELP,
       },
       {
-        "<leader>cf",
-        vim.lsp.buf.format,
-        desc = "Format Document",
-        depends = providers.FORMATTING,
-      },
-      {
-        "<leader>cf",
-        vim.lsp.buf.format,
-        desc = "Format Range",
-        mode = "v",
-        depends = providers.RANGEFORMATTING,
-      },
-      {
         "<leader>cr",
         vim.lsp.buf.rename,
         desc = "Rename",
@@ -78,7 +65,7 @@ function M.get()
       {
         "<leader>ca",
         vim.lsp.buf.code_action,
-        desc = "Code Action",
+        desc = "Code action",
         mode = { "n", "v" },
         depends = providers.CODEACTION,
       },

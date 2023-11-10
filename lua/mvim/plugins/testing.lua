@@ -67,12 +67,12 @@ return {
       },
     },
     dependencies = {
-      { "nvim-neotest/neotest-go" },
-      { "nvim-neotest/neotest-python" },
-      { "nvim-neotest/neotest-plenary" },
+      "nvim-neotest/neotest-go",
+      "nvim-neotest/neotest-python",
+      "nvim-neotest/neotest-plenary",
     },
-    config = function()
-      require("neotest").setup({
+    opts = function()
+      return {
         output = {
           open_on_run = true,
         },
@@ -105,10 +105,10 @@ return {
             dap = { justMyCode = false, console = "integratedTerminal", subProcess = false },
             pytest_discovery = true,
           }),
-          require("neotest-go")({ experimental = { test_table = true } }),
+          require("neotest-go"),
           require("neotest-plenary"),
         },
-      })
+      }
     end,
   },
 }

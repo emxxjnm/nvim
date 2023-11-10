@@ -4,6 +4,7 @@ local M = {
   opts = function()
     local cmp, luasnip = require("cmp"), require("luasnip")
     local select = cmp.SelectBehavior.Select
+
     return {
       global = {
         preselect = cmp.PreselectMode.None,
@@ -24,9 +25,9 @@ local M = {
           end,
         },
         sources = {
-          { name = "codeium", group_index = 1 },
           { name = "nvim_lsp", group_index = 1 },
           { name = "luasnip", group_index = 1 },
+          { name = "path", group_index = 1 },
           {
             name = "buffer",
             option = {
@@ -37,7 +38,6 @@ local M = {
             keyword_length = 2,
             group_index = 2,
           },
-          { name = "path", group_index = 2 },
         },
         formatting = {
           fields = { "kind", "abbr", "menu" },
@@ -49,7 +49,6 @@ local M = {
               buffer = "[Buf]",
               path = "[Path]",
               cmdline = "[Cmd]",
-              codeium = "[AI]",
             })[entry.source.name] or entry.source.name
             return item
           end,
@@ -168,12 +167,6 @@ local M = {
           paths = vim.fn.stdpath("config") .. "/snippets",
         })
       end,
-    },
-    {
-      "Exafunction/codeium.nvim",
-      cmd = "Codeium",
-      build = ":Codeium Auth",
-      opts = {},
     },
   },
 }

@@ -51,5 +51,23 @@
       "}$0"
     ],
     "description": "FastAPI debug configurations template."
+  },
+  "launch-go": {
+    "prefix": "go",
+    "body": [
+      "{",
+      "\t\"name\": \"GO: ${1}\",",
+      "\t\"type\": \"go\",",
+      "\t\"request\": \"launch\",",
+      "\t\"program\": \"\\${workspaceFolder}/cmd/${2}\",",
+      "\t\"args\": [",
+      "\t\t$3",
+      "\t],",
+      "\t\"env\": {",
+      "\t\t\"${4:key}\": \"${5:value}\"",
+      "\t}",
+      "}$0"
+    ],
+    "description": "Go launch template"
   }
 }

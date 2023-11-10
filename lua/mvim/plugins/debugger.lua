@@ -166,7 +166,7 @@ local M = {
     }
 
     -- https://github.com/rcarriga/nvim-dap-ui/issues/248
-    require("mvim.utils").augroup("DapReplOptions", {
+    require("mvim.util").augroup("DapReplOptions", {
       event = "BufWinEnter",
       pattern = { "\\[dap-repl\\]", "DAP *" },
       command = vim.schedule_wrap(function(args)

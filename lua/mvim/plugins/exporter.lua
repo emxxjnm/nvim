@@ -1,4 +1,4 @@
-local U = require("mvim.utils")
+local U = require("mvim.util")
 
 local M = {
   "nvim-neo-tree/neo-tree.nvim",
@@ -45,13 +45,13 @@ local M = {
       {
         event = "file_moved",
         handler = function(data)
-          U.on_renamed(data.source, data.destination)
+          U.exporter.on_renamed(data.source, data.destination)
         end,
       },
       {
         event = "file_renamed",
         handler = function(data)
-          U.on_renamed(data.source, data.destination)
+          U.exporter.on_renamed(data.source, data.destination)
         end,
       },
     },
@@ -155,6 +155,7 @@ local M = {
         hide_hidden = true,
         always_show = {
           ".vim",
+          ".nvim",
           ".vscode",
         },
         never_show = {
@@ -166,29 +167,15 @@ local M = {
       },
       commands = {
         telescope_find = function(state)
-          U.find_or_grep("find", state)
+          U.exporter.find_or_grep("find", state)
         end,
         telescope_grep = function(state)
-          U.find_or_grep("grep", state)
+          U.exporter.find_or_grep("grep", state)
         end,
       },
       follow_current_file = { enabled = true },
     },
   },
-  config = function(_, opts)
-    require("neo-tree").setup(opts)
-
-    U.augroup("GitStatusRefresh", {
-      pattern = "*lazygit",
-      event = "TermClose",
-      command = function()
-        if package.loaded["neo-tree.sources.git_status"] then
-          require("neo-tree.sources.git_status").refresh()
-        end
-      end,
-      desc = "Refresh Neo-Tree git when closing lazygit",
-    })
-  end,
 }
 
 return M

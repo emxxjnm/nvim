@@ -39,7 +39,7 @@ function M.setup()
     },
   })
 
-  require("mvim.utils").augroup("LspDiagnostics", {
+  require("mvim.util").augroup("LspDiagnostics", {
     event = "CursorHold",
     desc = "LSP: show diagnostics",
     command = function()

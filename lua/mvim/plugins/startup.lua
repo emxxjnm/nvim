@@ -1,3 +1,5 @@
+local Util = require("mvim.util")
+
 local M = {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
@@ -21,6 +23,7 @@ local M = {
             icon_hl = "Character",
             key = "n",
             key_hl = "Constant",
+            key_format = "%s",
           },
           {
             action = "Telescope find_files",
@@ -30,15 +33,17 @@ local M = {
             icon_hl = "Label",
             key = "f",
             key_hl = "Constant",
+            key_format = "%s",
           },
           {
-            action = "Telescope live_grep_args",
+            action = "Telescope live_grep",
             desc = " Find text",
             desc_hl = "CursorLineNr",
             icon = I.lsp.kinds.text,
             icon_hl = "Special",
             key = "g",
             key_hl = "Constant",
+            key_format = "%s",
           },
           {
             action = "Telescope oldfiles",
@@ -48,15 +53,17 @@ local M = {
             icon_hl = "Macro",
             key = "r",
             key_hl = "Constant",
+            key_format = "%s",
           },
           {
-            action = "Telescope projects",
-            desc = " Recent projects",
+            action = Util.finder.config_files(),
+            desc = " Config",
             desc_hl = "CursorLineNr",
-            icon = I.misc.repo,
-            icon_hl = "Winbar",
-            key = "p",
+            icon = I.misc.setting,
+            icon_hl = "String",
+            key = "c",
             key_hl = "Constant",
+            key_format = "%s",
           },
           {
             action = "qa",
@@ -66,6 +73,7 @@ local M = {
             icon_hl = "Error",
             key = "q",
             key_hl = "Constant",
+            key_format = "%s",
           },
         },
         footer = function()
