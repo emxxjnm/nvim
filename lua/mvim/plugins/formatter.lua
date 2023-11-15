@@ -24,11 +24,11 @@ return {
       format_opts = {
         default = {
           formatters = nil,
-          timeout_ms = 1000,
+          timeout_ms = 500,
           lsp_fallback = true,
         },
         go = {
-          timeout_ms = 800,
+          timeout_ms = 500,
           lsp_fallback = "always",
         },
       },
