@@ -36,7 +36,7 @@ local M = {
       ["<leader>"] = {
         b = { name = I.misc.buffer .. " Buffer" },
         c = { name = I.misc.code .. " Code" },
-        d = { name = I.dap.bug .. " Debug" },
+        d = { name = I.dap.debug .. " Debug" },
         f = { name = I.misc.search .. " Find" },
         g = { name = I.git.git .. " Git" },
         l = { name = I.lsp.lsp .. " LSP" },

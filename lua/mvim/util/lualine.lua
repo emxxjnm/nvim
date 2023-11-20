@@ -176,7 +176,7 @@ M.components = {
     function()
       return require("dap").status()
     end,
-    icon = I.dap.bug,
+    icon = I.dap.debug,
     color = { fg = mo.styles.palettes.yellow },
     cond = function()
       return package.loaded["dap"] and require("dap").status() ~= ""
