@@ -51,7 +51,7 @@ local M = {
         MiniIndentscopeSymbol = { fg = colors.overlay0 },
 
         FloatBorder = {
-          fg = mo.styles.transparent and colors.overlay1 or colors.mantle,
+          fg = mo.styles.transparent and colors.blue or colors.mantle,
           bg = mo.styles.transparent and colors.none or colors.mantle,
         },
 
