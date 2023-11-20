@@ -15,10 +15,6 @@ local M = {
     end,
     dependencies = {
       { "nvim-treesitter/nvim-treesitter-textobjects" },
-      {
-        "JoosepAlviste/nvim-ts-context-commentstring",
-        opts = { enable_autocmd = false },
-      },
     },
     opts = {
       ensure_installed = {
@@ -56,7 +52,6 @@ local M = {
           node_decremental = "<BS>", -- visual mode
         },
       },
-      context_commentstring = { enable = true, enable_autocmd = false },
       textobjects = {
         select = {
           enable = true,
