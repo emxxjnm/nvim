@@ -10,11 +10,8 @@ return {
           format = function(buf)
             local ft = vim.bo[buf].filetype
             local opts = require("mvim.util").opts("conform.nvim")
-            local format_opts = vim.tbl_deep_extend(
-              "force",
-              opts.format_opts[ft] or opts.format_opts.default,
-              { bufnr = buf }
-            )
+            local format_opts =
+              vim.tbl_deep_extend("force", opts.format_opts[ft] or {}, { bufnr = buf })
             require("conform").format(format_opts)
           end,
         }
@@ -22,11 +19,6 @@ return {
     end,
     opts = {
       format_opts = {
-        default = {
-          formatters = nil,
-          timeout_ms = 500,
-          lsp_fallback = true,
-        },
         go = {
           timeout_ms = 500,
           lsp_fallback = "always",

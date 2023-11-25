@@ -6,6 +6,7 @@ return {
       events = { "BufWritePost", "BufReadPost", "InsertLeave" },
       linters_by_ft = {
         typescript = { "eslint_d" },
+        javascript = { "eslint_d" },
         vue = { "eslint_d", "stylelint" },
       },
       linters = {},
