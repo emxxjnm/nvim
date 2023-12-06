@@ -10,15 +10,14 @@ return {
           format = function(buf)
             local ft = vim.bo[buf].filetype
             local opts = require("mvim.util").opts("conform.nvim")
-            local format_opts =
-              vim.tbl_deep_extend("force", opts.format_opts[ft] or {}, { bufnr = buf })
-            require("conform").format(format_opts)
+            local extra_args = opts.extra_lang_opts[ft] or {}
+            require("conform").format(vim.tbl_deep_extend("force", { bufnr = buf }, extra_args))
           end,
         }
       end)
     end,
     opts = {
-      format_opts = {
+      extra_lang_opts = {
         go = {
           timeout_ms = 500,
           lsp_fallback = "always",
@@ -30,10 +29,19 @@ return {
         go = { "goimports" },
         javascript = { "eslint_d" },
         typescript = { "eslint_d" },
-        vue = { "stylelint", "eslint_d" },
+        vue = { "eslint_d", "stylelint" },
       },
       formatters = {
         shfmt = { prepend_args = { "-i", "2", "-ci" } },
+        eslint_d = { env = { ESLINT_USE_FLAT_CONFIG = "true" } },
+        stylelint = {
+          condition = function(ctx)
+            return vim.fs.find(
+              { ".stylelintrc", "stylelint.config.js", "stylelint.config.cjs" },
+              { path = ctx.filename, upward = true }
+            )[1]
+          end,
+        },
       },
     },
   },

@@ -9,7 +9,16 @@ return {
         javascript = { "eslint_d" },
         vue = { "eslint_d", "stylelint" },
       },
-      linters = {},
+      linters = {
+        stylelint = {
+          condition = function(ctx)
+            return vim.fs.find(
+              { ".stylelintrc", "stylelint.config.js", "stylelint.config.cjs" },
+              { path = ctx.filename, upward = true }
+            )[1]
+          end,
+        },
+      },
     },
     config = function(_, opts)
       local Util = require("mvim.util")
