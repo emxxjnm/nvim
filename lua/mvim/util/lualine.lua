@@ -10,6 +10,10 @@ M.conditions = {
   hide_in_width = function()
     return vim.o.columns > 100
   end,
+  has_lsp_clients = function()
+    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    return #clients > 0
+  end,
 }
 
 M.components = {
@@ -124,14 +128,8 @@ M.components = {
 
   lsp = {
     function()
-      local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
-      if #buf_clients == 0 then
-        return "LS Inactive"
-      end
-
       local clients = {}
-
-      -- add client
+      local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
       for _, client in pairs(buf_clients) do
         table.insert(clients, client.name)
       end
@@ -139,9 +137,8 @@ M.components = {
       return string.format("LSP(s):[%s]", table.concat(clients, " • "))
     end,
     icon = I.lsp.lsp,
-    -- color = { fg = colors.mauve },
     color = { fg = mo.styles.palettes.mauve },
-    cond = M.conditions.hide_in_width,
+    cond = M.conditions.hide_in_width and M.conditions.has_lsp_clients,
   },
 
   lsp_progress = {
