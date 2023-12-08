@@ -35,7 +35,7 @@ return {
         shfmt = { prepend_args = { "-i", "2", "-ci" } },
         eslint_d = { env = { ESLINT_USE_FLAT_CONFIG = "true" } },
         stylelint = {
-          condition = function(ctx)
+          condition = function(self, ctx)
             return vim.fs.find(
               { ".stylelintrc", "stylelint.config.js", "stylelint.config.cjs" },
               { path = ctx.filename, upward = true }
