@@ -18,7 +18,6 @@ local M = {
       neogit = false,
       nvimtree = false,
       rainbow_delimiters = false,
-      dap = { enabled = true, enable_ui = true },
       telescope = { enabled = true, style = mo.styles.transparent and nil or "nvchad" },
     },
     custom_highlights = function(colors)
