@@ -1,15 +1,23 @@
-# ✨ My Neovim dotfiles 🎉
+# My PDE with NeoVim
+
+This is my personal Neovim configuration, and it provides a good experience for writing `Vue3`, `TypeScript`, `JavaScript`, and `Go`.
+`Python` in progress. 
+
+| Language  | LSP   | Formatter            | Linter               |
+| ---       | ---   | ---                  | ---                  |
+| Go        | gopls | goimports & gopls    | -                    |
+| Vue/TS/JS | Volar | eslint_d & stylelint | eslint_d & stylelint |
+| Python    | ?     | ?                    | ?                    |
 
 ## Preview
 
-|                                                                                                                               |                                                                                                                                |                                                                                                                                     |
-| :---------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------: | :---------------------------------------------------------------------------------------------------------------------------------: |
-| <img alt="Home" src="https://user-images.githubusercontent.com/54089360/219844972-3e47bb03-29fa-458a-975d-82822a8fabba.png">  | <img alt="Editor" src="https://user-images.githubusercontent.com/54089360/213395915-e1aadfc9-2e3b-403f-8258-a6cf43563b87.jpg"> | <img alt="Completion" src="https://user-images.githubusercontent.com/54089360/213395968-a5dad009-2bd0-4182-b76e-eef33e4fbe2d.jpg">  |
-| <img alt="" src="https://user-images.githubusercontent.com/54089360/235862263-e560e35b-9124-47ce-b7d4-336386312cd8.jpg"> | <img alt="" src="https://user-images.githubusercontent.com/54089360/235862634-47ad1da2-261d-464e-aa89-3c66bee59e93.jpg"> | <img alt="" src="https://user-images.githubusercontent.com/54089360/235862747-8061ea3e-658a-409e-8efc-2e12b1dea2d7.jpg"> |
+![image](https://github.com/emxxjnm/nvim/assets/54089360/8876a392-c803-42cf-9793-46101e94e15a)
+![image](https://github.com/emxxjnm/nvim/assets/54089360/d715070d-dabf-468a-b242-d9233fad5008)
+![image](https://github.com/emxxjnm/nvim/assets/54089360/4c7892d6-6a24-4e5e-8ccb-12270654ad61)
+![image](https://github.com/emxxjnm/nvim/assets/54089360/c973ff75-d4b4-4fad-b485-c515a61728ae)
+![image](https://github.com/emxxjnm/nvim/assets/54089360/44b31fc1-fb2c-4e47-bf7a-b756d16e0837)
 
-## ⚙️ Install
-
-### 🐳 Try it with docker
+## Try it with docker
 
 ```bash
 docker run -w /root -it --rm alpine:edge sh -uelic '
@@ -21,18 +29,24 @@ docker run -w /root -it --rm alpine:edge sh -uelic '
 '
 ```
 
-### 🪡 Prepare
+## Prepare
 
-* [Wallpaper](https://wallhaven.cc/w/zyxvqy)
+### Terminal
 
-* [Terminal: Kitty](https://sw.kovidgoyal.net/kitty/)
+[Kitty](https://sw.kovidgoyal.net/kitty/) and [Alacritty](https://alacritty.org/) are both good. Kitty supports ligatures but Alacritty does not.
 
-* [Font: INPUT](https://input.djr.com/preview/?size=14&language=python&theme=solarized-dark&family=InputMono&width=300&weight=300&line-height=1.2&a=ss&g=ss&i=topserif&l=topserif&zero=0&asterisk=height&braces=straight&preset=default&customize=please)
+### Font
+A few fonts that I personally like.
 
-* [ASCII Art Generator](https://patorjk.com/software/taag/#p=display&f=Soft&t=Type%20Something%20)
+* [INPUT](https://input.djr.com/)
+
+* [Monaspace](https://monaspace.githubnext.com/)
+
+* [Recursive Sans & Mono](https://www.recursive.design/)
+
+#### Patch the font(Nerd fonts)
 
 ```bash
-# patch font
 docker run --rm \
     -v /path/to/font:/in \
     -v /path/for/output:/out \
@@ -42,14 +56,18 @@ docker run --rm \
     --progressbars
 ```
 
-### 🔗 Dependencies
+### Text to ASCII
+
+* [ASCII Art Generator](https://patorjk.com/software/taag/#p=display&f=Soft&t=Type%20Something%20)
+
+### Dependencies
 
 * [ ] ripgrep
 * [ ] fd
 * [ ] fzf
 * [ ] lazygit
 
-### ⌨️  Keymaps
+### Keymaps
 
 #### General
 
@@ -72,8 +90,6 @@ docker run --rm \
 | &lt;leader&gt;W  | Save files                    | **n**               |
 | &lt;leader&gt;q  | Quit                          | **n**               |
 | &lt;leader&gt;Q  | Force quit                    | **n**               |
-| &lt;leader&gt;p  | Past clipboard text           | **n**               |
-| &lt;leader&gt;y  | Copy to clipboard             | **v**               |
 | &lt;leader&gt;-  | Split below                   | **n**               |
 | &lt;leader&gt;\| | Split right                   | **n**               |
 
