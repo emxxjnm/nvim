@@ -1,13 +1,12 @@
 # My PDE with NeoVim
 
-This is my personal Neovim configuration, and it provides a good experience for writing `Vue3`, `TypeScript`, `JavaScript`, and `Go`.
-`Python` in progress. 
+This is my personal Neovim configuration, and it provides a good experience for writing `Vue3`, `TypeScript`, `JavaScript`, `Go` and `Python`. 
 
-| Language  | LSP   | Formatter            | Linter               |
-| ---       | ---   | ---                  | ---                  |
-| Go        | gopls | goimports & gopls    | -                    |
-| Vue/TS/JS | Volar | eslint_d & stylelint | eslint_d & stylelint |
-| Python    | ?     | ?                    | ?                    |
+| Language  | LSP     | Formatter            | Linter               |
+| ---       | ---     | ---                  | ---                  |
+| Go        | gopls   | goimports & gopls    | -                    |
+| Python    | pyright | ruff                 | ruff                 |
+| Vue/TS/JS | Volar   | eslint_d & stylelint | eslint_d & stylelint |
 
 ## Preview
 
