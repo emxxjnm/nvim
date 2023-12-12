@@ -34,9 +34,10 @@ local M = {
     },
     opts = {
       servers = {
+        cssls = {},
+        vimls = {},
         bashls = {},
         dockerls = {},
-        cssls = {},
         gopls = {
           settings = {
             gopls = {
@@ -75,24 +76,7 @@ local M = {
             },
           },
         },
-        jsonls = {
-          settings = {
-            json = {
-              format = { enable = true },
-              validate = { enable = true },
-            },
-          },
-        },
-        -- pylsp = {},
-        -- stylelint_lsp = {
-        --   filetypes = { "css", "less", "scss", "vue" },
-        --   settings = {
-        --     stylelintplus = {
-        --       autoFixOnSave = true,
-        --       autoFixOnFormat = true,
-        --     },
-        --   },
-        -- },
+        pyright = {},
         lua_ls = {
           settings = {
             Lua = {
@@ -102,7 +86,6 @@ local M = {
             },
           },
         },
-        vimls = {},
         volar = {
           -- take over Typescript
           filetypes = {
@@ -111,6 +94,14 @@ local M = {
             "javascript",
             "javascriptreact",
             "typescriptreact",
+          },
+        },
+        jsonls = {
+          settings = {
+            json = {
+              format = { enable = true },
+              validate = { enable = true },
+            },
           },
         },
         yamlls = {

@@ -30,6 +30,7 @@ return {
         javascript = { "eslint_d" },
         typescript = { "eslint_d" },
         vue = { "eslint_d", "stylelint" },
+        python = { "ruff_fix", "ruff_format" },
       },
       formatters = {
         shfmt = { prepend_args = { "-i", "2", "-ci" } },
