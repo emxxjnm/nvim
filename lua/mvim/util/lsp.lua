@@ -95,19 +95,13 @@ function M.common_capabilities()
 end
 
 ---Resolve lsp config
----@param name string lsp server name
 ---@param ... table a list lsp config
 ---@return table config lsp config
-function M.resolve_config(name, ...)
+function M.resolve_config(...)
   local defaults = {
     on_init = M.common_on_init,
     capabilities = M.common_capabilities(),
   }
-
-  local has_provider, cfg = pcall(require, "mvim.plugins.lsp.providers." .. name)
-  if has_provider then
-    defaults = vim.tbl_deep_extend("force", defaults, cfg) or {}
-  end
 
   defaults = vim.tbl_deep_extend("force", defaults, ...) or {}
 

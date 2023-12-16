@@ -5,6 +5,7 @@ local M = {
     "williamboman/mason-lspconfig.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
+      { "folke/neodev.nvim", opts = {} },
       {
         "neovim/nvim-lspconfig",
         keys = {
@@ -29,15 +30,54 @@ local M = {
             keymaps = { apply_language_filter = "f" },
           },
         },
+        config = function(_, opts)
+          require("mason").setup(opts)
+          local mr = require("mason-registry")
+          mr:on("package:install:success", function()
+            vim.defer_fn(function()
+              require("lazy.core.handler.event").trigger({
+                event = "FileType",
+                buf = vim.api.nvim_get_current_buf(),
+              })
+            end, 100)
+          end)
+        end,
       },
-      { "folke/neodev.nvim", opts = {} },
     },
     opts = {
       servers = {
-        cssls = {},
-        vimls = {},
         bashls = {},
         dockerls = {},
+        rust_analyzer = {
+          keys = {
+            { "K", "<cmd>RustHoverActions<cr>", desc = "Hover Actions (Rust)" },
+            { "<leader>cR", "<cmd>RustCodeAction<cr>", desc = "Code Action (Rust)" },
+            { "<leader>dr", "<cmd>RustDebuggables<cr>", desc = "Run Debuggables (Rust)" },
+          },
+          settings = {
+            ["rust-analyzer"] = {
+              cargo = {
+                allFeatures = true,
+                loadOutDirsFromCheck = true,
+                runBuildScripts = true,
+              },
+              -- Add clippy lints for Rust.
+              checkOnSave = {
+                allFeatures = true,
+                command = "clippy",
+                extraArgs = { "--no-deps" },
+              },
+              procMacro = {
+                enable = true,
+                ignored = {
+                  ["async-trait"] = { "async_trait" },
+                  ["napi-derive"] = { "napi" },
+                  ["async-recursion"] = { "async_recursion" },
+                },
+              },
+            },
+          },
+        },
         gopls = {
           settings = {
             gopls = {
@@ -81,7 +121,6 @@ local M = {
           settings = {
             Lua = {
               format = { enable = false },
-              telemetry = { enable = false },
               workspace = { checkThirdParty = false },
             },
           },
@@ -134,13 +173,13 @@ local M = {
       Util.lsp.on_attach(function(client, buffer)
         require("mvim.plugins.lsp.keybinds").on_attach(client, buffer)
 
-        require("mvim.plugins.lsp.codelens").on_attach(client, buffer)
+        -- require("mvim.plugins.lsp.codelens").on_attach(client, buffer)
         require("mvim.plugins.lsp.highlight").on_attach(client, buffer)
       end)
 
-      ---@param server string lsp server name
+      ---@param server string server name
       local function setup_server(server)
-        local config = Util.lsp.resolve_config(server, opts.servers[server] or {})
+        local config = Util.lsp.resolve_config(opts.servers[server] or {})
         if opts.setup[server] then
           if opts.setup[server](server, config) then
             return
@@ -157,11 +196,10 @@ local M = {
       local all_mlsp_servers =
         vim.tbl_keys(require("mason-lspconfig.mappings.server").lspconfig_to_package)
 
-      local ensure_installed = {} ---@type string[]
+      local ensure_installed = {}
       for server, server_opts in pairs(opts.servers) do
         if server_opts then
           server_opts = server_opts == true and {} or server_opts
-          -- run manual setup if mason=false or if this is a server that cannot be installed with mason-lspconfig
           if server_opts.mason == false or not vim.tbl_contains(all_mlsp_servers, server) then
             setup_server(server)
           else
