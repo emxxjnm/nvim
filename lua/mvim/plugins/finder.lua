@@ -167,12 +167,6 @@ local M = {
           },
         }
       end,
-      config = function(_, opts)
-        require("todo-comments").setup(opts)
-        U.on_load("telescope.nvim", function()
-          require("telescope").load_extension("todo-comments")
-        end)
-      end,
     },
   },
 }
