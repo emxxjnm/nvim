@@ -26,9 +26,12 @@ return {
       {
         "<leader>no",
         function()
-          require("neotest").output.open({ enter = true })
+          require("neotest").output.open({
+            enter = true,
+            auto_close = true,
+          })
         end,
-        desc = "Output",
+        desc = "Show output",
       },
       {
         "<leader>nn",
@@ -36,6 +39,13 @@ return {
           require("neotest").run.run()
         end,
         desc = "Run",
+      },
+      {
+        "<leader>nl",
+        function()
+          require("neotest").run.run_last()
+        end,
+        desc = "Run last",
       },
       {
         "<leader>nf",
