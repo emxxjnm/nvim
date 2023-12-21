@@ -2,9 +2,9 @@ local M = {
   "akinsho/toggleterm.nvim",
   keys = {
     { [[<C-\>]], desc = "Toggle terminal" },
-    { "<leader>t=", "<Cmd>ToggleTerm direction=float<CR>", desc = "Float terminal" },
-    { "<leader>t-", "<Cmd>ToggleTerm direction=horizontal<CR>", desc = "Horizontal terminal" },
-    { "<leader>t|", "<Cmd>ToggleTerm direction=vertical<CR>", desc = "Vertical terminal" },
+    { "<leader>T=", "<Cmd>ToggleTerm direction=float<CR>", desc = "Float terminal" },
+    { "<leader>T-", "<Cmd>ToggleTerm direction=horizontal<CR>", desc = "Horizontal terminal" },
+    { "<leader>T|", "<Cmd>ToggleTerm direction=vertical<CR>", desc = "Vertical terminal" },
     {
       "<leader>gg",
       function()

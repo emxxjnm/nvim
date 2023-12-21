@@ -61,9 +61,9 @@ docker run --rm \
 
 ### Dependencies
 
-* [ ] ripgrep
 * [ ] fd
 * [ ] fzf
+* [ ] ripgrep
 * [ ] lazygit
 
 ### Keymaps
@@ -159,9 +159,9 @@ docker run --rm \
 | Key               | Description         | Mode           |
 | --------------    | --------------      | -------------- |
 | &lt;C-\&gt;       | Toggle terminal     | **n**          |
-| &lt;leader&gt;t=  | Float terminal      | **n**          |
-| &lt;leader&gt;t\| | Vertical terminal   | **n**          |
-| &lt;leader&gt;t-  | Horizontal terminal | **n**          |
+| &lt;leader&gt;T=  | Float terminal      | **n**          |
+| &lt;leader&gt;T\| | Vertical terminal   | **n**          |
+| &lt;leader&gt;T-  | Horizontal terminal | **n**          |
 | &lt;leader&gt;gg  | Lazygit             | **n**          |
 
 ### LuaSnip
@@ -186,12 +186,13 @@ docker run --rm \
 
 | Key              | Description         | Mode           |
 | --------------   | --------------      | -------------- |
-| &lt;leader&gt;nn | Run                 | **n**          |
-| &lt;leader&gt;na | Attach              | **n**          |
-| &lt;leader&gt;nf | Run file            | **n**          |
-| &lt;leader&gt;nx | Stop                | **n**          |
-| &lt;leader&gt;no | Toggle output       | **n**          |
-| &lt;leader&gt;ns | Toggle summaryu     | **n**          |
-| &lt;leader&gt;np | Toggle output panel | **n**          |
+| &lt;leader&gt;tn | Run                 | **n**          |
+| &lt;leader&gt;ta | Attach              | **n**          |
+| &lt;leader&gt;tf | Run file            | **n**          |
+| &lt;leader&gt;tl | Run last            | **n**          |
+| &lt;leader&gt;tx | Stop                | **n**          |
+| &lt;leader&gt;to | Toggle output       | **n**          |
+| &lt;leader&gt;ts | Toggle summaryu     | **n**          |
+| &lt;leader&gt;tp | Toggle output panel | **n**          |
 | [n               | Prev failed test    | **n**          |
 | ]n               | Next failed test    | **n**          |

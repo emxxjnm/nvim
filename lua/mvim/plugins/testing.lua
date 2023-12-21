@@ -3,28 +3,28 @@ return {
     "nvim-neotest/neotest",
     keys = {
       {
-        "<leader>ns",
+        "<leader>ts",
         function()
           require("neotest").summary.toggle()
         end,
         desc = "Toggle summary",
       },
       {
-        "<leader>na",
+        "<leader>ta",
         function()
           require("neotest").run.attach()
         end,
         desc = "Attach",
       },
       {
-        "<leader>np",
+        "<leader>tp",
         function()
           require("neotest").output_panel.toggle()
         end,
         desc = "Toggle output panel",
       },
       {
-        "<leader>no",
+        "<leader>to",
         function()
           require("neotest").output.open({
             enter = true,
@@ -34,42 +34,42 @@ return {
         desc = "Show output",
       },
       {
-        "<leader>nn",
+        "<leader>tr",
         function()
           require("neotest").run.run()
         end,
         desc = "Run",
       },
       {
-        "<leader>nl",
+        "<leader>tl",
         function()
           require("neotest").run.run_last()
         end,
         desc = "Run last",
       },
       {
-        "<leader>nf",
+        "<leader>tf",
         function()
           require("neotest").run.run({ vim.fn.expand("%:p") })
         end,
         desc = "Run file",
       },
       {
-        "<leader>nx",
+        "<leader>tx",
         function()
           require("neotest").run.stop()
         end,
         desc = "Stop",
       },
       {
-        "[n",
+        "[t",
         function()
           require("neotest").jump.prev({ status = "failed" })
         end,
         desc = "Next failed test",
       },
       {
-        "]n",
+        "]t",
         function()
           require("neotest").jump.next({ status = "failed" })
         end,
