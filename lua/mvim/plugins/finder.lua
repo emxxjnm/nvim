@@ -117,14 +117,14 @@ local M = {
       dependencies = { "nvim-lua/plenary.nvim" },
       keys = {
         {
-          "[t",
+          "[l",
           function()
             require("todo-comments").jump_prev()
           end,
           desc = "Prev todo comment",
         },
         {
-          "]t",
+          "]l",
           function()
             require("todo-comments").jump_next()
           end,

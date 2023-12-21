@@ -87,6 +87,7 @@ mo.styles = {
     },
     misc = {
       flash = "󰉂",
+      bell = "",
       code = "",
       buffer = "",
       treesitter = "",

@@ -1,5 +1,3 @@
-local Util = require("mvim.util")
-
 local M = {
   {
     "akinsho/bufferline.nvim",
@@ -95,6 +93,8 @@ local M = {
     -- event = "VeryLazy",
     event = "BufReadPost",
     opts = function()
+      local lualine = require("mvim.util").lualine
+
       return {
         options = {
           theme = "catppuccin",
@@ -106,29 +106,29 @@ local M = {
           globalstatus = true,
         },
         sections = {
-          lualine_a = { Util.lualine.components.mode },
-          lualine_b = { Util.lualine.components.branch },
+          lualine_a = { lualine.components.mode },
+          lualine_b = { lualine.components.branch },
           lualine_c = {
-            Util.lualine.components.diff,
-            Util.lualine.components.diagnostics,
+            lualine.components.diff,
+            lualine.components.diagnostics,
           },
           lualine_x = {
-            Util.lualine.components.lsp_progress,
-            Util.lualine.components.python_env,
-            Util.lualine.components.dap,
-            Util.lualine.components.lsp,
-            Util.lualine.components.treesitter,
-            Util.lualine.components.spaces,
-            Util.lualine.components.filesize,
-            -- Util.lualine.components.lazy,
+            -- lualine.components.lsp_progress,
+            lualine.components.python_env,
+            lualine.components.dap,
+            lualine.components.lsp,
+            lualine.components.treesitter,
+            lualine.components.spaces,
+            lualine.components.filesize,
+            -- lualine.components.lazy,
           },
-          lualine_y = { Util.lualine.components.location },
-          lualine_z = { Util.lualine.components.clock },
+          lualine_y = { lualine.components.location },
+          lualine_z = { lualine.components.clock },
         },
         inactive_sections = {
           lualine_a = {
-            Util.lualine.components.filetype,
-            Util.lualine.components.filename,
+            lualine.components.filetype,
+            lualine.components.filename,
           },
           lualine_b = {},
           lualine_c = {},
@@ -142,7 +142,6 @@ local M = {
 
   {
     "luukvbaal/statuscol.nvim",
-    -- enabled = false,
     event = "BufReadPre",
     opts = function()
       local builtin = require("statuscol.builtin")
@@ -159,6 +158,141 @@ local M = {
         },
       }
     end,
+  },
+
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      {
+        {
+          "rcarriga/nvim-notify",
+          opts = {
+            timeout = 3000,
+            stages = "slide",
+            background_colour = mo.styles.transparent and "#000000" or "NotifyBackground",
+            max_height = function()
+              return math.floor(vim.o.lines * 0.7)
+            end,
+            max_width = function()
+              return math.floor(vim.o.columns * 0.7)
+            end,
+            on_open = function(win)
+              vim.api.nvim_win_set_config(win, { zindex = 100 })
+            end,
+          },
+        },
+      },
+    },
+    opts = {
+      cmdline = {
+        view = "cmdline",
+      },
+      popupmenu = {
+        backend = "cmp",
+      },
+      lsp = {
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
+      },
+      routes = {
+        {
+          filter = {
+            event = "msg_show",
+            any = {
+              { find = "%d+L, %d+B" },
+              { find = "; after #%d+" },
+              { find = "; before #%d+" },
+              { find = "%d+ fewer lines" },
+              { find = "^Hunk %d+ of %d" },
+              { find = "^No hunks" },
+              { find = "^E486" },
+              { find = "%d+ more lines" },
+            },
+          },
+          view = "mini",
+        },
+        {
+          filter = {
+            any = {
+              { event = "notify", max_height = 1 },
+            },
+          },
+          view = "mini",
+        },
+        {
+          opts = { skip = true },
+          filter = {
+            event = "msg_show",
+            any = {
+              { find = "search hit %w+, continuing at %w+" },
+            },
+          },
+        },
+      },
+      presets = {
+        bottom_search = true,
+        long_message_to_split = true,
+        lsp_doc_border = mo.styles.transparent,
+      },
+    },
+    keys = {
+      {
+        "<leader>nl",
+        function()
+          require("noice").cmd("last")
+        end,
+        desc = "Noice Last Message",
+      },
+      {
+        "<leader>nh",
+        function()
+          require("noice").cmd("history")
+        end,
+        desc = "Noice History",
+      },
+      {
+        "<leader>na",
+        function()
+          require("noice").cmd("all")
+        end,
+        desc = "Noice All",
+      },
+      {
+        "<leader>nd",
+        function()
+          require("noice").cmd("dismiss")
+        end,
+        desc = "Dismiss All",
+      },
+      {
+        "<c-f>",
+        function()
+          if not require("noice.lsp").scroll(4) then
+            return "<c-f>"
+          end
+        end,
+        silent = true,
+        expr = true,
+        desc = "Scroll forward",
+        mode = { "i", "n", "s" },
+      },
+      {
+        "<c-b>",
+        function()
+          if not require("noice.lsp").scroll(-4) then
+            return "<c-b>"
+          end
+        end,
+        silent = true,
+        expr = true,
+        desc = "Scroll backward",
+        mode = { "i", "n", "s" },
+      },
+    },
   },
 }
 

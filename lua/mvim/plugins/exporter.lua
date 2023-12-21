@@ -175,6 +175,8 @@ local M = {
             exporter.find_or_grep("grep", state)
           end,
         },
+        bind_to_cwd = false,
+        use_libuv_file_watcher = true,
         follow_current_file = { enabled = true },
       },
     }
