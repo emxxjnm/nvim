@@ -65,6 +65,11 @@ keymap({ "n", "v" }, "<leader>cf", function()
   Util.format.format({ force = true })
 end, { desc = "Code format" })
 
+-- Lazygit
+keymap("n", "<leader>gg", function()
+  Util.terminal({ "lazygit" })
+end, { desc = "Lazygit" })
+
 -- Toggle options
 keymap("n", "<leader>of", function()
   Util.format.toggle()

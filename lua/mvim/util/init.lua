@@ -6,6 +6,7 @@
 ---@field finder mvim.util.finder
 ---@field augroup mvim.util.augroup
 ---@field lualine mvim.util.lualine
+---@field terminal mvim.util.terminal
 local M = {}
 
 setmetatable(M, {

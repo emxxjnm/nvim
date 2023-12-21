@@ -41,9 +41,9 @@ local M = {
         g = { name = I.git.git .. " Git" },
         l = { name = I.lsp.lsp .. " LSP" },
         m = { name = I.misc.markdown .. " Markdown" },
-        -- n = { name = I.misc.bell .. " Notification" },
+        n = { name = I.misc.bell .. " Notification" },
         t = { name = I.todo.test .. " Test" },
-        T = { name = I.misc.terminal .. " Terminal" },
+        -- T = { name = I.misc.terminal .. " Terminal" },
         o = { name = I.misc.option .. " Option" },
       },
     })

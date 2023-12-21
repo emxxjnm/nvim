@@ -154,16 +154,6 @@ docker run --rm \
 | &lt;leader&gt;gp | Preview hunk   | **n**          |
 | ig               | Select hunk    | **o**, **x**   |
 
-### Toggleterm
-
-| Key               | Description         | Mode           |
-| --------------    | --------------      | -------------- |
-| &lt;C-\&gt;       | Toggle terminal     | **n**          |
-| &lt;leader&gt;T=  | Float terminal      | **n**          |
-| &lt;leader&gt;T\| | Vertical terminal   | **n**          |
-| &lt;leader&gt;T-  | Horizontal terminal | **n**          |
-| &lt;leader&gt;gg  | Lazygit             | **n**          |
-
 ### LuaSnip
 
 | Key            | Description     | Mode           |
