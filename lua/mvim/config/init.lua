@@ -107,7 +107,6 @@ end
 function M.setup()
   _G.I = mo.styles.icons
 
-  -- bootstrap lazy.nvim
   M.bootstrap()
 
   local lazy_autocmds = vim.fn.argc(-1) == 0

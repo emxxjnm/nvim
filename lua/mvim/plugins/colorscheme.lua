@@ -11,14 +11,19 @@ local M = {
       functions = { "italic" },
     },
     integrations = {
+      alpha = false,
+      neogit = false,
+      nvimtree = false,
+      illuminate = false,
+      rainbow_delimiters = false,
+      dropbar = { enabled = false },
       mason = true,
+      noice = true,
+      notify = true,
       neotree = true,
       neotest = true,
       which_key = true,
-      neogit = false,
-      nvimtree = false,
-      rainbow_delimiters = false,
-      telescope = { enabled = true, style = mo.styles.transparent and nil or "nvchad" },
+      telescope = { style = mo.styles.transparent and nil or "nvchad" },
     },
     custom_highlights = function(colors)
       return {

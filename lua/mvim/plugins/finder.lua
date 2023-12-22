@@ -130,7 +130,7 @@ local M = {
           end,
           desc = "Next todo comment",
         },
-        { "<leader>ft", "<Cmd>Telescope todo-comments todo<CR>", desc = "List todo" },
+        { "<leader>ft", "<Cmd>TodoTelescope<CR>", desc = "List todo" },
       },
       opts = function()
         return {

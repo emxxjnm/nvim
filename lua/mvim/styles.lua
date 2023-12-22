@@ -54,7 +54,7 @@ mo.styles = {
       empty_folder_open = "󰷏", -- md
 
       modified = "",
-      close = "",
+      close = "󰖭",
     },
     todo = {
       fix = "",
@@ -105,7 +105,7 @@ mo.styles = {
       pulse = "",
       lazy = "󰒲 ",
       milestone = "",
-      terminal = "",
+      terminal = "",
       key = "",
       setting = "",
       task = "",
@@ -163,7 +163,6 @@ mo.styles = {
         object = "?",
         key = "?",
         null = "?",
-        codeium = "󰘦",
       },
     },
   },

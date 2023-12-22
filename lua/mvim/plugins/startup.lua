@@ -1,5 +1,3 @@
-local Util = require("mvim.util")
-
 local M = {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
@@ -56,7 +54,7 @@ local M = {
             key_format = "%s",
           },
           {
-            action = Util.finder.config_files(),
+            action = require("mvim.util").finder.config_files(),
             desc = " Config",
             desc_hl = "CursorLineNr",
             icon = I.misc.setting,

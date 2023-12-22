@@ -167,8 +167,7 @@ local M = {
     },
     config = function(_, opts)
       require("mvim.plugins.lsp.diagnostics").setup()
-
-      require("mvim.plugins.lsp.ui").setup()
+      require("lspconfig.ui.windows").default_options.border = "rounded"
 
       Util.lsp.on_attach(function(client, buffer)
         require("mvim.plugins.lsp.keybinds").on_attach(client, buffer)
