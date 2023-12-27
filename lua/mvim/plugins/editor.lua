@@ -42,12 +42,6 @@ local M = {
   },
 
   {
-    "nvim-treesitter/nvim-treesitter-context",
-    event = "BufReadPost",
-    opts = { mode = "cursor", max_lines = 1 },
-  },
-
-  {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     config = function()
@@ -62,6 +56,22 @@ local M = {
         cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
       end
     end,
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    event = "BufReadPost",
+    opts = { mode = "cursor", max_lines = 1 },
+  },
+
+  {
+    "kylechui/nvim-surround",
+    keys = {
+      { "ys", desc = "Add surround" },
+      { "ds", desc = "Delete surround" },
+      { "cs", desc = "Replace surround" },
+    },
+    opts = { move_cursor = false },
   },
 
   {
