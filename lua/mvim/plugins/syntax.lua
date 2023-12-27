@@ -33,6 +33,7 @@ local M = {
         "lua",
         "markdown",
         "python",
+        "rust",
         "scss",
         "toml",
         "tsx",
