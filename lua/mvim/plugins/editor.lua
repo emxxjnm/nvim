@@ -48,9 +48,20 @@ local M = {
   },
 
   {
-    "echasnovski/mini.pairs",
+    "windwp/nvim-autopairs",
     event = "InsertEnter",
-    opts = {},
+    config = function()
+      local autopairs = require("nvim-autopairs")
+      autopairs.setup({
+        check_ts = true,
+        fast_wrap = { map = "<C-e>" },
+      })
+      local ok, cmp = pcall(require, "cmp")
+      if ok then
+        local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+        cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+      end
+    end,
   },
 
   {
