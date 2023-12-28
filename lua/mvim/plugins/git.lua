@@ -20,11 +20,14 @@ local M = {
         vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
       end
 
+      -- stylua: ignore start
       -- Navigation
       keymap("n", "[g", gs.prev_hunk, "Prev git hunk")
       keymap("n", "]g", gs.next_hunk, "Next git hunk")
       -- Actions
       keymap("n", "<leader>gp", gs.preview_hunk, "Preview hunk")
+      keymap("n", "<leader>gb", function()gs.blame_line({ full = true })end, "Blame line")
+      keymap("n", "<leader>gd", gs.diffthis, "Diff this")
       -- Text object
       keymap({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>", "Select git hunk")
     end,
