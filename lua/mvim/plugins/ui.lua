@@ -170,7 +170,6 @@ local M = {
           opts = {
             timeout = 3000,
             stages = "slide",
-            background_colour = mo.styles.transparent and "#000000" or "NotifyBackground",
             max_height = function()
               return math.floor(vim.o.lines * 0.7)
             end,
