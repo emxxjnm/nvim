@@ -1,7 +1,7 @@
 local namespace = {
   styles = {},
   settings = {
-    metadir = ".nvim",
+    metadir = ".vscode",
     swapdir = vim.fn.stdpath("cache") .. "/swap",
     undodir = vim.fn.stdpath("cache") .. "/undo",
     backupdir = vim.fn.stdpath("cache") .. "/backup",

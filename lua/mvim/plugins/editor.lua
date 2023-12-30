@@ -50,11 +50,11 @@ local M = {
         check_ts = true,
         fast_wrap = { map = "<C-e>" },
       })
-      local ok, cmp = pcall(require, "cmp")
-      if ok then
-        local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-        cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
-      end
+      -- local ok, cmp = pcall(require, "cmp")
+      -- if ok then
+      --   local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+      --   cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+      -- end
     end,
   },
 

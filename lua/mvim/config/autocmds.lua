@@ -1,14 +1,14 @@
 local U = require("mvim.util")
 
-local cursorline_bt_exclude = { "terminal" }
-local cursorline_ft_exclude = { "alpha", "toggleterm", "neo-tree-popup", "TelescopePrompt" }
+local cursorline_ft_exclude = { "dashboard" }
 
 -- Works better on non-transparent backgrounds
 U.augroup("AutoCursorLine", {
   event = { "BufEnter", "InsertLeave" },
   command = function(args)
     vim.wo.cursorline = not vim.wo.previewwindow
-      and not vim.tbl_contains(cursorline_bt_exclude, vim.bo[args.buf].buftype)
+      and vim.wo.winhighlight == ""
+      and vim.bo[args.buf].filetype ~= ""
       and not vim.tbl_contains(cursorline_ft_exclude, vim.bo[args.buf].filetype)
   end,
   desc = "Hide cursor line in inactive window",
