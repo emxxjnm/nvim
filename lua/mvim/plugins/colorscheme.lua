@@ -47,7 +47,7 @@ local M = {
         LazyButtonActive = {
           bg = mo.styles.transparent and colors.none or colors.overlay1,
           fg = mo.styles.transparent and colors.lavender or colors.base,
-          style = { " bold" },
+          style = { "bold" },
         },
         LazySpecial = { fg = colors.sapphire },
 
@@ -65,6 +65,21 @@ local M = {
         },
       }
     end,
+    color_overrides = {
+      mocha = {
+        red = "#f07c82",
+        blue = "#70a1ff",
+        green = "#7bed9f",
+        yellow = "#ffeaa7",
+
+        sky = "#5ef1ff",
+        pink = "#ffacfc",
+        peach = "#ffbe76",
+        -- mauve = "#b76cfd",
+        -- mauve = "#cba6f7"
+        -- mauve = "#ce96fb",
+      },
+    },
   },
   config = function(_, opts)
     require("catppuccin").setup(opts)

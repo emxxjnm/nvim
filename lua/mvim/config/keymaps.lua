@@ -80,9 +80,9 @@ keymap("n", "<leader>oF", function()
 end, { desc = "Toggle auto format(buffer)" })
 
 keymap("n", "<leader>os", function()
-  require("mvim.util").toggle("spell")
+  Util.toggle("spell")
 end, { desc = "Toggle spelling" })
 
 keymap("n", "<leader>ow", function()
-  require("mvim.util").toggle("wrap")
+  Util.toggle("wrap")
 end, { desc = "Toggle word wrap" })
