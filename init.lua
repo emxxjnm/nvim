@@ -1,12 +1,4 @@
-local namespace = {
-  styles = {},
-  settings = {
-    metadir = ".vscode",
-    swapdir = vim.fn.stdpath("cache") .. "/swap",
-    undodir = vim.fn.stdpath("cache") .. "/undo",
-    backupdir = vim.fn.stdpath("cache") .. "/backup",
-  },
-}
+local namespace = {}
 
 _G.mo = mo or namespace
 

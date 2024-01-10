@@ -2,7 +2,8 @@ local M = {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
   opts = function()
-    local logo = string.rep("\n", 8) .. mo.styles.banner .. "\n\n"
+    local banner = require("mvim.config").banner
+    local logo = string.rep("\n", 8) .. banner .. "\n\n"
     local opts = {
       theme = "doom",
       hide = {
@@ -17,7 +18,7 @@ local M = {
             action = "ene | startinsert",
             desc = " New file",
             desc_hl = "CursorLineNr",
-            icon = I.documents.new_file,
+            icon = " ",
             icon_hl = "Character",
             key = "n",
             key_hl = "Constant",
@@ -27,7 +28,7 @@ local M = {
             action = "Telescope find_files",
             desc = " Find file",
             desc_hl = "CursorLineNr",
-            icon = I.misc.search,
+            icon = " ",
             icon_hl = "Label",
             key = "f",
             key_hl = "Constant",
@@ -37,7 +38,7 @@ local M = {
             action = "Telescope live_grep",
             desc = " Find text",
             desc_hl = "CursorLineNr",
-            icon = I.lsp.kinds.text,
+            icon = " ",
             icon_hl = "Special",
             key = "g",
             key_hl = "Constant",
@@ -47,7 +48,7 @@ local M = {
             action = "Telescope oldfiles",
             desc = " Recent files",
             desc_hl = "CursorLineNr",
-            icon = I.misc.history,
+            icon = " ",
             icon_hl = "Macro",
             key = "r",
             key_hl = "Constant",
@@ -57,7 +58,7 @@ local M = {
             action = require("mvim.util").finder.config_files(),
             desc = " Config",
             desc_hl = "CursorLineNr",
-            icon = I.misc.setting,
+            icon = " ",
             icon_hl = "String",
             key = "c",
             key_hl = "Constant",
@@ -67,7 +68,7 @@ local M = {
             action = "qa",
             desc = " Quit",
             desc_hl = "CursorLineNr",
-            icon = I.misc.exit,
+            icon = " ",
             icon_hl = "Error",
             key = "q",
             key_hl = "Constant",
@@ -82,8 +83,7 @@ local M = {
 
           return {
             string.format(
-              "%s Neovim v%d.%d.%d%s",
-              I.misc.vim,
+              " Neovim v%d.%d.%d%s",
               version.major,
               version.minor,
               version.patch,

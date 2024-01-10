@@ -5,12 +5,12 @@ local M = {
     main = "ibl",
     opts = {
       indent = {
-        char = I.indent.dash,
-        tab_char = I.indent.dash,
+        char = "┊",
+        tab_char = "┊",
       },
       scope = { enabled = false },
       exclude = {
-        filetypes = { "help", "alpha", "neo-tree", "lazy", "mason" },
+        filetypes = { "help", "neo-tree", "lazy", "mason" },
       },
     },
   },
@@ -19,7 +19,7 @@ local M = {
     "echasnovski/mini.indentscope",
     event = { "BufReadPre", "BufNewFile" },
     opts = {
-      symbol = I.indent.solid,
+      symbol = "│",
       options = {
         try_as_border = true,
         indent_at_cursor = false,
@@ -27,7 +27,7 @@ local M = {
     },
     init = function()
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = { "help", "alpha", "neo-tree", "lazy", "mason" },
+        pattern = { "help", "neo-tree", "lazy", "mason" },
         callback = function()
           ---@diagnostic disable-next-line: inject-field
           vim.b.miniindentscope_disable = true

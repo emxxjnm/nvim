@@ -15,71 +15,67 @@ local M = {
     },
     opts = function()
       local ctp = require("catppuccin.groups.integrations.bufferline")
+      local colors = require("catppuccin.palettes").get_palette()
+      local transparent = require("mvim.config").transparent
 
       return {
         options = {
-          indicator = { icon = I.navigation.indicator, style = "icon" },
-          buffer_close_icon = I.documents.close,
-          modified_icon = I.documents.modified,
-          close_icon = I.documents.close,
-          left_trunc_marker = I.navigation.triangle_left,
-          right_trunc_marker = I.navigation.triangle_right,
+          indicator = { icon = "▍", style = "icon" },
+          buffer_close_icon = "󰖭",
+          modified_icon = "",
+          left_trunc_marker = " ",
+          right_trunc_marker = " ",
           diagnostics = "nvim_lsp",
-          diagnostics_indicator = function(_, _, diagnostics)
-            local result = {}
-            for name, count in pairs(diagnostics) do
-              name = name:match("warn") and "warn" or name
-              if I.diagnostics[name] and count > 0 then
-                table.insert(result, I.diagnostics[name] .. " " .. count)
-              end
-            end
-            return #result > 0 and table.concat(result, " ") or ""
+          diagnostics_indicator = function(_, level)
+            local icons = require("mvim.config").icons.diagnostics
+            level = level:match("warn") and "warn" or level
+            return icons[level] or ""
           end,
           offsets = {
             {
               filetype = "neo-tree",
               text = "Explorer",
-              separator = mo.styles.transparent,
+              separator = transparent,
               text_align = "center",
               highlight = "PanelHeading",
             },
             {
               filetype = "undotree",
               text = "Undotree",
-              separator = mo.styles.transparent,
+              separator = transparent,
               text_align = "center",
               highlight = "PanelHeading",
             },
             {
               filetype = "dapui_scopes",
               text = "Debugger",
-              separator = mo.styles.transparent,
+              separator = transparent,
               text_align = "center",
               highlight = "PanelHeading",
             },
           },
           move_wraps_at_ends = true,
           show_close_icon = false,
-          separator_style = mo.styles.transparent and "thin" or "slope",
+          separator_style = transparent and "thin" or "slope",
           show_buffer_close_icons = false,
           sort_by = "insert_after_current",
         },
         highlights = ctp.get({
           custom = {
             all = {
-              buffer_selected = { fg = mo.styles.palettes.lavender },
+              buffer_selected = { fg = colors.lavender },
 
-              error = { fg = mo.styles.palettes.surface1 },
-              error_diagnostic = { fg = mo.styles.palettes.surface1 },
+              error = { fg = colors.surface1 },
+              error_diagnostic = { fg = colors.surface1 },
 
-              warning = { fg = mo.styles.palettes.surface1 },
-              warning_diagnostic = { fg = mo.styles.palettes.surface1 },
+              warning = { fg = colors.surface1 },
+              warning_diagnostic = { fg = colors.surface1 },
 
-              info = { fg = mo.styles.palettes.surface1 },
-              info_diagnostic = { fg = mo.styles.palettes.surface1 },
+              info = { fg = colors.surface1 },
+              info_diagnostic = { fg = colors.surface1 },
 
-              hint = { fg = mo.styles.palettes.surface1 },
-              hint_diagnostic = { fg = mo.styles.palettes.surface1 },
+              hint = { fg = colors.surface1 },
+              hint_diagnostic = { fg = colors.surface1 },
             },
           },
         }),
@@ -235,7 +231,7 @@ local M = {
       presets = {
         bottom_search = true,
         long_message_to_split = true,
-        lsp_doc_border = mo.styles.transparent,
+        lsp_doc_border = require("mvim.config").transparent,
       },
     },
     keys = {

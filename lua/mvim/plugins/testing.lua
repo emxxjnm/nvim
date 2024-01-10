@@ -87,7 +87,7 @@ return {
           open_on_run = true,
         },
         floating = {
-          border = mo.styles.border,
+          border = require("mvim.config").get_border(),
           max_height = 0.6,
           max_width = 0.8,
         },

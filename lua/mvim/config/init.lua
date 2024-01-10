@@ -1,6 +1,68 @@
-require("mvim.styles")
-
+---@class MvimConfig: MvimOptions
 local M = {}
+
+---@class MvimOptions
+local defaults = {
+  transparent = false,
+  -- stylua: ignore
+  icons = {
+    diagnostics = {
+      error = " ",
+      warn  = " ",
+      info  = " ",
+      hint  = " ",
+    },
+    -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#symbolKind
+    kinds = {
+      Array         = " ",
+      Boolean       = "󰨙 ",
+      Class         = " ",
+      Color         = " ",
+      Constant      = "󰏿 ",
+      Constructor   = " ",
+      Enum          = " ",
+      EnumMember    = " ",
+      Event         = " ",
+      Field         = " ",
+      File          = " ",
+      Folder        = " ",
+      Function      = "󰊕 ",
+      Interface     = " ",
+      Keyword       = " ",
+      Method        = " ",
+      Module        = " ",
+      Namespace     = " ",
+      Null          = "󰟢 ",
+      Number        = "󰎠 ",
+      Object        = " ",
+      Operator      = " ",
+      Package       = " ",
+      Property      = " ",
+      Reference     = " ",
+      Snippet       = " ",
+      String        = " ",
+      Struct        = " ",
+      Text          = " ",
+      TypeParameter = " ",
+      Unit          = " ",
+      Value         = " ",
+      Variable      = " ",
+    },
+  },
+  banner = [[
+         .-') _     ('-.                      (`-.              _   .-')      
+        ( OO ) )  _(  OO)                   _(OO  )_           ( '.( OO )_    
+    ,--./ ,--,'  (,------.  .-'),-----. ,--(_/   ,. \  ,-.-')   ,--.   ,--.)  
+    |   \ |  |\   |  .---' ( OO'  .-.  '\   \   /(__/  |  |OO)  |   `.'   |   
+    |    \|  | )  |  |     /   |  | |  | \   \ /   /   |  |  \  |         |   
+    |  .     |/  (|  '--.  \_) |  |\|  |  \   '   /,   |  |(_/  |  |'.'|  |   
+    |  |\    |    |  .--'    \ |  | |  |   \     /__) ,|  |_.'  |  |   |  |   
+    |  | \   |    |  `---.    `'  '-'  '    \   /    (_|  |     |  |   |  |   
+    `--'  `--'    `------'      `-----'      `-'       `--'     `--'   `--'   
+  ]],
+  ---@class CtpColor
+  palette = {},
+}
 
 function M.bootstrap()
   local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -26,43 +88,42 @@ function M.bootstrap()
     defaults = { lazy = true },
     install = { colorscheme = { "catppuccin" } },
     change_detection = { notify = false },
-    checker = { enabled = true, notify = false },
     ui = {
-      border = mo.styles.border,
+      border = M.get_border(),
       icons = {
-        loaded = I.plugin.installed,
-        not_loaded = I.plugin.uninstalled,
-        cmd = I.misc.terminal,
-        config = I.misc.setting,
-        event = I.lsp.kinds.event,
-        ft = I.documents.file,
-        init = I.dap.controls.play,
-        keys = I.misc.key,
-        plugin = I.plugin.plugin .. " ",
-        runtime = I.misc.vim,
-        source = I.lsp.kinds.snippet,
-        start = I.dap.play,
-        task = I.misc.task,
-        lazy = I.misc.lazy,
-        list = {
-          I.misc.creation,
-          I.misc.fish,
-          I.misc.star,
-          I.misc.pulse,
-        },
+        loaded = "",
+        not_loaded = "",
+        plugin = "",
       },
     },
     performance = {
       rtp = {
         disabled_plugins = {
-          "gzip",
-          "matchit",
-          "matchparen",
-          "netrwPlugin",
-          "tarPlugin",
           "tohtml",
-          "tutor",
+          "getscript",
+          "getscriptPlugin",
+          "gzip",
+          "logipat",
+          "netrw",
+          "netrwPlugin",
+          "netrwSettings",
+          "netrwFileHandlers",
+          "matchit",
+          "tar",
+          "tarPlugin",
+          "rrhelper",
+          "spellfile_plugin",
+          "vimball",
+          "vimballPlugin",
+          "zip",
           "zipPlugin",
+          "tutor",
+          "rplugin",
+          "syntax",
+          "synmenu",
+          "optwin",
+          "compiler",
+          "bugreport",
         },
       },
     },
@@ -105,8 +166,6 @@ function M.init()
 end
 
 function M.setup()
-  _G.I = mo.styles.icons
-
   M.bootstrap()
 
   local lazy_autocmds = vim.fn.argc(-1) == 0
@@ -127,5 +186,29 @@ function M.setup()
     end,
   })
 end
+
+function M.get_border()
+  local border = M.transparent and "rounded" or "none"
+  return border
+end
+
+---@param palette CtpColors<string> | CtpColor
+function M.filling_pigments(palette)
+  M.palette = palette
+end
+
+---@type MvimOptions
+local options
+
+setmetatable(M, {
+  __index = function(_, key)
+    if options == nil then
+      return vim.deepcopy(defaults)[key]
+    end
+
+    ---@cast options MvimConfig
+    return options[key]
+  end,
+})
 
 return M

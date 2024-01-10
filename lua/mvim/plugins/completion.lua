@@ -4,6 +4,7 @@ local M = {
   opts = function()
     local cmp, luasnip = require("cmp"), require("luasnip")
     local select = cmp.SelectBehavior.Select
+    local border = require("mvim.config").get_border()
 
     return {
       global = {
@@ -11,11 +12,11 @@ local M = {
         experimental = { ghost_text = true },
         window = {
           completion = {
-            border = mo.styles.border,
+            border = border,
             winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
           },
           documentation = {
-            border = mo.styles.border,
+            border = border,
             winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
           },
         },
@@ -42,7 +43,8 @@ local M = {
         formatting = {
           fields = { "kind", "abbr", "menu" },
           format = function(entry, item)
-            item.kind = string.format("%s %s", I.lsp.kinds[item.kind:lower()], item.kind)
+            local icons = require("mvim.config").icons.kinds
+            item.kind = string.format("%s%s", icons[item.kind], item.kind)
             item.menu = ({
               luasnip = "[Snip]",
               nvim_lsp = "[LSP]",
@@ -144,25 +146,19 @@ local M = {
           desc = "Select option",
         },
       },
-      opts = function()
-        local types = require("luasnip.util.types")
-
-        return {
-          region_check_events = "CursorMoved,CursorHold,InsertEnter",
+      config = function()
+        require("luasnip").setup({
           delete_check_events = "TextChanged",
           ext_opts = {
-            [types.choiceNode] = {
+            [require("luasnip.util.types").choiceNode] = {
               active = {
                 virt_text = {
-                  { I.misc.snow .. " ", "Type" },
+                  { "󰠖 ", "Type" },
                 },
               },
             },
           },
-        }
-      end,
-      config = function(_, opts)
-        require("luasnip").setup(opts)
+        })
         require("luasnip.loaders.from_vscode").lazy_load({
           paths = vim.fn.stdpath("config") .. "/snippets",
         })

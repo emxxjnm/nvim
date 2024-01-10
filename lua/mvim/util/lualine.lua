@@ -2,6 +2,7 @@
 local M = {}
 
 local fn, api = vim.fn, vim.api
+local palette = require("mvim.config").palette
 
 M.conditions = {
   buffer_not_empty = function()
@@ -23,17 +24,17 @@ M.components = {
       return string.sub(str, 1, 1)
     end,
     separator = {
-      right = I.navigation.right_half_circle_thick,
-      left = I.navigation.left_half_circle_thick,
+      right = "",
+      left = "",
     },
   },
 
   branch = {
     "branch",
-    icon = { I.git.branch, color = { fg = mo.styles.palettes.pink, gui = "bold" } },
+    icon = { "", color = { fg = palette.pink, gui = "bold" } },
     color = { gui = "bold" },
     separator = {
-      right = I.navigation.right_half_circle_thick,
+      right = "",
     },
   },
 
@@ -46,13 +47,13 @@ M.components = {
   filename = {
     "filename",
     file_status = false,
-    color = { fg = mo.styles.palettes.lavender },
+    color = { fg = palette.lavender },
   },
 
   filesize = {
     "filesize",
-    icon = I.misc.creation,
-    color = { fg = mo.styles.palettes.lavender },
+    icon = "󰙴",
+    color = { fg = palette.lavender },
     padding = { left = 0, right = 1 },
     cond = M.conditions.buffer_not_empty and M.conditions.hide_in_width,
   },
@@ -61,12 +62,7 @@ M.components = {
     "diagnostics",
     sources = { "nvim_diagnostic" },
     sections = { "error", "warn", "info", "hint" },
-    symbols = {
-      error = I.diagnostics.error .. " ",
-      warn = I.diagnostics.warn .. " ",
-      info = I.diagnostics.info .. " ",
-      hint = I.diagnostics.hint .. " ",
-    },
+    symbols = require("mvim.config").icons.diagnostics,
     cond = M.conditions.hide_in_width,
   },
 
@@ -84,22 +80,22 @@ M.components = {
       end
     end,
     symbols = {
-      added = I.git.added .. " ",
-      modified = I.git.modified .. " ",
-      removed = I.git.deleted .. " ",
+      added = " ",
+      modified = " ",
+      removed = " ",
     },
     cond = M.conditions.hide_in_width,
   },
 
   treesitter = {
     function()
-      return I.misc.treesitter
+      return ""
     end,
     color = function()
       local buf = api.nvim_get_current_buf()
       local ts = vim.treesitter.highlighter.active[buf]
       return {
-        fg = ts and not vim.tbl_isempty(ts) and mo.styles.palettes.green or mo.styles.palettes.red,
+        fg = ts and not vim.tbl_isempty(ts) and palette.green or palette.red,
       }
     end,
     cond = M.conditions.hide_in_width,
@@ -122,7 +118,7 @@ M.components = {
     --   return { icon, color = { fg = color } }
     -- end,
     icon = { "󰌠", color = { fg = "#ffbc03" } },
-    color = { fg = mo.styles.palettes.lavender },
+    color = { fg = palette.lavender },
     cond = M.conditions.hide_in_width,
   },
 
@@ -136,8 +132,8 @@ M.components = {
 
       return string.format("LSP(s):[%s]", table.concat(clients, " • "))
     end,
-    icon = I.lsp.lsp,
-    color = { fg = mo.styles.palettes.mauve },
+    icon = "",
+    color = { fg = palette.mauve },
     cond = M.conditions.hide_in_width and M.conditions.has_lsp_clients,
   },
 
@@ -159,13 +155,14 @@ M.components = {
       local percentage = progress.percentage or 0
       local title = progress.title or ""
       local ms = vim.loop.hrtime() / 1000000
-      local frame = math.floor(ms / 120) % #I.misc.spinners
+      local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪢", "󰪣", "󰪤", "󰪥" }
+      local frame = math.floor(ms / 120) % #spinners
       local content =
-        string.format(" %%<%s %s %s(%s%%%%) ", I.misc.spinners[frame + 1], title, msg, percentage)
+        string.format(" %%<%s %s %s(%s%%%%) ", spinners[frame + 1], title, msg, percentage)
 
       return content or ""
     end,
-    color = { fg = mo.styles.palettes.overlay0 },
+    color = { fg = palette.overlay0 },
     cond = M.conditions.hide_in_width,
   },
 
@@ -173,8 +170,8 @@ M.components = {
     function()
       return require("dap").status()
     end,
-    icon = I.dap.debug,
-    color = { fg = mo.styles.palettes.yellow },
+    icon = "",
+    color = { fg = palette.yellow },
     cond = function()
       return package.loaded["dap"] and require("dap").status() ~= ""
     end,
@@ -182,7 +179,7 @@ M.components = {
 
   lazy = {
     require("lazy.status").updates,
-    color = { fg = mo.styles.palettes.subtext0 },
+    color = { fg = palette.subtext0 },
     cond = require("lazy.status").has_updates,
   },
 
@@ -194,8 +191,8 @@ M.components = {
       -- return string.format("%3d/%d:%-2d", line, lines, col)
       return string.format("%d/%d:%d", line, lines, col)
     end,
-    icon = { I.misc.milestone, color = { fg = mo.styles.palettes.pink, gui = "bold" } },
-    separator = { left = I.navigation.left_half_circle_thick },
+    icon = { "", color = { fg = palette.pink, gui = "bold" } },
+    separator = { left = "" },
     color = { gui = "bold" },
   },
 
@@ -203,12 +200,13 @@ M.components = {
     function()
       local current_line = fn.line(".")
       local total_lines = fn.line("$")
-      local chars = I.misc.scrollbar
+      local chars =
+        { "██", "▇▇", "▆▆", "▅▅", "▄▄", "▃▃", "▂▂", "▁▁", "  " }
       local line_ratio = current_line / total_lines
       local index = math.ceil(line_ratio * #chars)
       return chars[index]
     end,
-    color = { fg = mo.styles.palettes.surface0 },
+    color = { fg = palette.surface0 },
   },
 
   spaces = {
@@ -224,17 +222,17 @@ M.components = {
     end,
     padding = { left = 1, right = 2 },
     cond = M.conditions.hide_in_width,
-    color = { fg = mo.styles.palettes.sapphire },
+    color = { fg = palette.sapphire },
   },
 
   clock = {
     function()
       return os.date("%R")
     end,
-    icon = I.misc.clock,
+    icon = "",
     separator = {
-      right = I.navigation.right_half_circle_thick,
-      left = I.navigation.left_half_circle_thick,
+      right = "",
+      left = "",
     },
   },
 }

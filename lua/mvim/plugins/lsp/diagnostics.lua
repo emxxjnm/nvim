@@ -3,7 +3,8 @@ local fmt = string.format
 local M = {}
 
 function M.setup()
-  for name, icon in pairs(I.diagnostics) do
+  local icons = require("mvim.config").icons.diagnostics
+  for name, icon in pairs(icons) do
     name = "DiagnosticSign" .. name:gsub("^%l", string.upper)
     vim.fn.sign_define(name, { text = icon, texthl = name })
   end
@@ -16,16 +17,16 @@ function M.setup()
       spacing = 1,
       format = function(d)
         local level = vim.diagnostic.severity[d.severity]
-        return fmt("%s %s", I.diagnostics[level:lower()], d.message)
+        return fmt("%s %s", icons[level:lower()], d.message)
       end,
     },
     float = {
       header = "",
       source = false,
-      border = mo.styles.border,
+      border = require("mvim.config").get_border(),
       prefix = function(d)
         local level = vim.diagnostic.severity[d.severity]
-        local prefix = fmt("%s ", I.diagnostics[level:lower()])
+        local prefix = fmt("%s ", icons[level:lower()])
         return prefix, "DiagnosticFloating" .. level
       end,
       format = function(d)

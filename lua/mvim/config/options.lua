@@ -5,8 +5,6 @@ vim.g.maplocalleader = " "
 vim.g.autoformat = true
 
 local opt = vim.opt
-local icons = mo.styles.icons
-local settings = mo.settings
 
 opt.confirm = true
 opt.autowrite = true -- new
@@ -42,10 +40,9 @@ opt.shortmess:append({ W = true, I = true, c = true, C = true })
 opt.fillchars = {
   eob = " ",
   fold = " ",
-  msgsep = " ",
   foldsep = " ",
-  foldopen = icons.documents.expanded,
-  foldclose = icons.documents.collapsed,
+  foldopen = "",
+  foldclose = "",
 }
 
 -- fold
@@ -61,7 +58,7 @@ opt.showmode = false
 opt.clipboard = "unnamedplus"
 
 opt.cursorline = true
-opt.cursorlineopt = mo.styles.transparent and "number" or "number,line"
+opt.cursorlineopt = require("mvim.config").transparent and "number" or "number,line"
 
 -- indent
 opt.expandtab = true
@@ -78,12 +75,5 @@ opt.relativenumber = true
 opt.timeoutlen = 300 -- 500
 opt.updatetime = 200 -- 500
 
--- cache
+-- undo
 opt.undofile = true
-opt.undodir = { settings.undodir }
-
-opt.swapfile = true
-opt.directory = { settings.swapdir }
-
-opt.backup = true
-opt.backupdir = { mo.settings.backupdir }

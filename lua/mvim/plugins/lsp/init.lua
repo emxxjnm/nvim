@@ -21,11 +21,11 @@ local M = {
           ui = {
             width = 0.8,
             height = 0.8,
-            border = mo.styles.border,
+            border = require("mvim.config").get_border(),
             icons = {
-              package_installed = mo.styles.icons.plugin.installed,
-              package_pending = mo.styles.icons.plugin.pedding,
-              package_uninstalled = mo.styles.icons.plugin.uninstalled,
+              package_installed = "",
+              package_pending = "",
+              package_uninstalled = "",
             },
             keymaps = { apply_language_filter = "f" },
           },

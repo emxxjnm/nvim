@@ -73,9 +73,9 @@ local M = {
       },
       opts = {
         icons = {
-          expanded = I.documents.expanded,
-          collapsed = I.documents.collapsed,
-          current_frame = I.documents.collapsed,
+          expanded = "",
+          collapsed = "",
+          current_frame = "",
         },
         layouts = {
           {
@@ -94,11 +94,8 @@ local M = {
             position = "bottom",
           },
         },
-        controls = {
-          icons = I.dap.controls,
-        },
         floating = {
-          border = mo.styles.border,
+          border = require("mvim.config").get_border(),
         },
       },
       config = function(_, opts)
@@ -131,16 +128,18 @@ local M = {
     },
   },
   init = function()
-    for name, icon in pairs(I.dap.signs) do
-      name = "Dap" .. name:gsub("^%l", string.upper)
-      vim.fn.sign_define(name, { text = icon, texthl = name, numhl = name })
-    end
+    vim.fn.sign_define(
+      "DapStopped",
+      { text = "󰋇 ", texthl = "DapStopped", numhl = "DapStopped" }
+    )
+    vim.fn.sign_define(
+      "DapBreakpoint",
+      { text = "󰄛 ", texthl = "DapBreakpoint", numhl = "DapBreakpoint" }
+    )
   end,
   config = function()
     -- load launch.json file
-    require("dap.ext.vscode").load_launchjs(
-      vim.fn.getcwd() .. "/" .. mo.settings.metadir .. "/launch.json"
-    )
+    require("dap.ext.vscode").load_launchjs(vim.fn.getcwd() .. "/.vscode/launch.json")
 
     local dap = require("dap")
     -- setup adapter

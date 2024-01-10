@@ -41,8 +41,7 @@ end
 ---@param client table<string, any> lsp client
 ---@return boolean
 function M.common_on_init(client)
-  local settings =
-    string.format("%s/%s/settings.json", client.workspace_folders[1].name, mo.settings.metadir)
+  local settings = string.format("%s/.vscode/settings.json", client.workspace_folders[1].name)
   if vim.fn.filereadable(settings) == 0 then
     return true
   end

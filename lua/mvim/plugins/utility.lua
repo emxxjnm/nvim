@@ -46,7 +46,7 @@ local M = {
       preview = {
         win_config = {
           winblend = 0,
-          border = mo.styles.border,
+          border = require("mvim.config").get_border(),
           winhighlight = "Normal:Folded",
         },
       },
@@ -102,7 +102,7 @@ local M = {
       user_default_options = {
         names = false,
         mode = "virtualtext",
-        virtualtext = I.misc.palette .. " ",
+        virtualtext = " ",
       },
     },
   },
@@ -198,7 +198,7 @@ local M = {
       },
       prompt = {
         enabled = true,
-        prefix = { { I.misc.flash, "FlashPromptIcon" } },
+        prefix = { { " 󰉂 ", "FlashPromptIcon" } },
       },
     },
   },
