@@ -3,7 +3,7 @@ local M = {}
 
 ---@class MvimOptions
 local defaults = {
-  transparent = false,
+  transparent = true,
   -- stylua: ignore
   icons = {
     diagnostics = {
