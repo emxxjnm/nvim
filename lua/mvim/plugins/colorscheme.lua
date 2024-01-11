@@ -78,9 +78,6 @@ local M = {
           sky = "#5ef1ff",
           pink = "#ffacfc",
           peach = "#ffbe76",
-          -- mauve = "#b76cfd",
-          -- mauve = "#cba6f7"
-          -- mauve = "#ce96fb",
         },
       },
     })
