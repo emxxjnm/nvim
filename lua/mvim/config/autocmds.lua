@@ -1,15 +1,20 @@
-local U = require("mvim.util")
-
-local cursorline_ft_exclude = { "dashboard" }
+local augroup = require("mvim.util").augroup
 
 -- Works better on non-transparent backgrounds
-U.augroup("AutoCursorLine", {
+local cursorline_exclude = { "dashboard", "neo-tree-popup" }
+
+---@param buf number
+---@return boolean
+local function should_show_cursorline(buf)
+  return vim.bo[buf].filetype ~= ""
+    and not vim.wo.previewwindow
+    and not vim.tbl_contains(cursorline_exclude, vim.bo[buf].filetype)
+end
+
+augroup("AutoCursorLine", {
   event = { "BufEnter", "InsertLeave" },
   command = function(args)
-    vim.wo.cursorline = not vim.wo.previewwindow
-      and vim.wo.winhighlight == ""
-      and vim.bo[args.buf].filetype ~= ""
-      and not vim.tbl_contains(cursorline_ft_exclude, vim.bo[args.buf].filetype)
+    vim.wo.cursorline = should_show_cursorline(args.buf)
   end,
   desc = "Hide cursor line in inactive window",
 }, {
@@ -20,7 +25,7 @@ U.augroup("AutoCursorLine", {
   desc = "Show cursor line only in active window",
 })
 
-U.augroup("LastPlaceLoc", {
+augroup("LastPlaceLoc", {
   event = "BufReadPost",
   command = function(args)
     local exclude = { "gitcommit" }
@@ -38,7 +43,7 @@ U.augroup("LastPlaceLoc", {
   desc = "Go to last loc when opening a buffer",
 })
 
-U.augroup("CloseWithQ", {
+augroup("CloseWithQ", {
   event = "FileType",
   pattern = {
     "qf",
@@ -60,7 +65,7 @@ U.augroup("CloseWithQ", {
   desc = "Close certain filetypes by pressing <q>",
 })
 
-U.augroup("TextYankHighlight", {
+augroup("TextYankHighlight", {
   event = { "TextYankPost" },
   command = function()
     vim.highlight.on_yank()
