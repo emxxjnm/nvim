@@ -1,6 +1,10 @@
 # My PDE with NeoVim
 
-This is my personal Neovim configuration, and it provides a good experience for writing `Vue3`, `TypeScript`, `JavaScript`, `Go` and `Python`. 
+My personal Neovim configuration, it's more delicious when paired with `tmux`.
+
+* Transparency first.
+* For coding `Vue3`, `Go` and `Python`.
+
 
 | Language  | LSP     | Formatter            | Linter               |
 | ---       | ---     | ---                  | ---                  |
@@ -143,7 +147,7 @@ docker run --rm \
 | &lt;leader&gt;fb | List buffers         | **n**          |
 | &lt;leader&gt;fd | List diagnostics     | **n**          |
 | &lt;leader&gt;fs | List symbols         | **n**          |
-| &lt;leader&gt;ft | List todos           | **n**          |
+| &lt;leader&gt;fl | List todos           | **n**          |
 
 ### Gitsings
 
