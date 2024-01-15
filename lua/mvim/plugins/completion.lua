@@ -1,130 +1,6 @@
 local M = {
   "hrsh7th/nvim-cmp",
   event = { "InsertEnter", "CmdlineEnter" },
-  opts = function()
-    local cmp, luasnip = require("cmp"), require("luasnip")
-    local select = cmp.SelectBehavior.Select
-    local border = require("mvim.config").get_border()
-
-    return {
-      global = {
-        preselect = cmp.PreselectMode.None,
-        experimental = { ghost_text = true },
-        window = {
-          completion = {
-            border = border,
-            winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-          },
-          documentation = {
-            border = border,
-            winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-          },
-        },
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
-        },
-        sources = {
-          { name = "nvim_lsp", group_index = 1 },
-          { name = "luasnip", group_index = 1 },
-          { name = "path", group_index = 1 },
-          {
-            name = "buffer",
-            option = {
-              get_bufnrs = function()
-                return vim.api.nvim_list_bufs()
-              end,
-            },
-            keyword_length = 2,
-            group_index = 2,
-          },
-        },
-        formatting = {
-          fields = { "kind", "abbr", "menu" },
-          format = function(entry, item)
-            local icons = require("mvim.config").icons.kinds
-            item.kind = string.format("%s%s", icons[item.kind], item.kind)
-            item.menu = ({
-              luasnip = "[Snip]",
-              nvim_lsp = "[LSP]",
-              buffer = "[Buf]",
-              path = "[Path]",
-              cmdline = "[Cmd]",
-            })[entry.source.name] or entry.source.name
-            return item
-          end,
-        },
-        mapping = {
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item({ behavior = select })
-            elseif luasnip.expand_or_locally_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end, { "i", "s", "c" }),
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-            elseif luasnip.locally_jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { "i", "s", "c" }),
-          ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
-          ["<C-e>"] = { i = cmp.mapping.abort(), c = cmp.mapping.close() },
-          ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-8), { "i", "c" }),
-          ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(8), { "i", "c" }),
-          -- ["<C-c>"] = cmp.mapping.complete(),
-          ["<Down>"] = cmp.mapping(
-            cmp.mapping.select_next_item({ behavior = select }),
-            { "i", "c" }
-          ),
-          ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = select }), { "i", "c" }),
-        },
-      },
-      cmdline = {
-        {
-          { "/", "?" },
-          {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = {
-              { name = "buffer" },
-            },
-          },
-        },
-        {
-          ":",
-          {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = cmp.config.sources({
-              { name = "path" },
-            }, {
-              { name = "cmdline" },
-            }),
-          },
-        },
-      },
-      -- filetype = {},
-      -- buffer = {}
-    }
-  end,
-  config = function(_, opts)
-    local cmp = require("cmp")
-
-    for key, value in pairs(opts) do
-      if key == "global" then
-        cmp.setup(value)
-      else
-        for _, v in ipairs(value) do
-          cmp.setup[key](v[1], v[2])
-        end
-      end
-    end
-  end,
   dependencies = {
     "hrsh7th/cmp-path",
     "hrsh7th/cmp-buffer",
@@ -165,6 +41,103 @@ local M = {
       end,
     },
   },
+  config = function()
+    local cmp, luasnip = require("cmp"), require("luasnip")
+    local select = cmp.SelectBehavior.Select
+    local border = require("mvim.config").get_border()
+
+    cmp.setup({
+      preselect = cmp.PreselectMode.None,
+      experimental = { ghost_text = true },
+      window = {
+        completion = {
+          border = border,
+          winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+        },
+        documentation = {
+          border = border,
+          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+        },
+      },
+      snippet = {
+        expand = function(args)
+          luasnip.lsp_expand(args.body)
+        end,
+      },
+      sources = cmp.config.sources({
+        { name = "nvim_lsp" },
+        { name = "luasnip" },
+      }, {
+        { name = "path" },
+        {
+          name = "buffer",
+          option = {
+            get_bufnrs = function()
+              return vim.api.nvim_list_bufs()
+            end,
+          },
+          keyword_length = 2,
+        },
+      }),
+      formatting = {
+        expandable_indicator = false,
+        fields = { "kind", "abbr", "menu" },
+        format = function(entry, item)
+          local icons = require("mvim.config").icons.kinds
+          item.kind = string.format("%s%s", icons[item.kind], item.kind)
+          item.menu = ({
+            luasnip = "[Snip]",
+            nvim_lsp = "[LSP]",
+            buffer = "[Buf]",
+            path = "[Path]",
+            cmdline = "[Cmd]",
+          })[entry.source.name] or entry.source.name
+          return item
+        end,
+      },
+      mapping = {
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_next_item({ behavior = select })
+          elseif luasnip.expand_or_locally_jumpable() then
+            luasnip.expand_or_jump()
+          else
+            fallback()
+          end
+        end, { "i", "s", "c" }),
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+          if cmp.visible() then
+            cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+          elseif luasnip.locally_jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            fallback()
+          end
+        end, { "i", "s", "c" }),
+        ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
+        ["<C-e>"] = { i = cmp.mapping.abort(), c = cmp.mapping.close() },
+        ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(-8), { "i", "c" }),
+        ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(8), { "i", "c" }),
+        -- ["<C-c>"] = cmp.mapping.complete(),
+        ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = select }), { "i", "c" }),
+        ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = select }), { "i", "c" }),
+      },
+    })
+
+    cmp.setup.cmdline({ "/", "?" }, {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = "buffer" },
+      },
+    })
+
+    cmp.setup.cmdline(":", {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = cmp.config.sources({
+        { name = "cmdline" },
+      }),
+    })
+  end,
 }
 
 return M
