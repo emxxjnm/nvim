@@ -1,19 +1,14 @@
 #!/bin/bash
 
-declare -r XDG_CACHE_HOME="${XDG_CACHE_HOME:-"$HOME/.cache"}"
 declare -r XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-"$HOME/.config"}"
 
-declare -r NVIM_CACHE_HOME="${NVIM_CACHE_HOME:-"$XDG_CACHE_HOME/nvim"}"
 declare -r NVIM_CONFIG_DIR="${NVIM_CONFIG_DIR:-"$XDG_CONFIG_HOME/nvim"}"
 
-declare -r NVIM_SWAP_DIR="${NVIM_SWAP_DIR:-"$NVIM_CACHE_HOME/swap"}"
-declare -r NVIM_UNDO_DIR="${NVIM_UNDO_DIR:-"$NVIM_CACHE_HOME/undo"}"
-declare -r NVIM_BACKUP_DIR="${NVIM_BACKUP_DIR:-"$NVIM_CACHE_HOME/backup"}"
-
-declare -a __cache_dirs=(
-  "$NVIM_SWAP_DIR"
-  "$NVIM_UNDO_DIR"
-  "$NVIM_BACKUP_DIR"
+declare -a __optional_deps=(
+  "fd::fd"
+  "fzf::fzf"
+  "rg::ripgrep"
+  "lazygit::lazygit"
 )
 
 function detect_platform() {
@@ -49,12 +44,12 @@ function msg() {
 
 function print_missing_dep_msg() {
   if [ "$#" -eq 1 ]; then
-    echo "[ERROR]: Unable to find dependency [$1]"
+    echo "Unable to find dependency [$1]"
     echo "Please install it first and re-run the installer. Try: $RECOMMEND_INSTALL $1"
   else
     local cmds
     cmds=$(for i in "$@"; do echo "$RECOMMEND_INSTALL $i"; done)
-    printf "[ERROR]: Unable to find dependencies [%s]" "$@"
+    printf "Unable to find dependencies [%s]" "$@"
     printf "Please install any one of the dependencies and re-run the installer. Try: \n%s\n" "$cmds"
   fi
 }
@@ -64,7 +59,7 @@ function check_neovim_min_version() {
 
   # exit with an error if min_version not found
   if ! nvim --headless -u NONE -c "$verify_version_cmd"; then
-    echo "[ERROR]: LunarVim requires at least Neovim v0.9 or higher"
+    echo "[ERROR]: Requires at least Neovim v0.9 or higher"
     exit 1
   fi
 }
@@ -83,28 +78,28 @@ function check_system_deps() {
   check_neovim_min_version
 }
 
-function verify_cache_dirs() {
-  for dir in "${__cache_dirs[@]}"; do
-    if [ ! -d "$dir" ]; then
-      mkdir -p "$dir"
-      msg "Create cache directory: <$dir> complete."
-    fi
-  done
-}
-
 function setup_nvim() {
   echo "Preparing Lazy setup"
 
   nvim -u "$NVIM_CONFIG_DIR/init.lua" --headless -c 'quitall'
 }
 
+function check_optional_deps() {
+  for dep in "${__optional_deps[@]}"; do
+    if ! command -v "${dep%%::*}" &>/dev/null; then
+      print_missing_dep_msg "${dep##*::}"
+    fi
+  done
+}
+
 function main() {
-  msg "Detecting platform for managing any additional neovim dependencies"
+  msg "Bootstrap..."
+
   detect_platform
 
   check_system_deps
 
-  verify_cache_dirs
+  check_optional_deps
 
   setup_nvim
 
