@@ -3,7 +3,7 @@ local M = {
   event = "VimEnter",
   opts = function()
     local banner = require("mvim.config").banner
-    local logo = string.rep("\n", 8) .. banner .. "\n\n"
+    local logo = string.rep("\n", 7) .. banner .. "\n"
     local opts = {
       theme = "doom",
       hide = {
@@ -17,62 +17,44 @@ local M = {
           {
             action = "ene | startinsert",
             desc = " New file",
-            desc_hl = "CursorLineNr",
             icon = " ",
             icon_hl = "Character",
             key = "n",
-            key_hl = "Constant",
-            key_format = "%s",
           },
           {
             action = "Telescope find_files",
             desc = " Find file",
-            desc_hl = "CursorLineNr",
             icon = " ",
             icon_hl = "Label",
             key = "f",
-            key_hl = "Constant",
-            key_format = "%s",
           },
           {
             action = "Telescope live_grep",
             desc = " Find text",
-            desc_hl = "CursorLineNr",
             icon = " ",
             icon_hl = "Special",
             key = "g",
-            key_hl = "Constant",
-            key_format = "%s",
           },
           {
             action = "Telescope oldfiles",
             desc = " Recent files",
-            desc_hl = "CursorLineNr",
             icon = " ",
             icon_hl = "Macro",
             key = "r",
-            key_hl = "Constant",
-            key_format = "%s",
           },
           {
             action = require("mvim.util").finder.config_files(),
             desc = " Config",
-            desc_hl = "CursorLineNr",
             icon = " ",
             icon_hl = "String",
             key = "c",
-            key_hl = "Constant",
-            key_format = "%s",
           },
           {
             action = "qa",
             desc = " Quit",
-            desc_hl = "CursorLineNr",
             icon = " ",
             icon_hl = "Error",
             key = "q",
-            key_hl = "Constant",
-            key_format = "%s",
           },
         },
         footer = function()
@@ -95,7 +77,10 @@ local M = {
     }
 
     for _, button in ipairs(opts.config.center) do
-      button.desc = button.desc .. string.rep(" ", 48 - #button.desc)
+      button.key_format = "%s"
+      button.key_hl = "Constant"
+      button.desc_hl = "CursorLineNr"
+      button.desc = button.desc .. string.rep(" ", 50 - #button.desc)
     end
 
     -- close Lazy and re-open when the dashboard is ready

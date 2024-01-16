@@ -45,7 +45,7 @@ local M = {
 
   {
     "nvim-treesitter/nvim-treesitter-context",
-    event = "BufReadPost",
+    event = { "BufReadPost", "BufNewFile" },
     opts = { mode = "cursor", max_lines = 1 },
   },
 

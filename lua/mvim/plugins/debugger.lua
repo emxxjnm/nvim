@@ -1,75 +1,23 @@
--- stop: shift + F5; restart: command + shift + F5
 local M = {
   "mfussenegger/nvim-dap",
+  -- stylua: ignore
   keys = {
-    {
-      "<leader>db",
-      function()
-        require("dap").toggle_breakpoint()
-      end,
-      desc = "Toggle breakpoint",
-    },
-    {
-      "<F5>",
-      function()
-        require("dap").continue()
-      end,
-      desc = "Continue",
-    },
-    {
-      "<F17>", -- shift + F5
-      function()
-        require("dap").terminate()
-      end,
-      desc = "Terminate",
-    },
-    {
-      "<S-F5>", -- command + shift + F5
-      function()
-        require("dap").restart()
-      end,
-      desc = "Restart",
-    },
-    {
-      "<F6>",
-      function()
-        require("dap").pause()
-      end,
-      desc = "Pause",
-    },
-    {
-      "<F10>",
-      function()
-        require("dap").step_over()
-      end,
-      desc = "Step over",
-    },
-    {
-      "<F11>",
-      function()
-        require("dap").step_into()
-      end,
-      desc = "Step into",
-    },
-    {
-      "<F12>",
-      function()
-        require("dap").step_out()
-      end,
-      desc = "Step out",
-    },
+    { "<leader>db", function() require("dap").toggle_breakpoint() end, desc = "Toggle breakpoint" },
+    { "<leader>dc", function() require("dap").continue() end, desc = "Continue" },
+    { "<leader>dC", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
+    { "<leader>dt", function() require("dap").terminate() end, desc = "Terminate" },
+    { "<leader>dr", function() require("dap").restart() end, desc = "Restart" },
+    { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
+    { "<leader>di", function() require("dap").step_into() end, desc = "Step into" },
+    { "<leader>do", function() require("dap").step_out() end, desc = "Step out" },
+    { "<leader>dO", function() require("dap").step_over() end, desc = "Step over" },
   },
   dependencies = {
     {
       "rcarriga/nvim-dap-ui",
+      -- stylua: ignore
       keys = {
-        {
-          "<leader>du",
-          function()
-            require("dapui").toggle()
-          end,
-          desc = "Toggle DAP UI",
-        },
+        { "<leader>du", function() require("dapui").toggle() end, desc = "Toggle DAP UI" },
       },
       opts = {
         icons = {

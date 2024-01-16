@@ -1,7 +1,7 @@
 local M = {
   {
     "akinsho/bufferline.nvim",
-    event = "BufReadPre",
+    event = { "BufReadPre", "BufNewFile" },
     keys = {
       { "[b", "<Cmd>BufferLineCyclePrev<CR>", desc = "Prev buffer" },
       { "]b", "<Cmd>BufferLineCycleNext<CR>", desc = "Next buffer" },
@@ -10,8 +10,8 @@ local M = {
       { "<leader>b[", "<Cmd>BufferLineMovePrev<CR>", desc = "Move prev" },
       { "<leader>b]", "<Cmd>BufferLineMoveNext<CR>", desc = "Move next" },
       { "<leader>bD", "<Cmd>BufferLineCloseOthers<CR>", desc = "Close others" },
-      { "<leader>bL", "<Cmd>BufferLineCloseLeft<CR>", desc = "Close to the left" },
-      { "<leader>bR", "<Cmd>BufferLineCloseRight<CR>", desc = "Close to the right" },
+      { "<leader>bH", "<Cmd>BufferLineCloseLeft<CR>", desc = "Close to the left" },
+      { "<leader>bL", "<Cmd>BufferLineCloseRight<CR>", desc = "Close to the right" },
     },
     opts = function()
       local ctp = require("catppuccin.groups.integrations.bufferline")
@@ -83,11 +83,9 @@ local M = {
     end,
   },
 
-  -- lualine
   {
     "nvim-lualine/lualine.nvim",
-    -- event = "VeryLazy",
-    event = "BufReadPost",
+    event = { "BufNewFile", "BufReadPost" },
     opts = function()
       local lualine = require("mvim.util").lualine
 
@@ -138,7 +136,7 @@ local M = {
 
   {
     "luukvbaal/statuscol.nvim",
-    event = "BufReadPre",
+    event = { "BufReadPre", "BufNewFile" },
     opts = function()
       local builtin = require("statuscol.builtin")
       local sign_name = { "Diagnostic*", "Dap*", "todo%-sign%-", "neotest_*" }

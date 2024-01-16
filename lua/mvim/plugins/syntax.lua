@@ -4,8 +4,8 @@ local M = {
   event = { "BufReadPost", "BufNewFile" },
   cmd = { "TSUpdateSync" },
   keys = {
-    { "<Tab>", mode = { "v" }, desc = "Increment selection" },
-    { "<BS>", mode = { "n", "v" }, desc = "Schrink selection" },
+    { "<Tab>", mode = "v", desc = "Increment selection" },
+    { "<BS>", mode = "v", desc = "Decrement selection" },
     { "<CR>", mode = { "n", "v" }, desc = "Increment selection" },
   },
   init = function(plugin)
@@ -48,7 +48,7 @@ local M = {
       keymaps = {
         init_selection = "<CR>", -- normal mode
         node_incremental = "<Tab>", -- visual mode
-        scope_incremental = "<CR>", -- visual mode
+        scope_incremental = false, -- visual mode
         node_decremental = "<BS>", -- visual mode
       },
     },
@@ -60,8 +60,6 @@ local M = {
           ["ic"] = { query = "@function.inner", desc = "TS: inner class" },
           ["af"] = { query = "@function.outer", desc = "TS: all function" },
           ["if"] = { query = "@function.inner", desc = "TS: inner function" },
-          ["aL"] = { query = "@assignment.lhs", desc = "TS: assignment lhs" },
-          ["aR"] = { query = "@assignment.rhs", desc = "TS: assignment rhs" },
         },
       },
       move = {
