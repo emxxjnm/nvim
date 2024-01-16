@@ -136,27 +136,14 @@ local M = {
 
   {
     "folke/flash.nvim",
+    -- stylua: ignore
     keys = {
       { "f", mode = { "n", "x", "o" } },
       { "F", mode = { "n", "x", "o" } },
       { "t", mode = { "n", "x", "o" } },
       { "T", mode = { "n", "x", "o" } },
-      {
-        "s",
-        mode = { "n", "x", "o" },
-        function()
-          require("flash").jump()
-        end,
-        desc = "Flash",
-      },
-      {
-        "S",
-        mode = { "n", "x", "o" },
-        function()
-          require("flash").ureesitter()
-        end,
-        desc = "Flash Treesitter",
-      },
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
     },
     opts = {
       jump = {
