@@ -110,7 +110,7 @@ docker run --rm \
 | &lt;C-k&gt;      | Signature Help        | **i**          |
 | [d               | Next Diagnostic       | **n**          |
 | ]d               | Prev Diagnostic       | **n**          |
-| &lt;leader&gt;ca | Signature Help        | **n**          |
+| &lt;leader&gt;ca | Code Action           | **n**          |
 | &lt;leader&gt;cr | Rename                | **n**          |
 | &lt;leader&gt;cf | Format Document/Range | **n**, **v**   |
 | &lt;leader&gt;cl | Lsp info              | **n**          |
@@ -120,13 +120,14 @@ docker run --rm \
 | Key              | Description       | Mode           |
 | --------------   | --------------    | -------------- |
 | &lt;leader&gt;db | Toggle breakpoint | **n**          |
-| &lt;F5&gt;       | Continue          | **n**          |
-| &lt;S-F5&gt;     | Terminate         | **n**          |
-| &lt;M-S-F5&gt;   | Restart           | **n**          |
-| &lt;F6&gt;       | Pause             | **n**          |
-| &lt;F10&gt;      | Step over         | **n**          |
-| &lt;F11&gt;      | Step into         | **n**          |
-| &lt;F12&gt;      | Step out          | **n**          |
+| &lt;leader&gt;dc | Continue          | **n**          |
+| &lt;leader&gt;dC | Run to cursor     | **n**          |
+| &lt;leader&gt;dt | Terminate         | **n**          |
+| &lt;leader&gtdr; | Restart           | **n**          |
+| &lt;leader&gt;dp | Pause             | **n**          |
+| &lt;leader&gt;dO | Step over         | **n**          |
+| &lt;leader&gt;di | Step into         | **n**          |
+| &lt;leader&gt;do | Step out          | **n**          |
 | &lt;leader&gt;du | Toggle DAP UI     | **n**          |
 
 ### Neo-tree
@@ -173,8 +174,8 @@ docker run --rm \
 | &lt;leader&gt;bp | Buffer pick        | **n**          |
 | &lt;leader&gt;bc | Pick close         | **n**          |
 | &lt;leader&gt;bD | Close others       | **n**          |
-| &lt;leader&gt;bL | Close to the left  | **n**          |
-| &lt;leader&gt;bR | Close to the right | **n**          |
+| &lt;leader&gt;bH | Close to the left  | **n**          |
+| &lt;leader&gt;bL | Close to the right | **n**          |
 
 ### Neotest
 
@@ -188,5 +189,5 @@ docker run --rm \
 | &lt;leader&gt;to | Toggle output       | **n**          |
 | &lt;leader&gt;ts | Toggle summaryu     | **n**          |
 | &lt;leader&gt;tp | Toggle output panel | **n**          |
-| [n               | Prev failed test    | **n**          |
-| ]n               | Next failed test    | **n**          |
+| [t               | Prev failed test    | **n**          |
+| ]t               | Next failed test    | **n**          |

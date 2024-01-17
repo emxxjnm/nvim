@@ -1,5 +1,3 @@
-local Util = require("mvim.util")
-
 local M = {
   {
     "williamboman/mason-lspconfig.nvim",
@@ -166,10 +164,11 @@ local M = {
       },
     },
     config = function(_, opts)
+      local U = require("mvim.util").lsp
       require("mvim.plugins.lsp.diagnostics").setup()
       require("lspconfig.ui.windows").default_options.border = "rounded"
 
-      Util.lsp.on_attach(function(client, buffer)
+      U.on_attach(function(client, buffer)
         require("mvim.plugins.lsp.keybinds").on_attach(client, buffer)
 
         -- require("mvim.plugins.lsp.codelens").on_attach(client, buffer)
@@ -178,7 +177,7 @@ local M = {
 
       ---@param server string server name
       local function setup_server(server)
-        local config = Util.lsp.resolve_config(opts.servers[server] or {})
+        local config = U.resolve_config(opts.servers[server] or {})
         if opts.setup[server] then
           if opts.setup[server](server, config) then
             return
