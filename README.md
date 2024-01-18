@@ -123,7 +123,7 @@ docker run --rm \
 | &lt;leader&gt;dc | Continue          | **n**          |
 | &lt;leader&gt;dC | Run to cursor     | **n**          |
 | &lt;leader&gt;dt | Terminate         | **n**          |
-| &lt;leader&gtdr; | Restart           | **n**          |
+| &lt;leader&gt;dr | Restart           | **n**          |
 | &lt;leader&gt;dp | Pause             | **n**          |
 | &lt;leader&gt;dO | Step over         | **n**          |
 | &lt;leader&gt;di | Step into         | **n**          |
