@@ -17,7 +17,7 @@ function M.setup()
       spacing = 1,
       format = function(d)
         local level = vim.diagnostic.severity[d.severity]
-        return fmt("%s %s", icons[level:lower()], d.message)
+        return fmt("%s%s", icons[level:lower()], d.message)
       end,
     },
     float = {
@@ -26,7 +26,7 @@ function M.setup()
       border = require("mvim.config").get_border(),
       prefix = function(d)
         local level = vim.diagnostic.severity[d.severity]
-        local prefix = fmt("%s ", icons[level:lower()])
+        local prefix = icons[level:lower()]
         return prefix, "DiagnosticFloating" .. level
       end,
       format = function(d)
@@ -38,14 +38,6 @@ function M.setup()
         return suffix, "Comment"
       end,
     },
-  })
-
-  require("mvim.util").augroup("LspDiagnostics", {
-    event = "CursorHold",
-    desc = "LSP: show diagnostics",
-    command = function()
-      vim.diagnostic.open_float({ scope = "cursor", focus = false })
-    end,
   })
 end
 

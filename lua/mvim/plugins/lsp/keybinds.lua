@@ -18,8 +18,6 @@ function M.get()
       { "<C-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", depends = providers.SIGNATUREHELP },
       { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", depends = providers.RENAME },
       { "<leader>ca", vim.lsp.buf.code_action, desc = "Code action", mode = { "n", "v" }, depends = providers.CODEACTION },
-      { "[d", vim.diagnostic.goto_prev, desc = "Prev Diagnostic" },
-      { "]d", vim.diagnostic.goto_next, desc = "Next Diagnostic" },
     }
   end
   return M._keys
@@ -27,14 +25,15 @@ end
 
 function M.on_attach(client, buffer)
   local Keys = require("lazy.core.handler.keys")
+  local keymaps = Keys.resolve(M.get())
 
-  for _, keys in pairs(M.get()) do
+  for _, keys in pairs(keymaps) do
     if not keys.depends or client.supports_method(keys.depends) then
       local opts = Keys.opts(keys)
       opts.depends = nil
       opts.silent = opts.silent ~= false
       opts.buffer = buffer
-      vim.keymap.set(keys.mode or "n", keys[1], keys[2], opts)
+      vim.keymap.set(keys.mode or "n", keys.lhs, keys.rhs, opts)
     end
   end
 

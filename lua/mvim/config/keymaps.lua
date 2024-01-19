@@ -65,6 +65,13 @@ keymap({ "n", "v" }, "<leader>cf", function()
   Util.format.format({ force = true })
 end, { desc = "Code format" })
 
+-- diagnostic
+keymap("n", "<leader>cd", function()
+  vim.diagnostic.open_float({ scope = "cursor", force = false })
+end, { desc = "Line Diagnostic" })
+keymap("n", "[d", vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" })
+keymap("n", "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
+
 -- Lazygit
 keymap("n", "<leader>gg", function()
   Util.terminal({ "lazygit" })
