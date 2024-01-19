@@ -112,7 +112,7 @@ local M = {
             lualine.components.dap,
             lualine.components.lsp,
             lualine.components.treesitter,
-            lualine.components.spaces,
+            -- lualine.components.spaces,
             lualine.components.filesize,
             -- lualine.components.lazy,
           },

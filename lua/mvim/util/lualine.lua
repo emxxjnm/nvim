@@ -41,7 +41,6 @@ M.components = {
   filetype = {
     "filetype",
     icon_only = true,
-    padding = { right = 0, left = 1 },
   },
 
   filename = {
@@ -54,7 +53,7 @@ M.components = {
     "filesize",
     icon = "󰙴",
     color = { fg = palette.lavender },
-    padding = { left = 0, right = 1 },
+    padding = { left = 1, right = 1 },
     cond = M.conditions.buffer_not_empty and M.conditions.hide_in_width,
   },
 
@@ -220,7 +219,7 @@ M.components = {
       end
       return "Spaces:" .. size
     end,
-    padding = { left = 1, right = 2 },
+    padding = { left = 1, right = 1 },
     cond = M.conditions.hide_in_width,
     color = { fg = palette.sapphire },
   },
