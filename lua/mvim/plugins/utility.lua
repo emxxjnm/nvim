@@ -16,28 +16,11 @@ local M = {
     -- enabled = false,
     event = "BufReadPost",
     dependencies = { "kevinhwang91/promise-async" },
+    -- stylua: ignore
     keys = {
-      {
-        "zR",
-        function()
-          require("ufo").openAllFolds()
-        end,
-        desc = "Open all folds",
-      },
-      {
-        "zM",
-        function()
-          require("ufo").closeAllFolds()
-        end,
-        desc = "Close all folds",
-      },
-      {
-        "zP",
-        function()
-          require("ufo").peekFoldedLinesUnderCursor()
-        end,
-        desc = "Preview fold",
-      },
+      { "zR", function() require("ufo").openAllFolds() end, desc = "Open all folds" },
+      { "zM", function() require("ufo").closeAllFolds() end, desc = "Close all folds" },
+      { "zP", function() require("ufo").peekFoldedLinesUnderCursor() end, desc = "Preview fold" },
     },
     opts = {
       open_fold_hl_timeout = 0,
@@ -138,6 +121,8 @@ local M = {
     "folke/flash.nvim",
     -- stylua: ignore
     keys = {
+      { "/" },
+      { "?" },
       { "f", mode = { "n", "x", "o" } },
       { "F", mode = { "n", "x", "o" } },
       { "t", mode = { "n", "x", "o" } },
