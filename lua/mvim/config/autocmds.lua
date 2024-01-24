@@ -72,3 +72,13 @@ augroup("TextYankHighlight", {
   end,
   desc = "Highlight on yank",
 })
+
+augroup("Checktime", {
+  event = { "FocusGained", "TermClose", "TermLeave" },
+  command = function()
+    if vim.o.buftype ~= "nofile" then
+      vim.cmd.checktime()
+    end
+  end,
+  desc = "Check if we need to reload the file when it changed",
+})
