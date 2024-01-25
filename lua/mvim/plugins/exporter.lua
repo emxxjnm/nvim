@@ -79,6 +79,7 @@ local M = {
           folder_open = "󰝰",
           folder_empty = "󰉖",
           folder_empty_open = "󰷏",
+          default = "󰡯",
         },
         modified = { symbol = "" },
         name = {
