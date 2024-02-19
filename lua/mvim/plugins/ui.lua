@@ -117,7 +117,7 @@ local M = {
             -- lualine.components.lazy,
           },
           lualine_y = { lualine.components.location },
-          lualine_z = { lualine.components.clock },
+          lualine_z = { lualine.components.scrollbar },
         },
       }
     end,
