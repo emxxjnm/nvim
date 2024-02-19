@@ -1,6 +1,6 @@
 # My PDE with NeoVim
 
-My personal Neovim configuration, it's more delicious when paired with `tmux`.
+My personal Neovim configuration, it's more delicious when paired with `Tmux` or `WezTerm`.
 
 * Transparency first.
 * For coding `Vue3`, `Go` and `Python`.
