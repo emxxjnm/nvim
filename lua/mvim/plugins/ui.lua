@@ -25,6 +25,7 @@ local M = {
           modified_icon = "",
           left_trunc_marker = " ",
           right_trunc_marker = " ",
+          right_mouse_command = false,
           diagnostics = "nvim_lsp",
           diagnostics_indicator = function(_, level)
             local icons = require("mvim.config").icons.diagnostics
