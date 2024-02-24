@@ -66,11 +66,22 @@ keymap({ "n", "v" }, "<leader>cf", function()
 end, { desc = "Code format" })
 
 -- diagnostic
+local diagnostic_goto = function(next, severity)
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+  severity = severity and vim.diagnostic.severity[severity] or nil
+  return function()
+    go({ severity = severity })
+  end
+end
 keymap("n", "<leader>cd", function()
   vim.diagnostic.open_float({ scope = "cursor", force = false })
 end, { desc = "Line Diagnostic" })
-keymap("n", "[d", vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" })
-keymap("n", "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
+keymap("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
+keymap("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
+keymap("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
+keymap("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
+keymap("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
+keymap("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
 -- Lazygit
 keymap("n", "<leader>gg", function()
