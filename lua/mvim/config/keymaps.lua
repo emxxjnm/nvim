@@ -13,8 +13,8 @@ keymap("n", "<leader>Q", "<Cmd>q!<CR>", { desc = "Force quit" })
 keymap("n", "<leader>;", "%", { desc = "Jump to match item" })
 
 -- Motion
-keymap({ "n", "v" }, "H", "^", { desc = "To the first non-blank char of the line" })
-keymap({ "n", "v" }, "L", "$", { desc = "To the end of the line" })
+keymap({ "n", "x" }, "H", "^", { desc = "To the first non-blank char of the line" })
+keymap({ "n", "x" }, "L", "$", { desc = "To the end of the line" })
 
 -- Move line
 keymap("n", "<M-k>", "<Cmd>move .-2<CR>==", { desc = "Move up" })
