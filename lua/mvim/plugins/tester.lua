@@ -18,6 +18,7 @@ return {
       "nvim-neotest/neotest-go",
       "nvim-neotest/neotest-python",
       "nvim-neotest/neotest-plenary",
+      "rouge8/neotest-rust",
     },
     opts = function()
       return {
@@ -49,11 +50,16 @@ return {
           end,
         },
         adapters = {
+          require("neotest-rust"),
+          require("neotest-go"),
           require("neotest-python")({
-            dap = { justMyCode = false, console = "integratedTerminal", subProcess = false },
+            dap = {
+              justMyCode = false,
+              console = "integratedTerminal",
+              subProcess = false,
+            },
             pytest_discovery = true,
           }),
-          require("neotest-go"),
           require("neotest-plenary"),
         },
       }
