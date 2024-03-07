@@ -111,8 +111,8 @@ local M = {
             -- lualine.components.lsp_progress,
             lualine.components.python_env,
             lualine.components.dap,
-            lualine.components.lsp,
-            lualine.components.treesitter,
+            -- lualine.components.lsp,
+            -- lualine.components.treesitter,
             -- lualine.components.spaces,
             lualine.components.filesize,
             -- lualine.components.lazy,
@@ -204,6 +204,7 @@ local M = {
           opts = {
             size = {
               max_height = 15,
+              max_width = math.floor(vim.o.columns * 0.8),
             },
           },
         },
