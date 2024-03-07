@@ -24,7 +24,6 @@ local M = {
       },
       config = function()
         require("luasnip").setup({
-          delete_check_events = "TextChanged",
           ext_opts = {
             [require("luasnip.util.types").choiceNode] = {
               active = {
@@ -35,8 +34,23 @@ local M = {
             },
           },
         })
+
         require("luasnip.loaders.from_vscode").lazy_load({
           paths = vim.fn.stdpath("config") .. "/snippets",
+        })
+
+        require("mvim.util").augroup("UnlinkSnippetOnModeChange", {
+          event = "ModeChanged",
+          pattern = { "s:n", "i:*" },
+          command = function(args)
+            if
+              require("luasnip").session.current_nodes[args.buf]
+              and not require("luasnip").session.jump_active
+            then
+              require("luasnip").unlink_current()
+            end
+          end,
+          desc = "Forget the current snippet when leaving the insert mode",
         })
       end,
     },
