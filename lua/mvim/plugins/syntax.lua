@@ -3,11 +3,6 @@ local M = {
   build = ":TSUpdate",
   event = { "BufReadPost", "BufNewFile" },
   cmd = { "TSUpdateSync" },
-  keys = {
-    { "<Tab>", mode = "v", desc = "Increment selection" },
-    { "<BS>", mode = "v", desc = "Decrement selection" },
-    { "<CR>", mode = { "n", "v" }, desc = "Increment selection" },
-  },
   init = function(plugin)
     require("lazy.core.loader").add_to_rtp(plugin)
     require("nvim-treesitter.query_predicates")
@@ -47,8 +42,8 @@ local M = {
       enable = true,
       keymaps = {
         init_selection = "<C-CR>", -- normal mode
-        node_incremental = "<Tab>", -- visual mode
         scope_incremental = false, -- visual mode
+        node_incremental = "<Tab>", -- visual mode
         node_decremental = "<BS>", -- visual mode
       },
     },
