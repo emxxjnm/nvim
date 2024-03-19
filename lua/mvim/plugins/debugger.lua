@@ -15,6 +15,7 @@ local M = {
   dependencies = {
     {
       "rcarriga/nvim-dap-ui",
+      dependencies = { "nvim-neotest/nvim-nio" },
       -- stylua: ignore
       keys = {
         { "<leader>du", function() require("dapui").toggle() end, desc = "Toggle DAP UI" },

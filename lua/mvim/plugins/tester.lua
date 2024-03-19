@@ -15,10 +15,11 @@ return {
       { "]t", function() require("neotest").jump.next({ status = "failed" }) end, desc = "Prev failed test" },
     },
     dependencies = {
+      "nvim-neotest/nvim-nio",
+
       "nvim-neotest/neotest-go",
       "nvim-neotest/neotest-python",
-      "nvim-neotest/neotest-plenary",
-      "rouge8/neotest-rust",
+      -- "rouge8/neotest-rust",
     },
     opts = function()
       return {
@@ -50,7 +51,7 @@ return {
           end,
         },
         adapters = {
-          require("neotest-rust"),
+          require("rustaceanvim.neotest"),
           require("neotest-go"),
           require("neotest-python")({
             dap = {
@@ -60,7 +61,6 @@ return {
             },
             pytest_discovery = true,
           }),
-          require("neotest-plenary"),
         },
       }
     end,
