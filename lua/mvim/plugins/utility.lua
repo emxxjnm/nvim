@@ -25,7 +25,6 @@ local M = {
     opts = {
       open_fold_hl_timeout = 0,
       enable_get_fold_virt_text = true,
-      close_fold_kinds = { "imports", "comment" },
       preview = {
         win_config = {
           winblend = 0,
