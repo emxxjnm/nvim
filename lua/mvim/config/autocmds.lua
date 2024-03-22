@@ -47,11 +47,7 @@ augroup("CloseWithQ", {
   event = "FileType",
   pattern = {
     "qf",
-    "man",
     "help",
-    "query",
-    "lspinfo",
-    "startuptime",
     "checkhealth",
     "neotest-output",
     "neotest-attach",
