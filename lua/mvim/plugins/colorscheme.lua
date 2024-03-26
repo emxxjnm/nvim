@@ -18,12 +18,12 @@ local M = {
         neogit = false,
         nvimtree = false,
         illuminate = false,
+        treesitter_context = false,
         rainbow_delimiters = false,
         dropbar = { enabled = false },
         mason = true,
         noice = true,
         notify = true,
-        neotree = true,
         neotest = true,
         which_key = true,
         telescope = { style = transparent and nil or "nvchad" },
@@ -35,6 +35,11 @@ local M = {
             fg = colors.lavender,
             bg = transparent and colors.none or colors.crust,
             style = { "bold", "italic" },
+          },
+
+          -- treesitter-context
+          TreesitterContextLineNumber = {
+            fg = colors.rosewater,
           },
 
           -- lazy.nvim
