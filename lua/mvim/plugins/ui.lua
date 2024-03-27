@@ -182,7 +182,7 @@ local M = {
         "rcarriga/nvim-notify",
         opts = {
           timeout = 3000,
-          stages = "slide",
+          stages = "static",
           max_height = function()
             return math.floor(vim.o.lines * 0.7)
           end,
