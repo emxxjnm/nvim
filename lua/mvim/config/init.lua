@@ -89,6 +89,7 @@ function M.bootstrap()
     install = { colorscheme = { "catppuccin" } },
     change_detection = { notify = false },
     ui = {
+      backdrop = M.transparent and 100 or 60,
       border = M.get_border(),
       icons = {
         loaded = "",
