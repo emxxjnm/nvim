@@ -66,7 +66,7 @@ local M = {
         return result
       end,
       provider_selector = function()
-        return { "treesitter", "indent" }
+        return { "treesitter" }
       end,
     },
   },
