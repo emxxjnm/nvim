@@ -114,7 +114,8 @@ local M = {
           ["h"] = "close_node",
 
           ["P"] = { "toggle_preview", config = { use_float = true } },
-          ["<Esc>"] = "revert_preview",
+          ["F"] = "focus_preview",
+          ["<Esc>"] = "cancel",
 
           ["s"] = "open_vsplit",
           ["S"] = "open_split",
