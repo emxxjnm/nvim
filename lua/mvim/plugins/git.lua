@@ -26,7 +26,7 @@ local M = {
       keymap("n", "]g", function () gs.nav_hunk('next') end, "Next git hunk")
       -- Actions
       keymap("n", "<leader>gp", gs.preview_hunk, "Preview hunk")
-      keymap("n", "<leader>gb", function()gs.blame_line({ full = true })end, "Blame line")
+      keymap("n", "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame line")
       keymap("n", "<leader>gd", gs.diffthis, "Diff this")
       -- Text object
       keymap({ "o", "x" }, "ig", ":<C-U>Gitsigns select_hunk<CR>", "Select git hunk")
