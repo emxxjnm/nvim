@@ -14,7 +14,7 @@ local M = {
     current_line_blame_formatter = " <author>, <author_time> · <summary> ",
     preview_config = { border = require("mvim.config").get_border() },
     on_attach = function(bufnr)
-      local gs = package.loaded.gitsigns
+      local gs = require("gitsigns")
 
       local function keymap(mode, lhs, rhs, desc)
         vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
@@ -22,8 +22,8 @@ local M = {
 
       -- stylua: ignore start
       -- Navigation
-      keymap("n", "[g", gs.prev_hunk, "Prev git hunk")
-      keymap("n", "]g", gs.next_hunk, "Next git hunk")
+      keymap("n", "[g", function() gs.nav_hunk('prev') end, "Prev git hunk")
+      keymap("n", "]g", function () gs.nav_hunk('next') end, "Next git hunk")
       -- Actions
       keymap("n", "<leader>gp", gs.preview_hunk, "Preview hunk")
       keymap("n", "<leader>gb", function()gs.blame_line({ full = true })end, "Blame line")
