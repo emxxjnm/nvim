@@ -17,7 +17,7 @@ opt.completeopt = "menu,menuone,noselect"
 
 opt.grepprg = "rg --vimgrep"
 opt.grepformat = "%f:%l:%c:%m"
-opt.formatoptions = "jcroqlnt" -- tcqj
+opt.formatoptions = "jcrqlnt" -- tcqj
 
 opt.scrolloff = 7
 opt.sidescrolloff = 5
