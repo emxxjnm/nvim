@@ -3,12 +3,12 @@
   "contributes": {
     "snippets": [
       {
-        "language": [
-          "plaintext",
-          "markdown",
-          "tex"
-        ],
-        "path": "./lanuages/global.json"
+        "language": "rust",
+        "path": "./lanuages/rust/rust.json"
+      },
+      {
+        "language": "rust",
+        "path": "./lanuages/rust/rustdoc.json"
       },
       {
         "language": "python",
@@ -50,6 +50,14 @@
       {
         "language": "json",
         "path": "./misc/snippet.json"
+      },
+      {
+        "language": [
+          "plaintext",
+          "markdown",
+          "tex"
+        ],
+        "path": "./lanuages/global.json"
       }
     ]
   }

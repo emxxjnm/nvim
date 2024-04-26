@@ -85,6 +85,17 @@ local M = {
             },
           },
         },
+        rust_analyzer = {
+          settings = {
+            ["rust-analyzer"] = {
+              check = {
+                features = "all",
+                command = "clippy",
+                extraArgs = { "--no-deps" },
+              },
+            },
+          },
+        },
         pyright = {},
         lua_ls = {
           settings = {

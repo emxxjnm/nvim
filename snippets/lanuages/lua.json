@@ -2,7 +2,7 @@
   "require": {
     "prefix": "req",
     "body": [
-      "require(\"${1:module}\")$0"
+      "require(\"${1:module}\")"
     ],
     "description": "Require module"
   },
@@ -72,7 +72,7 @@
     ]
   },
   "function": {
-    "prefix": "fu",
+    "prefix": "fn",
     "body": [
       "function ${1:name}($2)",
       "\t${3:-- code}",
@@ -80,7 +80,7 @@
     ]
   },
   "inline-function": {
-    "prefix": "f=",
+    "prefix": "fn=",
     "body": [
       "local ${1:name} = function($2)",
       "\t${3:-- code}",

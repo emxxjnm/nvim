@@ -53,6 +53,7 @@ local M = {
           "package-lock.json",
           "yarn.lock",
           "pnpm-lock.yaml",
+          "target/",
         },
         layout_config = {
           height = 0.9,
