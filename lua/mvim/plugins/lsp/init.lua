@@ -6,8 +6,9 @@ local M = {
       { "folke/neodev.nvim", opts = {} },
       {
         "neovim/nvim-lspconfig",
+        -- stylua: ignore
         keys = {
-          { "<leader>ll", "<CMD>LspLog<CR>", desc = "Lsp Log" },
+          { "<leader>ll", function() vim.cmd.edit(vim.lsp.get_log_path()) end, desc = "Lsp Log" },
           { "<leader>li", "<CMD>LspInfo<CR>", desc = "Lsp Info" },
           { "<leader>lr", "<CMD>LspRestart<CR>", desc = "Lsp Restart" },
         },
@@ -94,7 +95,11 @@ local M = {
           },
         },
         volar = {
-          -- take over Typescript
+          init_options = {
+            vue = {
+              hybridMode = false,
+            },
+          },
           filetypes = {
             "vue",
             "typescript",
@@ -141,7 +146,7 @@ local M = {
       U.on_attach(function(client, buffer)
         require("mvim.plugins.lsp.keybinds").on_attach(client, buffer)
 
-        -- require("mvim.plugins.lsp.codelens").on_attach(client, buffer)
+        require("mvim.plugins.lsp.codelens").on_attach(client, buffer)
         require("mvim.plugins.lsp.highlight").on_attach(client, buffer)
       end)
 
