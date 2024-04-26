@@ -21,6 +21,9 @@ return {
         go = {
           lsp_fallback = "always",
         },
+        rust = {
+          lsp_fallback = true,
+        },
         json = {
           lsp_fallback = true,
         },
