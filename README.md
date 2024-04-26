@@ -27,7 +27,6 @@ docker run -w /root -it --rm alpine:edge sh -uelic '
   apk add git lazygit neovim ripgrep fd fzf sqlite-dev python3 go npm alpine-sdk --update
   git clone https://github.com/emxxjnm/nvim.git ~/.config/nvim
   cd ~/.config/nvim
-  ./bootstrap.sh
   nvim
 '
 ```
