@@ -19,8 +19,10 @@ return {
     opts = {
       extra_lang_opts = {
         go = {
-          timeout_ms = 500,
           lsp_fallback = "always",
+        },
+        json = {
+          lsp_fallback = true,
         },
       },
       formatters_by_ft = {
@@ -34,6 +36,14 @@ return {
       },
       formatters = {
         shfmt = { prepend_args = { "-i", "2", "-ci" } },
+        eslint_d = {
+          condition = function(self, ctx)
+            return vim.fs.find(
+              { "eslint.config.js", ".eslintrc.cjs" },
+              { path = ctx.filename, upward = true }
+            )[1]
+          end,
+        },
         stylelint = {
           condition = function(self, ctx)
             return vim.fs.find(

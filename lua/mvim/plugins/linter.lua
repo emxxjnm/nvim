@@ -11,6 +11,14 @@ return {
         vue = { "eslint_d", "stylelint" },
       },
       linters = {
+        eslint_d = {
+          condition = function(ctx)
+            return vim.fs.find(
+              { "eslint.config.js", ".eslintrc.cjs" },
+              { path = ctx.filename, upward = true }
+            )[1]
+          end,
+        },
         stylelint = {
           condition = function(ctx)
             return vim.fs.find(
