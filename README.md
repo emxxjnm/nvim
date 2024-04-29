@@ -147,7 +147,7 @@ docker run --rm \
 | &lt;leader&gt;fb | List buffers         | **n**          |
 | &lt;leader&gt;fd | List diagnostics     | **n**          |
 | &lt;leader&gt;fs | List symbols         | **n**          |
-| &lt;leader&gt;fl | List todos           | **n**          |
+| &lt;leader&gt;fT | List todos           | **n**          |
 
 ### Gitsings
 
