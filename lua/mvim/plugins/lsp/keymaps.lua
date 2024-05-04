@@ -23,6 +23,8 @@ function M.get()
   return M._keys
 end
 
+---@param client vim.lsp.Client
+---@param buffer number
 function M.on_attach(client, buffer)
   local Keys = require("lazy.core.handler.keys")
   local keymaps = Keys.resolve(M.get())
