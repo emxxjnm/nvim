@@ -112,7 +112,9 @@ docker run --rm \
 | &lt;leader&gt;ca | Code Action           | **n**          |
 | &lt;leader&gt;cr | Rename                | **n**          |
 | &lt;leader&gt;cf | Format Document/Range | **n**, **v**   |
-| &lt;leader&gt;cl | Lsp info              | **n**          |
+| &lt;leader&gt;ll | Lsp log               | **n**          |
+| &lt;leader&gt;li | Lsp info              | **n**          |
+| &lt;leader&gt;lr | Lsp restart           | **n**          |
 
 ### DAP
 
