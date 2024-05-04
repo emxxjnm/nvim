@@ -56,22 +56,22 @@ local M = {
             exporter.on_renamed(data.source, data.destination)
           end,
         },
-        {
-          event = events.NEO_TREE_BUFFER_ENTER,
-          handler = function()
-            if require("mvim.config").transparent then
-              vim.api.nvim_set_hl(0, "CursorLine", { bg = "none" })
-            end
-          end,
-        },
-        {
-          event = events.NEO_TREE_POPUP_BUFFER_ENTER,
-          handler = function()
-            if require("mvim.config").transparent then
-              vim.api.nvim_set_hl(0, "CursorLine", { link = "Visual" })
-            end
-          end,
-        },
+        -- {
+        --   event = events.NEO_TREE_BUFFER_ENTER,
+        --   handler = function()
+        --     if require("mvim.config").transparent then
+        --       vim.api.nvim_set_hl(0, "CursorLine", { bg = "none" })
+        --     end
+        --   end,
+        -- },
+        -- {
+        --   event = events.NEO_TREE_POPUP_BUFFER_ENTER,
+        --   handler = function()
+        --     if require("mvim.config").transparent then
+        --       vim.api.nvim_set_hl(0, "CursorLine", { link = "Visual" })
+        --     end
+        --   end,
+        -- },
       },
       default_component_configs = {
         icon = {
@@ -162,17 +162,6 @@ local M = {
         },
         filtered_items = {
           visible = true,
-          hide_dotfiles = false,
-          hide_gitignored = true,
-          always_show = {
-            ".vscode",
-          },
-          never_show = {
-            ".DS_Store",
-            ".dmypy",
-            "__pycache__",
-            ".mypy_cache",
-          },
         },
         commands = {
           telescope_find = function(state)
