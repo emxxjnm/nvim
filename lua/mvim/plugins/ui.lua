@@ -156,7 +156,7 @@ local M = {
       { "<C-d>",
         function()
           if not require("noice.lsp").scroll(4) then
-            return "<c-f>"
+            return "<C-d>"
           end
         end,
         silent = true,
@@ -168,7 +168,7 @@ local M = {
         "<C-u>",
         function()
           if not require("noice.lsp").scroll(-4) then
-            return "<c-b>"
+            return "<C-u>"
           end
         end,
         silent = true,
@@ -227,6 +227,7 @@ local M = {
               { find = "^No hunks" },
               { find = "^E486" },
               { find = "%d+ more lines" },
+              { find = "%d+ lines yanked" },
             },
           },
           view = "mini",
