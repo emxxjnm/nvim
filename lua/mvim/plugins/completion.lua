@@ -96,16 +96,9 @@ local M = {
       formatting = {
         expandable_indicator = false,
         fields = { "kind", "abbr", "menu" },
-        format = function(entry, item)
+        format = function(_, item)
           local icons = require("mvim.config").icons.kinds
           item.kind = string.format("%s%s", icons[item.kind], item.kind)
-          item.menu = ({
-            luasnip = "[Snip]",
-            nvim_lsp = "[LSP]",
-            buffer = "[Buf]",
-            path = "[Path]",
-            cmdline = "[Cmd]",
-          })[entry.source.name] or entry.source.name
           return item
         end,
       },
