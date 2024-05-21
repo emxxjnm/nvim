@@ -1,6 +1,6 @@
 local M = {}
 
-local U = require("mvim.util")
+local augroup = require("mvim.util").augroup
 
 local function highlight_references()
   local status_ok, ts_utils = pcall(function()
@@ -24,17 +24,21 @@ local function highlight_references()
   vim.lsp.buf.document_highlight()
 end
 
+---@param client vim.lsp.Client
+---@param buffer number
 function M.on_attach(client, buffer)
-  if client.supports_method(U.lsp.providers.HIGHLIGHT) then
-    U.augroup(("LspHighlight.%d"):format(buffer), {
+  if client.supports_method("textDocument/documentHighlight") then
+    augroup(("LspHighlight:%d"):format(buffer), {
       event = { "CursorHold", "CursorHoldI" },
       buffer = buffer,
-      desc = "LSP: References",
-      command = highlight_references,
+      desc = "document highlight",
+      command = function()
+        vim.lsp.buf.document_highlight()
+      end,
     }, {
-      event = "CursorMoved",
-      desc = "LSP: References Clear",
+      event = { "CursorMoved", "CursorMovedI" },
       buffer = buffer,
+      desc = "clear highlight",
       command = function()
         vim.lsp.buf.clear_references()
       end,

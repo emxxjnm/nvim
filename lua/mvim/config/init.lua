@@ -67,7 +67,7 @@ local defaults = {
 function M.bootstrap()
   local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 
-  if not vim.loop.fs_stat(lazypath) then
+  if not vim.uv.fs_stat(lazypath) then
     vim.notify("Cloning plugin manager, will take a few minutes...")
     local output = vim.fn.system({
       "git",

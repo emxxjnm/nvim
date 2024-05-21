@@ -4,21 +4,20 @@ local M = {}
 
 function M.setup()
   local icons = require("mvim.config").icons.diagnostics
-  for name, icon in pairs(icons) do
-    name = "DiagnosticSign" .. name:gsub("^%l", string.upper)
-    vim.fn.sign_define(name, { text = icon, texthl = name })
-  end
-
   vim.diagnostic.config({
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = icons.error,
+        [vim.diagnostic.severity.WARN] = icons.warn,
+        [vim.diagnostic.severity.HINT] = icons.hint,
+        [vim.diagnostic.severity.INFO] = icons.info,
+      },
+    },
     severity_sort = true,
     virtual_text = {
       source = false,
-      severity = vim.diagnostic.severity.ERROR,
-      spacing = 1,
-      format = function(d)
-        local level = vim.diagnostic.severity[d.severity]
-        return fmt("%s%s", icons[level:lower()], d.message)
-      end,
+      spacing = 2,
+      prefix = "●",
     },
     float = {
       header = "",

@@ -1,14 +1,16 @@
 local M = {}
 
-local U = require("mvim.util")
+local augroup = require("mvim.util").augroup
 
+--- @param client vim.lsp.Client
+--- @param buffer number
 function M.on_attach(client, buffer)
-  if client.supports_method(U.lsp.providers.CODELENS) then
-    U.augroup(("LspCodelens.%d"):format(buffer), {
+  if client.supports_method("textDocument/codeLens") then
+    augroup(("LspCodeLens:%d"):format(buffer), {
       event = { "BufEnter", "CursorHold", "InsertLeave" },
       buffer = buffer,
-      desc = "LSP: code lens",
       command = vim.lsp.codelens.refresh,
+      desc = "Toggle codelens",
     })
   end
 end

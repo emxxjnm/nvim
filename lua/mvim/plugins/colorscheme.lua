@@ -18,7 +18,6 @@ local M = {
         neogit = false,
         nvimtree = false,
         illuminate = false,
-        treesitter_context = false,
         rainbow_delimiters = false,
         dropbar = { enabled = false },
         mason = true,
@@ -35,11 +34,6 @@ local M = {
             fg = colors.lavender,
             bg = transparent and colors.none or colors.crust,
             style = { "bold", "italic" },
-          },
-
-          -- treesitter-context
-          TreesitterContextLineNumber = {
-            fg = colors.rosewater,
           },
 
           -- lazy.nvim
@@ -73,18 +67,6 @@ local M = {
           },
         }
       end,
-      color_overrides = {
-        mocha = {
-          red = "#f07c82",
-          blue = "#70a1ff",
-          green = "#7bed9f",
-          yellow = "#ffeaa7",
-
-          sky = "#5ef1ff",
-          pink = "#ffacfc",
-          peach = "#ffbe76",
-        },
-      },
     })
     vim.cmd.colorscheme("catppuccin")
     local palette = require("catppuccin.palettes").get_palette()

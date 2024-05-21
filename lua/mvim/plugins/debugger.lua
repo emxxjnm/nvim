@@ -119,8 +119,7 @@ local M = {
       pattern = { "\\[dap-repl\\]", "DAP *" },
       command = vim.schedule_wrap(function(args)
         local win = vim.fn.bufwinid(args.buf)
-        vim.api.nvim_win_set_option(win, "wrap", true)
-        -- vim.api.nvim_win_set_option(win, "statuscolumn", "")
+        vim.api.nvim_set_option_value("wrap", true, { win = win })
       end),
     })
   end,

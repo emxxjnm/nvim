@@ -24,9 +24,6 @@ return {
         rust = {
           lsp_fallback = true,
         },
-        json = {
-          lsp_fallback = true,
-        },
       },
       formatters_by_ft = {
         sh = { "shfmt" },

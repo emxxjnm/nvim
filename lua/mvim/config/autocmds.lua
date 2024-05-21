@@ -48,6 +48,7 @@ augroup("CloseWithQ", {
   pattern = {
     "qf",
     "help",
+    "query",
     "checkhealth",
     "neotest-output",
     "neotest-attach",

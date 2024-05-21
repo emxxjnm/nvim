@@ -12,7 +12,7 @@ M.conditions = {
     return vim.o.columns > 100
   end,
   has_lsp_clients = function()
-    local clients = vim.lsp.get_active_clients({ bufnr = 0 })
+    local clients = vim.lsp.get_clients({ bufnr = 0 })
     return #clients > 0
   end,
 }
@@ -124,7 +124,7 @@ M.components = {
   lsp = {
     function()
       local clients = {}
-      local buf_clients = vim.lsp.get_active_clients({ bufnr = 0 })
+      local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
       for _, client in pairs(buf_clients) do
         table.insert(clients, client.name)
       end
@@ -134,35 +134,6 @@ M.components = {
     icon = "",
     color = { fg = palette.mauve },
     cond = M.conditions.hide_in_width and M.conditions.has_lsp_clients,
-  },
-
-  lsp_progress = {
-    function()
-      if not rawget(vim, "lsp") or vim.lsp.status then
-        return ""
-      end
-
-      local progress = vim.lsp.util.get_progress_messages()[1]
-
-      if progress.done then
-        vim.defer_fn(function()
-          vim.cmd.redrawstatus()
-        end, 1000)
-      end
-
-      local msg = progress.message or ""
-      local percentage = progress.percentage or 0
-      local title = progress.title or ""
-      local ms = vim.loop.hrtime() / 1000000
-      local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪢", "󰪣", "󰪤", "󰪥" }
-      local frame = math.floor(ms / 120) % #spinners
-      local content =
-        string.format(" %%<%s %s %s(%s%%%%) ", spinners[frame + 1], title, msg, percentage)
-
-      return content or ""
-    end,
-    color = { fg = palette.overlay0 },
-    cond = M.conditions.hide_in_width,
   },
 
   dap = {
@@ -210,12 +181,12 @@ M.components = {
 
   spaces = {
     function()
-      if not api.nvim_buf_get_option(0, "expandtab") then
-        return "Tab:" .. api.nvim_buf_get_option(0, "tabstop")
+      if not api.nvim_get_option_value("expandtab", { buf = 0 }) then
+        return "Tab:" .. api.nvim_get_option_value("tabstop", { buf = 0 })
       end
-      local size = api.nvim_buf_get_option(0, "shiftwidth")
+      local size = api.nvim_get_option_value("shiftwidth", { buf = 0 })
       if size == 0 then
-        size = api.nvim_buf_get_option(0, "tabstop")
+        size = api.nvim_get_option_value("tabstop", { buf = 0 })
       end
       return "Spaces:" .. size
     end,

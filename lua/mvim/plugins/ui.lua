@@ -108,12 +108,11 @@ local M = {
             lualine.components.diagnostics,
           },
           lualine_x = {
-            -- lualine.components.lsp_progress,
             lualine.components.python_env,
             lualine.components.dap,
             -- lualine.components.lsp,
             -- lualine.components.treesitter,
-            -- lualine.components.spaces,
+            lualine.components.spaces,
             lualine.components.filesize,
             -- lualine.components.lazy,
           },
@@ -129,13 +128,13 @@ local M = {
     event = { "BufReadPre", "BufNewFile" },
     opts = function()
       local builtin = require("statuscol.builtin")
-      local sign_name = { "Diagnostic*", "Dap*", "todo%-sign%-", "neotest_*" }
+      local sign_name = { "Dap*", "todo%-sign%-", "neotest_*" }
 
       return {
         bt_ignore = { "terminal", "nofile" },
         relculright = true,
         segments = {
-          { sign = { name = sign_name, maxwidth = 1, auto = true } },
+          { sign = { name = sign_name, namespace = { "diagnostic" }, maxwidth = 1, auto = true } },
           { text = { builtin.lnumfunc, " " } },
           { sign = { namespace = { "gitsign" }, maxwidth = 1, colwidth = 1, auto = true } },
           { text = { builtin.foldfunc, " " } },

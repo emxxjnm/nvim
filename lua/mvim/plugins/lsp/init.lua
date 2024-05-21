@@ -1,7 +1,7 @@
 local M = {
   {
     "williamboman/mason-lspconfig.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
     dependencies = {
       { "folke/neodev.nvim", opts = {} },
       {
@@ -45,8 +45,6 @@ local M = {
     },
     opts = {
       servers = {
-        bashls = {},
-        dockerls = {},
         gopls = {
           settings = {
             gopls = {
@@ -119,22 +117,6 @@ local M = {
             "typescriptreact",
           },
         },
-        jsonls = {
-          settings = {
-            json = {
-              format = { enable = true },
-              validate = { enable = true },
-            },
-          },
-        },
-        yamlls = {
-          settings = {
-            yaml = {
-              validate = true,
-              format = { enable = true },
-            },
-          },
-        },
       },
       -- you can do any additional lsp server setup here
       -- return true if you don't want this server to be setup with lspconfig
@@ -151,12 +133,11 @@ local M = {
     },
     config = function(_, opts)
       local U = require("mvim.util").lsp
-      require("mvim.plugins.lsp.diagnostics").setup()
-      require("lspconfig.ui.windows").default_options.border = "rounded"
+      require("mvim.plugins.lsp.diagnostic").setup()
+      require("lspconfig.ui.windows").default_options.border = require("mvim.config").get_border()
 
       U.on_attach(function(client, buffer)
         require("mvim.plugins.lsp.keymaps").on_attach(client, buffer)
-
         require("mvim.plugins.lsp.codelens").on_attach(client, buffer)
         require("mvim.plugins.lsp.highlight").on_attach(client, buffer)
       end)

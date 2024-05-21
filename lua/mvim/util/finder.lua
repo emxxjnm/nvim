@@ -52,7 +52,7 @@ function M.lsp_symbols(scope)
   return function()
     local symbols = M.get_symbols()
     if symbols then
-      local sc = vim.deepcopy(M.get_symbols())
+      local sc = vim.deepcopy(symbols)
       table.insert(sc, 1, "All")
       vim.ui.select(sc, { prompt = "Select which symbol(" .. scope .. ")" }, function(item)
         if item then

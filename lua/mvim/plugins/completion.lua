@@ -6,57 +6,9 @@ local M = {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-nvim-lsp",
-    "saadparwaiz1/cmp_luasnip",
-    {
-      "L3MON4D3/LuaSnip",
-      build = "make install_jsregexp",
-      keys = {
-        {
-          "<C-o>",
-          function()
-            if require("luasnip").choice_active() then
-              require("luasnip").change_choice(1)
-            end
-          end,
-          mode = { "s", "i" },
-          desc = "Select option",
-        },
-      },
-      config = function()
-        require("luasnip").setup({
-          ext_opts = {
-            [require("luasnip.util.types").choiceNode] = {
-              active = {
-                virt_text = {
-                  { "󰠖 ", "Type" },
-                },
-              },
-            },
-          },
-        })
-
-        require("luasnip.loaders.from_vscode").lazy_load({
-          paths = vim.fn.stdpath("config") .. "/snippets",
-        })
-
-        require("mvim.util").augroup("UnlinkSnippetOnModeChange", {
-          event = "ModeChanged",
-          pattern = { "s:n", "i:*" },
-          command = function(args)
-            if
-              require("luasnip").session.current_nodes[args.buf]
-              and not require("luasnip").session.jump_active
-            then
-              require("luasnip").unlink_current()
-            end
-          end,
-          desc = "Forget the current snippet when leaving the insert mode",
-        })
-      end,
-    },
   },
   config = function()
-    local cmp, luasnip = require("cmp"), require("luasnip")
+    local cmp = require("cmp")
     local select = cmp.SelectBehavior.Select
     local border = require("mvim.config").get_border()
 
@@ -73,14 +25,8 @@ local M = {
           winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
         },
       },
-      snippet = {
-        expand = function(args)
-          luasnip.lsp_expand(args.body)
-        end,
-      },
       sources = cmp.config.sources({
         { name = "nvim_lsp" },
-        { name = "luasnip" },
         { name = "path" },
       }, {
         {
@@ -106,21 +52,25 @@ local M = {
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item({ behavior = select })
-          elseif luasnip.locally_jumpable(1) then
-            luasnip.jump(1)
+          elseif vim.snippet.active({ direction = 1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(1)
+            end)
           else
             fallback()
           end
-        end, { "i", "s", "c" }),
+        end, { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item({ behavior = select })
-          elseif luasnip.locally_jumpable(-1) then
-            luasnip.jump(-1)
+          elseif vim.snippet.active({ direction = -1 }) then
+            vim.schedule(function()
+              vim.snippet.jump(-1)
+            end)
           else
             fallback()
           end
-        end, { "i", "s", "c" }),
+        end, { "i", "s" }),
         ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
         ["<C-e>"] = { i = cmp.mapping.abort(), c = cmp.mapping.close() },
         ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),

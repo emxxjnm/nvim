@@ -135,9 +135,6 @@ local M = {
       },
       modes = {
         char = {
-          -- highlight = {
-          --   matches = false,
-          -- },
           -- autohide = true,
           jump_labels = function(motion)
             -- never show jump labels by default

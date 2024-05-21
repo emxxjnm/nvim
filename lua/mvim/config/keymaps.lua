@@ -60,11 +60,6 @@ keymap({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, desc = "Mo
 
 keymap("i", "jj", [[col('.') == 1 ? '<Esc>' : '<Esc>l']], { expr = true })
 
--- Code format
-keymap({ "n", "v" }, "<leader>cf", function()
-  Util.format.format({ force = true })
-end, { desc = "Code format" })
-
 -- diagnostic
 local diagnostic_goto = function(next, severity)
   local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
@@ -83,24 +78,18 @@ keymap("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 keymap("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 keymap("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
+-- stylua: ignore start
+
 -- Lazygit
-keymap("n", "<leader>gg", function()
-  Util.terminal({ "lazygit" })
-end, { desc = "Lazygit" })
+keymap("n", "<leader>gg", function() Util.terminal({ "lazygit" }) end, { desc = "Lazygit" })
 
--- Toggle options
-keymap("n", "<leader>of", function()
-  Util.format.toggle()
-end, { desc = "Toggle auto format(global)" })
+-- Code format
+keymap("n", "<leader>of", function() Util.format.toggle() end, { desc = "Toggle auto format(global)" })
+keymap("n", "<leader>oF", function() Util.format.toggle(true) end, { desc = "Toggle auto format(buffer)" })
+keymap({ "n", "v" }, "<leader>cf", function() Util.format.format({ force = true }) end, { desc = "Code format" })
 
-keymap("n", "<leader>oF", function()
-  Util.format.toggle(true)
-end, { desc = "Toggle auto format(buffer)" })
 
-keymap("n", "<leader>os", function()
-  Util.toggle("spell")
-end, { desc = "Toggle spelling" })
+keymap("n", "<leader>oh", function() Util.toggle.inlay_hints() end, { desc = "Toggle Inlay Hints" })
+keymap("n", "<leader>os", function() Util.toggle("spell") end, { desc = "Toggle spelling" })
 
-keymap("n", "<leader>ow", function()
-  Util.toggle("wrap")
-end, { desc = "Toggle word wrap" })
+keymap("n", "<leader>ow", function() Util.toggle("wrap") end, { desc = "Toggle word wrap" })

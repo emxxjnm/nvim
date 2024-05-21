@@ -3,25 +3,8 @@ local Util = require("mvim.util")
 ---@class mvim.util.lsp
 local M = {}
 
----@enum
----@source https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#serverCapabilities
-M.providers = {
-  HOVER = "textDocument/hover",
-  RENAME = "textDocument/rename",
-  CODELENS = "textDocument/codeLens",
-  REFERENCES = "textDocument/references",
-  CODEACTION = "textDocument/codeAction",
-  DEFINITION = "textDocument/definition",
-  DECLARATION = "textDocument/declaration*",
-  IMPLEMENTATION = "textDocument/implementation*",
-  HIGHLIGHT = "textDocument/documentHighlight",
-  SIGNATUREHELP = "textDocument/signatureHelp",
-  FORMATTING = "textDocument/formatting",
-  RANGEFORMATTING = "textDocument/rangeFormatting",
-}
-
 ---Setup lsp autocmds
----@param func fun(client, buffer)
+---@param func fun(client: vim.lsp.Client, buffer: number)
 function M.on_attach(func)
   Util.augroup("LspOnAttach", {
     event = "LspAttach",
@@ -38,7 +21,7 @@ end
 
 ---This function allows reading a per project `settings.josn` file
 ---in the `.vim` directory of the project
----@param client table<string, any> lsp client
+---@param client vim.lsp.Client lsp client
 ---@return boolean
 function M.common_on_init(client)
   local settings = string.format("%s/.vscode/settings.json", client.workspace_folders[1].name)

@@ -22,6 +22,15 @@ function M.option(option, silent, values)
   end
 end
 
+---@param buf? number
+---@param value? boolean
+function M.inlay_hints(buf, value)
+  if value == nil then
+    value = not vim.lsp.inlay_hint.is_enabled({ bufnr = buf or 0 })
+  end
+  vim.lsp.inlay_hint.enable(value, { bufnr = buf })
+end
+
 setmetatable(M, {
   __call = function(m, ...)
     return m.option(...)
