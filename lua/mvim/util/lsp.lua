@@ -24,7 +24,7 @@ end
 ---@param client vim.lsp.Client lsp client
 ---@return boolean
 function M.common_on_init(client)
-  local settings = string.format("%s/.vscode/settings.json", client.workspace_folders[1].name)
+  local settings = string.format(vim.fn.getcwd() .. "/.vscode/settings.json")
   if vim.fn.filereadable(settings) == 0 then
     return true
   end
