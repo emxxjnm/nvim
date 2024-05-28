@@ -65,7 +65,7 @@ local M = {
           folder_empty_open = "󰷏",
           default = "󰡯",
         },
-        modified = { symbol = "" },
+        modified = { symbol = "●" },
         name = {
           trailing_slash = false,
           highlight_opened_files = true,
@@ -73,16 +73,16 @@ local M = {
         },
         git_status = {
           symbols = {
-            added = " ",
-            modified = " ",
-            deleted = " ",
-            renamed = " ",
-            ignored = " ",
+            added = " ", --    󰐖 󰐗 󰜄
+            modified = " ", --    󱗜 󰏬 󰛿 󰏭 󰝶 󱗝
+            deleted = " ", --    󰍵 󰍶 󰛲
+            renamed = " ", --  󰜵 󰁖 󰜶
+            ignored = " ", --      slash
 
-            untracked = " ",
-            unstaged = " ",
-            staged = " ", -- 
-            conflict = " ",
+            untracked = " ", --   󰻂 󰎒 󰩳 󰓏  󰩴 󰦤 
+            unstaged = " ", --  󰒉   󰄲 󰏝 󰄱 󰙀 󰔌   󰆟
+            staged = " ", --        󰗠 󰽢 󰏝 󰄲 󰱒 󰆟
+            conflict = "󰅗 ", --        󰅗 󰅙
           },
         },
       },
@@ -106,6 +106,7 @@ local M = {
 
           ["R"] = "refresh",
           ["a"] = { "add", config = { show_path = "none" } },
+          ["A"] = "add_directory",
           ["d"] = "delete",
           ["r"] = "rename",
           ["y"] = "copy_to_clipboard",

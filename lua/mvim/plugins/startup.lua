@@ -65,7 +65,7 @@ local M = {
 
           return {
             string.format(
-              " Neovim v%d.%d.%d%s",
+              " Neovim v%d.%d.%d%s",
               version.major,
               version.minor,
               version.patch,

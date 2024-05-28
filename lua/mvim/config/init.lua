@@ -92,8 +92,8 @@ function M.bootstrap()
       backdrop = M.transparent and 100 or 60,
       border = M.get_border(),
       icons = {
-        loaded = "",
-        not_loaded = "",
+        loaded = "󰽢",
+        not_loaded = "󰏝",
         plugin = "",
       },
     },
