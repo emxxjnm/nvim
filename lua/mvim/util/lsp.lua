@@ -61,6 +61,14 @@ end
 function M.common_capabilities()
   return vim.tbl_deep_extend(
     "force",
+    {
+      workspace = {
+        fileOperations = {
+          didRename = true,
+          willRename = true,
+        },
+      },
+    },
     vim.lsp.protocol.make_client_capabilities(),
     Util.has("cmp-nvim-lsp") and require("cmp_nvim_lsp").default_capabilities() or {},
     Util.has("nvim-ufo")
