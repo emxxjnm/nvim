@@ -64,7 +64,7 @@ local M = {
       },
       pickers = {
         find_files = {
-          find_command = { "fd" },
+          find_command = { "fd", "--type", "file" },
           hidden = true,
         },
         buffers = {
