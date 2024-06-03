@@ -132,6 +132,7 @@ local M = {
     opts = {
       jump = {
         pos = "end",
+        offset = 1,
       },
       modes = {
         char = {
@@ -144,6 +145,9 @@ local M = {
             -- Show jump labels for ftFT in operator-pending mode
             -- return vim.v.count == 0 and motion:find("[ftFT]") and vim.fn.mode(true):find("o")
           end,
+          jump = {
+            autojump = true,
+          },
         },
       },
       prompt = {
