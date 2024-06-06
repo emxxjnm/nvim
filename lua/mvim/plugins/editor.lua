@@ -41,6 +41,18 @@ local M = {
     opts = {
       fast_wrap = { map = "<M-e>" },
     },
+    config = function(_, opts)
+      local autopairs = require("nvim-autopairs")
+      local Rule = require("nvim-autopairs.rule")
+      local cond = require("nvim-autopairs.conds")
+
+      autopairs.setup(opts)
+      autopairs.add_rules({
+        Rule("<", ">", "rust"):with_pair(cond.before_regex("%a+")):with_move(function(args)
+          return args.char == ">"
+        end),
+      })
+    end,
   },
 
   {
