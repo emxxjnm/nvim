@@ -3,7 +3,6 @@ local M = {
     "williamboman/mason-lspconfig.nvim",
     event = { "BufReadPost", "BufNewFile" },
     dependencies = {
-      { "folke/neodev.nvim", opts = {} },
       {
         "neovim/nvim-lspconfig",
         -- stylua: ignore

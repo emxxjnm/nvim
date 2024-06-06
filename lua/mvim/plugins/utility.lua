@@ -117,45 +117,17 @@ local M = {
   },
 
   {
-    "folke/flash.nvim",
-    -- stylua: ignore
-    keys = {
-      { "/" },
-      { "?" },
-      { "f", mode = { "n", "x", "o" } },
-      { "F", mode = { "n", "x", "o" } },
-      { "t", mode = { "n", "x", "o" } },
-      { "T", mode = { "n", "x", "o" } },
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-    },
+    "folke/lazydev.nvim",
+    ft = "lua",
+    cmd = "LazyDev",
     opts = {
-      jump = {
-        pos = "end",
-        offset = 1,
-      },
-      modes = {
-        char = {
-          -- autohide = true,
-          jump_labels = function(motion)
-            -- never show jump labels by default
-            -- return false
-            -- Always show jump labels for ftFT
-            return vim.v.count == 0 and motion:find("[ftFT]")
-            -- Show jump labels for ftFT in operator-pending mode
-            -- return vim.v.count == 0 and motion:find("[ftFT]") and vim.fn.mode(true):find("o")
-          end,
-          jump = {
-            autojump = true,
-          },
-        },
-      },
-      prompt = {
-        enabled = true,
-        prefix = { { " 󰉂 ", "FlashPromptIcon" } },
+      library = {
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
       },
     },
   },
+
+  { "Bilal2453/luvit-meta", lazy = true },
 }
 
 return M

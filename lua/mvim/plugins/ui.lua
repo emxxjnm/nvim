@@ -134,7 +134,14 @@ local M = {
         bt_ignore = { "terminal", "nofile" },
         relculright = true,
         segments = {
-          { sign = { name = sign_name, namespace = { "diagnostic" }, maxwidth = 1, auto = true } },
+          {
+            sign = {
+              name = sign_name,
+              namespace = { "diagnostic/signs" },
+              maxwidth = 1,
+              auto = true,
+            },
+          },
           { text = { builtin.lnumfunc, " " } },
           { sign = { namespace = { "gitsign" }, maxwidth = 1, colwidth = 1, auto = true } },
           { text = { builtin.foldfunc, " " } },
