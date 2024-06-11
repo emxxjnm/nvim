@@ -66,4 +66,14 @@ function M.on_renamed(from, to)
   end
 end
 
+---@param type "filename" | "path"
+function M.copy(type, state)
+  local node = state.tree:get_node()
+  local target = node:get_id()
+  if type == "filename" then
+    target = vim.fn.fnamemodify(target, ":t")
+  end
+  vim.fn.setreg("+", target, "c")
+  vim.notify(type .. " copied", vim.log.levels.INFO)
+end
 return M

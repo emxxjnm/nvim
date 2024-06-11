@@ -86,6 +86,14 @@ local M = {
           },
         },
       },
+      commands = {
+        copy_filename = function(state)
+          exporter.copy("filename", state)
+        end,
+        copy_path = function(state)
+          exporter.copy("path", state)
+        end,
+      },
       window = {
         position = "right",
         width = 42,
@@ -101,18 +109,21 @@ local M = {
           ["F"] = "focus_preview",
           ["<Esc>"] = "cancel",
 
-          ["s"] = "open_vsplit",
-          ["S"] = "open_split",
+          ["|"] = "open_vsplit",
+          ["-"] = "open_split",
 
           ["R"] = "refresh",
-          ["a"] = { "add", config = { show_path = "none" } },
-          ["A"] = "add_directory",
+          ["a"] = { "add", config = { show_path = "relative", insert_as = "sibling" } },
+          ["A"] = { "add", config = { show_path = "relative", insert_as = "child" } },
           ["d"] = "delete",
           ["r"] = "rename",
           ["y"] = "copy_to_clipboard",
           ["x"] = "cut_to_clipboard",
           ["p"] = "paste_from_clipboard",
-          ["c"] = "copy",
+
+          ["cf"] = "copy_filename",
+          ["cp"] = "copy_path",
+
           ["[b"] = "prev_source",
           ["]b"] = "next_source",
 
@@ -129,7 +140,7 @@ local M = {
       filesystem = {
         window = {
           mappings = {
-            ["H"] = "toggle_hidden",
+            ["."] = "toggle_hidden",
 
             ["/"] = "fuzzy_finder",
             ["D"] = "fuzzy_finder_directory",
@@ -138,11 +149,11 @@ local M = {
             -- ["f"] = "filter_on_submit",
             -- ["F"] = "clear_filter",
 
-            ["f"] = "telescope_find",
-            ["g"] = "telescope_grep",
+            ["ff"] = "telescope_find",
+            ["fg"] = "telescope_grep",
 
             ["<BS>"] = "navigate_up",
-            ["."] = "set_root",
+            -- ["."] = "set_root",
 
             ["[g"] = "prev_git_modified",
             ["]g"] = "next_git_modified",
