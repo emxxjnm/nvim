@@ -13,49 +13,13 @@ local M = {
       },
       config = {
         header = vim.split(logo, "\n"),
+        -- stylua: ignore
         center = {
-          {
-            action = "ene | startinsert",
-            desc = " New file",
-            icon = " ",
-            icon_hl = "Character",
-            key = "n",
-          },
-          {
-            action = "Telescope find_files",
-            desc = " Find file",
-            icon = " ",
-            icon_hl = "Label",
-            key = "f",
-          },
-          {
-            action = "Telescope live_grep",
-            desc = " Find text",
-            icon = " ",
-            icon_hl = "Special",
-            key = "g",
-          },
-          {
-            action = "Telescope oldfiles",
-            desc = " Recent files",
-            icon = " ",
-            icon_hl = "Macro",
-            key = "r",
-          },
-          {
-            action = require("mvim.util").finder.config_files(),
-            desc = " Config",
-            icon = " ",
-            icon_hl = "String",
-            key = "c",
-          },
-          {
-            action = "qa",
-            desc = " Quit",
-            icon = " ",
-            icon_hl = "Error",
-            key = "q",
-          },
+          { action = "ene | startinsert",     desc = " New file",     icon = " ", key = "n", icon_hl = "Character" },
+          { action = "Telescope find_files",  desc = " Find file",    icon = " ", key = "f", icon_hl = "Label" },
+          { action = "Telescope live_grep",   desc = " Find text",    icon = " ", key = "g", icon_hl = "Special" },
+          { action = "Telescope oldfiles",    desc = " Recent files", icon = " ", key = "r", icon_hl = "Macro" },
+          { action = "qa",                    desc = " Quit",         icon = " ", key = "q", icon_hl = "Error" },
         },
         footer = function()
           local stats = require("lazy").stats()
@@ -83,13 +47,15 @@ local M = {
       button.desc = button.desc .. string.rep(" ", 50 - #button.desc)
     end
 
-    -- close Lazy and re-open when the dashboard is ready
+    -- open dashboard after closing lazy
     if vim.o.filetype == "lazy" then
-      vim.cmd.close()
-      vim.api.nvim_create_autocmd("User", {
-        pattern = "DashboardLoaded",
+      vim.api.nvim_create_autocmd("WinClosed", {
+        pattern = tostring(vim.api.nvim_get_current_win()),
+        once = true,
         callback = function()
-          require("lazy").show()
+          vim.schedule(function()
+            vim.api.nvim_exec_autocmds("UIEnter", { group = "dashboard" })
+          end)
         end,
       })
     end

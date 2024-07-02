@@ -4,6 +4,14 @@ local M = {}
 local fn, api = vim.fn, vim.api
 local palette = require("mvim.config").palette
 
+local copilot_colors = {
+  [""] = palette.lavender,
+  ["Normal"] = palette.lavender,
+  ["Error"] = palette.red,
+  ["Warning"] = palette.yellow,
+  ["InProgress"] = palette.peach,
+}
+
 M.conditions = {
   buffer_not_empty = function()
     return vim.fn.empty(vim.fn.expand("%:t")) ~= 1
@@ -204,6 +212,28 @@ M.components = {
       right = "",
       left = "",
     },
+  },
+
+  copilot = {
+    function()
+      local icon = require("mvim.config").icons.kinds.Copilot
+      local status = require("copilot.api").status.data
+      return icon .. (status.message or "")
+    end,
+    cond = function()
+      local ok, clients = pcall(vim.lsp.get_clients, { name = "copilot", bufnr = 0 })
+      if not ok then
+        return
+      end
+      return ok and #clients > 0
+    end,
+    color = function()
+      if not package.loaded["copilot"] then
+        return
+      end
+      local status = require("copilot.api").status.data
+      return { fg = copilot_colors[status.status] or copilot_colors[""] }
+    end,
   },
 }
 

@@ -29,10 +29,10 @@ keymap("n", "<leader>-", "<C-W>s", { desc = "Split below" })
 keymap("n", "<leader>|", "<C-W>v", { desc = "Split right" })
 
 -- Move to window
-keymap("n", "<C-h>", "<C-w>h", { desc = "Go to left window" })
-keymap("n", "<C-j>", "<C-w>j", { desc = "Go to lower window" })
-keymap("n", "<C-k>", "<C-w>k", { desc = "Go to upper window" })
-keymap("n", "<C-l>", "<C-w>l", { desc = "Go to right window" })
+keymap("n", "<C-h>", "<C-w>h", { remap = true, desc = "Go to left window" })
+keymap("n", "<C-j>", "<C-w>j", { remap = true, desc = "Go to lower window" })
+keymap("n", "<C-k>", "<C-w>k", { remap = true, desc = "Go to upper window" })
+keymap("n", "<C-l>", "<C-w>l", { remap = true, desc = "Go to right window" })
 
 -- Resize window
 keymap("n", "<Up>", "<Cmd>resize +2<CR>", { desc = "Increase window height" })
@@ -77,6 +77,8 @@ keymap("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
 keymap("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 keymap("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 keymap("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+
+keymap("n", "<leader>pl", "<CMD>Lazy<CR>", { desc = "Lazy" })
 
 -- stylua: ignore start
 

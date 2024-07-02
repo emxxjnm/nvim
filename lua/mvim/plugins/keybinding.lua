@@ -44,6 +44,7 @@ local M = {
         n = { name = "󰵚 Notification" },
         t = { name = " Test" },
         o = { name = "󰘵 Option" },
+        p = { name = " Package" },
       },
     })
   end,

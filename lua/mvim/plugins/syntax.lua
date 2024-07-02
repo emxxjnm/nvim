@@ -14,7 +14,6 @@ local M = {
   opts = {
     ensure_installed = {
       "bash",
-      "css",
       "dockerfile",
       "dot",
       "gitignore",
@@ -28,8 +27,8 @@ local M = {
       "lua",
       "markdown",
       "python",
+      "ron",
       "rust",
-      "scss",
       "toml",
       "tsx",
       "typescript",

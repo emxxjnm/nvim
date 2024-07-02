@@ -15,6 +15,9 @@ local M = {
       {
         "williamboman/mason.nvim",
         cmd = "Mason",
+        keys = {
+          { "<leader>pm", "<CMD>Mason<CR>", desc = "Mason" },
+        },
         opts = {
           ui = {
             width = 0.8,

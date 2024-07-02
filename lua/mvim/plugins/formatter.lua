@@ -19,10 +19,10 @@ return {
     opts = {
       extra_lang_opts = {
         go = {
-          lsp_fallback = "always",
+          lsp_format = "last",
         },
         rust = {
-          lsp_fallback = true,
+          lsp_format = "last",
         },
       },
       formatters_by_ft = {

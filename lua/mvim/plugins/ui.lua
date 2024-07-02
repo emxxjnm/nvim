@@ -108,6 +108,7 @@ local M = {
             lualine.components.diagnostics,
           },
           lualine_x = {
+            lualine.components.copilot,
             lualine.components.python_env,
             lualine.components.dap,
             -- lualine.components.lsp,
@@ -260,6 +261,28 @@ local M = {
         bottom_search = true,
         long_message_to_split = true,
         lsp_doc_border = require("mvim.config").transparent,
+      },
+    },
+    config = function(_, opts)
+      if vim.o.filetype == "lazy" then
+        vim.cmd([[ message clear]])
+      end
+      require("noice").setup(opts)
+    end,
+  },
+
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    main = "ibl",
+    opts = {
+      indent = {
+        char = "┊",
+        tab_char = "┊",
+      },
+      scope = { enabled = false },
+      exclude = {
+        filetypes = { "help", "neo-tree", "lazy", "mason" },
       },
     },
   },

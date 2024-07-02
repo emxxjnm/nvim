@@ -30,7 +30,7 @@ return {
       },
     },
     config = function(_, opts)
-      local Util = require("mvim.util")
+      local augroup = require("mvim.util").augroup
 
       local M = {}
 
@@ -82,7 +82,7 @@ return {
         end
       end
 
-      Util.augroup("CodeLint", {
+      augroup("CodeLint", {
         event = opts.events,
         command = M.debounce(100, M.lint),
       })

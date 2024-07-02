@@ -22,16 +22,7 @@ local M = {
 
   {
     "windwp/nvim-ts-autotag",
-    ft = {
-      "vue",
-      "tsx",
-      "jsx",
-      "html",
-      "javascript",
-      "typescript",
-      "javascriptreact",
-      "typescriptreact",
-    },
+    ft = { "vue", "tsx", "jsx", "html" },
     opts = {},
   },
 
@@ -57,6 +48,7 @@ local M = {
 
   {
     "nvim-treesitter/nvim-treesitter-context",
+    enabled = false,
     event = { "BufReadPost", "BufNewFile" },
     opts = { mode = "cursor", max_lines = 3 },
   },
@@ -87,6 +79,7 @@ local M = {
           f = ai.gen_spec.treesitter({ a = "@function.outer", i = "@function.inner" }), -- function
           c = ai.gen_spec.treesitter({ a = "@class.outer", i = "@class.inner" }), -- class
           t = { "<([%p%w]-)%f[^<%w][^<>]->.-</%1>", "^<.->().*()</[^/]->$" }, -- tags
+          d = { "%f[%d]%d+" }, -- digits
           e = { -- Word with case
             {
               "%u[%l%d]+%f[^%l%d]",

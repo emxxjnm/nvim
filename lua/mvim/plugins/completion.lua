@@ -7,23 +7,62 @@ local M = {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-nvim-lsp",
+      "saadparwaiz1/cmp_luasnip",
+      {
+        "L3MON4D3/LuaSnip",
+        build = "make install_jsregexp",
+        keys = {
+          {
+            "<C-o>",
+            function()
+              if require("luasnip").choice_active() then
+                require("luasnip").change_choice(1)
+              end
+            end,
+            mode = { "s", "i" },
+            desc = "Select option",
+          },
+        },
+        config = function()
+          require("luasnip").setup({
+            ext_opts = {
+              [require("luasnip.util.types").choiceNode] = {
+                active = {
+                  virt_text = {
+                    { "󰠖 ", "Type" },
+                  },
+                },
+              },
+            },
+          })
+
+          require("luasnip.loaders.from_vscode").lazy_load({
+            paths = vim.fn.stdpath("config") .. "/snippets",
+          })
+
+          require("mvim.util").augroup("UnlinkSnippetOnModeChange", {
+            event = "ModeChanged",
+            pattern = { "s:n", "i:*" },
+            command = function(args)
+              if
+                require("luasnip").session.current_nodes[args.buf]
+                and not require("luasnip").session.jump_active
+              then
+                require("luasnip").unlink_current()
+              end
+            end,
+            desc = "Forget the current snippet when leaving the insert mode",
+          })
+        end,
+      },
       {
         "zbirenbaum/copilot-cmp",
-        event = "InsertEnter",
         dependencies = "copilot.lua",
-        config = function(_, opts)
-          local copilot_cmp = require("copilot_cmp")
-          copilot_cmp.setup(opts)
-          -- attach cmp source whenever copilot attaches
-          -- fixes lazy-loading issues with the copilot cmp source
-          require("mvim.util").lsp.on_attach(function()
-            copilot_cmp._on_insert_enter({})
-          end, "copilot")
-        end,
+        opts = {},
       },
     },
     config = function()
-      local cmp = require("cmp")
+      local cmp, luasnip = require("cmp"), require("luasnip")
       local select = cmp.SelectBehavior.Select
       local border = require("mvim.config").get_border()
 
@@ -40,9 +79,15 @@ local M = {
             winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
           },
         },
+        snippet = {
+          expand = function(args)
+            luasnip.lsp_expand(args.body)
+          end,
+        },
         sources = cmp.config.sources({
           { name = "copilot" },
           { name = "nvim_lsp" },
+          { name = "luasnip" },
           { name = "path" },
         }, {
           {
@@ -58,9 +103,19 @@ local M = {
         formatting = {
           expandable_indicator = false,
           fields = { "kind", "abbr", "menu" },
-          format = function(_, item)
+          format = function(entry, item)
             local icons = require("mvim.config").icons.kinds
-            item.kind = string.format("%s%s", icons[item.kind], item.kind)
+            if icons[item.kind] then
+              item.kind = icons[item.kind] .. item.kind
+            end
+            if entry.source.name ~= "copilot" then
+              local widths = { abbr = 27, menu = 35 }
+              for key, value in pairs(widths) do
+                if item[key] and vim.fn.strchars(item[key]) > value then
+                  item[key] = vim.fn.strcharpart(item[key], 0, value - 3) .. "..."
+                end
+              end
+            end
             return item
           end,
         },
@@ -68,10 +123,12 @@ local M = {
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item({ behavior = select })
-            elseif vim.snippet.active({ direction = 1 }) then
-              vim.schedule(function()
-                vim.snippet.jump(1)
-              end)
+            -- elseif vim.snippet.active({ direction = 1 }) then
+            --   vim.schedule(function()
+            --     vim.snippet.jump(1)
+            --   end)
+            elseif luasnip.locally_jumpable(1) then
+              luasnip.jump(1)
             else
               fallback()
             end
@@ -79,10 +136,12 @@ local M = {
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item({ behavior = select })
-            elseif vim.snippet.active({ direction = -1 }) then
-              vim.schedule(function()
-                vim.snippet.jump(-1)
-              end)
+            -- elseif vim.snippet.active({ direction = -1 }) then
+            --   vim.schedule(function()
+            --     vim.snippet.jump(-1)
+            --   end)
+            elseif luasnip.locally_jumpable(-1) then
+              luasnip.jump(-1)
             else
               fallback()
             end
