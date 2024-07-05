@@ -47,13 +47,6 @@ local M = {
   },
 
   {
-    "nvim-treesitter/nvim-treesitter-context",
-    enabled = false,
-    event = { "BufReadPost", "BufNewFile" },
-    opts = { mode = "cursor", max_lines = 3 },
-  },
-
-  {
     "kylechui/nvim-surround",
     keys = {
       { "ys", desc = "Add surround" },
@@ -63,7 +56,6 @@ local M = {
     opts = { move_cursor = false },
   },
 
-  -- Better text-objects
   {
     "echasnovski/mini.ai",
     event = "VeryLazy",
