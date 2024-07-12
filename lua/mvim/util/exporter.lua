@@ -1,5 +1,3 @@
-local Util = require("mvim.util")
-
 ---@class mvim.util.exporter
 local M = {}
 
@@ -7,7 +5,7 @@ local M = {}
 -- Or in the directory where the file under the cursor is located
 ---@param action "find" | "grep"
 function M.find_or_grep(action, state)
-  if Util.has("telescope.nvim") then
+  if Mo.U.has("telescope.nvim") then
     local node = state.tree:get_node()
     local path = node.type == "file" and node:get_parent_id() or node:get_id()
 

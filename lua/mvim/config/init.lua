@@ -1,7 +1,10 @@
----@class MvimConfig: MvimOptions
+---@class mvim.config: mvim.options
 local M = {}
 
----@class MvimOptions
+---@type CtpColors<string> | CtpColor
+M.palette = {}
+
+---@class mvim.options
 local defaults = {
   transparent = true,
   -- stylua: ignore
@@ -50,20 +53,9 @@ local defaults = {
       Copilot       = " ",
     },
   },
-  banner = [[
-         .-') _     ('-.                      (`-.              _   .-')      
-        ( OO ) )  _(  OO)                   _(OO  )_           ( '.( OO )_    
-    ,--./ ,--,'  (,------.  .-'),-----. ,--(_/   ,. \  ,-.-')   ,--.   ,--.)  
-    |   \ |  |\   |  .---' ( OO'  .-.  '\   \   /(__/  |  |OO)  |   `.'   |   
-    |    \|  | )  |  |     /   |  | |  | \   \ /   /   |  |  \  |         |   
-    |  .     |/  (|  '--.  \_) |  |\|  |  \   '   /,   |  |(_/  |  |'.'|  |   
-    |  |\    |    |  .--'    \ |  | |  |   \     /__) ,|  |_.'  |  |   |  |   
-    |  | \   |    |  `---.    `'  '-'  '    \   /    (_|  |     |  |   |  |   
-    `--'  `--'    `------'      `-----'      `-'       `--'     `--'   `--'   
-  ]],
-  ---@class CtpColor
-  palette = {},
 }
+
+defaults.border = defaults.transparent and "rounded" or "none"
 
 function M.bootstrap()
   local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -90,7 +82,7 @@ function M.bootstrap()
     change_detection = { notify = false },
     ui = {
       backdrop = M.transparent and 100 or 60,
-      border = M.get_border(),
+      border = M.border,
       icons = {
         loaded = "󰽢",
         not_loaded = "󰏝",
@@ -174,7 +166,7 @@ function M.setup()
     M.load("autocmds")
   end
 
-  require("mvim.util").augroup("Mvim", {
+  Mo.U.augroup("NeovimPDE", {
     pattern = "VeryLazy",
     event = "User",
     command = function()
@@ -183,14 +175,9 @@ function M.setup()
       end
       M.load("keymaps")
 
-      require("mvim.util").format.setup()
+      Mo.U.format.setup()
     end,
   })
-end
-
-function M.get_border()
-  local border = M.transparent and "rounded" or "none"
-  return border
 end
 
 ---@param palette CtpColors<string> | CtpColor
@@ -198,17 +185,9 @@ function M.filling_pigments(palette)
   M.palette = palette
 end
 
----@type MvimOptions
-local options
-
 setmetatable(M, {
   __index = function(_, key)
-    if options == nil then
-      return vim.deepcopy(defaults)[key]
-    end
-
-    ---@cast options MvimConfig
-    return options[key]
+    return defaults[key]
   end,
 })
 

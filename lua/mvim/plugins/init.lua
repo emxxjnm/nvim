@@ -1,3 +1,3 @@
-require("mvim.config").init()
+Mo.C.init()
 
 return {}

@@ -1,7 +1,5 @@
 local M = {}
 
-local augroup = require("mvim.util").augroup
-
 local function highlight_references()
   local status_ok, ts_utils = pcall(function()
     return require("nvim-treesitter.ts_utils")
@@ -28,7 +26,7 @@ end
 ---@param buffer number
 function M.on_attach(client, buffer)
   if client.supports_method("textDocument/documentHighlight") then
-    augroup(("LspHighlight:%d"):format(buffer), {
+    Mo.U.augroup(("LspHighlight:%d"):format(buffer), {
       event = { "CursorHold", "CursorHoldI" },
       buffer = buffer,
       desc = "document highlight",

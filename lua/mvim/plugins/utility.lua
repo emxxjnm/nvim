@@ -28,7 +28,7 @@ local M = {
       preview = {
         win_config = {
           winblend = 0,
-          border = require("mvim.config").get_border(),
+          border = Mo.C.border,
           winhighlight = "Normal:Folded",
         },
       },

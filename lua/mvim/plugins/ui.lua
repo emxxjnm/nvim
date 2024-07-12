@@ -15,8 +15,6 @@ local M = {
     },
     opts = function()
       local ctp = require("catppuccin.groups.integrations.bufferline")
-      local colors = require("catppuccin.palettes").get_palette()
-      local transparent = require("mvim.config").transparent
 
       return {
         options = {
@@ -28,55 +26,54 @@ local M = {
           right_mouse_command = false,
           diagnostics = "nvim_lsp",
           diagnostics_indicator = function(_, level)
-            local icons = require("mvim.config").icons.diagnostics
             level = level:match("warn") and "warn" or level
-            return icons[level] or ""
+            return Mo.C.icons.diagnostics[level] or ""
           end,
           offsets = {
             {
               filetype = "neo-tree",
               text = "Explorer",
-              separator = transparent,
+              separator = Mo.C.transparent,
               text_align = "center",
               highlight = "PanelHeading",
             },
             {
               filetype = "undotree",
               text = "Undotree",
-              separator = transparent,
+              separator = Mo.C.transparent,
               text_align = "center",
               highlight = "PanelHeading",
             },
             {
               filetype = "dapui_scopes",
               text = "Debugger",
-              separator = transparent,
+              separator = Mo.C.transparent,
               text_align = "center",
               highlight = "PanelHeading",
             },
           },
           move_wraps_at_ends = true,
           show_close_icon = false,
-          separator_style = transparent and "thin" or "slope",
+          separator_style = Mo.C.transparent and "thin" or "slope",
           show_buffer_close_icons = false,
           sort_by = "insert_after_current",
         },
         highlights = ctp.get({
           custom = {
             all = {
-              buffer_selected = { fg = colors.lavender },
+              buffer_selected = { fg = Mo.C.palette.lavender },
 
-              error = { fg = colors.surface1 },
-              error_diagnostic = { fg = colors.surface1 },
+              error = { fg = Mo.C.palette.surface1 },
+              error_diagnostic = { fg = Mo.C.palette.surface1 },
 
-              warning = { fg = colors.surface1 },
-              warning_diagnostic = { fg = colors.surface1 },
+              warning = { fg = Mo.C.palette.surface1 },
+              warning_diagnostic = { fg = Mo.C.palette.surface1 },
 
-              info = { fg = colors.surface1 },
-              info_diagnostic = { fg = colors.surface1 },
+              info = { fg = Mo.C.palette.surface1 },
+              info_diagnostic = { fg = Mo.C.palette.surface1 },
 
-              hint = { fg = colors.surface1 },
-              hint_diagnostic = { fg = colors.surface1 },
+              hint = { fg = Mo.C.palette.surface1 },
+              hint_diagnostic = { fg = Mo.C.palette.surface1 },
             },
           },
         }),
@@ -88,8 +85,6 @@ local M = {
     "nvim-lualine/lualine.nvim",
     event = { "BufNewFile", "BufReadPost" },
     opts = function()
-      local lualine = require("mvim.util").lualine
-
       return {
         options = {
           theme = "catppuccin",
@@ -101,24 +96,24 @@ local M = {
           globalstatus = true,
         },
         sections = {
-          lualine_a = { lualine.components.mode },
-          lualine_b = { lualine.components.branch },
+          lualine_a = { Mo.U.lualine.components.mode },
+          lualine_b = { Mo.U.lualine.components.branch },
           lualine_c = {
-            lualine.components.diff,
-            lualine.components.diagnostics,
+            Mo.U.lualine.components.diff,
+            Mo.U.lualine.components.diagnostics,
           },
           lualine_x = {
-            lualine.components.copilot,
-            lualine.components.python_env,
-            lualine.components.dap,
+            Mo.U.lualine.components.copilot,
+            Mo.U.lualine.components.python_env,
+            Mo.U.lualine.components.dap,
             -- lualine.components.lsp,
             -- lualine.components.treesitter,
-            lualine.components.spaces,
-            lualine.components.filesize,
+            Mo.U.lualine.components.spaces,
+            Mo.U.lualine.components.filesize,
             -- lualine.components.lazy,
           },
-          lualine_y = { lualine.components.location },
-          lualine_z = { lualine.components.scrollbar },
+          lualine_y = { Mo.U.lualine.components.location },
+          lualine_z = { Mo.U.lualine.components.scrollbar },
         },
       }
     end,
@@ -260,13 +255,13 @@ local M = {
       presets = {
         bottom_search = true,
         long_message_to_split = true,
-        lsp_doc_border = require("mvim.config").transparent,
+        lsp_doc_border = Mo.C.transparent,
       },
     },
     config = function(_, opts)
-      if vim.o.filetype == "lazy" then
-        vim.cmd([[ message clear]])
-      end
+      -- if vim.o.filetype == "lazy" then
+      --   vim.cmd([[ message clear]])
+      -- end
       require("noice").setup(opts)
     end,
   },

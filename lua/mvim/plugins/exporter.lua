@@ -20,7 +20,6 @@ local M = {
   end,
   opts = function()
     local events = require("neo-tree.events")
-    local exporter = require("mvim.util").exporter
 
     return {
       source_selector = {
@@ -47,13 +46,13 @@ local M = {
         {
           event = events.FILE_MOVED,
           handler = function(data)
-            exporter.on_renamed(data.source, data.destination)
+            Mo.U.exporter.on_renamed(data.source, data.destination)
           end,
         },
         {
           event = events.FILE_RENAMED,
           handler = function(data)
-            exporter.on_renamed(data.source, data.destination)
+            Mo.U.exporter.on_renamed(data.source, data.destination)
           end,
         },
       },
@@ -88,10 +87,10 @@ local M = {
       },
       commands = {
         copy_filename = function(state)
-          exporter.copy("filename", state)
+          Mo.U.exporter.copy("filename", state)
         end,
         copy_path = function(state)
-          exporter.copy("path", state)
+          Mo.U.exporter.copy("path", state)
         end,
       },
       window = {
@@ -164,10 +163,10 @@ local M = {
         },
         commands = {
           telescope_find = function(state)
-            exporter.find_or_grep("find", state)
+            Mo.U.exporter.find_or_grep("find", state)
           end,
           telescope_grep = function(state)
-            exporter.find_or_grep("grep", state)
+            Mo.U.exporter.find_or_grep("grep", state)
           end,
         },
         bind_to_cwd = false,

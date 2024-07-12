@@ -3,7 +3,7 @@ local fmt = string.format
 local M = {}
 
 function M.setup()
-  local icons = require("mvim.config").icons.diagnostics
+  local icons = Mo.C.icons.diagnostics
   vim.diagnostic.config({
     signs = {
       text = {
@@ -22,7 +22,7 @@ function M.setup()
     float = {
       header = "",
       source = false,
-      border = require("mvim.config").get_border(),
+      border = Mo.C.border,
       prefix = function(d)
         local level = vim.diagnostic.severity[d.severity]
         local prefix = icons[level:lower()]

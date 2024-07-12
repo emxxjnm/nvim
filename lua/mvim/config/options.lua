@@ -58,7 +58,7 @@ opt.showmode = false
 opt.clipboard = "unnamedplus"
 
 opt.cursorline = true
-opt.cursorlineopt = require("mvim.config").transparent and "number" or "number,line"
+opt.cursorlineopt = Mo.C.transparent and "number" or "number,line"
 
 -- indent
 opt.expandtab = true

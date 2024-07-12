@@ -110,30 +110,22 @@ local M = {
       { "]T", function() require("todo-comments").jump_next() end, desc = "Next TODO comment" },
     },
     opts = function()
-      local palette = require("mvim.config").palette
       return {
+        -- stylua: ignore
         keywords = {
-          FIX = { icon = "", color = "fix", alt = { "FIXME", "FIXIT", "ISSUE" } },
-          TODO = { icon = "", color = "todo" },
-          HACK = { icon = "", color = "hack" },
-          WARN = { icon = "", color = "warn", alt = { "WARNING", "XXX" } },
-          PERF = { icon = "", color = "perf", alt = { "OPTIM" } },
-          NOTE = { icon = "", color = "note" },
-          TEST = { icon = "", color = "test", alt = { "PASSED", "FAILED" } },
+          TODO = { icon = " ", color = Mo.C.palette.green },
+          HACK = { icon = " ", color = Mo.C.palette.peach },
+          NOTE = { icon = " ", color = Mo.C.palette.blue, alt = { "INFO" } },
+          PERF = { icon = " ", color = Mo.C.palette.mauve, alt = { "OPTIM" } },
+          TEST = { icon = " ", color = Mo.C.palette.teal, alt = { "PASSED", "FAILED" } },
+          WARN = { icon = " ", color = Mo.C.palette.yellow, alt = { "WARNING", "XXX" } },
+          FIX  = { icon = " ", color = Mo.C.palette.red, alt = { "FIXME", "FIXIT", "ISSUE" } },
         },
+        gui_style = { fg = "BOLD" },
         highlight = {
           before = "",
           keyword = "wide_fg",
           after = "",
-        },
-        colors = {
-          fix = { palette.red },
-          todo = { palette.green },
-          hack = { palette.peach },
-          warn = { palette.yellow },
-          perf = { palette.mauve },
-          note = { palette.blue },
-          test = { palette.sky },
         },
       }
     end,

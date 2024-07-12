@@ -19,7 +19,7 @@ local M = {
       group = "",
     },
     window = {
-      border = require("mvim.config").get_border(),
+      border = Mo.C.border,
     },
     layout = {
       spacing = 5,

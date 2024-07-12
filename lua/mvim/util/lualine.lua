@@ -2,7 +2,7 @@
 local M = {}
 
 local fn, api = vim.fn, vim.api
-local palette = require("mvim.config").palette
+local palette = Mo.C.palette
 
 local copilot_colors = {
   [""] = palette.lavender,
@@ -69,7 +69,7 @@ M.components = {
     "diagnostics",
     sources = { "nvim_diagnostic" },
     sections = { "error", "warn", "info", "hint" },
-    symbols = require("mvim.config").icons.diagnostics,
+    symbols = Mo.C.icons.diagnostics,
     cond = M.conditions.hide_in_width,
   },
 
@@ -216,7 +216,7 @@ M.components = {
 
   copilot = {
     function()
-      local icon = require("mvim.config").icons.kinds.Copilot
+      local icon = Mo.C.icons.kinds.Copilot
       local status = require("copilot.api").status.data
       return icon .. (status.message or "")
     end,

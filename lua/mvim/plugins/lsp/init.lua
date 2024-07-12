@@ -22,7 +22,7 @@ local M = {
           ui = {
             width = 0.8,
             height = 0.8,
-            border = require("mvim.config").get_border(),
+            border = Mo.C.border,
             icons = {
               package_installed = "",
               package_pending = "",
@@ -134,11 +134,10 @@ local M = {
       },
     },
     config = function(_, opts)
-      local U = require("mvim.util").lsp
       require("mvim.plugins.lsp.diagnostic").setup()
-      require("lspconfig.ui.windows").default_options.border = require("mvim.config").get_border()
+      require("lspconfig.ui.windows").default_options.border = Mo.C.border
 
-      U.on_attach(function(client, buffer)
+      Mo.U.lsp.on_attach(function(client, buffer)
         require("mvim.plugins.lsp.keymaps").on_attach(client, buffer)
         require("mvim.plugins.lsp.codelens").on_attach(client, buffer)
         require("mvim.plugins.lsp.highlight").on_attach(client, buffer)
@@ -146,7 +145,7 @@ local M = {
 
       ---@param server string server name
       local function setup_server(server)
-        local config = U.resolve_config(opts.servers[server] or {})
+        local config = Mo.U.lsp.resolve_config(opts.servers[server] or {})
         if opts.setup[server] then
           if opts.setup[server](server, config) then
             return

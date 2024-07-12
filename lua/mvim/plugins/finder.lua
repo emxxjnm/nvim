@@ -1,5 +1,3 @@
-local finder = require("mvim.util").finder
-
 local M = {
   "nvim-telescope/telescope.nvim",
   cmd = "Telescope",
@@ -12,9 +10,9 @@ local M = {
     { "<leader>fc", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "Fuzzy search" },
     { "<leader>fb", "<Cmd>Telescope buffers sort_mru=true sort_lastused=true<CR>", desc = "List buffers" },
     { "<leader>fd", "<Cmd>Telescope diagnostics<CR>", desc = "List diagnostics" },
-    { "<leader>fs", finder.lsp_symbols("document"), desc = "Goto symbol" },
-    { "<leader>fS", finder.lsp_symbols("workspace"), desc = "Goto symbol (Workspace)" },
-    { "<leader>fn", finder.config_files(), desc = "Neovim config files" },
+    { "<leader>fs", Mo.U.finder.lsp_symbols("document"), desc = "Goto symbol" },
+    { "<leader>fS", Mo.U.finder.lsp_symbols("workspace"), desc = "Goto symbol (Workspace)" },
+    { "<leader>fn", Mo.U.finder.config_files(), desc = "Neovim config files" },
     { "<leader>fR", "<Cmd>Telescope resume<CR>", desc = "Resume" },
   },
   dependencies = {
@@ -22,7 +20,7 @@ local M = {
       "nvim-telescope/telescope-fzf-native.nvim",
       build = "make",
       config = function()
-        require("mvim.util").on_load("telescope.nvim", function()
+        Mo.U.on_load("telescope.nvim", function()
           require("telescope").load_extension("fzf")
         end)
       end,

@@ -26,18 +26,17 @@ local M = {
     config = function()
       local cmp, luasnip = require("cmp"), require("luasnip")
       local select = cmp.SelectBehavior.Select
-      local border = require("mvim.config").get_border()
 
       cmp.setup({
         preselect = cmp.PreselectMode.None,
         experimental = { ghost_text = true },
         window = {
           completion = {
-            border = border,
+            border = Mo.C.border,
             winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
           },
           documentation = {
-            border = border,
+            border = Mo.C.border,
             winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
           },
         },
@@ -66,7 +65,7 @@ local M = {
           expandable_indicator = false,
           fields = { "kind", "abbr", "menu" },
           format = function(entry, item)
-            local icons = require("mvim.config").icons.kinds
+            local icons = Mo.C.icons.kinds
             if icons[item.kind] then
               item.kind = icons[item.kind] .. item.kind
             end
@@ -170,7 +169,7 @@ local M = {
         paths = vim.fn.stdpath("config") .. "/snippets",
       })
 
-      require("mvim.util").augroup("UnlinkSnippetOnModeChange", {
+      Mo.U.augroup("UnlinkSnippetOnModeChange", {
         event = "ModeChanged",
         pattern = { "s:n", "i:*" },
         command = function(args)

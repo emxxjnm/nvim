@@ -1,4 +1,3 @@
-local Util = require("mvim.util")
 local levels = vim.log.levels
 
 ---@class mvim.util.format
@@ -80,7 +79,7 @@ function M.format(opts)
 end
 
 function M.setup()
-  Util.augroup("CodeFormat", {
+  Mo.U.augroup("CodeFormat", {
     event = "BufWritePre",
     pattern = "*",
     command = function(args)

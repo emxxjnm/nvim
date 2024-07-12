@@ -1,5 +1,3 @@
-local Util = require("mvim.util")
-
 ---@class mvim.util.lsp
 local M = {}
 
@@ -7,7 +5,7 @@ local M = {}
 ---@param func fun(client: vim.lsp.Client, buffer: number)
 ---@param name? string
 function M.on_attach(func, name)
-  Util.augroup("LspOnAttach", {
+  Mo.U.augroup("LspOnAttach", {
     event = "LspAttach",
     command = function(args)
       local buffer = args.buf
@@ -71,8 +69,8 @@ function M.common_capabilities()
       },
     },
     vim.lsp.protocol.make_client_capabilities(),
-    Util.has("cmp-nvim-lsp") and require("cmp_nvim_lsp").default_capabilities() or {},
-    Util.has("nvim-ufo")
+    Mo.U.has("cmp-nvim-lsp") and require("cmp_nvim_lsp").default_capabilities() or {},
+    Mo.U.has("nvim-ufo")
         and {
           textDocument = {
             foldingRange = {

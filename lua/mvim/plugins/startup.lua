@@ -2,8 +2,18 @@ local M = {
   "nvimdev/dashboard-nvim",
   event = "VimEnter",
   opts = function()
-    local banner = require("mvim.config").banner
-    local logo = string.rep("\n", 7) .. banner .. "\n"
+    local banner = [[
+      .-') _     ('-.                      (`-.              _   .-')      
+      ( OO ) )  _(  OO)                   _(OO  )_           ( '.( OO )_    
+  ,--./ ,--,'  (,------.  .-'),-----. ,--(_/   ,. \  ,-.-')   ,--.   ,--.)  
+  |   \ |  |\   |  .---' ( OO'  .-.  '\   \   /(__/  |  |OO)  |   `.'   |   
+  |    \|  | )  |  |     /   |  | |  | \   \ /   /   |  |  \  |         |   
+  |  .     |/  (|  '--.  \_) |  |\|  |  \   '   /,   |  |(_/  |  |'.'|  |   
+  |  |\    |    |  .--'    \ |  | |  |   \     /__) ,|  |_.'  |  |   |  |   
+  |  | \   |    |  `---.    `'  '-'  '    \   /    (_|  |     |  |   |  |   
+  `--'  `--'    `------'      `-----'      `-'       `--'     `--'   `--'   
+    ]]
+    banner = string.rep("\n", 7) .. banner .. "\n"
     local opts = {
       theme = "doom",
       hide = {
@@ -12,7 +22,7 @@ local M = {
         winbar = false,
       },
       config = {
-        header = vim.split(logo, "\n"),
+        header = vim.split(banner, "\n"),
         -- stylua: ignore
         center = {
           { action = "ene | startinsert",     desc = " New file",     icon = " ", key = "n", icon_hl = "Character" },
