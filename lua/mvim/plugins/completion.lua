@@ -109,13 +109,10 @@ local M = {
           end, { "i", "s" }),
           ["<CR>"] = cmp.mapping(cmp.mapping.confirm({ select = false }), { "i", "c" }),
           ["<C-e>"] = { i = cmp.mapping.abort(), c = cmp.mapping.close() },
-          ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-          ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
-          -- ["<C-c>"] = cmp.mapping.complete(),
-          ["<Down>"] = cmp.mapping(
-            cmp.mapping.select_next_item({ behavior = select }),
-            { "i", "c" }
-          ),
+          ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+          ["<C-d>"] = cmp.mapping.scroll_docs(4),
+          -- stylua: ignore
+          ["<Down>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = select }), { "i", "c" }),
           ["<Up>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = select }), { "i", "c" }),
         },
       })
