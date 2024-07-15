@@ -9,9 +9,6 @@ keymap("n", "<leader>q", "<Cmd>q<CR>", { desc = "Quit" })
 keymap("n", "<leader>Q", "<Cmd>q!<CR>", { desc = "Force quit" })
 
 -- Motion
-keymap("n", "<leader>;", "%", { desc = "Jump to match item" })
-
--- Motion
 keymap({ "n", "x" }, "H", "^", { desc = "To the first non-blank char of the line" })
 keymap({ "n", "x" }, "L", "$", { desc = "To the end of the line" })
 

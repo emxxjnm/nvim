@@ -169,6 +169,39 @@ local M = {
       },
     },
   },
+
+  {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    opts = {
+      spec = {
+        { "<leader>a", group = "ai", icon = " ", mode = { "n", "v" } },
+        { "<leader>b", group = "buffer", icon = " " },
+        { "<leader>c", group = "code", icon = " " },
+        { "<leader>d", group = "debug", icon = " " },
+        { "<leader>f", group = "find", icon = " " },
+        { "<leader>g", group = "git", icon = " " },
+        { "<leader>l", group = "lsp", icon = " " },
+        { "<leader>m", group = "markdown", icon = " " },
+        { "<leader>n", group = "notification", icon = "󱅫 " },
+        { "<leader>t", group = "test", icon = " " },
+        { "<leader>o", group = "option", icon = "󰘵 " },
+        { "<leader>p", group = "package", icon = " " },
+        { "[", group = "prev" },
+        { "]", group = "next" },
+        { "g", group = "goto" },
+      },
+      win = {
+        title = false,
+        no_overlap = false,
+        border = Mo.C.border,
+      },
+      layout = {
+        spacing = 5,
+        align = "center",
+      },
+    },
+  },
 }
 
 return M
