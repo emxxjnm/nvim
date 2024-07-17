@@ -35,11 +35,6 @@ local M = {
             style = { "bold", "italic" },
           },
 
-          -- treesitter-context
-          TreesitterContextLineNumber = Mo.C.transparent and {
-            fg = colors.rosewater,
-          } or { fg = colors.subtext0, bg = colors.mantle },
-
           -- lazy.nvim
           LazyH1 = {
             bg = Mo.C.transparent and colors.none or colors.peach,
@@ -58,7 +53,6 @@ local M = {
           LazySpecial = { fg = colors.green },
 
           CmpItemMenu = { fg = colors.subtext1 },
-          MiniIndentscopeSymbol = { fg = colors.overlay0 },
 
           FloatBorder = {
             fg = Mo.C.transparent and colors.blue or colors.mantle,
