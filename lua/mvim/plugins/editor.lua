@@ -200,6 +200,11 @@ local M = {
         spacing = 5,
         align = "center",
       },
+      plugins = {
+        marks = false,
+        registers = false,
+      },
+      show_help = false,
     },
   },
 }
