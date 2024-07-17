@@ -21,8 +21,8 @@ keymap("v", "<M-k>", ":move '<-2<cr>gv=gv", { desc = "Move up" })
 keymap("v", "<M-j>", ":move '>+1<cr>gv=gv", { desc = "Move down" })
 
 -- Split window
-keymap("n", "<leader>-", "<C-W>s", { desc = "Split below" })
-keymap("n", "<leader>|", "<C-W>v", { desc = "Split right" })
+keymap("n", "<leader>-", "<C-w>s", { desc = "Split below" })
+keymap("n", "<leader>|", "<C-w>v", { desc = "Split right" })
 
 -- Move to window
 keymap("n", "<C-h>", "<C-w>h", { remap = true, desc = "Go to left window" })

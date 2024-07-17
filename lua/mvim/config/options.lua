@@ -72,8 +72,8 @@ opt.number = true
 opt.relativenumber = true
 
 -- time
-opt.timeoutlen = 300 -- 500
-opt.updatetime = 200 -- 500
+opt.timeoutlen = 500 -- 300
+opt.updatetime = 300 -- 200
 
 -- undo
 opt.undofile = true
