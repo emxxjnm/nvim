@@ -86,7 +86,9 @@ local M = {
   end,
   config = function()
     -- load launch.json file
-    require("dap.ext.vscode").load_launchjs(vim.fn.getcwd() .. "/.vscode/launch.json")
+    if vim.fn.filereadable(".vscode/launch.json") then
+      require("dap.ext.vscode").load_launchjs()
+    end
 
     local dap = require("dap")
     -- setup adapter
