@@ -198,7 +198,6 @@ local M = {
       },
       layout = {
         spacing = 5,
-        align = "center",
       },
       plugins = {
         marks = false,
