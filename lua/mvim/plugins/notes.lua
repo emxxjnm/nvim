@@ -8,16 +8,21 @@ local M = {
     },
   },
 
-  -- markdown preview
   {
-    "iamcco/markdown-preview.nvim",
-    cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+    "MeanderingProgrammer/markdown.nvim",
+    main = "render-markdown",
     ft = { "markdown" },
-    build = function()
-      vim.fn["mkdp#util#install"]()
-    end,
     keys = {
-      { "<leader>mp", "<Cmd>MarkdownPreviewToggle<CR>", desc = "Markdown Preview" },
+      { "<leader>mr", "<Cmd>RenderMarkdown toggle<CR>", desc = "Render markdown" },
+    },
+    opts = {
+      heading = { enabled = false },
+      code = {
+        sign = false,
+        width = "block",
+        left_pad = 1,
+        right_pad = 1,
+      },
     },
   },
 }
