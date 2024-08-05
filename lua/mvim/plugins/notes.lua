@@ -9,8 +9,7 @@ local M = {
   },
 
   {
-    "MeanderingProgrammer/markdown.nvim",
-    main = "render-markdown",
+    "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown" },
     keys = {
       { "<leader>mr", "<Cmd>RenderMarkdown toggle<CR>", desc = "Render markdown" },
