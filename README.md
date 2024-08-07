@@ -5,14 +5,14 @@
 Personal Neovim configuration, it's more delicious when paired with `Tmux` or `WezTerm`.
 
 * Transparency first.
-* For coding `Vue3`, `Go`, `Python`.
+* For coding `rust`, `Vue3`, `Go`, `Python`.
 
-
-| Language  | LSP     | Formatter            | Linter               |
-| ---       | ---     | ---                  | ---                  |
-| Go        | gopls   | goimports & gopls    | -                    |
-| Python    | pyright | ruff                 | ruff                 |
-| Vue/TS/JS | Volar   | eslint_d & stylelint | eslint_d & stylelint |
+| Language  | LSP           | Formatter            | Linter               |
+| ---       | ---           | ---                  | ---                  |
+| Go        | gopls         | goimports & gopls    | -                    |
+| Rust      | rust-analyzer | rustfmt              | clippy               |
+| Python    | pyright       | ruff                 | ruff                 |
+| Vue/TS/JS | Volar         | eslint_d & stylelint | eslint_d & stylelint |
 
 ## Preview
 
@@ -66,10 +66,10 @@ docker run --rm \
 
 ### Dependencies
 
-* [ ] fd
-* [ ] fzf
-* [ ] ripgrep
-* [ ] lazygit
+* [x] fd
+* [x] fzf
+* [x] ripgrep
+* [x] lazygit
 
 ### Keymaps
 
@@ -94,7 +94,7 @@ docker run --rm \
 | &lt;leader&gt;W  | Save files                    | **n**               |
 | &lt;leader&gt;q  | Quit                          | **n**               |
 | &lt;leader&gt;Q  | Force quit                    | **n**               |
-| &lt;leader&gt;-  | Split below                   | **n**               |
+| &lt;leader&gt;_  | Split below                   | **n**               |
 | &lt;leader&gt;\| | Split right                   | **n**               |
 
 ### LSP
