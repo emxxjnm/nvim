@@ -39,7 +39,7 @@ local M = {
 
       autopairs.setup(opts)
       autopairs.add_rules({
-        Rule("<", ">", "rust"):with_pair(cond.before_regex("%a+")):with_move(function(args)
+        Rule("<", ">", "rust"):with_pair(cond.before_regex("%a+:?:?$", 3)):with_move(function(args)
           return args.char == ">"
         end),
       })
