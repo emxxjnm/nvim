@@ -5,7 +5,7 @@
 Personal Neovim configuration, it's more delicious when paired with `Tmux` or `WezTerm`.
 
 * Transparency first.
-* For coding `rust`, `Vue3`, `Go`, `Python`.
+* For coding `Rust`, `Vue3`, `Go`, `Python`.
 
 | Language  | LSP           | Formatter            | Linter               |
 | ---       | ---           | ---                  | ---                  |
