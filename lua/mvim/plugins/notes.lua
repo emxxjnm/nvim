@@ -4,7 +4,7 @@ local M = {
     cmd = "TableModeToggle",
     ft = { "markdown" },
     keys = {
-      { "<leader>mt", "<Cmd>TableModeToggle<CR>", desc = "MarkDown table mode toggle" },
+      { "<leader>mt", "<Cmd>TableModeToggle<CR>", desc = "Toggle table mode" },
     },
   },
 
@@ -12,7 +12,7 @@ local M = {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = { "markdown" },
     keys = {
-      { "<leader>mr", "<Cmd>RenderMarkdown toggle<CR>", desc = "Render markdown" },
+      { "<leader>mr", "<Cmd>RenderMarkdown toggle<CR>", desc = "Toggle render markdown" },
     },
     opts = {
       heading = { enabled = false },
