@@ -10,7 +10,7 @@ local M = {
 
   {
     "MeanderingProgrammer/render-markdown.nvim",
-    ft = { "markdown" },
+    ft = "markdown",
     keys = {
       { "<leader>mr", "<Cmd>RenderMarkdown toggle<CR>", desc = "Toggle render markdown" },
     },
@@ -19,8 +19,10 @@ local M = {
       code = {
         sign = false,
         width = "block",
-        left_pad = 1,
-        right_pad = 1,
+        position = "right",
+        min_width = 60,
+        left_pad = 2,
+        right_pad = 2,
       },
       pipe_table = {
         preset = "round",
