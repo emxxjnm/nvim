@@ -70,10 +70,13 @@ local M = {
           previewer = false,
           sort_mru = true,
           sort_lastused = true,
-          ignore_current_buffer = true,
           mappings = {
             i = { ["<C-x>"] = actions.delete_buffer },
           },
+        },
+        current_buffer_fuzzy_find = {
+          theme = "ivy",
+          previewer = false,
         },
       },
       extensions = {
