@@ -48,7 +48,6 @@ return {
       }
     end,
     keys = {
-      { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
       {
         "<leader>ai",
         function()
