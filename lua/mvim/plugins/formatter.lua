@@ -16,6 +16,7 @@ return {
     opts = {
       formatters_by_ft = {
         sh = { "shfmt" },
+        toml = { "taplo" },
         lua = { "stylua" },
         rust = { "rustfmt", lsp_format = "fallback" },
         go = { "goimports", lsp_format = "last" },
