@@ -9,7 +9,7 @@ local M = {
   { "MunifTanjim/nui.nvim", lazy = true },
 
   -- undotree
-  { "mbbill/undotree", event = "VeryLazy" },
+  { "mbbill/undotree", cmd = "UndotreeToggle" },
 
   {
     "kevinhwang91/nvim-ufo",
