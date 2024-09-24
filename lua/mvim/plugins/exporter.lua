@@ -132,6 +132,7 @@ local M = {
           ["<C-d>"] = { "scroll_preview", config = { direction = -4 } },
           ["<C-u>"] = { "scroll_preview", config = { direction = 4 } },
 
+          ["e"] = "toggle_auto_expand_width",
           ["q"] = "close_window",
           ["?"] = "show_help",
         },
