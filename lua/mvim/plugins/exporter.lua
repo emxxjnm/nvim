@@ -72,16 +72,16 @@ local M = {
         },
         git_status = {
           symbols = {
-            added = " ", --    󰐖 󰐗 󰜄
-            modified = " ", --    󱗜 󰏬 󰛿 󰏭 󰝶 󱗝
-            deleted = " ", --    󰍵 󰍶 󰛲
-            renamed = " ", --  󰜵 󰁖 󰜶
-            ignored = " ", --      slash
+            added = "󰐖 ", -- " "
+            modified = "󱗜 ", --  " "
+            deleted = "󰍵 ", -- " "
+            renamed = "󰜵 ", -- " "
+            ignored = "󰿠 ", -- " "
 
-            untracked = " ", --   󰻂 󰎒 󰩳 󰓏  󰩴 󰦤 
-            unstaged = " ", --  󰒉   󰄲 󰏝 󰄱 󰙀 󰔌   󰆟
-            staged = " ", --        󰗠 󰽢 󰏝 󰄲 󰱒 󰆟
-            conflict = "󰅗 ", --        󰅗 󰅙
+            untracked = "󰩳 ", -- " "
+            unstaged = "󰆟 ", -- " " --󰄱 󰙀 󰔌
+            staged = "󰄲 ", -- " "
+            conflict = "󰅗 ", -- 
           },
         },
       },

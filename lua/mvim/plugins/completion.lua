@@ -1,4 +1,4 @@
-local has_words_before = function()
+local function has_words_before()
   if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt" then
     return false
   end
@@ -44,6 +44,12 @@ local M = {
           expand = function(args)
             luasnip.lsp_expand(args.body)
           end,
+        },
+        view = {
+          entries = {
+            name = "custom",
+            follow_cursor = true,
+          },
         },
         sources = cmp.config.sources({
           { name = "copilot" },

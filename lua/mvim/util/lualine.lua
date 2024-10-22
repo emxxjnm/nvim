@@ -41,9 +41,7 @@ M.components = {
     "branch",
     icon = { "", color = { fg = palette.pink, gui = "bold" } },
     color = { gui = "bold" },
-    separator = {
-      right = "",
-    },
+    -- separator = { right = "" },
   },
 
   filetype = {
@@ -170,7 +168,7 @@ M.components = {
       return string.format("%d/%d:%d", line, lines, col)
     end,
     icon = { "", color = { fg = palette.pink, gui = "bold" } },
-    separator = { left = "" },
+    -- separator = { left = "" },
     color = { gui = "bold" },
   },
 
