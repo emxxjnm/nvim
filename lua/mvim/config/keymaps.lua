@@ -13,12 +13,13 @@ keymap({ "n", "x" }, "H", "^", { desc = "To the first non-blank char of the line
 keymap({ "n", "x" }, "L", "$", { desc = "To the end of the line" })
 
 -- Move line
-keymap("n", "<M-k>", "<Cmd>move .-2<CR>==", { desc = "Move up" })
-keymap("n", "<M-j>", "<Cmd>move .+1<CR>==", { desc = "Move down" })
+keymap("n", "<M-k>", "<Cmd>execute 'move .-' . (v:count1 + 1)<CR>==", { desc = "Move up" })
+keymap("n", "<M-j>", "<Cmd>execute 'move .+' . v:count1<CR>==", { desc = "Move down" })
 keymap("i", "<M-k>", "<Esc><Cmd>move .-2<CR>==gi", { desc = "Move up" })
 keymap("i", "<M-j>", "<Esc><Cmd>move .+1<CR>==gi", { desc = "Move down" })
-keymap("v", "<M-k>", ":move '<-2<cr>gv=gv", { desc = "Move up" })
-keymap("v", "<M-j>", ":move '>+1<cr>gv=gv", { desc = "Move down" })
+-- stylua: ignore 
+keymap("v", "<M-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<CR>gv=gv", { desc = "Move up" })
+keymap("v", "<M-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<CR>gv=gv", { desc = "Move down" })
 
 -- Split window
 keymap("n", "<leader>_", "<C-w>s", { desc = "Split below" })
