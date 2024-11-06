@@ -1,6 +1,14 @@
 local M = {
   {
+    "folke/ts-comments.nvim",
+    event = "VeryLazy",
+    opts = {},
+  },
+
+  {
     "numToStr/Comment.nvim",
+    enabled = false,
+    event = "VeryLazy",
     keys = {
       { "gc", mode = { "n", "v" }, desc = "Linewise comment" },
       { "gb", mode = { "n", "v" }, desc = "Blockwise comment" },
