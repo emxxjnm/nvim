@@ -29,6 +29,7 @@ opt.splitkeep = "screen" -- new
 
 -- display
 opt.wrap = false
+opt.ruler = false
 opt.termguicolors = true
 opt.signcolumn = "yes"
 opt.smartcase = true
