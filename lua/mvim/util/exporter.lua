@@ -58,6 +58,9 @@ function M.on_renamed(from, to)
         vim.lsp.util.apply_workspace_edit(resp.result, client.offset_encoding)
       end
     end
+  end
+
+  for _, client in ipairs(clients) do
     if client.supports_method("workspace/didRenameFiles") then
       client.notify("workspace/didRenameFiles", changes)
     end
