@@ -9,7 +9,69 @@ end
 
 local M = {
   {
+    "saghen/blink.cmp",
+    event = { "InsertEnter" },
+    enabled = false,
+    dependencies = {
+      { "giuxtaposition/blink-cmp-copilot" },
+    },
+    opts = {
+      keymap = {
+        ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+        ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+
+        ["<Up>"] = { "select_prev", "fallback" },
+        ["<Down>"] = { "select_next", "fallback" },
+
+        ["<C-u>"] = { "scroll_documentation_up", "fallback" },
+        ["<C-d>"] = { "scroll_documentation_down", "fallback" },
+
+        ["<C-e>"] = { "hide", "fallback" },
+        ["<CR>"] = { "accept", "fallback" },
+      },
+      fuzzy = {
+        prebuilt_binaries = {
+          download = false,
+        },
+      },
+      windows = {
+        autocomplete = {
+          border = Mo.C.border,
+          selection = "manual",
+        },
+        documentation = {
+          border = Mo.C.border,
+          auto_show = true,
+        },
+        ghost_text = {
+          enabled = true,
+        },
+      },
+
+      highlight = {
+        use_nvim_cmp_as_default = false,
+      },
+
+      -- experimental auto-brackets support
+      accept = { auto_brackets = { enabled = true } },
+
+      -- experimental signature help support
+      -- trigger = { signature_help = { enabled = true } }
+      sources = {
+        providers = {
+          copilot = { name = "copilot", module = "blink-cmp-copilot" },
+        },
+        completion = {
+          enabled_providers = { "copilot", "lsp", "snippets", "path", "buffer" },
+        },
+      },
+      kind_icons = Mo.C.icons.kinds,
+    },
+  },
+
+  {
     "hrsh7th/nvim-cmp",
+    -- enabled = false,
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "hrsh7th/cmp-path",
@@ -90,10 +152,6 @@ local M = {
           ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() and has_words_before() then
               cmp.select_next_item({ behavior = select })
-            -- elseif vim.snippet.active({ direction = 1 }) then
-            --   vim.schedule(function()
-            --     vim.snippet.jump(1)
-            --   end)
             elseif luasnip.locally_jumpable(1) then
               luasnip.jump(1)
             else
@@ -103,10 +161,6 @@ local M = {
           ["<S-Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item({ behavior = select })
-            -- elseif vim.snippet.active({ direction = -1 }) then
-            --   vim.schedule(function()
-            --     vim.snippet.jump(-1)
-            --   end)
             elseif luasnip.locally_jumpable(-1) then
               luasnip.jump(-1)
             else
@@ -142,7 +196,7 @@ local M = {
   {
     "L3MON4D3/LuaSnip",
     build = "make install_jsregexp",
-    lazy = true,
+    -- enabled = false,
     keys = {
       {
         "<C-o>",
