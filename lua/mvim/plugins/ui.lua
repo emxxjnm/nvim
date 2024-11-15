@@ -104,7 +104,6 @@ local M = {
           },
           lualine_x = {
             Mo.U.lualine.components.copilot,
-            Mo.U.lualine.components.python_env,
             Mo.U.lualine.components.dap,
             -- lualine.components.lsp,
             -- lualine.components.treesitter,
