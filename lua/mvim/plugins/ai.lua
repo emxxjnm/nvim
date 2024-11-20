@@ -1,18 +1,3 @@
-local M = {}
-
----@param kind string
-function M.pick(kind)
-  return function()
-    local actions = require("CopilotChat.actions")
-    local items = actions[kind .. "_actions"]()
-    if not items then
-      vim.notify("No " .. kind .. " found on the current line", vim.log.levels.WARN)
-      return
-    end
-    require("CopilotChat.integrations.telescope").pick(items)
-  end
-end
-
 return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
@@ -26,10 +11,6 @@ return {
         question_header = "   " .. user .. " ",
         answer_header = "   Copilot ",
         window = { width = 0.4 },
-        selection = function(source)
-          local select = require("CopilotChat.select")
-          return select.visual(source) or select.buffer(source)
-        end,
         mappings = {
           complete = {
             insert = "",
@@ -73,21 +54,26 @@ return {
         desc = "Quick Chat",
         mode = { "n", "v" },
       },
-      { "<leader>ad", M.pick("help"), desc = "Diagnostic Help", mode = { "n", "v" } },
-      { "<leader>ap", M.pick("prompt"), desc = "Prompt Actions", mode = { "n", "v" } },
+      {
+        "<leader>ap",
+        function()
+          local actions = require("CopilotChat.actions")
+          require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
+        end,
+        desc = "Prompt Actions",
+        mode = { "n", "v" },
+      },
     },
     config = function(_, opts)
-      local chat = require("CopilotChat")
-      require("CopilotChat.integrations.cmp").setup()
-
       vim.api.nvim_create_autocmd("BufEnter", {
-        pattern = { "copilot-chat", "copilot-help" },
+        pattern = "copilot-*",
         callback = function()
           vim.opt_local.number = false
           vim.opt_local.relativenumber = false
         end,
       })
 
+      local chat = require("CopilotChat")
       chat.setup(opts)
     end,
   },
