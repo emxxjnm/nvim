@@ -8,23 +8,12 @@ return {
         python = { "ruff" },
         typescript = { "eslint_d" },
         javascript = { "eslint_d" },
-        vue = { "eslint_d", "stylelint" },
+        vue = { "eslint_d" },
       },
       linters = {
         eslint_d = {
           condition = function(ctx)
-            return vim.fs.find(
-              { "eslint.config.js", ".eslintrc.cjs" },
-              { path = ctx.filename, upward = true }
-            )[1]
-          end,
-        },
-        stylelint = {
-          condition = function(ctx)
-            return vim.fs.find(
-              { ".stylelintrc", "stylelint.config.js", "stylelint.config.cjs" },
-              { path = ctx.filename, upward = true }
-            )[1]
+            return vim.fs.find({ "eslint.config.js" }, { path = ctx.filename, upward = true })[1]
           end,
         },
       },
