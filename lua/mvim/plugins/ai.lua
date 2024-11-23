@@ -3,10 +3,12 @@ return {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "canary",
     cmd = "CopilotChat",
+    build = "make tiktoken",
     opts = function()
       local user = vim.env.USER or "User"
       user = user:sub(1, 1):upper() .. user:sub(2)
       return {
+        show_folds = false,
         insert_at_end = true,
         question_header = "   " .. user .. " ",
         answer_header = "   Copilot ",
