@@ -9,7 +9,6 @@ local M = {
       { "<leader>bc", "<Cmd>BufferLinePickClose<CR>", desc = "Pick close" },
       { "<leader>b[", "<Cmd>BufferLineMovePrev<CR>", desc = "Move prev" },
       { "<leader>b]", "<Cmd>BufferLineMoveNext<CR>", desc = "Move next" },
-      { "<leader>bD", "<Cmd>BufferLineCloseOthers<CR>", desc = "Close others" },
       { "<leader>bH", "<Cmd>BufferLineCloseLeft<CR>", desc = "Close to the left" },
       { "<leader>bL", "<Cmd>BufferLineCloseRight<CR>", desc = "Close to the right" },
     },
@@ -119,30 +118,19 @@ local M = {
   },
 
   {
-    "luukvbaal/statuscol.nvim",
+    "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPre", "BufNewFile" },
-    opts = function()
-      local builtin = require("statuscol.builtin")
-      local sign_name = { "Dap*", "todo%-sign%-", "neotest_*" }
-
-      return {
-        bt_ignore = { "terminal", "nofile" },
-        relculright = true,
-        segments = {
-          {
-            sign = {
-              name = sign_name,
-              namespace = { "diagnostic/signs" },
-              maxwidth = 1,
-              auto = true,
-            },
-          },
-          { text = { builtin.lnumfunc, " " } },
-          { sign = { namespace = { "gitsign" }, maxwidth = 1, colwidth = 1, auto = true } },
-          { text = { builtin.foldfunc, " " } },
-        },
-      }
-    end,
+    main = "ibl",
+    opts = {
+      indent = {
+        char = "┊",
+        tab_char = "┊",
+      },
+      scope = { enabled = false },
+      exclude = {
+        filetypes = { "help", "neo-tree", "lazy", "mason" },
+      },
+    },
   },
 
   {
@@ -178,28 +166,8 @@ local M = {
         mode = { "i", "n", "s" },
       },
     },
-    dependencies = {
-      {
-        "rcarriga/nvim-notify",
-        opts = {
-          timeout = 3000,
-          stages = "static",
-          max_height = function()
-            return math.floor(vim.o.lines * 0.7)
-          end,
-          max_width = function()
-            return math.floor(vim.o.columns * 0.7)
-          end,
-          on_open = function(win)
-            vim.api.nvim_win_set_config(win, { zindex = 100 })
-          end,
-        },
-      },
-    },
     opts = {
-      cmdline = {
-        view = "cmdline",
-      },
+      cmdline = { view = "cmdline" },
       lsp = {
         documentation = {
           opts = {
@@ -263,22 +231,6 @@ local M = {
       -- end
       require("noice").setup(opts)
     end,
-  },
-
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    main = "ibl",
-    opts = {
-      indent = {
-        char = "┊",
-        tab_char = "┊",
-      },
-      scope = { enabled = false },
-      exclude = {
-        filetypes = { "help", "neo-tree", "lazy", "mason" },
-      },
-    },
   },
 }
 

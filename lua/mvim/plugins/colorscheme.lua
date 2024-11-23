@@ -22,7 +22,6 @@ local M = {
         illuminate = { enabled = false },
         mason = true,
         noice = true,
-        notify = true,
         neotest = true,
         which_key = true,
         nvim_surround = true,

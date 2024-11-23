@@ -20,6 +20,9 @@ local M = {
   end,
   opts = function()
     local events = require("neo-tree.events")
+    local function on_move(data)
+      Snacks.rename.on_rename_file(data.source, data.destination)
+    end
 
     return {
       source_selector = {
@@ -43,18 +46,8 @@ local M = {
             require("neo-tree.command").execute({ action = "close" })
           end,
         },
-        {
-          event = events.FILE_MOVED,
-          handler = function(data)
-            Mo.U.exporter.on_renamed(data.source, data.destination)
-          end,
-        },
-        {
-          event = events.FILE_RENAMED,
-          handler = function(data)
-            Mo.U.exporter.on_renamed(data.source, data.destination)
-          end,
-        },
+        { event = events.FILE_MOVED, handler = on_move },
+        { event = events.FILE_RENAMED, handler = on_move },
       },
       default_component_configs = {
         icon = {

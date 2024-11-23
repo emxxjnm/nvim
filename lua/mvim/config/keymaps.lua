@@ -78,17 +78,7 @@ keymap("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 keymap("n", "<leader>pl", "<CMD>Lazy<CR>", { desc = "Lazy" })
 
 -- stylua: ignore start
-
--- Lazygit
-keymap("n", "<leader>gg", function() Mo.U.terminal({ "lazygit" }) end, { desc = "Lazygit" })
-
 -- Code format
 keymap("n", "<leader>of", function() Mo.U.format.toggle() end, { desc = "Toggle auto format(global)" })
 keymap("n", "<leader>oF", function() Mo.U.format.toggle(true) end, { desc = "Toggle auto format(buffer)" })
 keymap({ "n", "v" }, "<leader>cf", function() Mo.U.format.format({ force = true }) end, { desc = "Code format" })
-
-
-keymap("n", "<leader>oh", function() Mo.U.toggle.inlay_hints() end, { desc = "Toggle Inlay Hints" })
-keymap("n", "<leader>os", function() Mo.U.toggle("spell") end, { desc = "Toggle spelling" })
-
-keymap("n", "<leader>ow", function() Mo.U.toggle("wrap") end, { desc = "Toggle word wrap" })

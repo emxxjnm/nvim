@@ -2,11 +2,9 @@
 ---@field format mvim.util.format
 ---@field lsp mvim.util.lsp
 ---@field exporter mvim.util.exporter
----@field toggle mvim.util.toggle
 ---@field finder mvim.util.finder
 ---@field augroup mvim.util.augroup
 ---@field lualine mvim.util.lualine
----@field terminal mvim.util.terminal
 local M = {}
 
 setmetatable(M, {

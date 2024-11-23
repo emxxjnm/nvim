@@ -112,19 +112,6 @@ local M = {
   },
 
   {
-    "echasnovski/mini.bufremove",
-    keys = {
-      {
-        "<leader>bd",
-        function()
-          require("mini.bufremove").delete(0)
-        end,
-        desc = "Delete Buffer",
-      },
-    },
-  },
-
-  {
     "folke/todo-comments.nvim",
     cmd = { "TodoTrouble", "TodoTelescope" },
     event = { "BufReadPost" },
@@ -168,10 +155,7 @@ local M = {
       { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
     },
     opts = {
-      jump = {
-        pos = "end",
-        offset = 1,
-      },
+      jump = { pos = "end", offset = 1 },
       modes = {
         char = {
           -- autohide = true,
@@ -214,7 +198,6 @@ local M = {
         { "<leader>p", group = "package", icon = " " },
         { "[", group = "prev" },
         { "]", group = "next" },
-        { "g", group = "goto" },
       },
       win = {
         title = false,

@@ -124,6 +124,7 @@ local M = {
       library = {
         { path = "luvit-meta/library", words = { "vim%.uv" } },
         { path = "catppuccin" },
+        { path = "snacks.nvim", words = { "Snacks" } },
       },
     },
   },
