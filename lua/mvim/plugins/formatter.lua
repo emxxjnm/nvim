@@ -22,28 +22,14 @@ return {
         go = { "goimports", lsp_format = "last" },
         javascript = { "eslint_d" },
         typescript = { "eslint_d" },
-        vue = { "eslint_d", "stylelint" },
+        vue = { "eslint_d" },
         python = { "ruff_fix", "ruff_format" },
       },
       formatters = {
         shfmt = { prepend_args = { "-i", "2", "-ci" } },
         eslint_d = {
-          env = {
-            ESLINT_USE_FLAT_CONFIG = "true",
-          },
           condition = function(self, ctx)
-            return vim.fs.find(
-              { "eslint.config.js", ".eslintrc.cjs" },
-              { path = ctx.filename, upward = true }
-            )[1]
-          end,
-        },
-        stylelint = {
-          condition = function(self, ctx)
-            return vim.fs.find(
-              { ".stylelintrc", "stylelint.config.js", "stylelint.config.cjs" },
-              { path = ctx.filename, upward = true }
-            )[1]
+            return vim.fs.find({ "eslint.config.js" }, { path = ctx.filename, upward = true })[1]
           end,
         },
       },
