@@ -122,14 +122,12 @@ local M = {
     cmd = "LazyDev",
     opts = {
       library = {
-        { path = "luvit-meta/library", words = { "vim%.uv" } },
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
         { path = "catppuccin" },
         { path = "snacks.nvim", words = { "Snacks" } },
       },
     },
   },
-
-  { "Bilal2453/luvit-meta", lazy = true },
 }
 
 return M
