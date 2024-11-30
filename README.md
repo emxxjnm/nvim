@@ -37,13 +37,13 @@ docker run -w /root -it --rm alpine:edge sh -uelic '
 
 ### Terminal
 
-[Alacritty](https://alacritty.org/)
-[Wezterm](https://wezfurlong.org/wezterm/)
+* [Alacritty](https://alacritty.org/): my configuration [here](https://github.com/emxxjnm/dotfiles/tree/main/home/dot_config/alacritty)
+* [Wezterm](https://wezfurlong.org/wezterm/): my configuration [here](https://github.com/emxxjnm/dotfiles/tree/main/home/dot_config/wezterm)
 
 ### Terminal Multiplexers
 
-[Tmux](https://github.com/tmux/tmux)
-[Zellij](https://github.com/zellij-org/zellij)
+* [Tmux](https://github.com/tmux/tmux)
+* [Zellij](https://github.com/zellij-org/zellij): My configuration [here](https://github.com/emxxjnm/dotfiles/tree/main/home/dot_config/zellij)
 
 ### Font
 A few fonts that I personally like.
