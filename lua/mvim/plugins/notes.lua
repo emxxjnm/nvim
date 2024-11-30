@@ -1,6 +1,7 @@
 local M = {
   {
     "dhruvasagar/vim-table-mode",
+    enabled = false,
     cmd = "TableModeToggle",
     ft = { "markdown" },
     keys = {
