@@ -1,7 +1,7 @@
 return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
+    branch = "main",
     cmd = "CopilotChat",
     build = "make tiktoken",
     opts = function()
