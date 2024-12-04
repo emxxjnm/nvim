@@ -1,5 +1,5 @@
 -- Works better on non-transparent backgrounds
-local cursorline_exclude = { "neo-tree-popup" }
+local cursorline_exclude = { "neo-tree-popup", "snacks_dashboard" }
 
 ---@param buf number
 ---@return boolean
