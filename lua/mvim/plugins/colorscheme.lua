@@ -22,6 +22,7 @@ local M = {
         illuminate = { enabled = false },
         mason = true,
         noice = true,
+        snacks = true,
         neotest = true,
         which_key = true,
         nvim_surround = true,
