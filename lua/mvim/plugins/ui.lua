@@ -169,6 +169,9 @@ local M = {
     opts = {
       cmdline = { view = "cmdline" },
       lsp = {
+        -- signature = {
+        --   enabled = false,
+        -- },
         documentation = {
           opts = {
             size = {

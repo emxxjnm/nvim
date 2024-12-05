@@ -70,6 +70,7 @@ function M.common_capabilities()
     },
     vim.lsp.protocol.make_client_capabilities(),
     Mo.U.has("cmp-nvim-lsp") and require("cmp_nvim_lsp").default_capabilities() or {},
+    Mo.U.has("blink.cmp") and require("blink.cmp").get_lsp_capabilities() or {},
     Mo.U.has("nvim-ufo")
         and {
           textDocument = {

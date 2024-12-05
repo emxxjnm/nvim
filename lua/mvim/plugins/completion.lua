@@ -11,9 +11,10 @@ local M = {
   {
     "saghen/blink.cmp",
     event = { "InsertEnter" },
+    build = "cargo build --release",
     enabled = false,
     dependencies = {
-      { "giuxtaposition/blink-cmp-copilot" },
+      "L3MON4D3/LuaSnip",
     },
     opts = {
       keymap = {
@@ -29,43 +30,60 @@ local M = {
         ["<C-e>"] = { "hide", "fallback" },
         ["<CR>"] = { "accept", "fallback" },
       },
-      fuzzy = {
-        prebuilt_binaries = {
-          download = false,
-        },
-      },
-      windows = {
-        autocomplete = {
-          border = Mo.C.border,
+      completion = {
+        list = {
           selection = "manual",
         },
-        documentation = {
+        accept = {
+          auto_brackets = { enabled = true },
+        },
+        menu = {
+          draw = {
+            columns = { { "kind_icon", "kind" }, { "label", "label_description", gap = 1 } },
+          },
           border = Mo.C.border,
+          winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+        },
+        documentation = {
           auto_show = true,
+          window = {
+            border = Mo.C.border,
+            winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+          },
         },
         ghost_text = {
           enabled = true,
         },
       },
-
-      highlight = {
-        use_nvim_cmp_as_default = false,
+      signature = {
+        enabled = true,
+        window = {
+          border = Mo.C.border,
+          winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
+        },
       },
-
-      -- experimental auto-brackets support
-      accept = { auto_brackets = { enabled = true } },
-
-      -- experimental signature help support
-      -- trigger = { signature_help = { enabled = true } }
+      snippets = {
+        expand = function(snippet)
+          require("luasnip").lsp_expand(snippet)
+        end,
+        active = function(filter)
+          if filter and filter.direction then
+            return require("luasnip").jumpable(filter.direction)
+          end
+          return require("luasnip").in_snippet()
+        end,
+        jump = function(direction)
+          require("luasnip").jump(direction)
+        end,
+      },
       sources = {
-        providers = {
-          copilot = { name = "copilot", module = "blink-cmp-copilot" },
-        },
         completion = {
-          enabled_providers = { "copilot", "lsp", "snippets", "path", "buffer" },
+          enabled_providers = { "lsp", "luasnip", "path", "buffer" },
         },
       },
-      kind_icons = Mo.C.icons.kinds,
+      appearance = {
+        kind_icons = Mo.C.icons.kinds,
+      },
     },
   },
 
