@@ -174,7 +174,7 @@ local M = {
         end
       end
 
-      mlsp.setup({ ensure_installed = ensure_installed, handlers = { setup_server } })
+      mlsp.setup({ ensure_installed = {}, handlers = { setup_server } })
     end,
   },
 }
