@@ -79,6 +79,8 @@ keymap("n", "<leader>pl", "<CMD>Lazy<CR>", { desc = "Lazy" })
 
 -- stylua: ignore start
 -- Code format
-keymap("n", "<leader>of", function() Mo.U.format.toggle() end, { desc = "Toggle auto format(global)" })
-keymap("n", "<leader>oF", function() Mo.U.format.toggle(true) end, { desc = "Toggle auto format(buffer)" })
+Mo.U.format.snacks_toggle():map("<leader>of")
+Mo.U.format.snacks_toggle(true):map("<leader>oF")
+-- keymap("n", "<leader>of", function() Mo.U.format.toggle() end, { desc = "Toggle auto format(global)" })
+-- keymap("n", "<leader>oF", function() Mo.U.format.toggle(true) end, { desc = "Toggle auto format(buffer)" })
 keymap({ "n", "v" }, "<leader>cf", function() Mo.U.format.format({ force = true }) end, { desc = "Code format" })
