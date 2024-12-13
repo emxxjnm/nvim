@@ -14,14 +14,39 @@ return {
       { "[[", function() Snacks.words.jump(-vim.v.count1) end, desc = "Prev Reference" },
     },
     opts = {
+      indent = {
+        indent = {
+          char = "┊",
+        },
+        scope = {
+          enabled = false,
+        },
+        chunk = {
+          enabled = true,
+        },
+      },
+      scope = { enabled = true },
+      notifier = {
+        icons = {
+          error = "",
+          warn = "",
+          info = "",
+          debug = "",
+          trace = "",
+        },
+      },
       bigfile = { enabled = true },
-      notifier = { enabled = true },
       quickfile = { enabled = true },
       statuscolumn = { folds = { git_hl = true } },
       words = { enabled = true },
       styles = {
         notification = {
           wo = { wrap = true },
+        },
+        input = {
+          relative = "cursor",
+          row = -3,
+          col = -5,
         },
       },
       dashboard = {
@@ -97,6 +122,7 @@ return {
           Snacks.toggle.treesitter():map("<leader>ot")
           Snacks.toggle.diagnostics():map("<leader>od")
           Snacks.toggle.inlay_hints():map("<leader>oh")
+          Snacks.toggle.zen():map("<leader><Space>")
         end,
       })
     end,

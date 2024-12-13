@@ -118,22 +118,6 @@ local M = {
   },
 
   {
-    "lukas-reineke/indent-blankline.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    main = "ibl",
-    opts = {
-      indent = {
-        char = "┊",
-        tab_char = "┊",
-      },
-      scope = { enabled = false },
-      exclude = {
-        filetypes = { "help", "neo-tree", "lazy", "mason" },
-      },
-    },
-  },
-
-  {
     "folke/noice.nvim",
     event = "VeryLazy",
     -- stylua: ignore
@@ -200,14 +184,6 @@ local M = {
               { find = "^E486" },
               { find = "%d+ more lines" },
               { find = "%d+ lines yanked" },
-            },
-          },
-          view = "mini",
-        },
-        {
-          filter = {
-            any = {
-              { event = "notify", max_height = 1 },
             },
           },
           view = "mini",
