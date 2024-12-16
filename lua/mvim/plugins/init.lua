@@ -41,7 +41,10 @@ return {
       words = { enabled = true },
       styles = {
         notification = {
-          wo = { wrap = true },
+          wo = {
+            wrap = true,
+            winblend = 0,
+          },
         },
         input = {
           relative = "cursor",
