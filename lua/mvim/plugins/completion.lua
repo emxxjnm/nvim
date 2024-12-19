@@ -10,11 +10,13 @@ end
 local M = {
   {
     "saghen/blink.cmp",
-    event = { "InsertEnter" },
+    event = { "InsertEnter", "CmdlineEnter" },
     build = "cargo build --release",
     enabled = false,
     dependencies = {
-      "L3MON4D3/LuaSnip",
+      {
+        "giuxtaposition/blink-cmp-copilot",
+      },
     },
     opts = {
       keymap = {
@@ -62,23 +64,23 @@ local M = {
           winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
         },
       },
-      snippets = {
-        expand = function(snippet)
-          require("luasnip").lsp_expand(snippet)
-        end,
-        active = function(filter)
-          if filter and filter.direction then
-            return require("luasnip").jumpable(filter.direction)
-          end
-          return require("luasnip").in_snippet()
-        end,
-        jump = function(direction)
-          require("luasnip").jump(direction)
-        end,
-      },
       sources = {
-        completion = {
-          enabled_providers = { "lsp", "luasnip", "path", "buffer" },
+        default = { "copilot", "lsp", "path", "snippets", "buffer" },
+        providers = {
+          copilot = {
+            name = "copilot",
+            module = "blink-cmp-copilot",
+            score_offset = 0,
+            transform_items = function(_, items)
+              local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
+              local kind_idx = #CompletionItemKind + 1
+              CompletionItemKind[kind_idx] = "Copilot"
+              for _, item in ipairs(items) do
+                item.kind = kind_idx
+              end
+              return items
+            end,
+          },
         },
       },
       appearance = {
@@ -132,6 +134,7 @@ local M = {
           },
         },
         sources = cmp.config.sources({
+          { name = "lazydev" },
           { name = "copilot" },
           { name = "nvim_lsp" },
           { name = "luasnip" },
