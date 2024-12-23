@@ -24,6 +24,7 @@ local M = {
         noice = true,
         snacks = true,
         neotest = true,
+        blink_cmp = true,
         which_key = true,
         nvim_surround = true,
         telescope = { style = Mo.C.transparent and nil or "nvchad" },

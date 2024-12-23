@@ -12,7 +12,7 @@ local M = {
     "saghen/blink.cmp",
     event = { "InsertEnter", "CmdlineEnter" },
     build = "cargo build --release",
-    enabled = false,
+    -- enabled = false,
     dependencies = {
       {
         "giuxtaposition/blink-cmp-copilot",
@@ -37,7 +37,7 @@ local M = {
           selection = "manual",
         },
         accept = {
-          auto_brackets = { enabled = true },
+          -- auto_brackets = { enabled = true },
         },
         menu = {
           draw = {
@@ -70,7 +70,8 @@ local M = {
           copilot = {
             name = "copilot",
             module = "blink-cmp-copilot",
-            score_offset = 0,
+            score_offset = 100,
+            async = true,
             transform_items = function(_, items)
               local CompletionItemKind = require("blink.cmp.types").CompletionItemKind
               local kind_idx = #CompletionItemKind + 1
@@ -91,7 +92,7 @@ local M = {
 
   {
     "hrsh7th/nvim-cmp",
-    -- enabled = false,
+    enabled = false,
     event = { "InsertEnter", "CmdlineEnter" },
     dependencies = {
       "hrsh7th/cmp-path",
@@ -217,7 +218,7 @@ local M = {
   {
     "L3MON4D3/LuaSnip",
     build = "make install_jsregexp",
-    -- enabled = false,
+    enabled = false,
     keys = {
       {
         "<C-o>",
