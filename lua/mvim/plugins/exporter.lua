@@ -40,12 +40,12 @@ local M = {
       use_default_mappings = false,
       popup_border_style = "rounded", -- no support "none"
       event_handlers = {
-        {
-          event = events.FILE_OPENED,
-          handler = function()
-            require("neo-tree.command").execute({ action = "close" })
-          end,
-        },
+        -- {
+        --   event = events.FILE_OPENED,
+        --   handler = function()
+        --     require("neo-tree.command").execute({ action = "close" })
+        --   end,
+        -- },
         { event = events.FILE_MOVED, handler = on_move },
         { event = events.FILE_RENAMED, handler = on_move },
       },
