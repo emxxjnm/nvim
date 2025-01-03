@@ -38,6 +38,11 @@ local M = {
             style = { "bold", "italic" },
           },
 
+          -- snacks.nvim]
+          SnacksIndent = { fg = colors.surface0 },
+          SnacksIndentScope = { fg = colors.lavender },
+          SnacksIndentChunk = { fg = colors.lavender },
+
           -- lazy.nvim
           LazyH1 = {
             bg = Mo.C.transparent and colors.none or colors.peach,
