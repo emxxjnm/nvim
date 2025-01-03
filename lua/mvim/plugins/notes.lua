@@ -24,6 +24,8 @@ local M = {
         min_width = 60,
         left_pad = 2,
         right_pad = 2,
+        inline_pad = 1,
+        language_pad = 1,
       },
       pipe_table = {
         preset = "round",
