@@ -34,7 +34,13 @@ local M = {
       },
       completion = {
         list = {
-          selection = "manual",
+          selection = {
+            preselect = false,
+            auto_insert = false,
+            -- auto_insert = function(ctx)
+            --   return ctx.mode == "cmdline"
+            -- end,
+          },
         },
         accept = {
           -- auto_brackets = { enabled = true },
