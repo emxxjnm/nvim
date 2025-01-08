@@ -60,8 +60,6 @@ local M = {
           },
           LazySpecial = { fg = colors.green },
 
-          CmpItemMenu = { fg = colors.subtext1 },
-
           FloatBorder = {
             fg = Mo.C.transparent and colors.blue or colors.mantle,
             bg = Mo.C.transparent and colors.none or colors.mantle,
