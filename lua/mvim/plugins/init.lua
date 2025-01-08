@@ -43,7 +43,7 @@ return {
       },
       bigfile = { enabled = true },
       quickfile = { enabled = true },
-      statuscolumn = { folds = { git_hl = true } },
+      statuscolumn = { folds = { open = true, git_hl = true } },
       words = { enabled = true },
       styles = {
         notification = {
