@@ -1,15 +1,5 @@
 local M = {
   {
-    "dhruvasagar/vim-table-mode",
-    enabled = false,
-    cmd = "TableModeToggle",
-    ft = { "markdown" },
-    keys = {
-      { "<leader>mt", "<Cmd>TableModeToggle<CR>", desc = "Toggle table mode" },
-    },
-  },
-
-  {
     "MeanderingProgrammer/render-markdown.nvim",
     ft = "markdown",
     keys = {
