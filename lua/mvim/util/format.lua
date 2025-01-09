@@ -95,7 +95,7 @@ end
 
 function M.setup()
   vim.api.nvim_create_autocmd("BufWritePre", {
-    group = vim.api.nvim_create_augroup("LazyFormat", {}),
+    group = vim.api.nvim_create_augroup("code_format", {}),
     callback = function(args)
       M.format({ buf = args.buf })
     end,

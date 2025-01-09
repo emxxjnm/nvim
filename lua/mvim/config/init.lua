@@ -167,10 +167,10 @@ function M.setup()
     M.load("autocmds")
   end
 
-  Mo.U.augroup("NeovimPDE", {
+  vim.api.nvim_create_autocmd("User", {
+    group = vim.api.nvim_create_augroup("neovim_pde", { clear = true }),
     pattern = "VeryLazy",
-    event = "User",
-    command = function()
+    callback = function()
       if lazy_autocmds then
         M.load("autocmds")
       end

@@ -69,9 +69,9 @@ return {
         end
       end
 
-      Mo.U.augroup("CodeLinter", {
-        event = opts.events,
-        command = M.debounce(100, M.lint),
+      vim.api.nvim_create_autocmd(opts.events, {
+        group = vim.api.nvim_create_augroup("nvim_lint", { clear = true }),
+        callback = M.debounce(100, M.lint),
       })
     end,
   },

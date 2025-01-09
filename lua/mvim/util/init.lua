@@ -3,7 +3,6 @@
 ---@field lsp mvim.util.lsp
 ---@field exporter mvim.util.exporter
 ---@field finder mvim.util.finder
----@field augroup mvim.util.augroup
 ---@field lualine mvim.util.lualine
 local M = {}
 

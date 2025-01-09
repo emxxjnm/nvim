@@ -4,11 +4,9 @@ local M = {}
 --- @param buffer number
 function M.on_attach(client, buffer)
   if client.supports_method("textDocument/codeLens") then
-    Mo.U.augroup(("LspCodeLens:%d"):format(buffer), {
-      event = { "BufEnter", "CursorHold", "InsertLeave" },
+    vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
       buffer = buffer,
-      command = vim.lsp.codelens.refresh,
-      desc = "Toggle codelens",
+      callback = vim.lsp.codelens.refresh,
     })
   end
 end
