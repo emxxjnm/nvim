@@ -155,7 +155,7 @@ local M = {
       { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
     },
     opts = {
-      jump = { pos = "end", offset = 1 },
+      jump = { pos = "end", offset = 0 },
       modes = {
         char = {
           -- autohide = true,
