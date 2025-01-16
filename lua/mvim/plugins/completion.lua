@@ -50,6 +50,7 @@ local M = {
         },
         ghost_text = {
           enabled = true,
+          show_without_selection = true,
         },
       },
       signature = {
