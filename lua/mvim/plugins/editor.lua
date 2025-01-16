@@ -126,7 +126,7 @@ local M = {
         -- stylua: ignore
         keywords = {
           TODO = { icon = " ", color = Mo.C.palette.green },
-          HACK = { icon = " ", color = Mo.C.palette.peach },
+          HACK = { icon = " ", color = Mo.C.palette.peach },
           NOTE = { icon = " ", color = Mo.C.palette.blue, alt = { "INFO" } },
           PERF = { icon = " ", color = Mo.C.palette.mauve, alt = { "OPTIM" } },
           TEST = { icon = " ", color = Mo.C.palette.teal, alt = { "PASSED", "FAILED" } },

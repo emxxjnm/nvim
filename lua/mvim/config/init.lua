@@ -10,10 +10,10 @@ local defaults = {
   -- stylua: ignore
   icons = {
     diagnostics = {
-      error = " ",
-      warn  = " ",
-      info  = " ",
-      hint  = " ",
+      error = "󰃤 ", -- " ", " ",
+      warn  = "󰚑 ", -- " ", " ",
+      info  = "󰂚 ", -- " ", " ",
+      hint  = "󱠂 ", -- " ", " ",
     },
     -- https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#symbolKind
     kinds = {
@@ -34,7 +34,7 @@ local defaults = {
       Keyword       = " ",
       Method        = " ",
       Module        = " ",
-      Namespace     = " ",
+      Namespace     = "󰦮 ",
       Null          = "󰟢 ",
       Number        = "󰎠 ",
       Object        = " ",
