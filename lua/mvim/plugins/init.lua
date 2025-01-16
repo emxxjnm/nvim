@@ -7,7 +7,7 @@ return {
     lazy = false,
     -- stylua: ignore
     keys = {
-      { "<leader>gg", function() Snacks.lazygit({ configure = false, win = { border= Mo.C.border } }) end, desc = "Lazygit" },
+      { "<leader>gg", function() Snacks.lazygit() end, desc = "Lazygit" },
       { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete Buffer" },
       { "<leader>bD", function() Snacks.bufdelete.other() end, desc = "Delete Other" },
       { "]]", function() Snacks.words.jump(vim.v.count1) end, desc = "Next Reference" },
@@ -40,6 +40,10 @@ return {
           debug = "",
           trace = "",
         },
+      },
+      lazygit = {
+        configure = false,
+        win = { border = Mo.C.border },
       },
       bigfile = { enabled = true },
       quickfile = { enabled = true },
