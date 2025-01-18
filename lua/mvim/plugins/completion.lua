@@ -4,9 +4,7 @@ local M = {
     event = { "InsertEnter", "CmdlineEnter" },
     build = "cargo build --release",
     dependencies = {
-      {
-        "giuxtaposition/blink-cmp-copilot",
-      },
+      { "giuxtaposition/blink-cmp-copilot" },
     },
     opts = {
       keymap = {
@@ -29,14 +27,14 @@ local M = {
           selection = {
             preselect = false,
             auto_insert = false,
-            -- auto_insert = function(ctx)
-            --   return ctx.mode == "cmdline"
-            -- end,
           },
         },
         menu = {
           draw = {
-            columns = { { "kind_icon", "kind" }, { "label", "label_description", gap = 1 } },
+            columns = {
+              { "kind_icon", "kind" },
+              { "label", "label_description", gap = 1 },
+            },
           },
           border = Mo.C.border,
           winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
