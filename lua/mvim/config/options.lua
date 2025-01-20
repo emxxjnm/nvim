@@ -59,7 +59,7 @@ opt.showmode = false
 opt.clipboard = "unnamedplus"
 
 opt.cursorline = true
-opt.cursorlineopt = Mo.C.transparent and "number" or "number,line"
+opt.cursorlineopt = Mo.C.transparent and "number" or "both"
 
 -- indent
 opt.expandtab = true

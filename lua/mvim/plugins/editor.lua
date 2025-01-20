@@ -113,11 +113,10 @@ local M = {
 
   {
     "folke/todo-comments.nvim",
-    cmd = { "TodoTrouble", "TodoTelescope" },
     event = { "BufReadPost" },
     -- stylua: ignore
     keys = {
-      { "<leader>fT", "<Cmd>TodoTelescope<CR>", desc = "Find TODOs" },
+      { "<leader>fT", function() Snacks.picker.todo_comments() end, desc = "Find TODOs" },
       { "[T", function() require("todo-comments").jump_prev() end, desc = "Prev TODO comment" },
       { "]T", function() require("todo-comments").jump_next() end, desc = "Next TODO comment" },
     },

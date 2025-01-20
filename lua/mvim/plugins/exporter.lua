@@ -157,10 +157,10 @@ local M = {
         },
         commands = {
           telescope_find = function(state)
-            Mo.U.exporter.find_or_grep("find", state)
+            Mo.U.exporter.files_or_grep("files", state)
           end,
           telescope_grep = function(state)
-            Mo.U.exporter.find_or_grep("grep", state)
+            Mo.U.exporter.files_or_grep("grep", state)
           end,
         },
         bind_to_cwd = false,

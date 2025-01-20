@@ -3,7 +3,7 @@ local function augroup(name)
 end
 
 -- Works better on non-transparent backgrounds
-local cursorline_exclude = { "neo-tree-popup", "snacks_dashboard" }
+local cursorline_exclude = { "neo-tree-popup", "snacks_dashboard", "snacks_picker_input" }
 
 ---@param buf number
 ---@return boolean
