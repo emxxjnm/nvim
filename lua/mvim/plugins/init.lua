@@ -48,7 +48,7 @@ return {
             wo = {
               -- number = false,
               signcolumn = "no",
-              relativenumber = false,
+              -- relativenumber = false,
             },
           },
         },
