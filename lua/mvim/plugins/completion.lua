@@ -23,6 +23,7 @@ local M = {
         ["<CR>"] = { "accept", "fallback" },
       },
       completion = {
+        keyword = { range = "full" },
         list = {
           selection = {
             preselect = false,
