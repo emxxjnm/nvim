@@ -126,11 +126,46 @@ local M = {
       { "<leader>nh", function() require("noice").cmd("history") end, desc = "Noice History" },
       { "<leader>na", function() require("noice").cmd("all") end, desc = "Noice All" },
       { "<leader>nd", function() require("noice").cmd("dismiss") end, desc = "Dismiss All" },
+      { "<C-d>",
+        function()
+          if not require("noice.lsp").scroll(4) then
+            return "<C-d>"
+          end
+        end,
+        silent = true,
+        expr = true,
+        desc = "Scroll down",
+        mode = { "i", "n", "s" },
+      },
+      {
+        "<C-u>",
+        function()
+          if not require("noice.lsp").scroll(-4) then
+            return "<C-u>"
+          end
+        end,
+        silent = true,
+        expr = true,
+        desc = "Scroll up",
+        mode = { "i", "n", "s" },
+      },
     },
     opts = {
       cmdline = { view = "cmdline" },
       lsp = {
         signature = { enabled = false },
+        documentation = {
+          opts = {
+            size = {
+              max_height = 15,
+              max_width = math.floor(vim.o.columns * 0.8),
+            },
+          },
+        },
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+        },
       },
       routes = {
         {
