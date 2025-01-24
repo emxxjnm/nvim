@@ -8,9 +8,6 @@ local M = {
   -- ui components
   { "MunifTanjim/nui.nvim", lazy = true },
 
-  -- undotree
-  { "mbbill/undotree", cmd = "UndotreeToggle" },
-
   {
     "kevinhwang91/nvim-ufo",
     -- enabled = false,

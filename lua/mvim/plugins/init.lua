@@ -23,6 +23,7 @@ return {
       { "<leader>fR", function() Snacks.picker.resume() end, desc = "Resume" },
       { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
       { "<leader>fl", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
+      { "<leader>fu", function() Snacks.picker.undo() end, desc = "Undotree" },
     },
     opts = {
       picker = {
