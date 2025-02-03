@@ -61,7 +61,7 @@ local M = {
         },
       },
       sources = {
-        default = { "copilot", "lsp", "path", "snippets", "buffer" },
+        default = { "copilot", "lsp", "path", "snippets", "buffer", "omni" },
         providers = {
           copilot = {
             name = "copilot",
