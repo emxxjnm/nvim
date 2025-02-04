@@ -6,7 +6,7 @@ function M.get()
   if not M._keys then
     -- stylua: ignore
     M._keys = {
-      { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration", deps = "textDocument/declaration" },
+      { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration", deps = "textDocument/declaration" },
       { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition", deps = "textDocument/definition" },
       { "gr", function() Snacks.picker.lsp_references() end, desc = "References", deps = "textDocument/references" },
       { "gi", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation", deps = "textDocument/implementation" },
@@ -19,6 +19,9 @@ function M.get()
       { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", deps = "textDocument/rename"  },
       { "<leader>ca", vim.lsp.buf.code_action, desc = "Code action", mode = { "n", "v" }, deps = "textDocument/codeAction" },
       { "<leader>cA", function() vim.lsp.buf.code_action({ apply = true, context = { only = { "source" }, diagnostics = {}}}) end, desc = "Source Action", desp = "textDocument/codeAction" },
+
+      { "<leader>cc", vim.lsp.codelens.run, desc = "Codelens", mode = { "n", "v" }, deps = "textDocument/codeLens" },
+      { "<leader>cC", vim.lsp.codelens.refresh, desc = "Codelens", deps = "textDocument/codeLens" },
 
       -- TODO: add filter
       { "<leader>fs", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols", deps = "textDocument/documentSymbol" },
