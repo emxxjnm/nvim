@@ -6,29 +6,6 @@ local M = {
   },
 
   {
-    "numToStr/Comment.nvim",
-    enabled = false,
-    event = "VeryLazy",
-    keys = {
-      { "gc", mode = { "n", "v" }, desc = "Linewise comment" },
-      { "gb", mode = { "n", "v" }, desc = "Blockwise comment" },
-    },
-    dependencies = {
-      {
-        "JoosepAlviste/nvim-ts-context-commentstring",
-        opts = { enable_autocmd = false },
-      },
-    },
-    opts = function()
-      local ok, tcs = pcall(require, "ts_context_commentstring.integrations.comment_nvim")
-      return {
-        ignore = "^$",
-        pre_hook = ok and tcs and tcs.create_pre_hook() or nil,
-      }
-    end,
-  },
-
-  {
     "windwp/nvim-ts-autotag",
     ft = { "vue", "tsx", "jsx", "html" },
     opts = {},

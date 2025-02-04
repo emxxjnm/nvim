@@ -1,95 +1,71 @@
 local M = {
-  "nvim-telescope/telescope.nvim",
-  enabled = false,
-  cmd = "Telescope",
+  "folke/snacks.nvim",
   -- stylua: ignore
   keys = {
-    { "<leader>ff", "<Cmd>Telescope find_files<CR>", desc = "Find files" },
-    { "<leader>fg", "<Cmd>Telescope live_grep<CR>", desc = "Grep (root dir)" },
-    { "<leader>fw", "<Cmd>Telescope grep_string<CR>", desc = "Find word" },
-    { "<leader>fr", "<Cmd>Telescope oldfiles<CR>", desc = "Recent files" },
-    { "<leader>fc", "<Cmd>Telescope current_buffer_fuzzy_find<CR>", desc = "Fuzzy search" },
-    { "<leader>fb", "<Cmd>Telescope buffers sort_mru=true sort_lastused=true<CR>", desc = "List buffers" },
-    { "<leader>fd", "<Cmd>Telescope diagnostics<CR>", desc = "List diagnostics" },
-    { "<leader>fs", Mo.U.finder.lsp_symbols("document"), desc = "Goto symbol" },
-    { "<leader>fS", Mo.U.finder.lsp_symbols("workspace"), desc = "Goto symbol (Workspace)" },
-    { "<leader>fn", Mo.U.finder.config_files(), desc = "Neovim config files" },
-    { "<leader>fR", "<Cmd>Telescope resume<CR>", desc = "Resume" },
+    { "<leader>ff", function() Snacks.picker.files() end, desc = "Find Files" },
+    { "<leader>fg", function() Snacks.picker.grep() end, desc = "Grep" },
+    { "<leader>fw", function() Snacks.picker.grep_word() end, desc = "Visual selection or word", mode = { "n", "x" } },
+    { "<leader>fc", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Buffers" },
+    { "<leader>fb", function() Snacks.picker.buffers() end, desc = "Buffers" },
+    { "<leader>fd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
+    { "<leader>fr", function() Snacks.picker.recent() end, desc = "Recent" },
+    { "<leader>fR", function() Snacks.picker.resume() end, desc = "Resume" },
+    { "<leader>fp", function() Snacks.picker.projects() end, desc = "Projects" },
+    { "<leader>fl", function() Snacks.picker.lines() end, desc = "Buffer Lines" },
+    { "<leader>fu", function() Snacks.picker.undo() end, desc = "Undotree" },
   },
-  dependencies = {
-    {
-      "nvim-telescope/telescope-fzf-native.nvim",
-      build = "make",
-      config = function()
-        Mo.U.on_load("telescope.nvim", function()
-          require("telescope").load_extension("fzf")
-        end)
-      end,
+  opts = {
+    picker = {
+      sources = {
+        files = { hidden = true },
+        buffers = { layout = "select" },
+        grep_buffers = { layout = "ivy" },
+      },
+      win = {
+        input = {
+          keys = {
+            ["<Esc>"] = { "close", mode = { "n", "i" } },
+            ["<C-e>"] = { "toggle_preview", mode = { "i", "n" } },
+            ["<C-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
+            ["<C-d>"] = { "preview_scroll_down", mode = { "i", "n" } },
+            ["<C-f>"] = { "list_scroll_down", mode = { "i", "n" } },
+            ["<C-b>"] = { "list_scroll_up", mode = { "i", "n" } },
+            ["<C-p>"] = { "history_back", mode = { "i", "n" } },
+            ["<C-n>"] = { "history_forward", mode = { "i", "n" } },
+          },
+        },
+        preview = {
+          wo = {
+            -- number = false,
+            signcolumn = "no",
+            -- relativenumber = false,
+          },
+        },
+      },
+      layouts = {
+        default = {
+          layout = {
+            box = "horizontal",
+            width = 0.9,
+            min_width = 120,
+            height = 0.9,
+            {
+              box = "vertical",
+              border = "rounded",
+              title = "{title} {live} {flags}",
+              { win = "input", height = 1, border = "bottom" },
+              { win = "list", border = "none" },
+            },
+            { win = "preview", title = "{preview}", border = "rounded", width = 0.6 },
+          },
+        },
+      },
+      icons = {
+        kinds = Mo.C.icons.kinds,
+        diagnostics = Mo.C.icons.diagnostics,
+      },
     },
   },
-  opts = function()
-    local actions = require("telescope.actions")
-    local layout_actions = require("telescope.actions.layout")
-
-    return {
-      defaults = {
-        prompt_prefix = " ",
-        selection_caret = "󰈺 ",
-        layout_config = {
-          height = 0.9,
-          width = 0.9,
-          preview_cutoff = 120,
-          horizontal = {
-            preview_width = 0.6,
-          },
-          vertical = {
-            preview_height = 0.7,
-          },
-        },
-        path_display = { "truncate" },
-        mappings = {
-          i = {
-            ["<C-j>"] = actions.move_selection_next,
-            ["<C-k>"] = actions.move_selection_previous,
-            ["<C-p>"] = actions.cycle_history_prev,
-            ["<C-n>"] = actions.cycle_history_next,
-            ["<C-u>"] = actions.preview_scrolling_up,
-            ["<C-d>"] = actions.preview_scrolling_down,
-            ["<Esc>"] = actions.close,
-            ["<CR>"] = actions.select_default,
-            ["<C-e>"] = layout_actions.toggle_preview,
-          },
-        },
-      },
-      pickers = {
-        find_files = {
-          find_command = { "fd", "--type", "file" },
-          hidden = true,
-        },
-        buffers = {
-          theme = "dropdown",
-          previewer = false,
-          sort_mru = true,
-          sort_lastused = true,
-          mappings = {
-            i = { ["<C-x>"] = actions.delete_buffer },
-          },
-        },
-        current_buffer_fuzzy_find = {
-          theme = "ivy",
-          previewer = false,
-        },
-      },
-      extensions = {
-        fzf = {
-          fuzzy = true,
-          override_generic_sorter = true,
-          override_file_sorter = true,
-          case_mode = "smart_case",
-        },
-      },
-    }
-  end,
 }
 
 return M

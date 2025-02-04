@@ -40,12 +40,6 @@ local M = {
       use_default_mappings = false,
       popup_border_style = "rounded", -- no support "none"
       event_handlers = {
-        -- {
-        --   event = events.FILE_OPENED,
-        --   handler = function()
-        --     require("neo-tree.command").execute({ action = "close" })
-        --   end,
-        -- },
         { event = events.FILE_MOVED, handler = on_move },
         { event = events.FILE_RENAMED, handler = on_move },
       },
@@ -142,9 +136,6 @@ local M = {
             -- ["f"] = "filter_on_submit",
             -- ["F"] = "clear_filter",
 
-            ["ff"] = "telescope_find",
-            ["fg"] = "telescope_grep",
-
             ["<BS>"] = "navigate_up",
             -- ["."] = "set_root",
 
@@ -154,14 +145,6 @@ local M = {
         },
         filtered_items = {
           visible = true,
-        },
-        commands = {
-          telescope_find = function(state)
-            Mo.U.exporter.files_or_grep("files", state)
-          end,
-          telescope_grep = function(state)
-            Mo.U.exporter.files_or_grep("grep", state)
-          end,
         },
         bind_to_cwd = false,
         use_libuv_file_watcher = true,

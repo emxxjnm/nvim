@@ -78,9 +78,16 @@ keymap("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 keymap("n", "<leader>pl", "<CMD>Lazy<CR>", { desc = "Lazy" })
 
 -- stylua: ignore start
--- Code format
 Mo.U.format.snacks_toggle():map("<leader>of")
 Mo.U.format.snacks_toggle(true):map("<leader>oF")
--- keymap("n", "<leader>of", function() Mo.U.format.toggle() end, { desc = "Toggle auto format(global)" })
--- keymap("n", "<leader>oF", function() Mo.U.format.toggle(true) end, { desc = "Toggle auto format(buffer)" })
+Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>os")
+Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>ow")
+Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>oL")
+Snacks.toggle.line_number():map("<leader>ol")
+Snacks.toggle.treesitter():map("<leader>ot")
+Snacks.toggle.diagnostics():map("<leader>od")
+Snacks.toggle.inlay_hints():map("<leader>oh")
+Snacks.toggle.zen():map("<leader><Space>")
+
+-- Code format
 keymap({ "n", "v" }, "<leader>cf", function() Mo.U.format.format({ force = true }) end, { desc = "Code format" })
