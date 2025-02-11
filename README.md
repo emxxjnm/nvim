@@ -8,7 +8,9 @@ Personalized Development Environment(PDE)
 * For coding `Rust`, `Vue3`, `Go`, `Python`.
 
 > [!NOTE]
+>
 > manually install lsp and formatter.
+>
 > use `direnv` and nix-shell to manage the lsps  formatters etc.(NixOS)
 
 | Language  | LSP           | Formatter         | Linter   |
@@ -55,52 +57,52 @@ Personalized Development Environment(PDE)
 
 #### General
 
-| Key         | Description            | Mode              |
-| ---         | ---                    | ---               |
-| H           | first char of the line | **n** **v**       |
-| L           | end of the line        | **n** **v**       |
-| jj          | exit insert mode       | **i**             |
-| Up          | increase window height | **n**             |
-| Down        | decrease window height | **n**             |
-| Left        | decrease window width  | **n**             |
-| Right       | increase window width  | **n**             |
-| C-h         | left window            | **n**             |
-| C-j         | lower window           | **n**             |
-| C-k         | upper window           | **n**             |
-| C-l         | right window           | **n**             |
-| M-j         | move down              | **n** **i** **v** |
-| M-k         | move up                | **n** **i** **v** |
-| leader + w  | save file              | **n**             |
-| leader + W  | save files             | **n**             |
-| leader + q  | quit                   | **n**             |
-| leader + Q  | force quit             | **n**             |
-| leader + _  | split below            | **n**             |
-| leader + \| | split right            | **n**             |
+| Key         | Description            | Mode                |
+| ---         | ---                    | ---                 |
+| H           | first char of the line | **n**, **v**        |
+| L           | end of the line        | **n**, **v**        |
+| jj          | exit insert mode       | **i**               |
+| Up          | increase window height | **n**               |
+| Down        | decrease window height | **n**               |
+| Left        | decrease window width  | **n**               |
+| Right       | increase window width  | **n**               |
+| C-h         | left window            | **n**               |
+| C-j         | lower window           | **n**               |
+| C-k         | upper window           | **n**               |
+| C-l         | right window           | **n**               |
+| M-j         | move down              | **n**, **i**, **v** |
+| M-k         | move up                | **n**, **i**, **v** |
+| leader + w  | save file              | **n**               |
+| leader + W  | save files             | **n**               |
+| leader + q  | quit                   | **n**               |
+| leader + Q  | force quit             | **n**               |
+| leader + _  | split below            | **n**               |
+| leader + \| | split right            | **n**               |
 
 
 ### LSP
 
-| Key            | Description               | Mode        |
-| -------------- | --------------            | ----------- |
-| gd             | goto definition           | **n**       |
-| gD             | goto declaration          | **n**       |
-| gr             | references                | **n**       |
-| gi             | goto implementation       | **n**       |
-| gt             | goto type definition      | **n**       |
-| K              | hover                     | **n**       |
-| gK             | signature help            | **n**       |
-| C-k            | signature help            | **i**       |
-| [d             | next diagnostic           | **n**       |
-| ]d             | prev diagnostic           | **n**       |
-| leader + ca    | [c]ode [a]ction           | **n**       |
-| leader + cc    | [c]ode [c]odelens run     | **n**       |
-| leader + cC    | [c]ode [C]odelens display | **n**       |
-| leader + cd    | [c]ode [d]iagnostic       | **n**       |
-| leader + cf    | [c]ode [f]ormat           | **n** **v** |
-| leader + cr    | [c]ode [r]ename           | **n**       |
-| leader + ll    | [l]sp [l]og               | **n**       |
-| leader + li    | [l]sp [i]nfo              | **n**       |
-| leader + lr    | [l]sp [r]estart           | **n**       |
+| Key            | Description               | Mode         |
+| -------------- | --------------            | -----------  |
+| gd             | goto definition           | **n**        |
+| gD             | goto declaration          | **n**        |
+| gr             | references                | **n**        |
+| gi             | goto implementation       | **n**        |
+| gt             | goto type definition      | **n**        |
+| K              | hover                     | **n**        |
+| gK             | signature help            | **n**        |
+| C-k            | signature help            | **i**        |
+| [d             | next diagnostic           | **n**        |
+| ]d             | prev diagnostic           | **n**        |
+| leader + ca    | [c]ode [a]ction           | **n**        |
+| leader + cc    | [c]ode [c]odelens run     | **n**        |
+| leader + cC    | [c]ode [C]odelens display | **n**        |
+| leader + cd    | [c]ode [d]iagnostic       | **n**        |
+| leader + cf    | [c]ode [f]ormat           | **n**, **v** |
+| leader + cr    | [c]ode [r]ename           | **n**        |
+| leader + ll    | [l]sp [l]og               | **n**        |
+| leader + li    | [l]sp [i]nfo              | **n**        |
+| leader + lr    | [l]sp [r]estart           | **n**        |
 
 
 ### Finder: leader + [f]ind
@@ -120,7 +122,7 @@ Personalized Development Environment(PDE)
 | leader + fS    | [S]ymbols(workspace)      | **n**         |
 | leader + fT    | [T]odos                   | **n**         |
 | leader + fu    | [u]ndo                    | **n**         |
-| leader + fw    | [w]ord                    | **n** **v**   |
+| leader + fw    | [w]ord                    | **n**, **v**  |
 
 
 ### Buffer: leader + [b]uffer
