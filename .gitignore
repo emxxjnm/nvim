@@ -3,4 +3,4 @@
 *.bak
 *.old
 *.backup
-
+.direnv/
