@@ -7,12 +7,16 @@ Personalized Development Environment(PDE)
 * Transparency first.
 * For coding `Rust`, `Vue3`, `Go`, `Python`.
 
-| Language  | LSP           | Formatter            | Linter               |
-| ---       | ---           | ---                  | ---                  |
-| Go        | gopls         | goimports & gopls    | -                    |
-| Rust      | rust-analyzer | rustfmt              | clippy               |
-| Python    | pyright       | ruff                 | ruff                 |
-| Vue/TS/JS | Volar         | eslint_d & stylelint | eslint_d & stylelint |
+> [!NOTE]
+> manually install lsp and formatter.
+> use `direnv` and nix-shell to manage the lsps  formatters etc.(NixOS)
+
+| Language  | LSP           | Formatter         | Linter   |
+| ---       | ---           | ---               | ---      |
+| Go        | gopls         | goimports & gopls | -        |
+| Rust      | rust-analyzer | rustfmt           | clippy   |
+| Python    | pyright       | ruff              | ruff     |
+| Vue/TS/JS | Volar         | eslint_d          | eslint_d |
 
 ## Preview
 
@@ -21,17 +25,6 @@ Personalized Development Environment(PDE)
 ![image](https://github.com/emxxjnm/nvim/assets/54089360/4c7892d6-6a24-4e5e-8ccb-12270654ad61)
 ![image](https://github.com/emxxjnm/nvim/assets/54089360/c973ff75-d4b4-4fad-b485-c515a61728ae)
 ![image](https://github.com/emxxjnm/nvim/assets/54089360/44b31fc1-fb2c-4e47-bf7a-b756d16e0837)
-
-## Try it with docker
-
-```bash
-docker run -w /root -it --rm alpine:edge sh -uelic '
-  apk add git lazygit neovim ripgrep fd fzf sqlite-dev python3 go npm alpine-sdk --update
-  git clone https://github.com/emxxjnm/nvim.git ~/.config/nvim
-  cd ~/.config/nvim
-  nvim
-'
-```
 
 ## Prepare
 
@@ -44,25 +37,6 @@ docker run -w /root -it --rm alpine:edge sh -uelic '
 
 * [Tmux](https://github.com/tmux/tmux)
 * [Zellij](https://github.com/zellij-org/zellij): My configuration [here](https://github.com/emxxjnm/dotfiles/tree/main/home/dot_config/zellij)
-
-### Font
-A few fonts that I personally like.
-
-* [INPUT](https://input.djr.com/)
-
-* [Monaspace](https://monaspace.githubnext.com/)
-
-#### Patch the font(Nerd fonts)
-
-```bash
-docker run --rm \
-    -v /path/to/font:/in \
-    -v /path/for/output:/out \
-    nerdfonts/patcher \
-    --careful \
-    --complete \
-    --progressbars
-```
 
 ### Text to ASCII
 
@@ -81,153 +55,151 @@ docker run --rm \
 
 #### General
 
-| Key         | Description                   | Mode                |
-| ------      | ---                           | ---                 |
-| H           | To the first char of the line | **n**, **v**        |
-| L           | To the end of the line        | **n**, **v**        |
-| jj          | Exit insert mode              | **i**               |
-| Up          | Increase window height        | **n**               |
-| Down        | Decrease window height        | **n**               |
-| Left        | Decrease window width         | **n**               |
-| Right       | Increase window width         | **n**               |
-| C-h         | Go to left window             | **n**               |
-| C-j         | Go to lower window            | **n**               |
-| C-k         | Go to upper window            | **n**               |
-| C-l         | Go to right window            | **n**               |
-| M-j         | Move down                     | **n**, **i**, **v** |
-| M-k         | Move up                       | **n**, **i**, **v** |
-| leader + w  | Save file                     | **n**               |
-| leader + W  | Save files                    | **n**               |
-| leader + q  | Quit                          | **n**               |
-| leader + Q  | Force quit                    | **n**               |
-| leader + _  | Split below                   | **n**               |
-| leader + \| | Split right                   | **n**               |
+| Key         | Description            | Mode              |
+| ---         | ---                    | ---               |
+| H           | first char of the line | **n** **v**       |
+| L           | end of the line        | **n** **v**       |
+| jj          | exit insert mode       | **i**             |
+| Up          | increase window height | **n**             |
+| Down        | decrease window height | **n**             |
+| Left        | decrease window width  | **n**             |
+| Right       | increase window width  | **n**             |
+| C-h         | left window            | **n**             |
+| C-j         | lower window           | **n**             |
+| C-k         | upper window           | **n**             |
+| C-l         | right window           | **n**             |
+| M-j         | move down              | **n** **i** **v** |
+| M-k         | move up                | **n** **i** **v** |
+| leader + w  | save file              | **n**             |
+| leader + W  | save files             | **n**             |
+| leader + q  | quit                   | **n**             |
+| leader + Q  | force quit             | **n**             |
+| leader + _  | split below            | **n**             |
+| leader + \| | split right            | **n**             |
 
 
 ### LSP
 
-| Key            | Description           | Mode           |
-| -------------- | --------------        | -------------- |
-| gd             | Goto Definition       | **n**          |
-| gD             | Goto Declaration      | **n**          |
-| gr             | References            | **n**          |
-| gi             | Goto Implementation   | **n**          |
-| gt             | Goto Type Definition  | **n**          |
-| K              | Hover                 | **n**          |
-| gK             | Signature Help        | **n**          |
-| C-k            | Signature Help        | **i**          |
-| [d             | Next Diagnostic       | **n**          |
-| ]d             | Prev Diagnostic       | **n**          |
-| leader + ca    | Code Action           | **n**          |
-| leader + cd    | Line Diagnostic       | **n**          |
-| leader + cf    | Format Document/Range | **n**, **v**   |
-| leader + cr    | Rename                | **n**          |
-| leader + ll    | Lsp log               | **n**          |
-| leader + li    | Lsp info              | **n**          |
-| leader + lr    | Lsp restart           | **n**          |
+| Key            | Description               | Mode        |
+| -------------- | --------------            | ----------- |
+| gd             | goto definition           | **n**       |
+| gD             | goto declaration          | **n**       |
+| gr             | references                | **n**       |
+| gi             | goto implementation       | **n**       |
+| gt             | goto type definition      | **n**       |
+| K              | hover                     | **n**       |
+| gK             | signature help            | **n**       |
+| C-k            | signature help            | **i**       |
+| [d             | next diagnostic           | **n**       |
+| ]d             | prev diagnostic           | **n**       |
+| leader + ca    | [c]ode [a]ction           | **n**       |
+| leader + cc    | [c]ode [c]odelens run     | **n**       |
+| leader + cC    | [c]ode [C]odelens display | **n**       |
+| leader + cd    | [c]ode [d]iagnostic       | **n**       |
+| leader + cf    | [c]ode [f]ormat           | **n** **v** |
+| leader + cr    | [c]ode [r]ename           | **n**       |
+| leader + ll    | [l]sp [l]og               | **n**       |
+| leader + li    | [l]sp [i]nfo              | **n**       |
+| leader + lr    | [l]sp [r]estart           | **n**       |
 
 
-### Finder: leader + f
+### Finder: leader + [f]ind
 
-| Key            | Description             | Mode           |
-| -------------- | --------------          | -------------- |
-| leader + fb    | List buffers            | **n**          |
-| leader + fc    | Fuzzy search            | **n**          |
-| leader + fd    | List diagnostics        | **n**          |
-| leader + ff    | Find files              | **n**          |
-| leader + fg    | Find in files (grep)    | **n**          |
-| leader + fn    | Neovim Config file      | **n**          |
-| leader + fr    | Recent files            | **n**          |
-| leader + fR    | Resume                  | **n**          |
-| leader + fs    | Find symbols            | **n**          |
-| leader + fS    | Find symbols(workspace) | **n**          |
-| leader + fT    | Find todos              | **n**          |
-| leader + fw    | Find word               | **n**          |
+| Key            | Description               | Mode          |
+| -------------- | --------------            | ------------- |
+| leader + fb    | [b]uffers                 | **n**         |
+| leader + fc    | [c]ontent in open buffers | **n**         |
+| leader + fd    | [d]iagnostics             | **n**         |
+| leader + ff    | [f]iles                   | **n**         |
+| leader + fg    | [g]rep                    | **n**         |
+| leader + fl    | [l]ines(buffer)           | **n**         |
+| leader + fp    | [p]rojects                | **n**         |
+| leader + fr    | [r]ecent files            | **n**         |
+| leader + fR    | [R]esume                  | **n**         |
+| leader + fs    | [s]ymbols                 | **n**         |
+| leader + fS    | [S]ymbols(workspace)      | **n**         |
+| leader + fT    | [T]odos                   | **n**         |
+| leader + fu    | [u]ndo                    | **n**         |
+| leader + fw    | [w]ord                    | **n** **v**   |
 
 
-### Buffer: leader + b
+### Buffer: leader + [b]uffer
 
 | Key            | Description        | Mode           |
 | -------------- | --------------     | -------------- |
-| [b             | Prev buffer        | **n**          |
-| ]b             | Next buffer        | **n**          |
-| leader + bc    | Pick close         | **n**          |
-| leader + bd    | Delete buffer      | **n**          |
-| leader + bD    | Delete other       | **n**          |
-| leader + bH    | Close to the left  | **n**          |
-| leader + bL    | Close to the right | **n**          |
-| leader + bp    | Buffer pick        | **n**          |
+| [b             | prev buffer        | **n**          |
+| ]b             | next buffer        | **n**          |
+| leader + bc    | pick [c]lose       | **n**          |
+| leader + bd    | [d]elete buffer    | **n**          |
+| leader + bD    | [D]elete other     | **n**          |
+| leader + bp    | buffer [p]ick      | **n**          |
+| leader + bH    | close to the left  | **n**          |
+| leader + bL    | close to the right | **n**          |
+| leader + b[    | buffer move prev   | **n**          |
+| leader + b[    | buffer move next   | **n**          |
 
 
-### Git: leader + g
+### Git: leader + [g]it
 
 | Key            | Description    | Mode           |
 | -------------- | -------------- | -------------- |
-| [g             | Prev hunk      | **n**          |
-| ]g             | Next hunk      | **n**          |
-| leader + gb    | Blame line     | **n**          |
-| leader + gd    | Diff this      | **n**          |
-| leader + gg    | Lazygit        | **n**          |
-| leader + gp    | Preview hunk   | **n**          |
-| ig             | Select hunk    | **o**, **x**   |
+| [g             | prev hunk      | **n**          |
+| ]g             | next hunk      | **n**          |
+| leader + gb    | [b]lame line   | **n**          |
+| leader + gd    | [d]iff this    | **n**          |
+| leader + gg    | lazy[g]it      | **n**          |
+| leader + gp    | [p]review hunk | **n**          |
 
 
-### Debugger: leader + d
+### Debugger: leader + [d]ebug
 
-| Key            | Description       | Mode           |
-| -------------- | --------------    | -------------- |
-| leader + db    | Toggle breakpoint | **n**          |
-| leader + dc    | Continue          | **n**          |
-| leader + dC    | Run to cursor     | **n**          |
-| leader + dt    | Terminate         | **n**          |
-| leader + dr    | Restart           | **n**          |
-| leader + dp    | Pause             | **n**          |
-| leader + dO    | Step over         | **n**          |
-| leader + di    | Step into         | **n**          |
-| leader + do    | Step out          | **n**          |
-| leader + du    | Toggle DAP UI     | **n**          |
+| Key            | Description         | Mode           |
+| -------------- | --------------      | -------------- |
+| leader + db    | toggle [b]reakpoint | **n**          |
+| leader + dc    | [c]ontinue          | **n**          |
+| leader + dC    | run to [C]ursor     | **n**          |
+| leader + dt    | [t]erminate         | **n**          |
+| leader + dr    | [r]estart           | **n**          |
+| leader + dp    | [p]ause             | **n**          |
+| leader + dO    | step [O]ver         | **n**          |
+| leader + di    | step [i]nto         | **n**          |
+| leader + do    | step [o]ut          | **n**          |
+| leader + du    | [u]i toggle         | **n**          |
 
 
-### Options: leader + o
+### Options: leader + [o]ption
 
-| Key            | Description     | Mode           |
-| -------------- | --------------  | -------------- |
-| leader + od    | Diagnostic      | **n**          |
-| leader + of    | Format(Global)  | **n**          |
-| leader + oF    | Format(Buffer)  | **n**          |
-| leader + oh    | Hints           | **n**          |
-| leader + ol    | Line Number     | **n**          |
-| leader + oL    | Relative Number | **n**          |
-| leader + os    | Spell           | **n**          |
-| leader + ot    | Treesitter      | **n**          |
-| leader + ow    | Wrap      | **n**          |
+| Key            | Description            | Mode           |
+| -------------- | --------------         | -------------- |
+| leader + od    | [d]iagnostic           | **n**          |
+| leader + of    | [f]ormat(Global)       | **n**          |
+| leader + oF    | [F]ormat(Buffer)       | **n**          |
+| leader + oh    | [h]ints                | **n**          |
+| leader + ol    | [l]ine number          | **n**          |
+| leader + oL    | relative [L]ine number | **n**          |
+| leader + os    | [s]pell                | **n**          |
+| leader + ot    | [t]reesitter           | **n**          |
+| leader + ow    | [w]rap                 | **n**          |
 
 
 ### Explorer
 
 | Key            | Description          | Mode           |
 | -------------- | --------------       | -------------- |
-| C-n            | Toggle file explorer | **n**          |
+| C-n            | toggle file explorer | **n**          |
 
 
-### Tester: leader + t
+### Tester: leader + [t]est
 
-| Key            | Description         | Mode           |
-| -------------- | --------------      | -------------- |
-| leader + tn    | Run                 | **n**          |
-| leader + ta    | Attach              | **n**          |
-| leader + tf    | Run file            | **n**          |
-| leader + tl    | Run last            | **n**          |
-| leader + tx    | Stop                | **n**          |
-| leader + to    | Toggle output       | **n**          |
-| leader + ts    | Toggle summaryu     | **n**          |
-| leader + tp    | Toggle output panel | **n**          |
-| [t             | Prev failed test    | **n**          |
-| ]t             | Next failed test    | **n**          |
-
-
-### LuaSnip
-
-| Key            | Description     | Mode           |
-| -------------- | --------------  | -------------- |
-| C-o            | Select  options | **i**          |
+| Key            | Description      | Mode           |
+| -------------- | --------------   | -------------- |
+| leader + tr    | [r]un            | **n**          |
+| leader + ta    | [a]ttach         | **n**          |
+| leader + tf    | [f]ile run       | **n**          |
+| leader + tl    | [l]ast run       | **n**          |
+| leader + tx    | stop[x]          | **n**          |
+| leader + to    | [o]utput toggle  | **n**          |
+| leader + ts    | [s]ummary toggle | **n**          |
+| leader + tp    | [p]anel toggle   | **n**          |
+| [t             | prev failed test | **n**          |
+| ]t             | next failed test | **n**          |
