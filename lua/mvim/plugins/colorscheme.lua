@@ -22,7 +22,10 @@ local M = {
         illuminate = { enabled = false },
         mason = true,
         noice = true,
-        snacks = true,
+        snacks = {
+          enabled = true,
+          indent_scope_color = "overlay2",
+        },
         neotest = true,
         blink_cmp = true,
         which_key = true,
@@ -37,11 +40,6 @@ local M = {
             bg = Mo.C.transparent and colors.none or colors.crust,
             style = { "bold", "italic" },
           },
-
-          -- snacks.nvim
-          SnacksIndent = { fg = colors.surface0 },
-          SnacksIndentScope = { fg = colors.lavender },
-          SnacksIndentChunk = { fg = colors.lavender },
 
           -- lazy.nvim
           LazyH1 = {
