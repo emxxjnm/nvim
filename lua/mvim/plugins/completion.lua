@@ -69,6 +69,27 @@ local M = {
           },
         },
       },
+      cmdline = {
+        completion = {
+          menu = {
+            auto_show = true,
+          },
+          list = {
+            selection = {
+              preselect = false,
+              auto_insert = false,
+            },
+          },
+        },
+        keymap = {
+          preset = "none",
+          ["<Tab>"] = { "select_next" },
+          ["<S-Tab>"] = { "select_prev" },
+          ["<Up>"] = { "select_prev" },
+          ["<Down>"] = { "select_next" },
+          ["<CR>"] = { "accept", "fallback" },
+        },
+      },
       appearance = {
         kind_icons = Mo.C.icons.kinds,
       },
