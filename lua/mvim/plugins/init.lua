@@ -45,9 +45,8 @@ return {
       statuscolumn = { folds = { open = true, git_hl = true } },
       words = { enabled = true },
       styles = {
-        notification = {
-          wo = { wrap = true },
-        },
+        notification = { wo = { wrap = true } },
+        terminal = { keys = { term_normal = false } },
         input = {
           row = -3,
           col = -5,
