@@ -46,6 +46,11 @@ Personalized Development Environment(PDE)
 
 ### Dependencies
 
+* [x] make (download tiktoken_core library for `CopilotChat.nvim`)
+* [x] cargo (build the fuzzy binary for `blink.cmp`)
+
+* [x] nodejs > 18.x (`copilot`)
+
 * [x] [fd](https://github.com/sharkdp/fd)
 * [x] [fzf](https://github.com/junegunn/fzf)
 * [x] [ripgrep](https://github.com/BurntSushi/ripgrep)
