@@ -10,7 +10,7 @@ local M = {
           height = 0.9,
           width = 0.9,
           border = Mo.C.border,
-        })
+        }):set_title("LSP log", "center")
       end,
       desc = "Lsp Log",
     },
