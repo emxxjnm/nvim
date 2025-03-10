@@ -81,14 +81,7 @@ local M = {
             },
           },
         },
-        keymap = {
-          preset = "none",
-          ["<Tab>"] = { "select_next", "fallback" },
-          ["<S-Tab>"] = { "select_prev", "fallback" },
-          ["<Up>"] = { "select_prev", "fallback" },
-          ["<Down>"] = { "select_next", "fallback" },
-          ["<CR>"] = { "accept", "fallback" },
-        },
+        keymap = { preset = "inherit" },
       },
       appearance = {
         kind_icons = Mo.C.icons.kinds,
