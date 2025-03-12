@@ -7,19 +7,11 @@ return {
     local user = vim.env.USER or "User"
     user = user:sub(1, 1):upper() .. user:sub(2)
     return {
-      show_folds = false,
       insert_at_end = true,
       question_header = "   " .. user .. " ",
       answer_header = "   Copilot ",
       window = { width = 0.4 },
       mappings = {
-        complete = {
-          insert = "",
-        },
-        reset = {
-          normal = "<C-e>",
-          insert = "<C-e>",
-        },
         submit_prompt = {
           normal = "<CR>",
           insert = "<C-CR>",
@@ -47,7 +39,7 @@ return {
     {
       "<leader>aq",
       function()
-        local input = vim.fn.input("Quick Chat: ")
+        local input = vim.fn.input("Ask Copilot: ")
         if input ~= "" then
           require("CopilotChat").ask(input)
         end
@@ -58,12 +50,7 @@ return {
     {
       "<leader>ap",
       function()
-        local actions = require("CopilotChat.actions")
-        require("CopilotChat.integrations.snacks").pick(actions.prompt_actions(), {
-          layout = {
-            preset = "vertical",
-          },
-        })
+        require("CopilotChat").select_prompt()
       end,
       desc = "Prompt Actions",
       mode = { "n", "v" },
@@ -79,7 +66,6 @@ return {
       end,
     })
 
-    local chat = require("CopilotChat")
-    chat.setup(opts)
+    require("CopilotChat").setup(opts)
   end,
 }
