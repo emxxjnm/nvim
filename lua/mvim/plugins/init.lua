@@ -135,6 +135,11 @@ return {
             },
           },
         },
+        sections = {
+          { section = "header" },
+          { section = "keys", gap = 1, padding = 2 },
+          { section = "startup", icon = " " },
+        },
       },
     },
   },
