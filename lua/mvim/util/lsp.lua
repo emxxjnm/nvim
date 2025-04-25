@@ -56,30 +56,21 @@ end
 ---LSP capabilities
 ---@return table capabilities
 function M.common_capabilities()
-  return vim.tbl_deep_extend(
-    "force",
-    {
-      workspace = {
-        fileOperations = {
-          didRename = true,
-          willRename = true,
-        },
+  return vim.tbl_deep_extend("force", {
+    workspace = {
+      fileOperations = {
+        didRename = true,
+        willRename = true,
       },
     },
-    vim.lsp.protocol.make_client_capabilities(),
-    -- TODO: remove this line when neovim 0.11 reaches EOL
-    Mo.U.has("blink.cmp") and require("blink.cmp").get_lsp_capabilities() or {},
-    Mo.U.has("nvim-ufo")
-        and {
-          textDocument = {
-            foldingRange = {
-              dynamicRegistration = false,
-              lineFoldingOnly = true,
-            },
-          },
-        }
-      or {}
-  )
+  }, vim.lsp.protocol.make_client_capabilities(), Mo.U.has("nvim-ufo") and {
+    textDocument = {
+      foldingRange = {
+        dynamicRegistration = false,
+        lineFoldingOnly = true,
+      },
+    },
+  } or {})
 end
 
 ---Resolve lsp config
