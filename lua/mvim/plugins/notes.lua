@@ -1,11 +1,12 @@
 local M = {
   "MeanderingProgrammer/render-markdown.nvim",
-  ft = "markdown",
+  ft = { "markdown", "Avante" },
   keys = {
     { "<leader>mr", "<Cmd>RenderMarkdown toggle<CR>", desc = "Toggle render markdown" },
   },
   opts = {
     heading = { enabled = false },
+    file_types = { "markdown", "Avante" },
     code = {
       sign = false,
       width = "block",

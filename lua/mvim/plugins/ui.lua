@@ -37,8 +37,7 @@ local M = {
               highlight = "PanelHeading",
             },
             {
-              filetype = "undotree",
-              text = "Undotree",
+              filetype = "Avante",
               separator = Mo.C.transparent,
               text_align = "center",
               highlight = "PanelHeading",

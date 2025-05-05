@@ -26,6 +26,10 @@ local M = {
           enabled = true,
           indent_scope_color = "overlay2",
         },
+        avante = {
+          enabled = true,
+          windows_sidebar_header_rounded = true,
+        },
         neotest = true,
         blink_cmp = true,
         which_key = true,
