@@ -35,6 +35,7 @@ opt.signcolumn = "yes"
 opt.smartcase = true
 opt.ignorecase = true
 opt.virtualedit = "block" -- new
+opt.winborder = Mo.C.border
 opt.shortmess:append({ W = true, I = true, c = true, C = true })
 
 -- opt.list = true -- new
