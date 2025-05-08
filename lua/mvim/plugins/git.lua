@@ -20,6 +20,7 @@ local M = {
     },
     current_line_blame = true,
     current_line_blame_formatter = " <author>, <author_time> · <summary> ",
+    preview_config = { border = Mo.C.border },
     on_attach = function(bufnr)
       local gs = require("gitsigns")
 
