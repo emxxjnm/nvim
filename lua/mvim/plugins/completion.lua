@@ -52,6 +52,9 @@ local M = {
       },
       signature = {
         enabled = true,
+        trigger = {
+          show_on_accept = true,
+        },
         window = {
           border = Mo.C.border,
           max_width = math.floor(vim.o.columns * 0.8),
