@@ -52,6 +52,10 @@
         "path": "./misc/snippet.json"
       },
       {
+        "language": "nix",
+        "path": "./misc/nix-shell.json"
+      },
+      {
         "language": [
           "plaintext",
           "markdown",
