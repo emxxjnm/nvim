@@ -17,7 +17,13 @@ return {
       indent = {
         indent = { char = "┊" },
         scope = { enabled = false },
-        chunk = { enabled = true },
+        chunk = {
+          enabled = true,
+          char = {
+            corner_top = "╭",
+            corner_bottom = "╰",
+          },
+        },
         filter = function(buf)
           return vim.g.snacks_indent ~= false
             and vim.b[buf].snacks_indent ~= false
