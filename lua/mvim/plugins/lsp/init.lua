@@ -74,6 +74,7 @@ local M = {
         settings = {
           Lua = {
             format = { enable = false },
+            -- codeLens = { enable = true },
             workspace = { checkThirdParty = false },
           },
         },
@@ -95,14 +96,37 @@ local M = {
   config = function(_, opts)
     require("mvim.plugins.lsp.diagnostic").setup()
 
-    Mo.U.lsp.on_attach(function(client, buffer)
-      require("mvim.plugins.lsp.keymaps").on_attach(client, buffer)
-      -- require("mvim.plugins.lsp.codelens").on_attach(client, buffer)
-    end)
+    vim.api.nvim_create_autocmd("LspAttach", {
+      group = vim.api.nvim_create_augroup("SetupLspAutocmd", { clear = true }),
+      callback = function(args)
+        local buffer = args.buf
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client then
+          require("mvim.plugins.lsp.keymaps").on_attach(client, buffer)
+          -- require("mvim.plugins.lsp.codelens").on_attach(client, buffer)
+        end
+      end,
+    })
 
     for server, server_opts in pairs(opts.servers) do
-      local config = Mo.U.lsp.resolve_config(server_opts or {})
-      require("lspconfig")[server].setup(config)
+      local config = vim.tbl_deep_extend("force", {
+        workspace = {
+          fileOperations = {
+            didRename = true,
+            willRename = true,
+          },
+        },
+      }, vim.lsp.protocol.make_client_capabilities(), Mo.U.has("nvim-ufo") and {
+        textDocument = {
+          foldingRange = {
+            dynamicRegistration = false,
+            lineFoldingOnly = true,
+          },
+        },
+      } or {}, server_opts or {})
+
+      vim.lsp.config(server, config)
+      vim.lsp.enable(server)
     end
   end,
 }
