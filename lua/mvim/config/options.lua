@@ -51,7 +51,7 @@ opt.fillchars = {
 opt.foldlevel = 99
 opt.foldcolumn = "auto"
 opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 opt.laststatus = 0 -- 3
 opt.showcmd = false
