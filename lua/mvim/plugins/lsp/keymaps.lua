@@ -1,5 +1,69 @@
 local M = {}
 
+M.kind_filter = {
+  default = {
+    "Class",
+    "Constructor",
+    "Enum",
+    "Field",
+    "Function",
+    "Interface",
+    "Method",
+    "Module",
+    "Namespace",
+    "Package",
+    "Property",
+    "Struct",
+  },
+  go = {
+    "Package",
+    "Struct",
+    "Interface",
+    "Function",
+    "Method",
+    -- "Variable",
+    -- "Constant",
+    "TypeParameter",
+  },
+  lua = {
+    "Function",
+    "Object",
+    -- "Variable",
+    "Field",
+    "Module",
+  },
+  rust = {
+    "Module",
+    "Struct",
+    "Enum",
+    "Interface", -- Trait
+    "Function",
+    "Method",
+    -- "Constant",
+    -- "Variable",
+    "TypeParameter",
+  },
+  python = {
+    "Module",
+    "Class",
+    "Function",
+    "Method",
+    -- "Variable",
+    "Property",
+    "TypeParameter",
+  },
+  typescript = {
+    "Class",
+    "Interface",
+    "Function",
+    -- "Variable",
+    "Enum",
+    "TypeParameter",
+    "Property",
+    "Method",
+  },
+}
+
 -- stylua: ignore
 M.keys = {
   { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration", deps = "textDocument/declaration" },
@@ -19,9 +83,8 @@ M.keys = {
   { "<leader>cc", vim.lsp.codelens.run, desc = "Codelens", mode = { "n", "v" }, deps = "textDocument/codeLens" },
   { "<leader>cC", vim.lsp.codelens.refresh, desc = "Codelens", deps = "textDocument/codeLens" },
 
-  -- TODO: add filter
-  { "<leader>fs", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols", deps = "textDocument/documentSymbol" },
-  { "<leader>fS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols", deps = "workspace/symbols" },
+  { "<leader>fs", function() Snacks.picker.lsp_symbols({ filter = M.kind_filter }) end, desc = "LSP Symbols", deps = "textDocument/documentSymbol" },
+  { "<leader>fS", function() Snacks.picker.lsp_workspace_symbols({ filter = M.kind_filter }) end, desc = "LSP Workspace Symbols", deps = "workspace/symbols" },
 }
 
 ---@param client vim.lsp.Client
