@@ -10,7 +10,7 @@ local M = {
 
   {
     "kevinhwang91/nvim-ufo",
-    -- enabled = false,
+    enabled = false,
     event = "BufReadPost",
     dependencies = { "kevinhwang91/promise-async" },
     -- stylua: ignore

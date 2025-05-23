@@ -116,14 +116,7 @@ local M = {
             willRename = true,
           },
         },
-      }, vim.lsp.protocol.make_client_capabilities(), Mo.U.has("nvim-ufo") and {
-        textDocument = {
-          foldingRange = {
-            dynamicRegistration = false,
-            lineFoldingOnly = true,
-          },
-        },
-      } or {}, server_opts or {})
+      }, vim.lsp.protocol.make_client_capabilities(), server_opts or {})
 
       vim.lsp.config(server, config)
       vim.lsp.enable(server)
