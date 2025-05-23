@@ -90,4 +90,4 @@ Snacks.toggle.inlay_hints():map("<leader>oh")
 Snacks.toggle.zen():map("<leader><Space>")
 
 -- Code format
-keymap({ "n", "v" }, "<leader>cf", function() Mo.U.format.format({ force = true }) end, { desc = "Code format" })
+keymap({ "n", "x" }, "<leader>cf", function() Mo.U.format.format({ force = true }) end, { desc = "Code format" })
