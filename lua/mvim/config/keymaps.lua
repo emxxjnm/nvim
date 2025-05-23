@@ -58,22 +58,22 @@ keymap({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, desc = "Mo
 keymap("i", "jj", [[col('.') == 1 ? '<Esc>' : '<Esc>l']], { expr = true })
 
 -- diagnostic
-local diagnostic_goto = function(next, severity)
-  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+--- @param count number
+local diagnostic_jump = function(count, severity)
   severity = severity and vim.diagnostic.severity[severity] or nil
   return function()
-    go({ severity = severity })
+    vim.diagnostic.jump({ severity = severity, count = count })
   end
 end
 keymap("n", "<leader>cd", function()
   vim.diagnostic.open_float({ scope = "cursor", force = false })
 end, { desc = "Line Diagnostic" })
-keymap("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
-keymap("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
-keymap("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
-keymap("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
-keymap("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
-keymap("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+keymap("n", "]d", diagnostic_jump(1), { desc = "Next Diagnostic" })
+keymap("n", "[d", diagnostic_jump(-1), { desc = "Prev Diagnostic" })
+keymap("n", "]e", diagnostic_jump(1, "ERROR"), { desc = "Next Error" })
+keymap("n", "[e", diagnostic_jump(-1, "ERROR"), { desc = "Prev Error" })
+keymap("n", "]w", diagnostic_jump(1, "WARN"), { desc = "Next Warning" })
+keymap("n", "[w", diagnostic_jump(-1, "WARN"), { desc = "Prev Warning" })
 
 keymap("n", "<leader>pl", "<CMD>Lazy<CR>", { desc = "Lazy" })
 

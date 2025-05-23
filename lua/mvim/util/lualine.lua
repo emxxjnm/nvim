@@ -215,7 +215,7 @@ M.components = {
   copilot = {
     function()
       local icon = Mo.C.icons.kinds.Copilot
-      local status = require("copilot.api").status.data
+      local status = require("copilot.status").data
       return icon .. (status.message or "")
     end,
     cond = function()
@@ -229,7 +229,7 @@ M.components = {
       if not package.loaded["copilot"] then
         return
       end
-      local status = require("copilot.api").status.data
+      local status = require("copilot.status").data
       return { fg = copilot_colors[status.status] or copilot_colors[""] }
     end,
   },

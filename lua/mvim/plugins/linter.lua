@@ -1,3 +1,10 @@
+---@class Context
+---@field filename string
+---@field dirname string
+
+---@class Linter:lint.Linter
+---@field condition? fun(ctx:Context)
+
 return {
   "mfussenegger/nvim-lint",
   event = "VeryLazy",
@@ -19,13 +26,6 @@ return {
   },
   config = function(_, opts)
     local M = {}
-
-    ---@class Content
-    ---@field filename string
-    ---@field dirname string
-
-    ---@class Linter:lint.Linter
-    ---@field condition? fun(ctx:Content)
 
     local lint = require("lint")
     for name, linter in pairs(opts.linters) do

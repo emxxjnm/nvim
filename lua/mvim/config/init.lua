@@ -59,18 +59,18 @@ defaults.border = defaults.transparent and "rounded" or "none"
 
 function M.bootstrap()
   local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
   if not vim.uv.fs_stat(lazypath) then
-    local output = vim.fn.system({
-      "git",
-      "clone",
-      "--filter=blob:none",
-      "--single-branch",
-      "https://github.com/folke/lazy.nvim.git",
-      lazypath,
-    })
-    if vim.api.nvim_get_vvar("shell_error") ~= 0 then
-      vim.api.nvim_err_writeln("Error cloning lazy.nvim repository...\n\n" .. output)
+    local output =
+      vim.fn.system({ "git", "clone", "--filter=blob:none", "--single-branch", lazyrepo, lazypath })
+    if vim.v.shell_error ~= 0 then
+      vim.api.nvim_echo({
+        { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+        { output, "WarningMsg" },
+        { "\nPress any key to exit..." },
+      }, true, {})
+      vim.fn.getchar()
+      os.exit(1)
     end
   end
   vim.opt.rtp:prepend(vim.env.LAZY or lazypath)

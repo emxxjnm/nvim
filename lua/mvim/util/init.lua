@@ -1,6 +1,5 @@
 ---@class mvim.util
 ---@field format mvim.util.format
----@field lsp mvim.util.lsp
 ---@field exporter mvim.util.exporter
 ---@field lualine mvim.util.lualine
 local M = {}
