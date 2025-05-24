@@ -59,6 +59,7 @@ local M = {
           border = Mo.C.border,
           max_width = math.floor(vim.o.columns * 0.8),
           winhighlight = "Normal:Pmenu,FloatBorder:FloatBorder",
+          show_documentation = true,
         },
       },
       sources = {
