@@ -65,6 +65,13 @@ local M = {
               command = "clippy",
               extraArgs = { "--no-deps" },
             },
+            files = {
+              exclude = {
+                ".git",
+                ".direnv",
+                "target",
+              },
+            },
           },
         },
       },
