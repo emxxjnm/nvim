@@ -14,7 +14,13 @@ local M = {
       end,
       desc = "Lsp Log",
     },
-    { "<leader>li", "<CMD>LspInfo<CR>", desc = "Lsp Info" },
+    {
+      "<leader>li",
+      function()
+        Snacks.picker.lsp_config({ configured = true })
+      end,
+      desc = "Lsp Info",
+    },
     { "<leader>lr", "<CMD>LspRestart<CR>", desc = "Lsp Restart" },
   },
   opts = {
