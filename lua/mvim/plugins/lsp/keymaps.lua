@@ -1,101 +1,36 @@
 local M = {}
 
-M.kind_filter = {
-  default = {
-    "Class",
-    "Constructor",
-    "Enum",
-    "Field",
-    "Function",
-    "Interface",
-    "Method",
-    "Module",
-    "Namespace",
-    "Package",
-    "Property",
-    "Struct",
-  },
-  go = {
-    "Package",
-    "Struct",
-    "Interface",
-    "Function",
-    "Method",
-    -- "Variable",
-    -- "Constant",
-    "TypeParameter",
-  },
-  lua = {
-    "Function",
-    "Object",
-    -- "Variable",
-    "Field",
-    "Module",
-  },
-  rust = {
-    "Module",
-    "Struct",
-    "Enum",
-    "Interface", -- Trait
-    "Function",
-    "Method",
-    -- "Constant",
-    -- "Variable",
-    "TypeParameter",
-  },
-  python = {
-    "Module",
-    "Class",
-    "Function",
-    "Method",
-    -- "Variable",
-    "Property",
-    "TypeParameter",
-  },
-  typescript = {
-    "Class",
-    "Interface",
-    "Function",
-    -- "Variable",
-    "Enum",
-    "TypeParameter",
-    "Property",
-    "Method",
-  },
-}
-
 -- stylua: ignore
 M.keys = {
-  { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration", deps = "textDocument/declaration" },
-  { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition", deps = "textDocument/definition" },
-  { "gr", function() Snacks.picker.lsp_references() end, desc = "References", deps = "textDocument/references" },
-  { "gi", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation", deps = "textDocument/implementation" },
-  { "gt", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto Type Definition", deps = "textDocument/definition" },
+  { "gD", function() Snacks.picker.lsp_declarations() end, desc = "Goto Declaration" },
+  { "gd", function() Snacks.picker.lsp_definitions() end, desc = "Goto Definition"  },
+  { "gt", function() Snacks.picker.lsp_type_definitions() end, desc = "Goto Type Definition" },
 
-  { "K", vim.lsp.buf.hover, desc = "Hover", deps = "textDocument/hover" },
-  { "gK", vim.lsp.buf.signature_help, desc = "Signature Help", deps = "textDocument/signatureHelp" },
-  { "<C-k>", vim.lsp.buf.signature_help, mode = "i", desc = "Signature Help", deps = "textDocument/signatureHelp" },
+  { "grr", function() Snacks.picker.lsp_references() end, desc = "References" },
+  { "gri", function() Snacks.picker.lsp_implementations() end, desc = "Goto Implementation" },
+  { "grn", vim.lsp.buf.rename, desc = "Rename" },
+  { "gra", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "x" } },
 
-  { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", deps = "textDocument/rename"  },
-  { "<leader>ca", vim.lsp.buf.code_action, desc = "Code action", mode = { "n", "v" }, deps = "textDocument/codeAction" },
-  { "<leader>cA", function() vim.lsp.buf.code_action({ apply = true, context = { only = { "source" }, diagnostics = {}}}) end, desc = "Source Action", desp = "textDocument/codeAction" },
+  { "K", function() vim.lsp.buf.hover() end, desc = "Hover" },
+  -- { "gK", function() vim.lsp.buf.signature_help() end, desc = "Signature Help" },
+  -- { "<C-k>", function() vim.lsp.buf.signature_help() end, mode = "i", desc = "Signature Help" },
 
-  { "<leader>cc", vim.lsp.codelens.run, desc = "Codelens", mode = { "n", "v" }, deps = "textDocument/codeLens" },
-  { "<leader>cC", vim.lsp.codelens.refresh, desc = "Codelens", deps = "textDocument/codeLens" },
+  { "<leader>cc", vim.lsp.codelens.run, desc = "Codelens", mode = { "n", "v" } },
+  { "<leader>cC", vim.lsp.codelens.refresh, desc = "Codelens" },
 
-  { "<leader>fs", function() Snacks.picker.lsp_symbols({ filter = M.kind_filter }) end, desc = "LSP Symbols", deps = "textDocument/documentSymbol" },
-  { "<leader>fS", function() Snacks.picker.lsp_workspace_symbols({ filter = M.kind_filter }) end, desc = "LSP Workspace Symbols", deps = "workspace/symbols" },
+  { "<leader>fs", function() Snacks.picker.lsp_symbols() end, desc = "LSP Symbols" },
+  { "<leader>fS", function() Snacks.picker.lsp_workspace_symbols() end, desc = "LSP Workspace Symbols" },
 }
 
 ---@param client vim.lsp.Client
 ---@param buffer number
 function M.on_attach(client, buffer)
-  vim.iter(M.keys):each(function(m)
-    if not m.deps or client:supports_method(m.deps) then
+  if client.name ~= "copilot" then
+    vim.iter(M.keys):each(function(m)
       local opts = { silent = true, buffer = buffer, desc = m.desc }
       vim.keymap.set(m.mode or "n", m[1], m[2], opts)
-    end
-  end)
+    end)
+  end
 end
 
 return M
