@@ -9,16 +9,16 @@ Personalized Development Environment(PDE)
 
 > [!NOTE]
 >
-> manually install lsp and formatter.
+> manually install LSP, formatter and linter.
 >
 > use `direnv` and nix-shell to manage the lsps  formatters etc.(NixOS)
 
-| Language  | LSP           | Formatter         | Linter   |
-| ---       | ---           | ---               | ---      |
-| Go        | gopls         | goimports & gopls | -        |
-| Rust      | rust-analyzer | rustfmt           | clippy   |
-| Python    | pyright       | ruff              | ruff     |
-| Vue/TS/JS | Volar         | eslint_d          | eslint_d |
+| Language  | LSP                 | Formatter         | Linter   |
+| ---       | ---                 | ---               | ---      |
+| Go        | gopls               | goimports & gopls | -        |
+| Rust      | rust-analyzer       | rustfmt           | clippy   |
+| Python    | pyright             | ruff              | ruff     |
+| Vue/TS/JS | vue-language-server | eslint_d          | eslint_d |
 
 ## Preview
 
@@ -91,12 +91,13 @@ Personalized Development Environment(PDE)
 | -------------- | --------------            | -----------  |
 | gd             | goto definition           | **n**        |
 | gD             | goto declaration          | **n**        |
-| gr             | references                | **n**        |
-| gi             | goto implementation       | **n**        |
 | gt             | goto type definition      | **n**        |
 | K              | hover                     | **n**        |
-| gK             | signature help            | **n**        |
-| C-k            | signature help            | **i**        |
+| gri            | goto implementation       | **n**        |
+| grr            | references                | **n**        |
+| grn            | rename                    | **n**        |
+| C-s            | signature help            | **n**        |
+| C-s            | signature help            | **i**        |
 | [d             | next diagnostic           | **n**        |
 | ]d             | prev diagnostic           | **n**        |
 | leader + ca    | [c]ode [a]ction           | **n**        |
@@ -104,7 +105,6 @@ Personalized Development Environment(PDE)
 | leader + cC    | [c]ode [C]odelens display | **n**        |
 | leader + cd    | [c]ode [d]iagnostic       | **n**        |
 | leader + cf    | [c]ode [f]ormat           | **n**, **v** |
-| leader + cr    | [c]ode [r]ename           | **n**        |
 | leader + ll    | [l]sp [l]og               | **n**        |
 | leader + li    | [l]sp [i]nfo              | **n**        |
 | leader + lr    | [l]sp [r]estart           | **n**        |
