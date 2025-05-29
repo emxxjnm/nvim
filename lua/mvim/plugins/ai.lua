@@ -72,16 +72,27 @@ return {
   },
   {
     "yetone/avante.nvim",
-    enabled = false,
+    -- enabled = false,
+    -- event = "VeryLazy",
     opts = {
-      provider = "deepseek",
+      provider = "azure",
       vendors = {
         deepseek = {
           __inherited_from = "openai",
           api_key_name = "DEEPSEEK_API_KEY",
-          endpoint = "https://api.deepseek.com",
-          model = "deepseek-chat",
+          -- endpoint = "https://api.deepseek.com",
+          -- model = "deepseek-chat",
+          endpoint = "https://api.siliconflow.cn",
+          model = "deepseek-ai/DeepSeek-R1",
+          disable_tools = true,
         },
+      },
+      openai = {
+        endpoint = "https://openrouter.ai/api/v1",
+        model = "google/gemini-2.5-pro-preview",
+        timeout = 30000,
+        temperature = 0,
+        max_completion_tokens = 8192,
       },
       mappings = {
         submit = {
@@ -89,20 +100,28 @@ return {
           insert = "<C-CR>",
         },
         sidebar = {
-          close_from_input = { normal = "q", insert = "<C-e>" },
+          close_from_input = { normal = { "q", "<Esc>" }, insert = "<C-e>" },
         },
       },
-      window = {
+      windows = {
+        sidebar_header = {
+          rounded = false,
+        },
         input = {
           prefix = "> ",
           height = 5,
+        },
+        edit = {
+          border = "rounded",
+        },
+        ask = {
+          start_insert = false,
         },
       },
     },
     build = "make",
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
-      -- "stevearc/dressing.nvim",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
     },
