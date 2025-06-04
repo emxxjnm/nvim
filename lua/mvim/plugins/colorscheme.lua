@@ -22,18 +22,12 @@ local M = {
         illuminate = { enabled = false },
         mason = true,
         noice = true,
-        snacks = {
-          enabled = true,
-          indent_scope_color = "overlay2",
-        },
-        avante = {
-          enabled = true,
-          windows_sidebar_header_rounded = true,
-        },
+        avante = true,
         neotest = true,
         blink_cmp = true,
         which_key = true,
         nvim_surround = true,
+        snacks = { enabled = true, indent_scope_color = "overlay2" },
         telescope = { style = Mo.C.transparent and nil or "nvchad" },
       },
       custom_highlights = function(colors)
