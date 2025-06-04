@@ -87,7 +87,7 @@ local M = {
         settings = {
           Lua = {
             format = { enable = false },
-            -- codeLens = { enable = true },
+            codeLens = { enable = true },
             workspace = { checkThirdParty = false },
           },
         },
@@ -132,7 +132,12 @@ local M = {
       }, vim.lsp.protocol.make_client_capabilities(), server_opts or {})
 
       vim.lsp.config(server, config)
-      vim.lsp.enable(server)
+
+      if not vim.lsp.is_enabled(server) then
+        vim.schedule(function()
+          vim.lsp.enable(server)
+        end)
+      end
     end
   end,
 }
