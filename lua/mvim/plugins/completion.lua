@@ -22,6 +22,7 @@ local M = {
       },
       completion = {
         keyword = { range = "full" },
+        trigger = { show_on_backspace = true },
         list = {
           selection = {
             preselect = false,
