@@ -34,6 +34,7 @@ local M = {
             columns = {
               { "kind_icon", "kind" },
               { "label", "label_description", gap = 1 },
+              { "source_name" },
             },
           },
           border = Mo.C.border,
