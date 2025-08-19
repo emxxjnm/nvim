@@ -29,4 +29,5 @@ function M.copy(type, state)
   vim.fn.setreg("+", target, "c")
   vim.notify(type .. " copied", vim.log.levels.INFO)
 end
+
 return M

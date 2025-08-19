@@ -145,6 +145,14 @@ local M = {
         },
         filtered_items = {
           visible = true,
+          never_show = {
+            ".DS_Store",
+            "thumbs.db",
+            ".direnv",
+            ".venv",
+            "__pycache__",
+            "node_modules",
+          },
         },
         bind_to_cwd = false,
         use_libuv_file_watcher = true,
