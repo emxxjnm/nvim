@@ -17,6 +17,7 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in {
         devShells.default = pkgs.mkShell {
+          name = "nvim";
           packages = with pkgs; [
             stylua
             lua-language-server
