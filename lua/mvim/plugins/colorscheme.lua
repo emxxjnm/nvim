@@ -7,6 +7,7 @@ local M = {
     require("catppuccin").setup({
       flavour = Mo.C.transparent and "mocha" or "macchiato",
       transparent_background = Mo.C.transparent,
+      float = { transparent = Mo.C.transparent, solid = false },
       styles = {
         keywords = { "bold" },
         functions = { "italic" },
@@ -56,10 +57,10 @@ local M = {
           },
           LazySpecial = { fg = colors.green },
 
-          FloatBorder = {
-            fg = Mo.C.transparent and colors.blue or colors.mantle,
-            bg = Mo.C.transparent and colors.none or colors.mantle,
-          },
+          -- FloatBorder = {
+          --   fg = Mo.C.transparent and colors.blue or colors.mantle,
+          --   bg = Mo.C.transparent and colors.none or colors.mantle,
+          -- },
 
           FloatTitle = {
             fg = Mo.C.transparent and colors.lavender or colors.base,

@@ -56,7 +56,7 @@ local M = {
           show_buffer_close_icons = false,
           sort_by = "insert_after_current",
         },
-        highlights = ctp.get({
+        highlights = ctp.get_theme({
           custom = {
             all = {
               buffer_selected = { fg = Mo.C.palette.lavender },
