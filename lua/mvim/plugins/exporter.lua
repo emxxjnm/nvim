@@ -142,6 +142,18 @@ local M = {
             ["[g"] = "prev_git_modified",
             ["]g"] = "next_git_modified",
           },
+          fuzzy_finder_mappings = {
+            ["<down>"] = "move_cursor_down",
+            ["<up>"] = "move_cursor_up",
+            ["<Esc>"] = "close",
+            {
+              n = {
+                ["j"] = "move_cursor_down",
+                ["k"] = "move_cursor_up",
+                ["<esc>"] = "close",
+              },
+            },
+          },
         },
         filtered_items = {
           visible = true,
