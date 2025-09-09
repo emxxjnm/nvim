@@ -5,13 +5,10 @@ local M = {
   priority = 1000,
   config = function()
     require("catppuccin").setup({
-      flavour = Mo.C.transparent and "mocha" or "macchiato",
+      flavour = Mo.C.transparent and "mocha" or "latte",
       transparent_background = Mo.C.transparent,
       float = { transparent = Mo.C.transparent, solid = false },
-      styles = {
-        keywords = { "bold" },
-        functions = { "italic" },
-      },
+      styles = { keywords = { "bold" } },
       integrations = {
         alpha = false,
         neogit = false,
@@ -21,7 +18,6 @@ local M = {
         mini = { enabled = false },
         dropbar = { enabled = false },
         illuminate = { enabled = false },
-        mason = true,
         noice = true,
         avante = true,
         neotest = true,
@@ -29,7 +25,7 @@ local M = {
         which_key = true,
         nvim_surround = true,
         snacks = { enabled = true, indent_scope_color = "overlay2" },
-        telescope = { style = Mo.C.transparent and nil or "nvchad" },
+        telescope = { enabled = false },
       },
       custom_highlights = function(colors)
         return {
@@ -57,10 +53,10 @@ local M = {
           },
           LazySpecial = { fg = colors.green },
 
-          -- FloatBorder = {
-          --   fg = Mo.C.transparent and colors.blue or colors.mantle,
-          --   bg = Mo.C.transparent and colors.none or colors.mantle,
-          -- },
+          FloatBorder = {
+            fg = Mo.C.transparent and colors.blue or colors.mantle,
+            bg = Mo.C.transparent and colors.none or colors.mantle,
+          },
 
           FloatTitle = {
             fg = Mo.C.transparent and colors.lavender or colors.base,
