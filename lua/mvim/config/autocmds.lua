@@ -2,31 +2,6 @@ local function augroup(name)
   return vim.api.nvim_create_augroup("mvim_pde_" .. name, { clear = true })
 end
 
--- Works better on non-transparent backgrounds
-local cursorline_exclude = { "neo-tree-popup", "snacks_dashboard", "snacks_picker_input" }
-
----@param buf number
----@return boolean
-local function should_show_cursorline(buf)
-  return vim.bo[buf].filetype ~= ""
-    and not vim.wo.previewwindow
-    and not vim.tbl_contains(cursorline_exclude, vim.bo[buf].filetype)
-end
-
-vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
-  callback = function(args)
-    vim.wo.cursorline = should_show_cursorline(args.buf)
-  end,
-  desc = "Show cursor line only in active window",
-})
-
-vim.api.nvim_create_autocmd({ "BufLeave", "InsertEnter" }, {
-  callback = function()
-    vim.wo.cursorline = false
-  end,
-  desc = "Hide cursorline in inactive window",
-})
-
 vim.api.nvim_create_autocmd("BufReadPost", {
   group = augroup("last_loc"),
   callback = function(args)
