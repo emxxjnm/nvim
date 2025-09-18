@@ -1,79 +1,69 @@
 local M = {
-  "nvim-treesitter/nvim-treesitter",
-  main = "nvim-treesitter.configs",
-  build = ":TSUpdate",
-  event = { "BufReadPost", "BufNewFile" },
-  cmd = { "TSUpdateSync" },
-  init = function(plugin)
-    require("lazy.core.loader").add_to_rtp(plugin)
-    require("nvim-treesitter.query_predicates")
-  end,
-  dependencies = {
-    { "nvim-treesitter/nvim-treesitter-textobjects" },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    lazy = false,
+    branch = "main",
+    build = ":TSUpdate",
+    opts = {
+      ensure_installed = {
+        "bash",
+        "css",
+        "dockerfile",
+        "dot",
+        "gitignore",
+        "go",
+        "gomod",
+        "gowork",
+        "gosum",
+        "html",
+        "javascript",
+        "json",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "nix",
+        "python",
+        "regex",
+        "ron",
+        "rust",
+        "toml",
+        "tsx",
+        "typescript",
+        "vim",
+        "vimdoc",
+        "vue",
+        "yaml",
+      },
+    },
+    config = function(_, opts)
+      local ts = require("nvim-treesitter")
+
+      local installed = ts.get_installed()
+      local install = vim.tbl_filter(function(lang)
+        return not vim.tbl_contains(installed, lang)
+      end, opts.ensure_installed or {})
+      if #install > 0 then
+        ts.install(install, { summary = true })
+        vim.list_extend(installed, install)
+      end
+
+      vim.api.nvim_create_autocmd("FileType", {
+        group = vim.api.nvim_create_augroup("mvim_treesitter", { clear = true }),
+        callback = function(args)
+          local lang = vim.treesitter.language.get_lang(args.match)
+          if vim.tbl_contains(installed, lang) then
+            pcall(vim.treesitter.start)
+          end
+        end,
+        desc = "Start treesitter for specific filetypes",
+      })
+    end,
   },
-  opts = {
-    ensure_installed = {
-      "bash",
-      "css",
-      "dockerfile",
-      "dot",
-      "gitignore",
-      "go",
-      "gomod",
-      "gowork",
-      "gosum",
-      "html",
-      "javascript",
-      "json",
-      "lua",
-      "markdown",
-      "markdown_inline",
-      "nix",
-      "python",
-      "regex",
-      "ron",
-      "rust",
-      "toml",
-      "tsx",
-      "typescript",
-      "vim",
-      "vimdoc",
-      "vue",
-      "yaml",
-    },
-    highlight = { enable = true },
-    indent = { enable = true },
-    incremental_selection = {
-      enable = true,
-      keymaps = {
-        init_selection = "<C-CR>", -- normal mode
-        scope_incremental = false, -- visual mode
-        node_incremental = "<Tab>", -- visual mode
-        node_decremental = "<BS>", -- visual mode
-      },
-    },
-    textobjects = {
-      select = {
-        enable = true,
-        keymaps = {
-          ["ac"] = { query = "@function.outer", desc = "TS: all class" },
-          ["ic"] = { query = "@function.inner", desc = "TS: inner class" },
-          ["af"] = { query = "@function.outer", desc = "TS: all function" },
-          ["if"] = { query = "@function.inner", desc = "TS: inner function" },
-        },
-      },
-      move = {
-        enable = true,
-        goto_next_start = {
-          ["]c"] = { query = "@class.outer", desc = "TS: Next class start" },
-          ["]f"] = { query = "@function.outer", desc = "TS: Next function start" },
-        },
-        goto_previous_start = {
-          ["[c"] = { query = "@class.outer", desc = "TS: Prev class start" },
-          ["[f"] = { query = "@function.outer", desc = "TS: Prev function start" },
-        },
-      },
-    },
+
+  {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
+    event = { "BufReadPost", "BufNewFile" },
   },
 }
 

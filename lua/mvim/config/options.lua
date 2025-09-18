@@ -68,6 +68,7 @@ opt.smartindent = true -- new
 opt.shiftround = true
 opt.shiftwidth = 2
 opt.tabstop = 2 -- new
+opt.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 
 -- number
 opt.number = true
