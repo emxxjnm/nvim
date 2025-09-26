@@ -13,7 +13,7 @@ local M = {
       { "<leader>bL", "<Cmd>BufferLineCloseRight<CR>", desc = "Close to the right" },
     },
     opts = function()
-      local ctp = require("catppuccin.groups.integrations.bufferline")
+      local ctp = require("catppuccin.special.bufferline")
 
       return {
         options = {
