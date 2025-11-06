@@ -60,10 +60,9 @@ keymap("i", "jj", [[col('.') == 1 ? '<Esc>' : '<Esc>l']], { expr = true })
 -- diagnostic
 --- @param count number
 local function diagnostic_jump(count, severity)
-  severity = severity and vim.diagnostic.severity[severity] or nil
   return function()
     vim.diagnostic.jump({
-      severity = severity,
+      severity = severity and vim.diagnostic.severity[severity] or nil,
       count = count,
       -- TODO: use on_jump instead in 0.12
       -- https://github.com/neovim/neovim/blob/c65817774d66ed187a72e449151f6beea1053692/runtime/doc/deprecated.txt#L24
