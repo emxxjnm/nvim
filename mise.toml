@@ -1,0 +1,5 @@
+[tools]
+lua = "latest"
+lua-language-server = "latest"
+stylua = "latest"
+tree-sitter = "latest"
