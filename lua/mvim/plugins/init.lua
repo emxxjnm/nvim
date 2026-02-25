@@ -32,6 +32,7 @@ return {
         end,
       },
       scope = { enabled = true },
+      scroll = { enabled = true },
       notifier = {
         icons = {
           error = "",
