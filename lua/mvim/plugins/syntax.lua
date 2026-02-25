@@ -22,6 +22,7 @@ local M = {
         "markdown",
         "markdown_inline",
         "nix",
+        "nu",
         "python",
         "regex",
         "ron",
