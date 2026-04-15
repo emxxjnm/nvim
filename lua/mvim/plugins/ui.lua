@@ -85,7 +85,7 @@ local M = {
     opts = function()
       return {
         options = {
-          theme = "catppuccin",
+          theme = "catppuccin-nvim",
           component_separators = "",
           section_separators = "",
           disabled_filetypes = {
