@@ -1,5 +1,6 @@
 [tools]
 lua = "latest"
 lua-language-server = "latest"
+nodejs = "latest"
 stylua = "latest"
 tree-sitter = "latest"
