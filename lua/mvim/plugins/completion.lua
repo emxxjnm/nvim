@@ -2,8 +2,13 @@ local M = {
   {
     "saghen/blink.cmp",
     event = { "InsertEnter", "CmdlineEnter" },
-    build = "cargo build --release",
-    dependencies = { "fang2hou/blink-copilot" },
+    build = function()
+      require("blink.cmp").build():wait(60000)
+    end,
+    dependencies = {
+      "saghen/blink.lib",
+      "fang2hou/blink-copilot",
+    },
     opts = {
       keymap = {
         -- disable default preset
