@@ -46,8 +46,8 @@ Personalized Development Environment(PDE)
 
 ### Dependencies
 
-* [x] make (download tiktoken_core library for `CopilotChat.nvim`)
 * [x] cargo (build the fuzzy binary for `blink.cmp`)
+* [x] [tree-sitter CLI (build parsers for `nvim-treesitter`)](https://github.com/tree-sitter/tree-sitter)
 
 * [x] nodejs > 18.x (`copilot`)
 
