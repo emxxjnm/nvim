@@ -19,7 +19,7 @@ return {
       lua = { "stylua" },
       rust = { "rustfmt", lsp_format = "fallback" },
       go = { "goimports", lsp_format = "last" },
-      nix = { "alejandra" },
+      nix = { "nixfmt" },
       javascript = { "eslint_d", "oxfmt" },
       typescript = { "eslint_d", "oxfmt" },
       vue = { "eslint_d", "oxfmt" },
