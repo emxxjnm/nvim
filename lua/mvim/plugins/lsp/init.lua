@@ -1,3 +1,23 @@
+local function get_vue_language_server_path()
+  local exe = vim.fn.exepath("vue-language-server")
+  if exe == "" then return "" end
+
+  local real = vim.uv.fs_realpath(exe) or exe
+
+  local pkg = real:match("(.+/@vue/language%-server)/")
+  if pkg then return pkg end
+
+  local prefix = real:match("(.+)/bin/[^/]+$")
+  if prefix then
+    local p = prefix .. "/lib/language-tools/packages/language-server"
+    if vim.uv.fs_stat(p) then return p end
+    p = prefix .. "/lib/node_modules/@vue/language-server"
+    if vim.uv.fs_stat(p) then return p end
+  end
+
+  return ""
+end
+
 local M = {
   "neovim/nvim-lspconfig",
   event = { "BufReadPost", "BufNewFile" },
@@ -6,7 +26,7 @@ local M = {
       "<leader>ll",
       function()
         Snacks.win({
-          file = vim.lsp.get_log_path(),
+          file = vim.lsp.log.get_filename(),
           height = 0.9,
           width = 0.9,
           border = Mo.C.border,
@@ -81,7 +101,7 @@ local M = {
           },
         },
       },
-      pyright = {},
+      ty = {},
       nil_ls = {},
       lua_ls = {
         settings = {
@@ -92,18 +112,30 @@ local M = {
           },
         },
       },
-      vue_ls = {
-        init_options = {
-          vue = { hybridMode = false },
+      vtsls = {
+        settings = {
+          vtsls = {
+            tsserver = {
+              globalPlugins = {
+                {
+                  name = "@vue/typescript-plugin",
+                  location = get_vue_language_server_path(),
+                  languages = { "vue" },
+                  configNamespace = "typescript",
+                },
+              },
+            },
+          },
         },
         filetypes = {
-          "vue",
           "typescript",
           "javascript",
           "javascriptreact",
           "typescriptreact",
+          "vue",
         },
       },
+      vue_ls = {},
     },
   },
   config = function(_, opts)
