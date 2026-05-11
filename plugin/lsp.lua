@@ -1,50 +1,66 @@
-local function get_vue_language_server_path()
-  local exe = vim.fn.exepath("vue-language-server")
-  if exe == "" then return "" end
+-- Standalone keymaps (don't need lspconfig loaded)
+-- stylua: ignore start
+vim.keymap.set("n", "<leader>ll", function()
+  Snacks.win({ file = vim.lsp.log.get_filename(), height = 0.9, width = 0.9, border = Mo.C.border }):set_title("LSP log", "center")
+end, { desc = "Lsp Log" })
+vim.keymap.set("n", "<leader>lr", "<CMD>LspRestart<CR>", { desc = "Lsp Restart" })
+vim.keymap.set("n", "<leader>li", function() Snacks.picker.lsp_config({ configured = true }) end, { desc = "Lsp Info" })
+-- stylua: ignore end
 
-  local real = vim.uv.fs_realpath(exe) or exe
+-- BufReadPost/BufNewFile: load lspconfig and configure servers
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+  group = vim.api.nvim_create_augroup("mvim_lsp_setup", { clear = true }),
+  once = true,
+  callback = function()
+    vim.pack.add({ "https://github.com/neovim/nvim-lspconfig" })
 
-  local pkg = real:match("(.+/@vue/language%-server)/")
-  if pkg then return pkg end
+    require("mvim.lsp").setup_diagnostics()
 
-  local prefix = real:match("(.+)/bin/[^/]+$")
-  if prefix then
-    local p = prefix .. "/lib/language-tools/packages/language-server"
-    if vim.uv.fs_stat(p) then return p end
-    p = prefix .. "/lib/node_modules/@vue/language-server"
-    if vim.uv.fs_stat(p) then return p end
-  end
-
-  return ""
-end
-
-local M = {
-  "neovim/nvim-lspconfig",
-  event = { "BufReadPost", "BufNewFile" },
-  keys = {
-    {
-      "<leader>ll",
-      function()
-        Snacks.win({
-          file = vim.lsp.log.get_filename(),
-          height = 0.9,
-          width = 0.9,
-          border = Mo.C.border,
-        }):set_title("LSP log", "center")
+    vim.api.nvim_create_autocmd("LspAttach", {
+      group = vim.api.nvim_create_augroup("mvim_lsp_attach", { clear = true }),
+      callback = function(args)
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client then
+          require("mvim.lsp").on_attach(client, args.buf)
+        end
       end,
-      desc = "Lsp Log",
-    },
-    {
-      "<leader>li",
-      function()
-        Snacks.picker.lsp_config({ configured = true })
-      end,
-      desc = "Lsp Info",
-    },
-    { "<leader>lr", "<CMD>LspRestart<CR>", desc = "Lsp Restart" },
-  },
-  opts = {
-    servers = {
+    })
+
+    local capabilities = vim.tbl_deep_extend(
+      "force",
+      vim.lsp.protocol.make_client_capabilities(),
+      { workspace = { fileOperations = { didRename = true, willRename = true } } }
+    )
+
+    local function get_vue_language_server_path()
+      local exe = vim.fn.exepath("vue-language-server")
+      if exe == "" then
+        return ""
+      end
+
+      local real = vim.uv.fs_realpath(exe) or exe
+
+      local pkg = real:match("(.+/@vue/language%-server)/")
+      if pkg then
+        return pkg
+      end
+
+      local prefix = real:match("(.+)/bin/[^/]+$")
+      if prefix then
+        local p = prefix .. "/lib/language-tools/packages/language-server"
+        if vim.uv.fs_stat(p) then
+          return p
+        end
+        p = prefix .. "/lib/node_modules/@vue/language-server"
+        if vim.uv.fs_stat(p) then
+          return p
+        end
+      end
+
+      return ""
+    end
+
+    local servers = {
       gopls = {
         settings = {
           gopls = {
@@ -136,42 +152,14 @@ local M = {
         },
       },
       vue_ls = {},
-    },
-  },
-  config = function(_, opts)
-    require("mvim.plugins.lsp.diagnostic").setup()
+    }
 
-    vim.api.nvim_create_autocmd("LspAttach", {
-      group = vim.api.nvim_create_augroup("SetupLspAutocmd", { clear = true }),
-      callback = function(args)
-        local buffer = args.buf
-        local client = vim.lsp.get_client_by_id(args.data.client_id)
-        if client then
-          require("mvim.plugins.lsp.keymaps").on_attach(client, buffer)
-          -- require("mvim.plugins.lsp.codelens").on_attach(client, buffer)
-        end
-      end,
-    })
-
-    for server, server_opts in pairs(opts.servers) do
+    for server, server_opts in pairs(servers) do
       local config = vim.tbl_deep_extend("force", {
-        workspace = {
-          fileOperations = {
-            didRename = true,
-            willRename = true,
-          },
-        },
-      }, vim.lsp.protocol.make_client_capabilities(), server_opts or {})
-
+        capabilities = capabilities,
+      }, server_opts or {})
       vim.lsp.config(server, config)
-
-      if not vim.lsp.is_enabled(server) then
-        vim.schedule(function()
-          vim.lsp.enable(server)
-        end)
-      end
+      vim.lsp.enable(server)
     end
   end,
-}
-
-return M
+})

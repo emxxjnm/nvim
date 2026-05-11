@@ -17,7 +17,7 @@ keymap("n", "<M-k>", "<Cmd>execute 'move .-' . (v:count1 + 1)<CR>==", { desc = "
 keymap("n", "<M-j>", "<Cmd>execute 'move .+' . v:count1<CR>==", { desc = "Move down" })
 keymap("i", "<M-k>", "<Esc><Cmd>move .-2<CR>==gi", { desc = "Move up" })
 keymap("i", "<M-j>", "<Esc><Cmd>move .+1<CR>==gi", { desc = "Move down" })
--- stylua: ignore 
+-- stylua: ignore
 keymap("v", "<M-k>", ":<C-u>execute \"'<,'>move '<-\" . (v:count1 + 1)<CR>gv=gv", { desc = "Move up" })
 keymap("v", "<M-j>", ":<C-u>execute \"'<,'>move '>+\" . v:count1<CR>gv=gv", { desc = "Move down" })
 
@@ -58,22 +58,22 @@ keymap({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, desc = "Mo
 keymap("i", "jj", [[col('.') == 1 ? '<Esc>' : '<Esc>l']], { expr = true })
 
 -- diagnostic
---- @param count number
+---@param count number
 local function diagnostic_jump(count, severity)
   return function()
     vim.diagnostic.jump({
       severity = severity and vim.diagnostic.severity[severity] or nil,
       count = count,
-      -- TODO: use on_jump instead in 0.12
-      -- https://github.com/neovim/neovim/blob/c65817774d66ed187a72e449151f6beea1053692/runtime/doc/deprecated.txt#L24
-      float = true,
+      on_jump = function(_, bufnr)
+        vim.diagnostic.open_float({ bufnr = bufnr, scope = "cursor", focus = false })
+      end,
     })
   end
 end
 
 keymap("n", "<leader>cd", function()
   vim.diagnostic.open_float({ scope = "cursor", force = false })
-end, { desc = "Line Diagnostic" })
+end, { desc = "Cursor Diagnostic" })
 keymap("n", "]d", diagnostic_jump(1), { desc = "Next Diagnostic" })
 keymap("n", "[d", diagnostic_jump(-1), { desc = "Prev Diagnostic" })
 keymap("n", "]e", diagnostic_jump(1, "ERROR"), { desc = "Next Error" })
@@ -81,19 +81,7 @@ keymap("n", "[e", diagnostic_jump(-1, "ERROR"), { desc = "Prev Error" })
 keymap("n", "]w", diagnostic_jump(1, "WARN"), { desc = "Next Warning" })
 keymap("n", "[w", diagnostic_jump(-1, "WARN"), { desc = "Prev Warning" })
 
-keymap("n", "<leader>pl", "<CMD>Lazy<CR>", { desc = "Lazy" })
-
--- stylua: ignore start
-Mo.U.format.snacks_toggle():map("<leader>of")
-Mo.U.format.snacks_toggle(true):map("<leader>oF")
-Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>os")
-Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>ow")
-Snacks.toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>oL")
-Snacks.toggle.line_number():map("<leader>ol")
-Snacks.toggle.treesitter():map("<leader>ot")
-Snacks.toggle.diagnostics():map("<leader>od")
-Snacks.toggle.inlay_hints():map("<leader>oh")
-Snacks.toggle.zen():map("<leader><Space>")
+keymap("n", "<leader>pu", function() vim.pack.update() end, { desc = "Pack Update" })
 
 -- Code format
-keymap({ "n", "x" }, "<leader>cf", function() Mo.U.format.format({ force = true }) end, { desc = "Code format" })
+keymap({ "n", "x" }, "<leader>cf", function() require("mvim.format").format({ force = true }) end, { desc = "Code format" })

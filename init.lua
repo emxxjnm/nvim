@@ -1,24 +1,38 @@
+vim.loader.enable()
+
 ---@class Mo
 ---@field C mvim.config
----@field U mvim.util
-local ns = {}
+Mo = {}
+Mo.C = require("mvim.config")
 
-local function load_module(key)
-  if key == "C" then
-    return require("mvim.config")
-  elseif key == "U" then
-    return require("mvim.util")
-  end
+require("mvim.options")
+
+for _, p in ipairs({
+  "netrw",
+  "netrwPlugin",
+  "gzip",
+  "tarPlugin",
+  "zipPlugin",
+  "matchit",
+  "spellfile_plugin",
+  "tutor_mode_plugin",
+  "remote_plugins",
+}) do
+  vim.g["loaded_" .. p] = 1
 end
 
-Mo = setmetatable(ns, {
-  __index = function(t, key)
-    local module = load_module(key)
-    if module then
-      rawset(t, key, module)
+-- PackChanged hooks (must be registered before any vim.pack.add)
+vim.api.nvim_create_autocmd("User", {
+  pattern = "PackChanged",
+  callback = function(args)
+    local data = args.data
+    local name = data.name
+    local kind = data.kind
+
+    if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
+      vim.cmd("TSUpdate")
+    elseif name == "blink.cmp" and (kind == "install" or kind == "update") then
+      require("blink.cmp").build():wait(60000)
     end
-    return module
   end,
 })
-
-Mo.C.setup()
