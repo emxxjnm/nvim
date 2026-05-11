@@ -101,12 +101,12 @@ M.components = {
 
   spaces = {
     function()
-      if not vim.bo[0].expandtab then
-        return "Tab:" .. vim.bo[0].tabstop
+      if not vim.bo.expandtab then
+        return "Tab:" .. vim.bo.tabstop
       end
-      local size = vim.bo[0].shiftwidth
+      local size = vim.bo.shiftwidth
       if size == 0 then
-        size = vim.bo[0].tabstop
+        size = vim.bo.tabstop
       end
       return "Spaces:" .. size
     end,

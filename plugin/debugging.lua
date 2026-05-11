@@ -1,7 +1,3 @@
--- sign_define runs immediately (no plugin load needed)
-vim.fn.sign_define("DapStopped", { text = "󰋇 ", texthl = "DapStopped", numhl = "DapStopped" })
-vim.fn.sign_define("DapBreakpoint", { text = "󰄛 ", texthl = "DapBreakpoint", numhl = "DapBreakpoint" })
-
 local load_dap = Mo.once(function()
 
   vim.pack.add({
@@ -13,6 +9,14 @@ local load_dap = Mo.once(function()
 
   local dap = require("dap")
   local dapui = require("dapui")
+
+  dap.defaults.fallback.sign_priority = {
+    breakpoint = 10,
+    stopped = 20,
+  }
+
+  vim.fn.sign_define("DapStopped", { text = "󰋇 ", texthl = "DapStopped", numhl = "DapStopped" })
+  vim.fn.sign_define("DapBreakpoint", { text = "󰄛 ", texthl = "DapBreakpoint", numhl = "DapBreakpoint" })
 
   -- nvim-dap-virtual-text
   require("nvim-dap-virtual-text").setup({ highlight_new_as_changed = true })
@@ -72,7 +76,7 @@ local load_dap = Mo.once(function()
     pattern = { "\\[dap-repl\\]", "DAP *" },
     callback = vim.schedule_wrap(function(args)
       local win = vim.fn.bufwinid(args.buf)
-      vim.api.nvim_set_option_value("wrap", true, { win = win })
+      vim.wo[win].wrap = true
     end),
   })
 end)

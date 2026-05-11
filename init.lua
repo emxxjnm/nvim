@@ -24,6 +24,8 @@ for _, p in ipairs({
   "tarPlugin",
   "zipPlugin",
   "matchit",
+  "matchparen",
+  "tohtml",
   "spellfile_plugin",
   "tutor_mode_plugin",
   "remote_plugins",

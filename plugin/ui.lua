@@ -112,8 +112,6 @@ vim.schedule(function()
       },
       override = {
         ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-        -- deprecated in 0.14, track noice adaptation
-        ["vim.lsp.util.stylize_markdown"] = true,
       },
     },
     routes = {

@@ -7,6 +7,12 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
 
     vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
 
+    local function has_config(names)
+      return function(_, ctx)
+        return vim.fs.find(names, { path = ctx.filename, upward = true })[1]
+      end
+    end
+
     require("conform").setup({
       formatters_by_ft = {
         sh = { "shfmt" },
@@ -22,16 +28,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
       },
       formatters = {
         shfmt = { prepend_args = { "-i", "2", "-ci" } },
-        eslint_d = {
-          condition = function(self, ctx)
-            return vim.fs.find({ "eslint.config.js" }, { path = ctx.filename, upward = true })[1]
-          end,
-        },
-        oxfmt = {
-          condition = function(self, ctx)
-            return vim.fs.find({ ".oxfmtrc.json" }, { path = ctx.filename, upward = true })[1]
-          end,
-        },
+        eslint_d = { condition = has_config({ "eslint.config.js" }) },
+        oxfmt = { condition = has_config({ ".oxfmtrc.json" }) },
       },
     })
 
@@ -45,16 +43,8 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
     local lint = require("lint")
 
     local linters = {
-      eslint_d = {
-        condition = function(ctx)
-          return vim.fs.find({ "eslint.config.js" }, { path = ctx.filename, upward = true })[1]
-        end,
-      },
-      oxlint = {
-        condition = function(ctx)
-          return vim.fs.find({ ".oxlintrc.json" }, { path = ctx.filename, upward = true })[1]
-        end,
-      },
+      eslint_d = { condition = has_config({ "eslint.config.js" }) },
+      oxlint = { condition = has_config({ ".oxlintrc.json" }) },
     }
 
     for name, linter in pairs(linters) do
@@ -95,7 +85,11 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
           vim.notify("Linter not found: " .. name, vim.log.levels.WARN)
         end
         return linter
-          and not (type(linter) == "table" and linter.condition and not linter.condition(ctx))
+          and not (
+            type(linter) == "table"
+            and linter.condition
+            and not linter.condition(linter, ctx)
+          )
       end, names)
 
       if #names > 0 then

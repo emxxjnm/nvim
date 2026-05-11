@@ -34,9 +34,12 @@ local ensure_installed = {
 }
 
 vim.schedule(function()
-  local installed = ts.get_installed()
+  local installed = {}
+  for _, lang in ipairs(ts.get_installed()) do
+    installed[lang] = true
+  end
   local install = vim.tbl_filter(function(lang)
-    return not vim.tbl_contains(installed, lang)
+    return not installed[lang]
   end, ensure_installed)
   if #install > 0 then
     ts.install(install, { summary = true })
