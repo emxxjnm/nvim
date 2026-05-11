@@ -1,9 +1,4 @@
-local loaded = false
-local function load_neotest()
-  if loaded then
-    return
-  end
-  loaded = true
+local load_neotest = Mo.once(function()
 
   vim.pack.add({
     "https://github.com/nvim-lua/plenary.nvim",
@@ -51,7 +46,7 @@ local function load_neotest()
       }),
     },
   })
-end
+end)
 
 -- stylua: ignore start
 vim.keymap.set("n", "<leader>ts", function() load_neotest(); require("neotest").summary.toggle() end, { desc = "Toggle summary" })

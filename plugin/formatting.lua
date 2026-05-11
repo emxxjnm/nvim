@@ -35,12 +35,9 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
       },
     })
 
-    require("mvim.format").formatter = {
-      name = "conform.nvim",
-      format = function(buf)
-        require("conform").format({ bufnr = buf })
-      end,
-    }
+    require("mvim.format").setup(function(buf)
+      require("conform").format({ bufnr = buf })
+    end)
 
     -- nvim-lint
     vim.pack.add({ "https://github.com/mfussenegger/nvim-lint" })
@@ -110,7 +107,5 @@ vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
       group = vim.api.nvim_create_augroup("mvim_lint", { clear = true }),
       callback = debounce(100, do_lint),
     })
-
-    require("mvim.format").setup()
   end,
 })

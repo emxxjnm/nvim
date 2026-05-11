@@ -1,18 +1,7 @@
 local levels = vim.log.levels
 
 ---@class mvim.util.format
-local M = setmetatable({}, {
-  __call = function(m, ...)
-    return m.format(...)
-  end,
-})
-
----@class Formatter
----@field name string
----@field format fun(buf:number)
-
----@type Formatter
-M.formatter = nil
+local M = {}
 
 ---@param buf? number
 function M.enabled(buf)
@@ -78,22 +67,24 @@ function M.format(opts)
     return
   end
 
-  if M.formatter == nil then
-    vim.notify("**No formatter set**", levels.ERROR)
+  if not M._format then
+    vim.notify("Formatter not ready (open a file first)", levels.WARN)
     return
   end
 
   xpcall(function()
-    M.formatter.format(buf)
+    M._format(buf)
   end, function(err)
-    -- local msg = debug.traceback(err)
     vim.schedule(function()
       vim.notify("Code Format Error: " .. err, levels.ERROR)
     end)
   end)
 end
 
-function M.setup()
+---@param format_fn fun(buf:number)
+function M.setup(format_fn)
+  M._format = format_fn
+
   vim.api.nvim_create_autocmd("BufWritePre", {
     group = vim.api.nvim_create_augroup("code_format", {}),
     callback = function(args)

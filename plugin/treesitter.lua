@@ -33,15 +33,15 @@ local ensure_installed = {
   "yaml",
 }
 
-local installed = ts.get_installed()
-local install = vim.tbl_filter(function(lang)
-  return not vim.tbl_contains(installed, lang)
-end, ensure_installed)
-if #install > 0 then
-  vim.schedule(function()
+vim.schedule(function()
+  local installed = ts.get_installed()
+  local install = vim.tbl_filter(function(lang)
+    return not vim.tbl_contains(installed, lang)
+  end, ensure_installed)
+  if #install > 0 then
     ts.install(install, { summary = true })
-  end)
-end
+  end
+end)
 
 vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("mvim_treesitter", { clear = true }),

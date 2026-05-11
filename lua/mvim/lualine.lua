@@ -2,8 +2,6 @@
 local M = {}
 
 local fn = vim.fn
--- safe: 0-colorscheme.lua (immediate) sets palette before ui.lua (vim.schedule) requires this module
-local palette = Mo.C.palette
 
 M.conditions = {
   hide_in_width = function()
@@ -25,14 +23,14 @@ M.components = {
 
   branch = {
     "branch",
-    icon = { "", color = { fg = palette.pink, gui = "bold" } },
+    icon = { "", color = { fg = Mo.C.palette.pink, gui = "bold" } },
     color = { gui = "bold" },
   },
 
   filesize = {
     "filesize",
     icon = "󰙴",
-    color = { fg = palette.lavender },
+    color = { fg = Mo.C.palette.lavender },
     padding = { left = 1, right = 1 },
     cond = M.conditions.hide_in_width,
   },
@@ -71,7 +69,7 @@ M.components = {
       return require("dap").status()
     end,
     icon = "",
-    color = { fg = palette.yellow },
+    color = { fg = Mo.C.palette.yellow },
     cond = function()
       return package.loaded["dap"] and require("dap").status() ~= ""
     end,
@@ -84,7 +82,7 @@ M.components = {
       local col = fn.virtcol(".")
       return string.format("%d/%d:%d", line, lines, col)
     end,
-    icon = { "", color = { fg = palette.pink, gui = "bold" } },
+    icon = { "", color = { fg = Mo.C.palette.pink, gui = "bold" } },
     color = { gui = "bold" },
   },
 
@@ -98,7 +96,7 @@ M.components = {
       local index = math.ceil(line_ratio * #chars)
       return chars[index]
     end,
-    color = { fg = palette.surface0 },
+    color = { fg = Mo.C.palette.surface0 },
   },
 
   spaces = {
@@ -114,7 +112,7 @@ M.components = {
     end,
     padding = { left = 1, right = 1 },
     cond = M.conditions.hide_in_width,
-    color = { fg = palette.sapphire },
+    color = { fg = Mo.C.palette.sapphire },
   },
 }
 

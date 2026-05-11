@@ -53,7 +53,7 @@ opt.foldcolumn = "auto"
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
-opt.laststatus = 0 -- 3
+opt.laststatus = 0 -- hide raw statusline before lualine (vim.schedule) loads
 opt.showcmd = false
 opt.showmode = false
 

@@ -1,9 +1,4 @@
-local loaded = false
-local function load_neo_tree()
-  if loaded then
-    return
-  end
-  loaded = true
+local load_neo_tree = Mo.once(function()
 
   vim.pack.add({
     "https://github.com/nvim-lua/plenary.nvim",
@@ -160,7 +155,7 @@ local function load_neo_tree()
       end
     end,
   })
-end
+end)
 
 -- Directory argument detection
 if vim.fn.argc(-1) == 1 then

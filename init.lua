@@ -3,6 +3,16 @@ vim.loader.enable()
 ---@class Mo
 ---@field C mvim.config
 Mo = {}
+
+function Mo.once(fn)
+  local done = false
+  return function(...)
+    if done then return end
+    done = true
+    return fn(...)
+  end
+end
+
 Mo.C = require("mvim.config")
 
 require("mvim.options")

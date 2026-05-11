@@ -2,12 +2,7 @@
 vim.fn.sign_define("DapStopped", { text = "󰋇 ", texthl = "DapStopped", numhl = "DapStopped" })
 vim.fn.sign_define("DapBreakpoint", { text = "󰄛 ", texthl = "DapBreakpoint", numhl = "DapBreakpoint" })
 
-local loaded = false
-local function load_dap()
-  if loaded then
-    return
-  end
-  loaded = true
+local load_dap = Mo.once(function()
 
   vim.pack.add({
     "https://github.com/nvim-neotest/nvim-nio",
@@ -80,7 +75,7 @@ local function load_dap()
       vim.api.nvim_set_option_value("wrap", true, { win = win })
     end),
   })
-end
+end)
 
 -- stylua: ignore start
 vim.keymap.set("n", "<leader>db", function() load_dap(); require("dap").toggle_breakpoint() end, { desc = "Toggle breakpoint" })
