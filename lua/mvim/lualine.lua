@@ -96,7 +96,7 @@ M.components = {
       local index = math.ceil(line_ratio * #chars)
       return chars[index]
     end,
-    color = { fg = Mo.C.palette.surface0 },
+    color = { fg = Mo.C.palette.subtle },
   },
 
   spaces = {

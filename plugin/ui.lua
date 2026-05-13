@@ -10,7 +10,6 @@ vim.schedule(function()
   })
 
   -- bufferline
-  local ctp = require("catppuccin.special.bufferline")
   require("bufferline").setup({
     options = {
       indicator = { icon = "▍", style = "icon" },
@@ -52,27 +51,23 @@ vim.schedule(function()
       show_buffer_close_icons = false,
       sort_by = "insert_after_current",
     },
-    highlights = ctp.get_theme({
-      custom = {
-        all = {
-          buffer_selected = { fg = Mo.C.palette.lavender },
-          error = { fg = Mo.C.palette.surface1 },
-          error_diagnostic = { fg = Mo.C.palette.surface1 },
-          warning = { fg = Mo.C.palette.surface1 },
-          warning_diagnostic = { fg = Mo.C.palette.surface1 },
-          info = { fg = Mo.C.palette.surface1 },
-          info_diagnostic = { fg = Mo.C.palette.surface1 },
-          hint = { fg = Mo.C.palette.surface1 },
-          hint_diagnostic = { fg = Mo.C.palette.surface1 },
-        },
-      },
+    highlights = Mo.C.theme.bufferline_highlights({
+      buffer_selected = { fg = Mo.C.palette.lavender },
+      error = { fg = Mo.C.palette.muted },
+      error_diagnostic = { fg = Mo.C.palette.muted },
+      warning = { fg = Mo.C.palette.muted },
+      warning_diagnostic = { fg = Mo.C.palette.muted },
+      info = { fg = Mo.C.palette.muted },
+      info_diagnostic = { fg = Mo.C.palette.muted },
+      hint = { fg = Mo.C.palette.muted },
+      hint_diagnostic = { fg = Mo.C.palette.muted },
     }),
   })
 
   -- lualine
   require("lualine").setup({
     options = {
-      theme = "catppuccin-nvim",
+      theme = Mo.C.theme.lualine,
       component_separators = "",
       section_separators = "",
       disabled_filetypes = {

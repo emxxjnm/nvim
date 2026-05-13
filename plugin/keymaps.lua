@@ -81,7 +81,11 @@ keymap("n", "[e", diagnostic_jump(-1, "ERROR"), { desc = "Prev Error" })
 keymap("n", "]w", diagnostic_jump(1, "WARN"), { desc = "Next Warning" })
 keymap("n", "[w", diagnostic_jump(-1, "WARN"), { desc = "Prev Warning" })
 
-keymap("n", "<leader>pu", function() vim.pack.update() end, { desc = "Pack Update" })
+keymap("n", "<leader>pu", function()
+  vim.pack.update()
+end, { desc = "Pack Update" })
 
 -- Code format
-keymap({ "n", "x" }, "<leader>cf", function() require("mvim.format").format({ force = true }) end, { desc = "Code format" })
+keymap({ "n", "x" }, "<leader>cf", function()
+  require("mvim.format").format({ force = true })
+end, { desc = "Code format" })

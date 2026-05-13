@@ -1,8 +1,32 @@
 ---@class mvim.config
 local M = {}
 
----@type CtpColors<string> | CtpColor
+---@class mvim.Palette
+---@field pink string
+---@field lavender string
+---@field sapphire string
+---@field yellow string
+---@field green string
+---@field red string
+---@field blue string
+---@field teal string
+---@field peach string
+---@field mauve string
+---@field muted string
+---@field subtle string
+
+---@type mvim.Palette
 M.palette = {}
+
+---@class mvim.Theme
+---@field lualine string
+---@field bufferline_highlights fun(overrides: table): table
+
+---@type mvim.Theme
+M.theme = {
+  lualine = "auto",
+  bufferline_highlights = function(overrides) return overrides end,
+}
 
 M.transparent = true
 

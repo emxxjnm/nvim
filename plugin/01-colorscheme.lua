@@ -46,4 +46,9 @@ require("catppuccin").setup({
 
 vim.cmd.colorscheme("catppuccin")
 
-Mo.C.palette = require("catppuccin.palettes").get_palette()
+local adapter = require("mvim.palettes.catppuccin")
+Mo.C.palette = adapter.palette
+Mo.C.theme = {
+  lualine = adapter.lualine_theme,
+  bufferline_highlights = adapter.bufferline_highlights,
+}

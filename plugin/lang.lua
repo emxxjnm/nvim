@@ -16,7 +16,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- render-markdown: FileType markdown/Avante trigger
 vim.api.nvim_create_autocmd("FileType", {
-  pattern = { "markdown", "Avante" },
+  pattern = { "markdown" },
   once = true,
   callback = function()
     vim.pack.add({ "https://github.com/MeanderingProgrammer/render-markdown.nvim" })
@@ -38,6 +38,11 @@ vim.api.nvim_create_autocmd("FileType", {
       },
     })
 
-    vim.keymap.set("n", "<leader>mr", "<Cmd>RenderMarkdown toggle<CR>", { desc = "Toggle render markdown" })
+    vim.keymap.set(
+      "n",
+      "<leader>mr",
+      "<Cmd>RenderMarkdown toggle<CR>",
+      { desc = "Toggle render markdown" }
+    )
   end,
 })
