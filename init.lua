@@ -7,7 +7,9 @@ Mo = {}
 function Mo.once(fn)
   local done = false
   return function(...)
-    if done then return end
+    if done then
+      return
+    end
     done = true
     return fn(...)
   end

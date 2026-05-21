@@ -5,7 +5,7 @@
 Personalized Development Environment(PDE)
 
 * Transparency first.
-* For coding `Rust`, `Vue3`, `Go`, `Python`.
+* For coding `Rust`, `Vue3`, `Go`, `Python`, `Lua`, `Nix`.
 
 > [!NOTE]
 >
@@ -13,12 +13,14 @@ Personalized Development Environment(PDE)
 >
 > use `direnv` and nix-shell to manage the lsps  formatters etc.(NixOS)
 
-| Language  | LSP                 | Formatter         | Linter   |
-| ---       | ---                 | ---               | ---      |
-| Go        | gopls               | goimports & gopls | -        |
-| Rust      | rust-analyzer       | rustfmt           | clippy   |
-| Python    | pyright             | ruff              | ruff     |
-| Vue/TS/JS | vue-language-server | eslint_d          | eslint_d |
+| Language  | LSP                  | Formatter         | Linter   |
+| ---       | ---                  | ---               | ---      |
+| Go        | gopls                | goimports & gopls | -        |
+| Rust      | rust-analyzer        | rustfmt           | clippy   |
+| Python    | ty                   | ruff              | ruff     |
+| Lua       | lua_ls               | stylua            | -        |
+| Nix       | nil_ls               | nixfmt            | -        |
+| Vue/TS/JS | vtsls + vue_ls       | eslint_d          | eslint_d |
 
 ## Preview
 
@@ -48,9 +50,6 @@ Personalized Development Environment(PDE)
 
 * [x] cargo (build the fuzzy binary for `blink.cmp`)
 * [x] [tree-sitter CLI (build parsers for `nvim-treesitter`)](https://github.com/tree-sitter/tree-sitter)
-
-* [x] nodejs > 18.x (`copilot`)
-
 * [x] [fd](https://github.com/sharkdp/fd)
 * [x] [fzf](https://github.com/junegunn/fzf)
 * [x] [ripgrep](https://github.com/BurntSushi/ripgrep)
@@ -92,16 +91,15 @@ Personalized Development Environment(PDE)
 | gd             | goto definition           | **n**        |
 | gD             | goto declaration          | **n**        |
 | gt             | goto type definition      | **n**        |
-| K              | hover                     | **n**        |
 | gri            | goto implementation       | **n**        |
 | grr            | references                | **n**        |
-| grn            | rename                    | **n**        |
-| C-s            | signature help            | **n**        |
-| C-s            | signature help            | **i**        |
-| [d             | next diagnostic           | **n**        |
-| ]d             | prev diagnostic           | **n**        |
-| leader + ca    | [c]ode [a]ction           | **n**        |
-| leader + cc    | [c]ode [c]odelens run     | **n**        |
+| [d             | prev diagnostic           | **n**        |
+| ]d             | next diagnostic           | **n**        |
+| [e             | prev error                | **n**        |
+| ]e             | next error                | **n**        |
+| [w             | prev warning              | **n**        |
+| ]w             | next warning              | **n**        |
+| leader + cc    | [c]ode [c]odelens run     | **n**, **v** |
 | leader + cC    | [c]ode [C]odelens display | **n**        |
 | leader + cd    | [c]ode [d]iagnostic       | **n**        |
 | leader + cf    | [c]ode [f]ormat           | **n**, **v** |
@@ -125,7 +123,7 @@ Personalized Development Environment(PDE)
 | leader + fR    | [R]esume                  | **n**         |
 | leader + fs    | [s]ymbols                 | **n**         |
 | leader + fS    | [S]ymbols(workspace)      | **n**         |
-| leader + fT    | [T]odos                   | **n**         |
+| leader + fT    | [T]ODOs                   | **n**         |
 | leader + fu    | [u]ndo                    | **n**         |
 | leader + fw    | [w]ord                    | **n**, **v**  |
 
@@ -143,7 +141,7 @@ Personalized Development Environment(PDE)
 | leader + bH    | close to the left  | **n**          |
 | leader + bL    | close to the right | **n**          |
 | leader + b[    | buffer move prev   | **n**          |
-| leader + b[    | buffer move next   | **n**          |
+| leader + b]    | buffer move next   | **n**          |
 
 
 ### Git: leader + [g]it
@@ -176,17 +174,18 @@ Personalized Development Environment(PDE)
 
 ### Options: leader + [o]ption
 
-| Key            | Description            | Mode           |
-| -------------- | --------------         | -------------- |
-| leader + od    | [d]iagnostic           | **n**          |
-| leader + of    | [f]ormat(Global)       | **n**          |
-| leader + oF    | [F]ormat(Buffer)       | **n**          |
-| leader + oh    | [h]ints                | **n**          |
-| leader + ol    | [l]ine number          | **n**          |
-| leader + oL    | relative [L]ine number | **n**          |
-| leader + os    | [s]pell                | **n**          |
-| leader + ot    | [t]reesitter           | **n**          |
-| leader + ow    | [w]rap                 | **n**          |
+| Key              | Description            | Mode           |
+| ---------------- | --------------         | -------------- |
+| leader + od      | [d]iagnostic           | **n**          |
+| leader + of      | [f]ormat(Global)       | **n**          |
+| leader + oF      | [F]ormat(Buffer)       | **n**          |
+| leader + oh      | [h]ints                | **n**          |
+| leader + ol      | [l]ine number          | **n**          |
+| leader + oL      | relative [L]ine number | **n**          |
+| leader + os      | [s]pell                | **n**          |
+| leader + ot      | [t]reesitter           | **n**          |
+| leader + ow      | [w]rap                 | **n**          |
+| leader + \<Space\> | zen mode             | **n**          |
 
 
 ### Explorer
@@ -210,3 +209,60 @@ Personalized Development Environment(PDE)
 | leader + tp    | [p]anel toggle   | **n**          |
 | [t             | prev failed test | **n**          |
 | ]t             | next failed test | **n**          |
+
+
+### Flash
+
+| Key | Description      | Mode                  |
+| --- | ---------------- | --------------------- |
+| s   | flash jump       | **n**, **x**, **o**   |
+| S   | flash treesitter | **n**, **x**, **o**   |
+
+
+### Surround
+
+| Key | Description      | Mode         |
+| --- | ---------------- | ------------ |
+| gsa | add surround     | **n**, **x** |
+| gsd | delete surround  | **n**        |
+| gsc | change surround  | **n**        |
+
+
+### References
+
+| Key | Description    | Mode  |
+| --- | -------------- | ----- |
+| ]]  | next reference | **n** |
+| [[  | prev reference | **n** |
+
+
+### Navigate
+
+| Key | Description       | Mode  |
+| --- | ----------------- | ----- |
+| [T  | prev TODO comment | **n** |
+| ]T  | next TODO comment | **n** |
+
+
+### Notification: leader + [n]otification
+
+| Key            | Description      | Mode  |
+| -------------- | ---------------- | ----- |
+| leader + nl    | [l]ast message   | **n** |
+| leader + nh    | [h]istory        | **n** |
+| leader + na    | [a]ll messages   | **n** |
+| leader + nd    | [d]ismiss all    | **n** |
+
+
+### Markdown: leader + [m]arkdown
+
+| Key            | Description             | Mode  |
+| -------------- | ----------------------- | ----- |
+| leader + mr    | toggle [r]ender         | **n** |
+
+
+### Pack: leader + [p]ack
+
+| Key            | Description  | Mode  |
+| -------------- | ------------ | ----- |
+| leader + pu    | [u]pdate     | **n** |
