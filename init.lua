@@ -46,7 +46,7 @@ vim.api.nvim_create_autocmd("User", {
     if name == "nvim-treesitter" and (kind == "install" or kind == "update") then
       vim.cmd("TSUpdate")
     elseif name == "blink.cmp" and (kind == "install" or kind == "update") then
-      require("blink.cmp").build():wait(60000)
+      require("blink.cmp").download():wait(60000)
     end
   end,
 })
