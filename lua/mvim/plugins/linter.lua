@@ -12,16 +12,11 @@ return {
     events = { "BufWritePost", "BufReadPost", "InsertLeave" },
     linters_by_ft = {
       python = { "ruff" },
-      typescript = { "eslint_d", "oxlint" },
-      javascript = { "eslint_d", "oxlint" },
-      vue = { "eslint_d", "oxlint" },
+      typescript = { "oxlint" },
+      javascript = { "oxlint" },
+      vue = { "oxlint" },
     },
     linters = {
-      eslint_d = {
-        condition = function(ctx)
-          return vim.fs.find({ "eslint.config.js" }, { path = ctx.filename, upward = true })[1]
-        end,
-      },
       oxlint = {
         condition = function(ctx)
           return vim.fs.find({ ".oxlintrc.json" }, { path = ctx.filename, upward = true })[1]

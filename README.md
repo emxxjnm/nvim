@@ -49,8 +49,6 @@ Personalized Development Environment(PDE)
 * [x] cargo (build the fuzzy binary for `blink.cmp`)
 * [x] [tree-sitter CLI (build parsers for `nvim-treesitter`)](https://github.com/tree-sitter/tree-sitter)
 
-* [x] nodejs > 18.x (`copilot`)
-
 * [x] [fd](https://github.com/sharkdp/fd)
 * [x] [fzf](https://github.com/junegunn/fzf)
 * [x] [ripgrep](https://github.com/BurntSushi/ripgrep)

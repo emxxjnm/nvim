@@ -20,20 +20,15 @@ return {
       rust = { "rustfmt", lsp_format = "fallback" },
       go = { "goimports", lsp_format = "last" },
       nix = { "nixfmt" },
-      javascript = { "eslint_d", "oxfmt" },
-      typescript = { "eslint_d", "oxfmt" },
-      vue = { "eslint_d", "oxfmt" },
+      javascript = { "oxfmt" },
+      typescript = { "oxfmt" },
+      vue = { "oxfmt" },
       python = { "ruff_fix", "ruff_format" },
     },
     formatters = {
       shfmt = { prepend_args = { "-i", "2", "-ci" } },
-      eslint_d = {
-        condition = function(self, ctx)
-          return vim.fs.find({ "eslint.config.js" }, { path = ctx.filename, upward = true })[1]
-        end,
-      },
       oxfmt = {
-        condition = function(self, ctx)
+        condition = function(_, ctx)
           return vim.fs.find({ ".oxfmtrc.json" }, { path = ctx.filename, upward = true })[1]
         end,
       },

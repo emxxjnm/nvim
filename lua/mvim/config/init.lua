@@ -50,7 +50,6 @@ local defaults = {
       Unit          = " ",
       Value         = " ",
       Variable      = " ",
-      Copilot       = " ",
     },
   },
 }

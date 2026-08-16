@@ -3,11 +3,10 @@ local M = {
     "saghen/blink.cmp",
     event = { "InsertEnter", "CmdlineEnter" },
     build = function()
-      require("blink.cmp").build():wait(60000)
+      require("blink.cmp").build():pwait()
     end,
     dependencies = {
       "saghen/blink.lib",
-      "fang2hou/blink-copilot",
     },
     opts = {
       keymap = {
@@ -27,7 +26,9 @@ local M = {
       },
       completion = {
         keyword = { range = "full" },
-        trigger = { show_on_backspace = true },
+        trigger = {
+          show_on_backspace_in_keyword = true,
+        },
         list = {
           selection = {
             preselect = false,
@@ -60,7 +61,9 @@ local M = {
       signature = {
         enabled = true,
         trigger = {
+          enabled = true,
           show_on_accept = true,
+          show_on_keyword = true,
         },
         window = {
           border = Mo.C.border,
@@ -70,15 +73,7 @@ local M = {
         },
       },
       sources = {
-        default = { "copilot", "lsp", "path", "snippets", "buffer", "omni" },
-        providers = {
-          copilot = {
-            name = "copilot",
-            module = "blink-copilot",
-            score_offset = 100,
-            async = true,
-          },
-        },
+        default = { "lsp", "path", "snippets", "buffer", "omni" },
       },
       cmdline = {
         completion = {
@@ -96,20 +91,6 @@ local M = {
       },
       appearance = {
         kind_icons = Mo.C.icons.kinds,
-      },
-    },
-  },
-
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "BufReadPost",
-    build = ":Copilot auth",
-    opts = {
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-      filetypes = {
-        markdown = true,
       },
     },
   },

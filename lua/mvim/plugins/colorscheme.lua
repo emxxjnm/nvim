@@ -9,24 +9,6 @@ local M = {
       transparent_background = Mo.C.transparent,
       float = { transparent = Mo.C.transparent, solid = false },
       styles = { keywords = { "bold" } },
-      integrations = {
-        alpha = false,
-        neogit = false,
-        nvimtree = false,
-        treesitter_context = false,
-        rainbow_delimiters = false,
-        mini = { enabled = false },
-        dropbar = { enabled = false },
-        illuminate = { enabled = false },
-        noice = true,
-        avante = true,
-        neotest = true,
-        blink_cmp = true,
-        which_key = true,
-        nvim_surround = true,
-        snacks = { enabled = true, indent_scope_color = "overlay2" },
-        telescope = { enabled = false },
-      },
       custom_highlights = function(colors)
         return {
           -- custom
